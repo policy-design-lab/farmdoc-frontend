@@ -1,0 +1,162 @@
+html {
+	box-sizing: border-box;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	font-family: Roboto, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h5, h6, p, ul {
+	margin: 0;
+	padding: 0;
+}
+
+.content {
+	margin-top: 20px;
+	padding: 24px;
+}
+
+.contentcenter {
+	margin-top: 50px;
+	padding: 10px;
+	text-align: center;
+}
+
+.rightmap {
+	float: right;
+}
+
+.bodymap {
+	display: flex;
+}
+
+.menu {
+	position: fixed;
+	width: 100%;
+	margin-bottom: 5em;
+	z-index: 1;
+}
+
+/*TODO: change this. */
+.leftcolumn {
+	margin: 3.6em 0em 3em 0em;
+	float: left;
+	height: calc(100vh - 6.6em);
+	overflow-y: auto;
+}
+
+.leftActions {
+	margin-left: auto;
+	padding: 0.5em 0em 0.5em 2em;
+	width: 25em;
+	bottom:0;
+	background-color: #fff;
+	text-align: center;
+}
+
+.card {
+	width: 18em;
+}
+
+.noPadding {
+	padding: 0 !important;
+}
+
+.multiple-select-cc {
+	width: 50px;
+}
+
+.farmdoc-card {
+	cursor: pointer;
+}
+
+.farmdoc-card-active {
+	background-color: rgba(84, 105, 255, 0.24);
+	cursor: pointer;
+}
+
+.farmdoc-card-disabled {
+	background-color: rgba(28, 29, 65, 0.24);
+	cursor: pointer;
+}
+
+.line-chart-div{
+	width: 450px;
+	float: left;
+	margin-bottom: 20px;
+}
+
+.line-chart-parent-div{
+	position: relative;
+}
+
+.login {
+	width: 450px;
+}
+
+.login a {
+	color: rgb(66, 76, 181);
+}
+
+.login button{
+	width: 167px;
+	margin-left: 8px;
+}
+
+.login span{
+	margin-right: 10px;
+}
+
+.login .not-active {
+	pointer-events: none;
+	cursor: default;
+}
+
+.registration button{
+	width: 160px;
+}
+
+.error-message {
+	color: #d50000;
+	margin-left: 8px;
+	font-family: Roboto, sans-serif;
+	font-weight: 400;
+	letter-spacing: 1px;
+	padding: 5px;
+}
+
+.user-account-icon {
+	margin-right: 20px;
+	cursor: pointer;
+	font-size: 32px;
+}
+
+.no-bottom-grid.mdc-layout-grid {
+	padding-bottom: 0px;
+}
+
+.no-padding-grid.mdc-layout-grid {
+	padding: 0px;
+}
+
+.border-left.mdc-layout-grid__cell{
+	border-left: 1px solid #D8D8D8;
+}
+
+.border-top.mdc-layout-grid__cell{
+	border-top: 1px solid #D8D8D8;
+}
+
+/*not working*/
+/*.ol-zoom {*/
+	/*left: unset;*/
+	/*right: 8px;*/
+/*}*/

@@ -1,0 +1,148 @@
+.nav ul {
+	list-style: none;
+	background-color: #17495B;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+.nav li {
+	font-size: 1.2em;
+	line-height: 40px;
+	height: 40px;
+	border-bottom: 1px solid #888;
+}
+
+.nav a {
+	text-decoration: none;
+	color: #fff;
+	display: block;
+	transition: .3s background-color;
+}
+
+.nav a:hover {
+	background-color: #467A9E;
+}
+
+.selected {
+	background-color: #467A9E;
+}
+
+@media screen and (min-width: 800px) {
+	.nav li {
+		width: 120px;
+		border-bottom: none;
+		height: 50px;
+		line-height: 50px;
+		font-size: 1.4em;
+	}
+
+	.nav li {
+		display: inline-block;
+		margin-right: -4px;
+	}
+
+}
+
+.menu_items {
+	white-space: nowrap;
+	font-size: 14px;
+}
+
+.menu_items a:link{
+	text-decoration: none;
+	color: orange; /*not working*/
+}
+
+.menu_items a:visited{
+	text-decoration: none;
+	color: white;
+}
+
+.banner{
+	height: 60px; /*not working*/
+	background-color: #455A64;
+}
+
+.logo {
+	height: 53px;
+	width: 53px;
+}
+
+.farmdoc {
+	color: #FFFFFF;
+	font-family: Roboto;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 28px;
+	text-align: center;
+}
+
+.farmdoc img {
+	width: 40px;
+	height: 40px;
+	margin-left: 28px;
+	margin-right: 28px;
+}
+
+.farmdoc-analyzer {
+	height: 38px;
+	width: 281px;
+	color: #FFFFFF;
+	font-family: Roboto;
+	font-size: 32px;
+	line-height: 38px;
+	margin-left: 24px;
+}
+
+.about-the-project {
+	height: 35px;
+	width: 232px;
+	color: #FFFFFF;
+	font-family: Roboto;
+	font-size: 30px;
+	line-height: 35px;
+	text-align: right;
+	margin-left: 24px;
+}
+
+.rectangle-2 {
+	height: 48px;
+	width: 411px;
+	background-color: #1AB146;
+}
+
+.rectangle-3 {
+	height: 48px;
+	width: 411px;
+	background-color: #455A64;
+}
+
+.analyzer-line {
+	display: block;
+	height: 3px;
+	border: 3px solid #1AB146;
+}
+
+.analyzer-tab {
+	margin-left: 24px;
+	align-content: left;
+	width:100px;
+}
+
+.analyzer-tab .mdc-tab {
+	height: 28px;
+	width: 118px;
+	/*color: #455A64;*/
+	font-family: Roboto;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 28px;
+	text-align: center;
+}
+
+.analyzer-tab .mdc-tab-bar__indicator{
+	/*not working*/
+	background-color: #1AB146;
+	border: 6px solid #1AB146;
+	height: 3px;
+}
