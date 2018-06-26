@@ -8,14 +8,16 @@ import UserPage from './UserPage';
 import MyFarmPage from "./MyFarmPage";
 import RouteMismatch from './RouteMismatch'
 import "material-components-web/dist/material-components-web.min.css";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import {Cell, Grid, Title, Textfield, Button, Caption, Body1, Subheading2} from "react-mdc-web";
-import injectTapEventPlugin from 'react-tap-event-plugin'
+//import injectTapEventPlugin from 'react-tap-event-plugin'
 import {isUserAuthenticated} from "../public/utils";
 import RegistrationPage from "./RegistrationPage";
+import FDModelPage from "./FDModelPage";
+import FDCharts from "./FDCharts";
 
 global.__base = __dirname + "/";
-injectTapEventPlugin();
+//injectTapEventPlugin();
 
 class App extends Component {
 	render() {
@@ -43,11 +45,13 @@ class App extends Component {
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
 					<PrivateRoute path="/analysis" component={AnalysisPage}/>
+					<Route path="/model" component={FDModelPage}/>
 					<Route path="/addfield" component={AddFieldPage}/>
 					<Route path="/profile" component={MyFarmPage}/>
 					<Route path="/about" component={AboutPage}/>
 					<Route path="/history" component={UserPage}/>
 					<Route path="/register" component={RegistrationPage}/>
+					<Route path="/charts" component={FDCharts}/>
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
 			</MuiThemeProvider>

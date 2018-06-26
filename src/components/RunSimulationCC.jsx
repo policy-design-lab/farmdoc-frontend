@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import { connect } from 'react-redux';
 import {Button, Textfield, List, ListItem, ListHeader, Body1, Body2,
 	Checkbox, Title, Grid, Cell, Card, CardHeader, CardTitle, CardText, FormField} from "react-mdc-web"
-import 'react-datepicker/dist/react-datepicker.css';
+//import 'react-datepicker/dist/react-datepicker.css';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import "babel-polyfill";
-import DatePicker from "react-datepicker";
+//import DatePicker from "react-datepicker";
 import {datawolfURL, steps, resultDatasetId, getWithCoverCropExecutionRequest, getWithoutCoverCropExecutionRequest,
 	weatherPatterns} from "../datawolf.config";
 import {ID, getResult} from "../public/utils";
@@ -230,25 +230,25 @@ class RunSimulationCC extends Component {
 					<Title>Select Farm Doc Date</Title>
 					<div className="select-date-div">
 						<Body1>Establishment </Body1>
-						<DatePicker className="date-picker-cc" selected={this.props.startDate}
-									selectsStart
-									showYearDropdown
-									scrollableYearDropdown
-									placeholderText="Select an establishment date"
-									startDate={this.props.startDate}
-									endDate={this.props.endDate}
-									onSelect={this.handleStartDateChange}/>
+						{/*<DatePicker className="date-picker-cc" selected={this.props.startDate}*/}
+									{/*selectsStart*/}
+									{/*showYearDropdown*/}
+									{/*scrollableYearDropdown*/}
+									{/*placeholderText="Select an establishment date"*/}
+									{/*startDate={this.props.startDate}*/}
+									{/*endDate={this.props.endDate}*/}
+									{/*onSelect={this.handleStartDateChange}/>*/}
 					</div>
 					<div className="select-date-div">
 						<Body1 >Termination </Body1>
-						<DatePicker className="date-picker-cc" selected={this.props.endDate}
-									selectsStart
-									showYearDropdown
-									scrollableYearDropdown
-									placeholderText="Select a termination date"
-									startDate={this.props.startDate}
-									endDate={this.props.endDate}
-									onChange={this.handleEndDateChange}/>
+						{/*<DatePicker className="date-picker-cc" selected={this.props.endDate}*/}
+									{/*selectsStart*/}
+									{/*showYearDropdown*/}
+									{/*scrollableYearDropdown*/}
+									{/*placeholderText="Select a termination date"*/}
+									{/*startDate={this.props.startDate}*/}
+									{/*endDate={this.props.endDate}*/}
+									{/*onChange={this.handleEndDateChange}/>*/}
 
 					</div>
 					<FormField id="checkbox-label">

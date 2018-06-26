@@ -20,23 +20,22 @@ class AnalyzerWrap extends Component {
 				<div className="analyzer-tab">
 					<Tabbar>
 						<Tab
-							active={activeTab===1}
-							href="#/analysis"
-						>
-							Start a Job
-						</Tab>
-						<Tab
-							active={activeTab===2}
-							href="#/history"
-						>
-							Job History
-
-						</Tab>
-						<Tab
 							active={activeTab===3}
 							href="#/profile"
 						>
 							My Fields
+						</Tab>
+						<Tab
+							active={activeTab===4}
+							href="#/model"
+						>
+							Farmdoc Model
+						</Tab>
+						<Tab
+							active={activeTab===5}
+							href="#/charts"
+						>
+							Farmdoc Charts
 						</Tab>
 
 					</Tabbar>

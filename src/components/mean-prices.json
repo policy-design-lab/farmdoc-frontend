@@ -1,0 +1,66 @@
+{
+  "tables": {
+	"column1": "Year",
+	"column1Unit": "",
+	"column2": "Price",
+	"column2Unit": "$",
+	"column3": "",
+	"column3Unit": "",
+	"title": "Mean prices",
+	"datasets": {
+	  "dataset_label": "",
+	  "data": [
+		{
+		  "value1": 2017,
+		  "value2": 3.713,
+		  "value3": null
+		},
+		{
+		  "value1": 2018,
+		  "value2": 3.76,
+		  "value3": null
+		},
+		{
+		  "value1": 2019,
+		  "value2": 3.781,
+		  "value3": null
+		},
+		{
+		  "value1": 2020,
+		  "value2": 3.791,
+		  "value3": null
+		},
+		{
+		  "value1": 2021,
+		  "value2": 3.795,
+		  "value3": null
+		},
+		{
+		  "value1": 2022,
+		  "value2": 3.797,
+		  "value3": null
+		},
+		{
+		  "value1": 2023,
+		  "value2": 3.798,
+		  "value3": null
+		},
+		{
+		  "value1": 2024,
+		  "value2": 3.798,
+		  "value3": null
+		},
+		{
+		  "value1": 2025,
+		  "value2": 3.799,
+		  "value3": null
+		},
+		{
+		  "value1": 2026,
+		  "value2": 3.799,
+		  "value3": null
+		}
+	  ]
+	}
+  }
+}

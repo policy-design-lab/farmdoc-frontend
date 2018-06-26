@@ -3,7 +3,7 @@ import {Link} from "react-router";
 import styles from "../styles/header.css";
 import styles2 from "../styles/main.css";
 import {Textfield, Button, Fab, Grid, Cell, Title, Caption, Icon, MenuAnchor, Menu,
-	MenuItem, MenuDivider} from 'react-mdc-web';
+	MenuItem, MenuDivider} from "react-mdc-web";
 import {connect} from "react-redux";
 import SelectFieldsCC from "./SelectFieldsCC";
 import CoordinateFieldCC from "./CoordinateFieldCC";
@@ -21,36 +21,36 @@ class AddFieldBox extends Component {
 			cluname: ""
 		};
 		this.handleAddCLU = this.handleAddCLU.bind(this);
-		}
+	}
 
 	handleLatFieldChange = (e) => {
-		this.props.handleLatFieldChange(e.target.value)
+		this.props.handleLatFieldChange(e.target.value);
 	}
 
 	handleLongFieldChange = (e) =>  {
-		this.props.handleLongFieldChange(e.target.value)
+		this.props.handleLongFieldChange(e.target.value);
 	}
 
 	handleAddCLU() {
-		const CLUapi = config.CLUapi + "/api/userfield";
+		const CLUapi = `${config.CLUapi  }/api/userfield`;
 		const {clu, latitude, longitude} = this.props;
 		let headers = {
-			'Content-Type': 'application/json',
-			'Access-Control-Origin': 'http://localhost:3000'
+			"Content-Type": "application/json",
+			"Access-Control-Origin": "http://localhost:3000"
 		};
-		let bodyjson = '{"userid":"'+ sessionStorage.getItem("email") +'", "clu":' + clu
-			+ ', "cluname":"' + this.state.cluname + '", "lat":'+ latitude + ', "lon":' + longitude
-			+ ', "expfile": ""}';
+		let bodyjson = `{"userid":"${ sessionStorage.getItem("email") }", "clu":${  clu
+			 }, "cluname":"${  this.state.cluname  }", "lat":${ latitude  }, "lon":${  longitude
+			 }, "expfile": ""}`;
 		// console.log(bodyjson)
 		fetch(CLUapi,{
-			method: 'POST',
+			method: "POST",
 			headers: headers,
 			// credentials: "include",
 			body: bodyjson
 		}).then(response => {
-			window.location= "/#/profile"
+			window.location= "/#/profile";
 		}).catch(function(e) {
-			console.log("Add CLU failed: " + e );
+			console.log(`Add CLU failed: ${  e}` );
 		});
 	}
 
@@ -93,7 +93,7 @@ class AddFieldBox extends Component {
 						required
 						floatingLabel="CLU name"
 						onChange={({target : {value : cluname}}) => {
-							this.setState({ cluname })
+							this.setState({ cluname });
 						}}
 					/>
 
@@ -101,7 +101,7 @@ class AddFieldBox extends Component {
 				<div className="add-field-bottom">
 					<Link type="submit" className="cancel-button" to="/profile">Cancel</Link>
 					<button type="submit" className="add-button"
-							disabled={this.state.cluname ==="" || this.props.clu ===0 }
+							disabled={this.state.cluname ==="" || this.props.clu ===0}
 							onClick={this.handleAddCLU}
 					>ADD FILED</button>
 				</div>
@@ -115,7 +115,7 @@ const mapStateToProps = (state) => {
 		longitude: state.analysis.longitude,
 		latitude: state.analysis.latitude,
 		clu: state.user.clu
-	}
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -127,9 +127,9 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(handleLongFieldChange(lon));
 		},
 		handleCardChange: (oldCardIndex, newCardIndex, oldCardData) => {
-			dispatch(handleCardChange(oldCardIndex, newCardIndex, oldCardData))
+			dispatch(handleCardChange(oldCardIndex, newCardIndex, oldCardData));
 		}
-	}
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddFieldBox);
