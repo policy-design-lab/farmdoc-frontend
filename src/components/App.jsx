@@ -1,22 +1,23 @@
 import React, {Component} from "react";
-import {Router, Route, hashHistory, Redirect} from 'react-router'
-import AnalysisPage from './AnalysisPage'
-import AddFieldPage from './AddFieldPage'
-import HomePage from './HomePage'
-import AboutPage from './AboutPage'
-import UserPage from './UserPage';
+import {Router, Route, hashHistory, Redirect} from "react-router";
+import AnalysisPage from "./AnalysisPage";
+import AddFieldPage from "./AddFieldPage";
+import HomePage from "./HomePage";
+import AboutPage from "./AboutPage";
+import UserPage from "./UserPage";
 import MyFarmPage from "./MyFarmPage";
-import RouteMismatch from './RouteMismatch'
+import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import {Cell, Grid, Title, Textfield, Button, Caption, Body1, Subheading2} from "react-mdc-web";
 //import injectTapEventPlugin from 'react-tap-event-plugin'
 import {isUserAuthenticated} from "../public/utils";
 import RegistrationPage from "./RegistrationPage";
 import FDModelPage from "./FDModelPage";
 import FDCharts from "./FDCharts";
+import FarmerCharts from "./FarmerCharts";
 
-global.__base = __dirname + "/";
+global.__base = `${__dirname  }/`;
 //injectTapEventPlugin();
 
 class App extends Component {
@@ -51,11 +52,12 @@ class App extends Component {
 					<Route path="/about" component={AboutPage}/>
 					<Route path="/history" component={UserPage}/>
 					<Route path="/register" component={RegistrationPage}/>
-					<Route path="/charts" component={FDCharts}/>
+					<Route path="/charts" component={FarmerCharts}/>
+					<Route path="/samplecharts" component={FDCharts}/>
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
 			</MuiThemeProvider>
-		)
+		);
 	}
 }
 

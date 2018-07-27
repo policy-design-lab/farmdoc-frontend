@@ -4,10 +4,17 @@ import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
+import Input from "@material-ui/core/Input";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Button from "@material-ui/core/Button";
+import Icon from "@material-ui/core/Icon";
+import {ID, getOutputFileJson} from "../public/utils";
+import {datawolfURL, postExecutionRequest, steps, resultDatasetId} from "../datawolf.config";
+import { handleResults} from "../actions/analysis";
+
+let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const styles = theme => ({
 	container: {
@@ -17,10 +24,10 @@ const styles = theme => ({
 	textField: {
 		marginLeft: theme.spacing.unit,
 		marginRight: theme.spacing.unit,
-		width: 200,
+		width: 150,
 	},
 	menu: {
-		width: 200,
+		width: 150,
 	},
 	button: {
 		margin: theme.spacing.unit,
@@ -35,16 +42,104 @@ const styles = theme => ({
 
 class FDRunModel extends Component {
 
+	constructor(props){
+		super(props);
+		this.runModel =this.runModel.bind(this);
+
+		this.state = {
+			program:"both",
+			commodity: "Corn",
+			refprice: 3.7,
+			acres: .85,
+			seqprice: 0.0,
+			coverage: .85,
+			paymentYield: 120,
+			range: .1,
+			runName:"",
+			runStatus: ""
+		};
+	}
+
 	state = {
-		program:"arc",
+		program:"both",
 		commodity: "Corn",
 		refprice: 3.7,
 		acres: .85,
 		seqprice: 0.0,
 		coverage: .85,
+		paymentYield: 120,
 		range: .1,
-		runName:""
+		runName:"",
+		runStatus: ""
 	};
+
+
+	async runModel(){
+		//let status = "STARTED";
+		//let personId = sessionStorage.getItem("personId");
+		this.setState({
+			runStatus: status
+		});
+
+		let curTime = new Date();
+		curTime = curTime.toUTCString();
+		let title = `Run at ${curTime}`;
+
+		let headers = {
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": datawolfURL
+		};
+
+		let dwUrl = datawolfURL;
+
+		let postRequest = postExecutionRequest("", title);
+
+		let body =  JSON.stringify(postRequest);
+
+		let modelResponse = await fetch(`${dwUrl}/executions`, {
+			method: "POST",
+			//mode: "no-cors",
+			headers: headers,
+			credentials: "include",
+			body: body
+		});
+
+		const modelExecutionGUID = await modelResponse.text();
+		console.log(`With execution id = ${modelExecutionGUID}`);
+
+		let modelResult;
+
+		while(this.state.runStatus === "" || this.state.runStatus === "WAITING" || this.state.runStatus === "RUNNING") {
+			await wait(300); // is this necessary?
+			const executionResponse = await fetch(`${dwUrl}/executions/${modelExecutionGUID}`, {
+				method: "GET",
+				headers: headers,
+				credentials: "include"
+			});
+
+			if (executionResponse instanceof Response) {
+				modelResult = await executionResponse.json();
+				this.setState({runStatus: modelResult.stepState[steps.Farm_Model]});
+			}
+		}
+
+		const resultDatasetGuid = modelResult.datasets[resultDatasetId];
+		const outputFilename = "output.json";
+		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)){
+			//let json = getOutputFileJson(resultDatasetGuid, outputFilename);
+
+			getOutputFileJson(resultDatasetGuid, outputFilename).then(res => {console.log(JSON.stringify(res.json()));});
+			// getOutputFileJson(resultDatasetGuid, outputFilename).then(function(result){
+			// 	//this.props.handleResults(result);
+			// });
+
+
+			let pqr = 1;
+			//console.log(`Response Json ${json}`);
+		}
+
+	}
+
 
 	handleChange = name => event => {
 		this.setState({
@@ -70,7 +165,7 @@ class FDRunModel extends Component {
 
 					<FormControlLabel value="arc" control={<Radio />} label="ARC" />
 					<FormControlLabel value="plc" control={<Radio />} label="PLC" />
-					<FormControlLabel value="other" control={<Radio />} label="Both" />
+					<FormControlLabel value="both" control={<Radio />} label="Both" />
 
 				</RadioGroup>
 
@@ -100,47 +195,74 @@ class FDRunModel extends Component {
 					className={classes.textField}
 					margin="normal"
 					onChange={this.handleChange("refprice")}
+					InputProps={{
+						startAdornment: <InputAdornment position="start">$</InputAdornment>,
+					}}
+
 				/> <br/>
+
+				<TextField
+					id="paymentYield"
+					label="PLC Payment Yield"
+
+					value={this.state.paymentYield}
+					margin="normal"
+					style={{width:"200px"}}
+					onChange={this.handleChange("paymentYield")}
+
+					InputProps={{
+						endAdornment: <InputAdornment position="end">bushels/acre</InputAdornment>
+					}}
+					// endAdornment={<InputAdornment position="end">bushels/acre</InputAdornment>}
+				/><br/>
 
 				<TextField
 					id="acres"
 					label="Payment Acres"
 					value={this.state.acres}
 					margin="normal"
+					style={{width:"160px"}}
 					onChange={this.handleChange("acres")}
+					disabled="true"
+					InputProps={{
+						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+					}}
 
 				/><br/>
 
-				<TextField
-					id="seqPrice"
-					label="Sequester Price"
-					type="number"
-					value={this.state.seqprice}
-					margin="normal"
-					onChange={this.handleChange("seqprice")}
-				/><br/>
+
 
 				<TextField
 					id="coverage"
-					label="Coverage Level"
+					label="ARC Coverage Level"
 					value={this.state.coverage}
 					margin="normal"
+					style={{width:"160px"}}
 					onChange={this.handleChange("coverage")}
+					disabled="true"
+					InputProps={{
+						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+					}}
 					// helperText="ARC-CO Coverage"
 				/><br/>
 
 				<TextField
 					id="range"
-					label="Coverage Range"
+					label="ARC Coverage Range"
 					value={this.state.range}
 					margin="normal"
+					style={{width:"160px"}}
+
 					onChange={this.handleChange("range")}
+					InputProps={{
+						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+					}}
 				/>
-				<br/> <br/>
-				<Button variant="contained" color="primary" >
+				<br/><br/>
+				<Button variant="contained" color="primary" onClick={this.runModel}>
 
 					<Icon className={classes.leftIcon}> send </Icon>
-					Start Simulation
+					Run Model
 				</Button>
 			</div>
 		);
