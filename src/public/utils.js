@@ -181,3 +181,4 @@ export async function getMyFieldList(email) {
 export async function wait(ms) {
 	new Promise(resolve => setTimeout(resolve, ms));
 }
+

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import { HotTable } from "@handsontable/react";
+import { connect } from "react-redux";
 import Handsontable from "handsontable";
 import AuthorizedWarp from "./AuthorizedWarp";
 import AnalyzerWrap from "./AnalyzerWrap";
@@ -11,27 +12,93 @@ import "handsontable/dist/handsontable.full.css";
 
 class FarmerCharts extends Component{
 
+	constructor(props) {
+		super(props);
+	}
+
 	render() {
+		let arrYears, arrPrices, arrYields, arrProb, arrArc , arrPlc;
+		let arrTable = [];
 
-		//let chartData = [{x: 1, y: 2}, {x: 3, y: 5}, {x: 7, y: -3}];
+		let years = [];
+		let prices = [];
+		let yields = [];
+		let arc = [];
+		let plc = [];
+		let prob =[];
 
-		let tabledata = [
-			["2016", 10, 11, 12, 13],
-			["2017", 20, 11, 14, 13],
-			["2018", 30, 15, 12, 13]
-		];
+		// arrTable = [
+		// 	["","201337", "203318", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+		// 	["Exp. ARC Payment($)", 14.889, 11.263, 9.6484, 8.5299, 8.8463, 9.318, 9.3806, 9.736, 9.6558, 9.6973],
+		// 	["Exp. PLC Payment ($)", 22.834, 22.876, 22.597, 22.449, 21.959, 21.787, 21.564, 21.831, 21.453, 21.011],
+		// 	["Simulated Price ($)", 3.713, 3.76, 3.781, 3.791, 3.795, 3.797, 3.798, 3.798, 3.799, 3.799],
+		// 	["Simulated Yield (bushels)", 191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72],
+		// 	["Payment Probability", 0.71, 0.78, 0.77, 0.77, 0.76, 0.75, 0.74, 0.73, 0.73, 0.72]
+		//];
 
-		let cornprice = [
-			["","2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			["Price $", 3.713, 3.76, 3.781, 3.791, 3.795, 3.797, 3.798, 3.798, 3.799, 3.799]
-		];
+		//var hot = new Handsontable()
 
-		let cornyield = [
-			["","2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			["Yield", 191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72]
-		];
+		if (this.props.hasOwnProperty("countyResultJson") && this.props["countyResultJson"] !== null) {
+			let jsonData = this.props["countyResultJson"];
+			let objData = JSON.parse(jsonData);
+			//console.log(`${dataVarFromProps} Data`);
+			console.log(objData);
 
-		let avgpayments = [
+
+			if(objData.county_average_arc_and_plc_payments && objData.county_average_arc_and_plc_payments !== null){
+
+				let arcplcData = objData.county_average_arc_and_plc_payments.datasets.data;
+
+				arcplcData.forEach(function(element) {
+					years.push(element.point);
+					arc.push(element.value1.mean);
+					plc.push(element.value2.mean);
+					prob.push(element.value1.pos);
+
+				});
+			}
+
+			if(objData.mean_prices && objData.mean_prices !== null){
+
+				let priceData = objData.mean_prices.datasets.data;
+
+				priceData.forEach(function(element) {
+					prices.push(element.value1.mean);
+				});
+			}
+
+			if(objData.county_yields && objData.county_yields !== null){
+
+				let yieldData = objData.county_yields.datasets.data;
+
+				yieldData.forEach(function(element) {
+					yields.push(element.value1.mean);
+				});
+			}
+
+			//console.log(years);
+			//console.log(arc);
+
+			let arrYears = ["Year"].concat(years);
+			let arrPrices = ["Simulated Price ($)"].concat(prices);
+			let arrYields = ["Simulated Yield (bushels)"].concat(yields);
+			let arrProb = ["Payment Probability"].concat(prob);
+			let arrArc = ["Exp. ARC Payment($)"].concat(arc);
+			let arrPlc = ["Exp. PLC Payment ($)"].concat(plc);
+
+
+			let arrTable = [];
+			arrTable[0]= arrYears;
+			arrTable[1] = arrArc;
+			arrTable[2] = arrPlc;
+			arrTable[3] = arrProb;
+			arrTable[4] = arrPrices;
+			arrTable[5] = arrYields;
+
+			console.log(arrTable);
+
+
+			let avgpayments = [
 			["","2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
 			["Exp. ARC Payment($)", 14.889, 11.263, 9.6484, 8.5299, 8.8463, 9.318, 9.3806, 9.736, 9.6558, 9.6973],
 			["Exp. PLC Payment ($)", 22.834, 22.876, 22.597, 22.449, 21.959, 21.787, 21.564, 21.831, 21.453, 21.011],
@@ -39,190 +106,128 @@ class FarmerCharts extends Component{
 			["Simulated Yield (bushels)", 191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72],
 			["Payment Probability", 0.71, 0.78, 0.77, 0.77, 0.76, 0.75, 0.74, 0.73, 0.73, 0.72]
 
-		];
+			];
+			console.log("Avggggg");
+			console.log(avgpayments);
 
-		let meanPrice ={
-			labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			datasets: [
-				{
-					label: "Mean Corn Price",
-					backgroundColor: "LightGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [3.713, 3.76, 3.781, 3.791, 3.795, 3.797, 3.798, 3.798, 3.799, 3.799]
-				}]
-		};
+			let meanPrice ={
+				labels: years,
+				datasets: [
+					{
+						label: "Mean Corn Price",
+						backgroundColor: "LightGray",
+						hoverBackgroundColor: "LightSlateGray",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: prices
+					}]
+			};
 
-		let meanPriceChartOptions = {
-			responsive:false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: false
-					}
-				}]
-			},
-			title: {
-				display:true,
-				text:"Mean Corn Price($)",
-				fontColor: "DarkBlue",
-				fontSize: 18
-			}
-		};
-
-		let meanYield ={
-			labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			datasets: [
-				{
-					label: "Mean Corn Yield",
-					backgroundColor: "LightGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72]
-				}]
-		};
-
-		let meanYieldChartOptions = {
-			responsive:false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: false
-					}
-				}]
-			},
-			title: {
-				display:true,
-				text:"Mean Corn Yield in Bushels",
-				fontColor: "DarkBlue",
-				fontSize: 18
-			}
-		};
-
-
-		let arcplcPayments =  {
-			labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			datasets: [
-				{
-					label: "ARC Payments",
-					backgroundColor: "LightGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [14.889, 11.263, 9.6484, 8.5299, 8.8463, 9.318, 9.3806, 9.736, 9.6558, 9.6973]
-				},
-				{
-					label: "PLC Payments",
-					backgroundColor: "DarkGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(151,187,205,1)",
-					pointColor: "rgba(151,187,205,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(151,187,205,1)",
-					data: [22.834, 22.876, 22.597, 22.449, 21.959, 21.787, 21.564, 21.831, 21.453, 21.011]
-				}
-			]
-		};
-		let currPaymentChartOptions = {
-			responsive:false,
-			scales: {
+			let meanPriceChartOptions = {
 				responsive:false,
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			},
-			title: {
-				display:true,
-				text:"Sample Line Graph ARC/PLC Payments - Coverage: 85% Range: 10%",
-				fontColor: "DarkBlue",
-				fontSize: 18
-			}
-		};
-
-		let newPayments =  {
-			labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-			datasets: [
-				{
-					label: "ARC Payments",
-					backgroundColor: "LightGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(220,220,220,1)",
-					pointColor: "rgba(220,220,220,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(220,220,220,1)",
-					data: [19.833,13.59,12.834,10.423,12.292,10.398,10.16,11.505,11.099,10.227]
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: false
+						}
+					}]
 				},
-				{
-					label: "PLC Payments",
-					backgroundColor: "DarkGray",
-					hoverBackgroundColor: "LightSlateGray",
-					strokeColor: "rgba(151,187,205,1)",
-					pointColor: "rgba(151,187,205,1)",
-					pointStrokeColor: "#fff",
-					pointHighlightFill: "#fff",
-					pointHighlightStroke: "rgba(151,187,205,1)",
-					data: [30.367,30.422,30.052,29.855,29.203,28.974,28.678,29.034,28.53,27.942]
+				title: {
+					display:true,
+					text:"Mean Corn Price($)",
+					fontColor: "DarkBlue",
+					fontSize: 18
 				}
-			]
-		};
-		let newPaymentChartOptions = {
-			responsive:false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			},
-			title: {
-				display:true,
-				text:"Sample Line Graph ARC/PLC Payments - Coverage: 85% Range: 10%",
-				fontColor: "DarkBlue",
-				fontSize: 18
-			}
-		};
+			};
 
-		let barChartOptions = {
-			responsive:false,
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			},
-			title: {
-				display:true,
-				text:"ARC/PLC Payments - Coverage: 85% Range: 10%",
-				fontColor: "DarkBlue",
-				fontSize: 18
-			}
-		};
+			let meanYield ={
+				labels: ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
+				datasets: [
+					{
+						label: "Mean Corn Yield",
+						backgroundColor: "LightGray",
+						hoverBackgroundColor: "LightSlateGray",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: [191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72]
+					}]
+			};
 
-		return (
+			let meanYieldChartOptions = {
+				responsive:false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: false
+						}
+					}]
+				},
+				title: {
+					display:true,
+					text:"Mean Corn Yield in Bushels",
+					fontColor: "DarkBlue",
+					fontSize: 18
+				}
+			};
+
+
+			let arcplcPayments =  {
+				labels: years,
+				datasets: [
+					{
+						label: "ARC Payments",
+						backgroundColor: "LightGray",
+						hoverBackgroundColor: "LightSlateGray",
+						strokeColor: "rgba(220,220,220,1)",
+						pointColor: "rgba(220,220,220,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(220,220,220,1)",
+						data: arc
+					},
+					{
+						label: "PLC Payments",
+						backgroundColor: "DarkGray",
+						hoverBackgroundColor: "LightSlateGray",
+						strokeColor: "rgba(151,187,205,1)",
+						pointColor: "rgba(151,187,205,1)",
+						pointStrokeColor: "#fff",
+						pointHighlightFill: "#fff",
+						pointHighlightStroke: "rgba(151,187,205,1)",
+						data: plc
+					}
+				]
+			};
+
+			let barChartOptions = {
+				responsive:false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				},
+				title: {
+					display:true,
+					text:"ARC/PLC Payments - Coverage: 85% Range: 10%",
+					fontColor: "DarkBlue",
+					fontSize: 18
+				}
+			};
+
+			return (
 			<div>
 				<Header selected="charts"/>
 				<AnalyzerWrap activeTab={5}/>
-				{/*<AuthorizedWarp>*/}
+				<AuthorizedWarp>
 					<div style={{margin:"50px"}}>
-
-
-
 
 						<div >
 							<Grid container  direction="column" alignItems="center">
@@ -232,7 +237,7 @@ class FarmerCharts extends Component{
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
 									<div id="hot-app3" >
-										<HotTable data={avgpayments} colHeaders={false} rowHeaders={false} width="800" height="150" stretchH="all" />
+										<HotTable data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="150" stretchH="all" />
 									</div>
 								</Grid>
 							</Grid>
@@ -240,56 +245,45 @@ class FarmerCharts extends Component{
 
 
 						<div>
+							<Grid container  direction="column" alignItems="center">
+								<Grid item>
+									<Bar key="line-21" data={meanPrice} options={meanPriceChartOptions} width="600"  height="250" />
+								</Grid>
 
-							<Bar key="line-21" data={meanPrice} options={meanPriceChartOptions} width="600"  height="250" />
-
-							<div id="hot-app">
-								{/*<HotTable data={cornprice} colHeaders={false} rowHeaders={false} width="600" height="150" stretchH="all" />*/}
-							</div>
-
-							<Bar key="line-22" data={meanYield} options={meanYieldChartOptions} width="600" height="250" />
-
-						</div>
-						<br/>
-
-						<div>
-
-
-						</div>
-						<br/>
-
-						<br/>
-						<br/>
-						<hr/>
-						<br/>
-						<br/>
-
-						<div>
-							<Line key="line-1" data={arcplcPayments} options={currPaymentChartOptions} width="600" height="250" />
-
+								<Grid item alignItems="center" justify="center" alignContent="center">
+									<Bar key="line-22" data={meanYield} options={meanYieldChartOptions} width="600" height="250" />
+								</Grid>
+							</Grid>
 						</div>
 
-						<br/>
-
-
-						<div id="hot-app">
-							<HotTable data={cornprice} colHeaders={false} rowHeaders={false} width="600"  height="200" stretchH="all" />
-						</div>
-
-						<br/>
-
-						<div id="hot-app2">
-							<HotTable data={cornyield} colHeaders={false} rowHeaders={false} width="600" height="200" stretchH="all" />
-						</div>
-
-
+						<div />
 
 					</div>
-				{/*</AuthorizedWarp>*/}
+				</AuthorizedWarp>
 			</div>
-		);
+			);
+		}
+		else{
+			return(
+				<div>
+				<Header selected="charts" />
+				<AnalyzerWrap activeTab={5} />
+					<AuthorizedWarp>
+				<div>Run the model first</div>
+					</AuthorizedWarp>
+		
+				</div>
+
+			);
+		}
 	}
 
 }
 
-export default FarmerCharts;
+const mapStateToProps = (state) => {
+	return {
+		countyResultJson: state.model.countyResults
+	};
+};
+
+export default connect(mapStateToProps, null) (FarmerCharts);

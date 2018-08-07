@@ -16,19 +16,27 @@ const outputDatasets = {
 	Out_Json: "9c48cc03-21af-457e-871c-6c100da68955"
 };
 
-export function postExecutionRequest(personId, title){
+export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice = 0 ){
 	return{
 		"workflowId": workflowId,
-		"creatorId": "31658b55-47e6-4d0e-8fb5-ef5cc8d2e34d",
+		"creatorId": personId,
 		"title": title,
 		"description":"test",
-		// "parameters": {
-		// 	"d23f88b5-5e2e-42ca-d524-d9a9822d2d2f": lat,
-		// 	"4dad32a9-cc4d-4508-8d71-66c622a40cda": long,
-		// 	"76a57476-094f-4331-f59f-0865f1341108": lat,
-		// 	"dcceaa12-2bc6-4591-8e14-026c3bad64fd": long,
-		// 	"a4752f34-ed85-404f-89c4-917f52bca992": weatherPattern.charAt(0)
-		// },
+		"parameters": {
+			"9df9afb2-b195-426e-e7d1-88f67812201a": arcRange, //ARC Range
+			"7fb2f1f3-7f83-44ec-dea7-8c5c4f754afd": paymentAcres, // Payment Acres %
+			"eca927f5-209d-4c93-ad4a-6244f0470d22": commodity, //Commodity
+			"acb95d7c-893b-48fd-f714-f67ae838c624": arcCoverage, // ARC Coverage
+			"50e4d615-8275-42e8-fafb-1c4054d12c2f": refPrice, //Reference Price
+			"92e576a6-d2cb-4990-feaa-ab41187489e3": countyId, //County Id
+			"cdaadad1-23d9-4089-c428-744fe0ceb239": plcYield, //PLC Payment Yield
+			"e5821e9d-2254-4b3e-825f-d67f0c203caa": program, //Program - can be defunct
+			"43944d3b-3b5d-41c6-8996-c89fe8d6b46c": sequesterPrice, //Sequester Price
+			"97d653bf-fec1-41ba-8b8d-fffb2b3a3d5e": startYear   //Start year
+
+		},
+
+
 		"datasets": {
 			"82392893-8b9d-498d-acba-7219b00c0b6c": inputDatasets.Model_Data_File,
 			"d2a2f3d2-fd76-4868-befc-7087d5795049": inputDatasets.Price_File,

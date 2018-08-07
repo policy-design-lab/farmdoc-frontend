@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { connect } from "react-redux";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -12,7 +13,16 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {ID, getOutputFileJson} from "../public/utils";
 import {datawolfURL, postExecutionRequest, steps, resultDatasetId} from "../datawolf.config";
-import { handleResults} from "../actions/analysis";
+import { changeAcres, changeCommodity, changeCoverage, changePaymentYield,
+	handleResults, changeRefPrice, changeRange} from "../actions/model";
+import {
+	handleCardChange,
+	handleEndDateChange,
+	handleFlexibleDatesChange,
+	handleStartDateChange,
+	handleWeatherPatternChange
+} from "../actions/analysis";
+//import connect from "react-redux/es/connect/connect";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -21,6 +31,11 @@ const styles = theme => ({
 		display: "flex",
 		flexWrap: "wrap",
 	},
+
+	invisbleField: {
+		display: "none"
+	},
+
 	textField: {
 		marginLeft: theme.spacing.unit,
 		marginRight: theme.spacing.unit,
@@ -45,6 +60,15 @@ class FDRunModel extends Component {
 	constructor(props){
 		super(props);
 		this.runModel =this.runModel.bind(this);
+		//this.handleRefPriceChange = this.handleRefPriceChange.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		//this.handleCoverageChange = this.handleCoverageChange.bind(this);
+		//this.handleCommodityChange = this.handleCommodityChange.bind(this);
+		//this.handlePaymentYieldChange = this.handlePaymentYieldChange.bind(this);
+		//this.handleRangeChange = this.handleRangeChange.bind(this);
+		//this.handleRefPriceChange = this.handleRefPriceChange.bind(this);
+		this.handleResultsChange = this.handleResultsChange.bind(this);
+
 
 		this.state = {
 			program:"both",
@@ -56,7 +80,8 @@ class FDRunModel extends Component {
 			paymentYield: 120,
 			range: .1,
 			runName:"",
-			runStatus: ""
+			runStatus: "",
+			modelResult: null
 		};
 	}
 
@@ -70,13 +95,14 @@ class FDRunModel extends Component {
 		paymentYield: 120,
 		range: .1,
 		runName:"",
-		runStatus: ""
+		runStatus: "",
+		modelResult: null
 	};
 
 
 	async runModel(){
 		//let status = "STARTED";
-		//let personId = sessionStorage.getItem("personId");
+		let personId = sessionStorage.getItem("personId");
 		this.setState({
 			runStatus: status
 		});
@@ -92,7 +118,21 @@ class FDRunModel extends Component {
 
 		let dwUrl = datawolfURL;
 
-		let postRequest = postExecutionRequest("", title);
+		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice;
+		countyId = 571;
+		startYear = 2019;
+		commodity = this.state.commodity.toLowerCase();
+		refPrice = this.state.refprice;
+		paymentAcres = this.state.acres;
+		arcCoverage = this.state.coverage;
+		arcRange = this.state.range;
+		plcYield = this.state.paymentYield;
+		program = "ARC";
+		sequesterPrice = this.state.seqprice;
+
+
+		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
+			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice);
 
 		let body =  JSON.stringify(postRequest);
 
@@ -126,16 +166,16 @@ class FDRunModel extends Component {
 		const resultDatasetGuid = modelResult.datasets[resultDatasetId];
 		const outputFilename = "output.json";
 		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)){
-			//let json = getOutputFileJson(resultDatasetGuid, outputFilename);
-
-			getOutputFileJson(resultDatasetGuid, outputFilename).then(res => {console.log(JSON.stringify(res.json()));});
-			// getOutputFileJson(resultDatasetGuid, outputFilename).then(function(result){
-			// 	//this.props.handleResults(result);
-			// });
 
 
-			let pqr = 1;
-			//console.log(`Response Json ${json}`);
+			getOutputFileJson(resultDatasetGuid, outputFilename).then(
+				res => {
+					this.handleResultsChange(JSON.stringify(res));
+					console.log(JSON.stringify(res));
+				});
+
+			window.location = "/#/charts";
+
 		}
 
 	}
@@ -145,7 +185,38 @@ class FDRunModel extends Component {
 		this.setState({
 			[name]: event.target.value,
 		});
+
+		switch(name){
+		case "commodity":
+			this.props.handleCommodityChange(event.target.value);
+			break;
+
+		case "refprice":
+			this.props.handleRefPriceChange(event.target.value);
+			break;
+
+		case "paymentYield":
+			this.props.handlePaymentYieldChange(event.target.value);
+			break;
+
+		case "coverage":
+			this.props.handleCoverageChange(event.target.value);
+			break;
+
+		case "range":
+			this.props.handleRangeChange(event.target.value);
+			break;
+
+		case "acres":
+			this.props.handleAcresChange(event.target.value);
+			break;
+		}
 	};
+
+	handleResultsChange(results){
+		this.props.handleResultsChange(results);
+	}
+
 
 	handleChanger = event => {
 		this.setState({ program: event.target.value });
@@ -177,9 +248,11 @@ class FDRunModel extends Component {
 					margin="normal"
 					onChange={this.handleChange("runName")}
 					style={{width:"350px"}}
+					className={classes.invisbleField}
 					helperText="Identifier for the Simulation Results "
+					visi
 				/>
-				<br/>
+				{/*<br/>*/}
 				<TextField
 					id="Commodity"
 					label="Commodity"
@@ -191,10 +264,13 @@ class FDRunModel extends Component {
 				<TextField
 					id="refPrice"
 					label="Reference Price"
-					value={this.state.refprice}
-					className={classes.textField}
+					defaultValue={this.state.refprice}
+					//value={this.state.refprice}
+					//className={classes.textField}
+					disabled="true"
 					margin="normal"
 					onChange={this.handleChange("refprice")}
+					//onChange = {this.handleRefPriceChange}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
@@ -230,8 +306,6 @@ class FDRunModel extends Component {
 
 				/><br/>
 
-
-
 				<TextField
 					id="coverage"
 					label="ARC Coverage Level"
@@ -239,7 +313,6 @@ class FDRunModel extends Component {
 					margin="normal"
 					style={{width:"160px"}}
 					onChange={this.handleChange("coverage")}
-					disabled="true"
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
 					}}
@@ -270,4 +343,26 @@ class FDRunModel extends Component {
 
 }
 
-export default withStyles(styles)(FDRunModel);
+const mapStateToProps = state => ({
+	commodity: state.commodity,
+	refPrice: state.refPrice,
+	paymentYield: state.paymentYield,
+	coverage: state.coverage,
+	range: state.range,
+	acres: state.acres,
+	countyResults: state.modelResult
+});
+
+const mapDispatchToProps = dispatch => ({
+	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
+	handleRefPriceChange: refprice => dispatch(changeRefPrice(refprice)),
+	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
+	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
+	handleRangeChange: range => dispatch(changeRange(range)),
+	handleAcresChange: acres => dispatch(changeAcres(acres)),
+	handleResultsChange: results => dispatch(handleResults(results))
+});
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps) (withStyles(styles)(FDRunModel));
