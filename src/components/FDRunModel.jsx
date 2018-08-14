@@ -171,7 +171,6 @@ class FDRunModel extends Component {
 			getOutputFileJson(resultDatasetGuid, outputFilename).then(
 				res => {
 					this.handleResultsChange(JSON.stringify(res));
-					console.log(JSON.stringify(res));
 				});
 
 			window.location = "/#/charts";

@@ -27,23 +27,11 @@ class FarmerCharts extends Component{
 		let plc = [];
 		let prob =[];
 
-		// arrTable = [
-		// 	["","201337", "203318", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
-		// 	["Exp. ARC Payment($)", 14.889, 11.263, 9.6484, 8.5299, 8.8463, 9.318, 9.3806, 9.736, 9.6558, 9.6973],
-		// 	["Exp. PLC Payment ($)", 22.834, 22.876, 22.597, 22.449, 21.959, 21.787, 21.564, 21.831, 21.453, 21.011],
-		// 	["Simulated Price ($)", 3.713, 3.76, 3.781, 3.791, 3.795, 3.797, 3.798, 3.798, 3.799, 3.799],
-		// 	["Simulated Yield (bushels)", 191.79, 193.78, 195.77, 197.77, 199.76, 201.75, 203.74, 205.73, 207.73, 209.72],
-		// 	["Payment Probability", 0.71, 0.78, 0.77, 0.77, 0.76, 0.75, 0.74, 0.73, 0.73, 0.72]
-		//];
-
 		//var hot = new Handsontable()
 
 		if (this.props.hasOwnProperty("countyResultJson") && this.props["countyResultJson"] !== null) {
 			let jsonData = this.props["countyResultJson"];
 			let objData = JSON.parse(jsonData);
-			//console.log(`${dataVarFromProps} Data`);
-			console.log(objData);
-
 
 			if(objData.county_average_arc_and_plc_payments && objData.county_average_arc_and_plc_payments !== null){
 
@@ -76,9 +64,6 @@ class FarmerCharts extends Component{
 				});
 			}
 
-			//console.log(years);
-			//console.log(arc);
-
 			let arrYears = ["Year"].concat(years);
 			let arrPrices = ["Simulated Price ($)"].concat(prices);
 			let arrYields = ["Simulated Yield (bushels)"].concat(yields);
@@ -95,9 +80,6 @@ class FarmerCharts extends Component{
 			arrTable[4] = arrPrices;
 			arrTable[5] = arrYields;
 
-			console.log(arrTable);
-
-
 			let avgpayments = [
 			["","2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
 			["Exp. ARC Payment($)", 14.889, 11.263, 9.6484, 8.5299, 8.8463, 9.318, 9.3806, 9.736, 9.6558, 9.6973],
@@ -107,8 +89,6 @@ class FarmerCharts extends Component{
 			["Payment Probability", 0.71, 0.78, 0.77, 0.77, 0.76, 0.75, 0.74, 0.73, 0.73, 0.72]
 
 			];
-			console.log("Avggggg");
-			console.log(avgpayments);
 
 			let meanPrice ={
 				labels: years,
