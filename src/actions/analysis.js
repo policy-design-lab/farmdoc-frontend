@@ -53,12 +53,9 @@ export const handleCardChange = (oldCardIndex, newCardIndex, oldCardData) => ({
 
 });
 
-export const handleResults = (withCoverCropExecutionId, withCoverCropResultJson, withoutCoverCropExecutionId, withoutCoverCropResultJson) => ({
+export const handleResults = (commodityProjections) => ({
 	type: "ADD_RESULT",
-	withCoverCropExecutionId,
-	withCoverCropResultJson,
-	withoutCoverCropExecutionId,
-	withoutCoverCropResultJson
+	commodityProjections
 });
 
 

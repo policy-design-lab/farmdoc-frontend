@@ -39,7 +39,7 @@ class Header extends Component {
 
 						<Cell col={5} className="rectangle-2">
 							<div>
-								<Link to="/analysis" className="farmdoc-analyzer" >FarmDoc </Link>
+								<Link to="/model" className="farmdoc-analyzer" >FarmDoc </Link>
 
 							</div>
 						</Cell>
