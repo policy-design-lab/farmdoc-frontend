@@ -16,6 +16,8 @@ import RegistrationPage from "./RegistrationPage";
 import FDModelPage from "./FDModelPage";
 import FDCharts from "./FDCharts";
 import FarmerCharts from "./FarmerCharts";
+import Login from "./Login";
+
 
 global.__base = `${__dirname  }/`;
 //injectTapEventPlugin();
@@ -42,7 +44,7 @@ class App extends Component {
 		);
 
 		return (
-			<MuiThemeProvider>
+
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
 					<PrivateRoute path="/analysis" component={AnalysisPage}/>
@@ -54,9 +56,10 @@ class App extends Component {
 					<Route path="/register" component={RegistrationPage}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/samplecharts" component={FDCharts}/>
+					<Route path="/login" component={Login}/>
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
-			</MuiThemeProvider>
+
 		);
 	}
 }

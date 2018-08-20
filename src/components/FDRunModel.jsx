@@ -15,14 +15,8 @@ import {ID, getOutputFileJson} from "../public/utils";
 import {datawolfURL, postExecutionRequest, steps, resultDatasetId} from "../datawolf.config";
 import { changeAcres, changeCommodity, changeCoverage, changePaymentYield,
 	handleResults, changeRefPrice, changeRange} from "../actions/model";
-import {
-	handleCardChange,
-	handleEndDateChange,
-	handleFlexibleDatesChange,
-	handleStartDateChange,
-	handleWeatherPatternChange
-} from "../actions/analysis";
-//import connect from "react-redux/es/connect/connect";
+import Spinner from "../components/Spinner";
+
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -224,6 +218,12 @@ class FDRunModel extends Component {
 	render(){
 		const { classes } = this.props;
 
+		let spinner;
+
+		if(this.state.runStatus !== "" && this.state.runStatus !== "FINISHED"){
+			spinner = <Spinner/>;
+		}
+
 		return(
 			<div style={{margin:"50px"}}>
 				<FormLabel component="legend">Program</FormLabel>
@@ -336,6 +336,7 @@ class FDRunModel extends Component {
 					<Icon className={classes.leftIcon}> send </Icon>
 					Run Model
 				</Button>
+				{spinner}
 			</div>
 		);
 	}
