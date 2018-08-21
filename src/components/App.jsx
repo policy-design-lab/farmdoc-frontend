@@ -44,7 +44,7 @@ class App extends Component {
 		);
 
 		return (
-
+			<MuiThemeProvider>
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
 					<PrivateRoute path="/analysis" component={AnalysisPage}/>
@@ -59,6 +59,7 @@ class App extends Component {
 					<Route path="/login" component={Login}/>
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
+			</MuiThemeProvider>
 
 		);
 	}
