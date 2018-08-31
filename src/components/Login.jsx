@@ -1,14 +1,16 @@
 import React, {Component} from "react";
-import Header from './Header'
-import Footer from './Footer'
-import styles from '../styles/main.css'
-import { connect } from 'react-redux';
+
+import Header from "./Header";
+import Footer from "./Footer";
+import styles from "../styles/main.css";
+import { connect } from "react-redux";
 import {Textfield, Title, Button, Caption, Card, CardMedia, CardHeader, CardTitle, CardSubtitle, CardActions, CardText, Body2} from "react-mdc-web";
 import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
-import {checkAuthentication} from "../public/utils"
+import {checkAuthentication} from "../public/utils";
 import {Link} from "react-router";
 import config from "../app.config";
+import FormLabel from "@material-ui/core/FormLabel";
 
 
 class Login extends Component {
@@ -18,7 +20,8 @@ class Login extends Component {
 
 		this.state = {
 			email: "",
-			password: ""
+			password: "",
+			loginStatus: ""
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
@@ -29,16 +32,16 @@ class Login extends Component {
 
 		try {
 			//let loginResponse = await this.loginTest(this.state.email, this.state.password);
-			const token = this.state.email + ":" + this.state.password;
+			const token = `${this.state.email  }:${  this.state.password}`;
 			const hash = btoa(token);
-			let loginResponse = await fetch(datawolfURL + "/login?email=" + this.state.email, {
-				method: 'GET',
+			let loginResponse = await fetch(`${datawolfURL  }/login?email=${  this.state.email}`, {
+				method: "GET",
 				headers: {
-					"Authorization": "Basic " + hash,
+					"Authorization": `Basic ${  hash}`,
 					"Content-Type": "application/json",
 					"Access-Control-Origin": "http://localhost:3000"
 				},
-				credentials: 'include'
+				credentials: "include"
 			});
 
 			console.log(loginResponse);
@@ -53,11 +56,11 @@ class Login extends Component {
 				sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
 
 
-				const CLUapi = config.CLUapi + "/api/user";
+				const CLUapi = `${config.CLUapi  }/api/user`;
 				let serviceLoginResponse = await fetch(CLUapi, {
-					method: 'POST',
+					method: "POST",
 					headers: {
-						"Authorization": "Basic " + hash,
+						"Authorization": `Basic ${  hash}`,
 						"Content-Type": "application/json",
 						"Access-Control-Origin": "http://localhost:3000"
 					},
@@ -70,26 +73,29 @@ class Login extends Component {
 				// TODO: should we do something when status is not 200?
 				checkAuthentication().then(function (checkAuthResponse) {
 					if (checkAuthResponse.status === 200) {
+						this.setState({loginStatus: "success"});
 						console.log("Person Valid");
 					}
 					else if (checkAuthResponse.status === 401) {
+						this.setState({loginStatus: "failure"});
 						console.log("Unauthorized");
 					}
 					else {
+						this.setState({loginStatus: "unknown"});
 						console.log("Unknown");
 					}
 				});
 			}
 
 			else if (loginResponse.status === 401) {
-
+				this.setState({loginStatus: "failure"});
 			}
 			else {
 
 				console.log(loginResponse.status);
 			}
 		} catch (error) {
-			console.error("Error: " + error);
+			console.error(`Error: ${  error}`);
 		}
 	};
 
@@ -98,6 +104,15 @@ class Login extends Component {
 	}
 
 	render() {
+
+		let errorMsg;
+		if(this.state.loginStatus === "failure"){
+			errorMsg = 	<FormLabel error={true} style={{fontSize: 14}}> - Authentication failed </FormLabel>;
+		}
+		else{
+			errorMsg = null;
+		}
+
 		return (
 			<div>
 				<Card className="login">
@@ -106,9 +121,9 @@ class Login extends Component {
 					</CardHeader>
 					<CardMedia
 						style={{
-							backgroundImage: 'url("../images/farmdoc-rep-image.png")',
-							height: '250px',
-							padding: '10px'
+							backgroundImage: "url(\"../images/farmdoc-rep-image.png\")",
+							height: "250px",
+							padding: "10px"
 						}}/>
 				</Card>
 				<br/>
@@ -116,16 +131,16 @@ class Login extends Component {
 				{this.props.isAuthenticated === true ? null :
 					<Card className="login">
 						<CardText>
-							<Body2>Sign In</Body2>
-							<span><Textfield autoFocus floatingLabel="Username" value={this.state.email}
-											 onChange={({target: {value: email}}) => {
-												 this.setState({email: email})
-											 }}/> </span>
-							<span><Textfield floatingLabel="Password" type="password"
-											 value={this.state.password}
-											 onChange={({target: {value: password}}) => {
-												 this.setState({password})
-											 }}/> </span>
+							<Body2>Sign In {errorMsg} </Body2>
+							<span><Textfield autoFocus floatingLabel="Email" value={this.state.email} onChange={({target: {value: email}}) => {
+								this.setState({email: email});
+							}}/>
+							</span>
+
+							<span><Textfield floatingLabel="Password" type="password" value={this.state.password} onChange={({target: {value: password}}) => {
+								this.setState({password});
+							}}/>
+							</span>
 						</CardText>
 						<CardActions>
 							<form>
@@ -144,7 +159,7 @@ class Login extends Component {
 					</Card>
 				}
 			</div>
-		)
+		);
 	}
 }
 
@@ -153,7 +168,7 @@ const mapStateToProps = (state) => {
 	return {
 		email: state.user.email,
 		isAuthenticated: state.user.isAuthenticated
-	}
+	};
 };
 
 
@@ -162,7 +177,7 @@ const mapDispatchToProps = (dispatch) => {
 		handleUserLogin: (email, userId, isAuthenticated) => {
 			dispatch(handleUserLogin(email, userId, isAuthenticated));
 		}
-	}
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,6 +1,7 @@
 
 
 const defaultState = {
+	county: null,
 	commodity: "Corn",
 	refprice: 3.70,
 	paymentYield: 120,
@@ -12,6 +13,10 @@ const defaultState = {
 
 const model = (state = defaultState, action) => {
 	switch (action.type) {
+	case "CHANGE_COUNTY":
+		return Object.assign({}, state, {
+			county: action.county
+		});
 	case "CHANGE_COMMODITY":
 		return Object.assign({}, state, {
 			commodity: action.commodity

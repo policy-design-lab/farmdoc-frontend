@@ -13,8 +13,10 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {ID, getOutputFileJson} from "../public/utils";
 import {datawolfURL, postExecutionRequest, steps, resultDatasetId} from "../datawolf.config";
-import { changeAcres, changeCommodity, changeCoverage, changePaymentYield,
-	handleResults, changeRefPrice, changeRange} from "../actions/model";
+import {
+	changeAcres, changeCommodity, changeCoverage, changePaymentYield,
+	handleResults, changeRefPrice, changeRange, changeCounty
+} from "../actions/model";
 import Spinner from "../components/Spinner";
 
 
@@ -65,6 +67,7 @@ class FDRunModel extends Component {
 
 
 		this.state = {
+			county:17113,
 			program:"both",
 			commodity: "Corn",
 			refprice: 3.7,
@@ -80,6 +83,7 @@ class FDRunModel extends Component {
 	}
 
 	state = {
+		county: 17113,
 		program:"both",
 		commodity: "Corn",
 		refprice: 3.7,
@@ -113,7 +117,7 @@ class FDRunModel extends Component {
 		let dwUrl = datawolfURL;
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice;
-		countyId = 571;
+		countyId = this.state.county; //571;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refprice;
@@ -152,14 +156,20 @@ class FDRunModel extends Component {
 			});
 
 			if (executionResponse instanceof Response) {
-				modelResult = await executionResponse.json();
-				this.setState({runStatus: modelResult.stepState[steps.Farm_Model]});
+				try {
+					modelResult = await executionResponse.json();
+					this.setState({runStatus: modelResult.stepState[steps.Farm_Model]});
+				}
+				catch(error){
+					this.setState({runStatus: "PARSE_ERROR"});
+				}
 			}
 		}
 
+
 		const resultDatasetGuid = modelResult.datasets[resultDatasetId];
 		const outputFilename = "output.json";
-		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)){
+		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)) {
 
 
 			getOutputFileJson(resultDatasetGuid, outputFilename).then(
@@ -170,6 +180,11 @@ class FDRunModel extends Component {
 			window.location = "/#/charts";
 
 		}
+		else{
+			this.setState({runStatus: "PARSE_ERROR"});
+		}
+
+
 
 	}
 
@@ -180,6 +195,9 @@ class FDRunModel extends Component {
 		});
 
 		switch(name){
+		case "county":
+			this.props.handleCountyChange(event.target.value);
+			break;
 		case "commodity":
 			this.props.handleCommodityChange(event.target.value);
 			break;
@@ -220,25 +238,50 @@ class FDRunModel extends Component {
 
 		let spinner;
 
-		if(this.state.runStatus !== "" && this.state.runStatus !== "FINISHED"){
+		if(this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR"){
 			spinner = <Spinner/>;
 		}
 
+		let errorMsg;
+		if(this.state.runStatus === "PARSE_ERROR"){
+			errorMsg = <div>
+				<FormLabel component="legend" error={true}>Error Running the Model. Make sure the FIPS id is valid.</FormLabel>
+			</div>;
+		}
+
+
+
 		return(
+
+
 			<div style={{margin:"50px"}}>
-				<FormLabel component="legend">Program</FormLabel>
-				<RadioGroup style={{ display: "flex",  flexDirection:"row" }}
-							name="program"
-							//className={classes.group}
-							value={this.state.program}
-							onChange={this.handleChange("program")}>
+				{errorMsg}
+				{/*<FormLabel component="legend">Program</FormLabel>*/}
+				{/*<RadioGroup style={{ display: "flex",  flexDirection:"row" }}*/}
+							{/*name="program"*/}
+							{/*//className={classes.group}*/}
+							{/*value={this.state.program}*/}
+							{/*onChange={this.handleChange("program")}>*/}
 
-					<FormControlLabel value="arc" control={<Radio />} label="ARC" />
-					<FormControlLabel value="plc" control={<Radio />} label="PLC" />
-					<FormControlLabel value="both" control={<Radio />} label="Both" />
+					{/*<FormControlLabel value="arc" control={<Radio />} label="ARC" />*/}
+					{/*<FormControlLabel value="plc" control={<Radio />} label="PLC" />*/}
+					{/*<FormControlLabel value="both" control={<Radio />} label="Both" />*/}
 
-				</RadioGroup>
+				{/*</RadioGroup>*/}
+				<TextField
+				required={true}
+				id="county"
+				label="County FIPS ID"
+				value={this.state.county}
+				margin="normal"
+				type="number"
+				onChange={this.handleChange("county")}
+				style={{width:"350px"}}
+				helperText="ex.: 17113"
+				defaultValue={17113}
 
+				/>
+				<br/>
 				<TextField
 					required
 					id="runName"
@@ -248,16 +291,15 @@ class FDRunModel extends Component {
 					onChange={this.handleChange("runName")}
 					style={{width:"350px"}}
 					className={classes.invisbleField}
-					helperText="Identifier for the Simulation Results "
-					visi
+					helperText="Identifier for the Simulation Results"
 				/>
-				{/*<br/>*/}
+
 				<TextField
 					id="Commodity"
 					label="Commodity"
 					value={this.state.commodity}
 					margin="normal"
-					disabled="true"
+					disabled={true}
 				/>
 
 				<TextField
@@ -266,7 +308,7 @@ class FDRunModel extends Component {
 					defaultValue={this.state.refprice}
 					//value={this.state.refprice}
 					//className={classes.textField}
-					disabled="true"
+					disabled={true}
 					margin="normal"
 					onChange={this.handleChange("refprice")}
 					//onChange = {this.handleRefPriceChange}
@@ -288,7 +330,7 @@ class FDRunModel extends Component {
 					InputProps={{
 						endAdornment: <InputAdornment position="end">bushels/acre</InputAdornment>
 					}}
-					// endAdornment={<InputAdornment position="end">bushels/acre</InputAdornment>}
+
 				/><br/>
 
 				<TextField
@@ -298,7 +340,7 @@ class FDRunModel extends Component {
 					margin="normal"
 					style={{width:"160px"}}
 					onChange={this.handleChange("acres")}
-					disabled="true"
+					disabled={true}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
 					}}
@@ -344,6 +386,7 @@ class FDRunModel extends Component {
 }
 
 const mapStateToProps = state => ({
+	county: state.county,
 	commodity: state.commodity,
 	refPrice: state.refPrice,
 	paymentYield: state.paymentYield,
@@ -354,6 +397,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+	handleCountyChange: county => dispatch(changeCounty(county)),
 	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
 	handleRefPriceChange: refprice => dispatch(changeRefPrice(refprice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),

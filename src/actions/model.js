@@ -1,4 +1,11 @@
 
+export function changeCounty(county){
+	return {
+		type: "CHANGE_COUNTY",
+		county
+	};
+}
+
 export function changeCommodity(commodity){
 	return {
 		type: "CHANGE_COMMODITY",

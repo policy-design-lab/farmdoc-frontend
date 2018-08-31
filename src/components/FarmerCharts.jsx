@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import { HotTable } from "@handsontable/react";
+import { HotTable, HotRow } from "@handsontable/react";
 import { connect } from "react-redux";
 import Handsontable from "handsontable";
 import AuthorizedWarp from "./AuthorizedWarp";
@@ -25,7 +25,8 @@ class FarmerCharts extends Component{
 		let yields = [];
 		let arc = [];
 		let plc = [];
-		let prob =[];
+		let probArc =[];
+		let probPlc = [];
 
 		//var hot = new Handsontable()
 
@@ -41,7 +42,8 @@ class FarmerCharts extends Component{
 					years.push(element.point);
 					arc.push(element.value1.mean);
 					plc.push(element.value2.mean);
-					prob.push(element.value1.pos);
+					probArc.push(element.value1.pos);
+					probPlc.push(element.value2.pos);
 
 				});
 			}
@@ -67,18 +69,23 @@ class FarmerCharts extends Component{
 			let arrYears = ["Year"].concat(years);
 			let arrPrices = ["Simulated Price ($)"].concat(prices);
 			let arrYields = ["Simulated Yield (bushels)"].concat(yields);
-			let arrProb = ["Payment Probability"].concat(prob);
-			let arrArc = ["Exp. ARC Payment($)"].concat(arc);
-			let arrPlc = ["Exp. PLC Payment ($)"].concat(plc);
+			let arrProbArc = ["ARC Payment Probability"].concat(probArc);
+			let arrProbPlc = ["PLC Payment Probability"].concat(probPlc);
+			let arrArc = ["ARC Payment($)"].concat(arc);
+			let arrPlc = ["PLC Payment ($)"].concat(plc);
 
 
 			let arrTable = [];
 			arrTable[0]= arrYears;
 			arrTable[1] = arrArc;
 			arrTable[2] = arrPlc;
-			arrTable[3] = arrProb;
-			arrTable[4] = arrPrices;
-			arrTable[5] = arrYields;
+			arrTable[3] = arrProbArc;
+			arrTable[4] = arrProbPlc;
+
+			let arrPrYields =[];
+			arrPrYields[0] = arrYears;
+			arrPrYields[1] = arrPrices;
+			arrPrYields[2] = arrYields;
 
 			let avgpayments = [
 			["","2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"],
@@ -217,7 +224,17 @@ class FarmerCharts extends Component{
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
 									<div id="hot-app3" >
-										<HotTable data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="150" stretchH="all" />
+										<HotTable data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="120" stretchH="all" />
+									</div>								</Grid>
+
+
+								<Grid item alignItems="center" justify="center" alignContent="center" style={{fontWeight: "bold"}} >
+									<br/> Expected Avg. Prices & Yields
+								</Grid>
+
+								<Grid item alignItems="center" justify="center" alignContent="center">
+									<div id="hot-app4" >
+										<HotTable data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="150" stretchH="all"   />
 									</div>
 								</Grid>
 							</Grid>
