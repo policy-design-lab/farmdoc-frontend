@@ -1,8 +1,8 @@
 
 const defaultState = {
-	email: "",
+	email: sessionStorage.getItem("email") !== null ? sessionStorage.getItem("email"): null ,
 	isAuthenticated: sessionStorage.getItem("personId") !== null,
-	userId: "",
+	userId: sessionStorage.getItem("personId") !== null ? sessionStorage.getItem("personId"): null,
 	clu: 0,
 	//cluname is not used current
 	cluname: ""
