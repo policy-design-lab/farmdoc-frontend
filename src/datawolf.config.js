@@ -39,9 +39,7 @@ export function postExecutionRequest(personId, title, countyId, startYear, commo
 
 		"datasets": {
 			"82392893-8b9d-498d-acba-7219b00c0b6c": inputDatasets.Model_Data_File,
-			"d2a2f3d2-fd76-4868-befc-7087d5795049": inputDatasets.Price_File,
-			//"a8430f8c-06a2-4eb2-9e56-05b45641dbf0": outputDatasets.Std_Out,
-			//"07ec54a8-46ec-47c1-ac3a-cf641a8a6652": outputDatasets.Out_Json
+			"d2a2f3d2-fd76-4868-befc-7087d5795049": inputDatasets.Price_File
 		}
 
 	};
