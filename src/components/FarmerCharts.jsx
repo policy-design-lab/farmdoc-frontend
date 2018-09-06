@@ -169,7 +169,7 @@ class FarmerCharts extends Component{
 				datasets: [
 					{
 						label: "ARC Payments",
-						backgroundColor: "LightGray",
+						backgroundColor: "Orange",
 						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(220,220,220,1)",
 						pointColor: "rgba(220,220,220,1)",
@@ -180,8 +180,8 @@ class FarmerCharts extends Component{
 					},
 					{
 						label: "PLC Payments",
-						backgroundColor: "DarkGray",
-						hoverBackgroundColor: "LightSlateGray",
+						backgroundColor: "SkyBlue",
+						hoverBackgroundColor: "DarkGray",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
 						pointStrokeColor: "#fff",
@@ -229,7 +229,7 @@ class FarmerCharts extends Component{
 
 
 								<Grid item alignItems="center" justify="center" alignContent="center" style={{fontWeight: "bold"}} >
-									<br/> Expected Avg. Prices & Yields
+									<br/><br/> <br/> Expected Avg. Prices & Yields
 								</Grid>
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
