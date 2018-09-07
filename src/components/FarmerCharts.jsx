@@ -69,8 +69,8 @@ class FarmerCharts extends Component{
 			let arrYears = ["Year"].concat(years);
 			let arrPrices = ["Simulated Price ($)"].concat(prices);
 			let arrYields = ["Simulated Yield (bushels)"].concat(yields);
-			let arrProbArc = ["ARC Payment Probability"].concat(probArc);
-			let arrProbPlc = ["PLC Payment Probability"].concat(probPlc);
+			let arrProbArc = ["ARC Payment Probability(%)"].concat(probArc);
+			let arrProbPlc = ["PLC Payment Probability(%)"].concat(probPlc);
 			let arrArc = ["ARC Payment($)"].concat(arc);
 			let arrPlc = ["PLC Payment ($)"].concat(plc);
 
@@ -197,13 +197,13 @@ class FarmerCharts extends Component{
 				scales: {
 					yAxes: [{
 						ticks: {
-							beginAtZero: true
+							beginAtZero: true,
 						}
 					}]
 				},
 				title: {
 					display:true,
-					text:"ARC/PLC Payments - Coverage: 85% Range: 10%",
+					text:"ARC/PLC Payments - Coverage: 86% Range: 10%",
 					fontColor: "DarkBlue",
 					fontSize: 18
 				}
@@ -223,23 +223,26 @@ class FarmerCharts extends Component{
 								</Grid>
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
+
 									<div id="hot-app3" >
-										<HotTable data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="120" stretchH="all" />
+										<HotTable  id="arcPlc" data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="120" stretchH="all" />
 									</div>								</Grid>
 
 
 								<Grid item alignItems="center" justify="center" alignContent="center" style={{fontWeight: "bold"}} >
-									<br/><br/> <br/> Expected Avg. Prices & Yields
+									<br/>Expected Avg. Prices & Yields
+
 								</Grid>
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
 									<div id="hot-app4" >
-										<HotTable data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="150" stretchH="all"   />
+										<HotTable id="prYields" data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="70" stretchH="all"   />
 									</div>
 								</Grid>
 							</Grid>
 						</div>
 
+						<br/>
 
 						<div>
 							<Grid container  direction="column" alignItems="center">
