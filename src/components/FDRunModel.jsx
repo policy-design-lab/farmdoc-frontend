@@ -274,11 +274,18 @@ class FDRunModel extends Component {
 				label="County FIPS ID"
 				value={this.state.county}
 				margin="normal"
-				type="number"
 				onChange={this.handleChange("county")}
-				style={{width:"350px"}}
-				helperText="ex.: 17113"
+				style={{width:"200px"}}
+				helperText={<span> ex.: 17019 for Champaign County, IL. Find your county code <a target="_blank" href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697"> here </a> </span> }
+				onInput={(e) => {
+					if(e.target.value !== "") {
+						if(isNaN(e.target.value)){
+							e.target.value = e.target.value.toString().slice(0,-1);
+						}
+					}
+				}}
 				/>
+
 				<br/>
 				<TextField
 					required
@@ -318,7 +325,6 @@ class FDRunModel extends Component {
 
 				<TextField
 					id="paymentYield"
-					type="number"
 					label="PLC Payment Yield"
 					error ={ this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false }
 					value={this.state.paymentYield}
@@ -333,16 +339,22 @@ class FDRunModel extends Component {
 					}}
 					onInput={(e) => {
 						if(e.target.value !== "") {
-							//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
-
-							if (e.target.value <= 0) {
-								e.target.value = 1;
+							if(isNaN(e.target.value)){
+								e.target.value = e.target.value.toString().slice(0,-1);
 							}
-							else if (e.target.value > 200) {
-								e.target.value = 200;
+							else {
+								//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
+
+								if (e.target.value <= 0) {
+									e.target.value = 1;
+								}
+								else if (e.target.value > 200) {
+									e.target.value = 200;
+								}
 							}
 						}
 					}}
+
 				/><br/>
 
 				<TextField
