@@ -73,8 +73,8 @@ class FDRunModel extends Component {
 			refprice: 3.7,
 			acres: .85,
 			seqprice: 0.0,
-			coverage: .85,
-			paymentYield: 120,
+			coverage: .86,
+			paymentYield: "",
 			range: .1,
 			runName:"",
 			runStatus: "",
@@ -89,8 +89,8 @@ class FDRunModel extends Component {
 		refprice: 3.7,
 		acres: .85,
 		seqprice: 0.0,
-		coverage: .85,
-		paymentYield: 120,
+		coverage: .86,
+		paymentYield: "",
 		range: .1,
 		runName:"",
 		runStatus: "",
@@ -245,7 +245,7 @@ class FDRunModel extends Component {
 		let errorMsg;
 		if(this.state.runStatus === "PARSE_ERROR"){
 			errorMsg = <div>
-				<FormLabel component="legend" error={true}>Error Running the Model. Make sure the FIPS id is valid.</FormLabel>
+				<FormLabel component="legend" error={true}>Error Running the Model. Make sure the FIPS id and Payment Yields are valid.</FormLabel>
 			</div>;
 		}
 
@@ -278,8 +278,6 @@ class FDRunModel extends Component {
 				onChange={this.handleChange("county")}
 				style={{width:"350px"}}
 				helperText="ex.: 17113"
-				defaultValue={17113}
-
 				/>
 				<br/>
 				<TextField
@@ -320,17 +318,31 @@ class FDRunModel extends Component {
 
 				<TextField
 					id="paymentYield"
+					type="number"
 					label="PLC Payment Yield"
-
+					error ={ this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false }
 					value={this.state.paymentYield}
 					margin="normal"
-					style={{width:"200px"}}
+					style={{width:"230px"}}
 					onChange={this.handleChange("paymentYield")}
 
-					InputProps={{
+					InputLabelProps={{shrink:true}}
+
+					InputProps={ {
 						endAdornment: <InputAdornment position="end">bushels/acre</InputAdornment>
 					}}
+					onInput={(e) => {
+						if(e.target.value !== "") {
+							e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
 
+							if (e.target.value <= 0) {
+								e.target.value = 1;
+							}
+							else if (e.target.value > 200) {
+								e.target.value = 200;
+							}
+						}
+					}}
 				/><br/>
 
 				<TextField
@@ -353,6 +365,7 @@ class FDRunModel extends Component {
 					value={this.state.coverage}
 					margin="normal"
 					style={{width:"160px"}}
+					disabled={true}
 					onChange={this.handleChange("coverage")}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -366,7 +379,7 @@ class FDRunModel extends Component {
 					value={this.state.range}
 					margin="normal"
 					style={{width:"160px"}}
-
+					disabled={true}
 					onChange={this.handleChange("range")}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
