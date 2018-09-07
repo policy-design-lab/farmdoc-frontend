@@ -333,7 +333,7 @@ class FDRunModel extends Component {
 					}}
 					onInput={(e) => {
 						if(e.target.value !== "") {
-							e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
+							//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
 
 							if (e.target.value <= 0) {
 								e.target.value = 1;
