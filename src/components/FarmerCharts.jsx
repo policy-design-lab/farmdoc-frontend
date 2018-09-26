@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import { HotTable, HotRow } from "@handsontable/react";
 import { connect } from "react-redux";
-import Handsontable from "handsontable";
 import AuthorizedWarp from "./AuthorizedWarp";
 import AnalyzerWrap from "./AnalyzerWrap";
 import Header from "./Header";
