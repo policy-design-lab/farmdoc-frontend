@@ -236,7 +236,7 @@ class FarmerCharts extends Component{
 
 								<Grid item alignItems="center" justify="center" alignContent="center">
 									<div id="hot-app4" >
-										<HotTable id="prYields" data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="70" stretchH="all"   />
+										<HotTable id="prYields" data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="90" stretchH="all"   />
 									</div>
 								</Grid>
 							</Grid>
