@@ -1,4 +1,4 @@
-import {datawolfURL, weatherPatterns} from "../datawolf.config";
+import {datawolfURL} from "../datawolf.config";
 import config from "../app.config";
 
 /***
@@ -9,7 +9,7 @@ export async function checkAuthentication() {
 
 	let personId = sessionStorage.getItem("personId");
 
-	return await fetch(datawolfURL + "/persons/" + personId, {
+	return await fetch(`${datawolfURL  }/persons/${  personId}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -50,7 +50,7 @@ export const ID = function () {
 	// Math.random should be unique because of its seeding algorithm.
 	// Convert it to base 36 (numbers + letters), and grab the first 9 characters
 	// after the decimal.
-	return "_" + Math.random().toString(36).substr(2, 9);
+	return `_${  Math.random().toString(36).substr(2, 9)}`;
 };
 
 // check if withCoverCropDatasetResultGUID & withoutCoverCropDatasetResultGUID is validate is outside of this
@@ -63,7 +63,7 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 
 	// Get - Result Dataset
 	const datasetResponse = await
-		fetch(datawolfURL + "/datasets/" + datasetId, {
+		fetch(`${datawolfURL  }/datasets/${  datasetId}`, {
 			method: "GET",
 			headers: headers,
 			credentials: "include"
@@ -91,7 +91,7 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 
 	if (fileId !== -1) {
 		// Get - Result File Download
-		const fileDownloadResponse = await fetch(datawolfURL + "/datasets/" + datasetId + "/" + fileId + "/file",
+		const fileDownloadResponse = await fetch(`${datawolfURL  }/datasets/${  datasetId  }/${  fileId  }/file`,
 			{
 				method: "GET",
 				headers: headers,
@@ -105,14 +105,6 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 	}
 }
 
-export function getWeatherName(w) {
-	if(w){
-		return weatherPatterns.find(function (weather){
-			return weather.charAt(0) === w;
-		});
-	}
-	return w;
-}
 
 /**
  * @return {string}
@@ -124,7 +116,7 @@ export function ConvertDDToDMS(dd)
 	let min = (frac * 60) | 0; // multiply fraction by 60 and truncate
 	let sec = frac * 3600 - min * 60;
 	sec = sec.toFixed(2);
-	return deg + "d " + min + "' " + sec + "\"";
+	return `${deg  }d ${  min  }' ${  sec  }"`;
 }
 
 export function calculateDayOfYear(date) {
@@ -134,49 +126,7 @@ export function calculateDayOfYear(date) {
 	return today - yearFirstDay;
 }
 
-export async function uploadDatasetToDataWolf(yearPlanting, doyPlanting, doyHarvest, isWithCoverCrop) {
-	let headers = {
-		"Access-Control-Origin": "http://localhost:3000"
-	};
 
-	let userInputFile = new File([
-			"{\"with_cover_crop\": " + isWithCoverCrop + "," +
-			"\"year_planting\": " + yearPlanting + "," +
-			"\"doy_planting\": " + doyPlanting + "," +
-			"\"doy_harvest\": " + doyHarvest +
-			"}"],
-		"user_input.json",
-		{type: "text/plain;charset=utf-8", lastModified: Date.now()});
-
-	let data = new FormData();
-	data.append("useremail", sessionStorage.getItem("email"));
-	data.append("uploadedFile", userInputFile);
-
-	let uploadDatasetResponse = await fetch(
-		datawolfURL + "/datasets",
-		{
-			method: "POST",
-			headers: headers,
-			body: data,
-			credentials: "include",
-			contentType: false,
-			processData: false
-		});
-
-	return uploadDatasetResponse.text().then(function (data) {
-		return data;
-	});
-}
-
-export async function getMyFieldList(email) {
-	const CLUapi = config.CLUapi + "/api/userfield?userid=" + email;
-	let headers = {
-		"Content-Type": "application/json",
-		"Access-Control-Origin": "http://localhost:3000"
-	};
-	const Response = await fetch(CLUapi, {headers: headers});
-	return await Response.json();
-}
 
 export async function wait(ms) {
 	new Promise(resolve => setTimeout(resolve, ms));

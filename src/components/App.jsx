@@ -1,11 +1,8 @@
 import React, {Component} from "react";
 import {Router, Route, hashHistory, Redirect} from "react-router";
-import AnalysisPage from "./AnalysisPage";
-import AddFieldPage from "./AddFieldPage";
+
 import HomePage from "./HomePage";
 import AboutPage from "./AboutPage";
-import UserPage from "./UserPage";
-import MyFarmPage from "./MyFarmPage";
 import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
@@ -47,12 +44,10 @@ class App extends Component {
 			<MuiThemeProvider>
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
-					<PrivateRoute path="/analysis" component={AnalysisPage}/>
 					<Route path="/model" component={FDModelPage}/>
-					<Route path="/addfield" component={AddFieldPage}/>
-					<Route path="/profile" component={MyFarmPage}/>
+					{/*<Route path="/profile" component={MyFarmPage}/>*/}
 					<Route path="/about" component={AboutPage}/>
-					<Route path="/history" component={UserPage}/>
+					{/*<Route path="/history" component={UserPage}/>*/}
 					<Route path="/register" component={RegistrationPage}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/samplecharts" component={FDCharts}/>
