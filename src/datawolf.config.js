@@ -11,10 +11,10 @@ const inputDatasets =  {
 	Model_Data_File: "de004f6e-7347-460b-82cd-94e333755dcb" //finalcornData.mat
 };
 
-const outputDatasets = {
-	Std_Out: "7bd67eee-93a2-4c47-8e9b-7610389afd1f",
-	Out_Json: "9c48cc03-21af-457e-871c-6c100da68955"
-};
+// const outputDatasets = {
+// 	Std_Out: "7bd67eee-93a2-4c47-8e9b-7610389afd1f",
+// 	Out_Json: "9c48cc03-21af-457e-871c-6c100da68955"
+// };
 
 export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice = 0 ){
 	return{
