@@ -5,7 +5,7 @@ import HomePage from "./HomePage";
 import AboutPage from "./AboutPage";
 import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import {MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
 import {Cell, Grid, Title, Textfield, Button, Caption, Body1, Subheading2} from "react-mdc-web";
 //import injectTapEventPlugin from 'react-tap-event-plugin'
 import {isUserAuthenticated} from "../public/utils";
@@ -17,6 +17,8 @@ import Login from "./Login";
 
 global.__base = `${__dirname  }/`;
 //injectTapEventPlugin();
+
+const theme = createMuiTheme();
 
 class App extends Component {
 	render() {
@@ -40,7 +42,7 @@ class App extends Component {
 		);
 
 		return (
-			<MuiThemeProvider>
+			<MuiThemeProvider theme={theme}>
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
 					<Route path="/model" component={FDModelPage}/>
