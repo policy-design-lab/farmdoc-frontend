@@ -1,3 +1,4 @@
+
 import {datawolfURL, weatherPatterns} from "../datawolf.config";
 import config from "../app.config";
 
@@ -7,7 +8,8 @@ import config from "../app.config";
  */
 export async function checkAuthentication() {
 
-	let personId = sessionStorage.getItem("personId");
+	let personId = "";
+	personId = sessionStorage.getItem("personId");
 
 	return await fetch(datawolfURL + "/persons/" + personId, {
 		method: "GET",
@@ -29,7 +31,7 @@ export function isUserAuthenticated() {
 }
 
 export function groupBy(list, keyGetter) {
-	const map = new Map();
+	const map = new Map(String, String);
 	list.forEach((item) => {
 		const key = keyGetter(item);
 		const collection = map.get(key);
@@ -127,7 +129,7 @@ export function ConvertDDToDMS(dd)
 	return deg + "d " + min + "' " + sec + "\"";
 }
 
-export function calculateDayOfYear(date) {
+export function calculateDayOfYear(date: Date) {
 	let timeStamp = new Date().setFullYear(date.getFullYear(), 0, 1);
 	let yearFirstDay = Math.floor(timeStamp / 86400000);
 	let today = Math.ceil((date.getTime()) / 86400000);

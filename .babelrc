@@ -2,7 +2,8 @@
   "presets": [
 	"latest",
 	"stage-0",
-	"react"
+	"react",
+	"flow"
   ],
   "plugins": [
 	["babel-root-import"],
