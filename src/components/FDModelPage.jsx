@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Header from "./Header";
-import AuthorizedWarp from "./AuthorizedWarp";
+import AuthorizedWarp from "./AuthorizedWrap";
 import AnalyzerWrap from "./AnalyzerWrap";
 import FDRunModel from "./FDRunModel";
 
@@ -10,7 +10,7 @@ class FDModelPage extends Component {
 		return (
 			<div>
 				<Header selected='model'/>
-				<AnalyzerWrap activeTab={4}/>
+				<AnalyzerWrap activeTab={1}/>
 				<AuthorizedWarp>
 
 					<FDRunModel/>

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import { HotTable, HotRow } from "@handsontable/react";
 import { connect } from "react-redux";
-import AuthorizedWarp from "./AuthorizedWarp";
+import AuthorizedWarp from "./AuthorizedWrap";
 import AnalyzerWrap from "./AnalyzerWrap";
 import Header from "./Header";
 import {Line, Bar} from "react-chartjs-2";
@@ -211,7 +211,7 @@ class FarmerCharts extends Component{
 			return (
 			<div>
 				<Header selected="charts"/>
-				<AnalyzerWrap activeTab={5}/>
+				<AnalyzerWrap activeTab={2}/>
 				<AuthorizedWarp>
 					<div style={{margin:"50px"}}>
 
