@@ -46,9 +46,7 @@ class App extends Component {
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
 					<Route path="/model" component={FDModelPage}/>
-					{/*<Route path="/profile" component={MyFarmPage}/>*/}
 					<Route path="/about" component={AboutPage}/>
-					{/*<Route path="/history" component={UserPage}/>*/}
 					<Route path="/register" component={RegistrationPage}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/login" component={Login}/>

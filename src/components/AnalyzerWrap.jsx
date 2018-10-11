@@ -20,12 +20,6 @@ class AnalyzerWrap extends Component {
 				<div className="analyzer-tab">
 					<Tabbar>
 						<Tab
-							active={activeTab===3}
-							href="#/profile"
-						>
-							My Fields
-						</Tab>
-						<Tab
 							active={activeTab===4}
 							href="#/model"
 						>
