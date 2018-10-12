@@ -2,8 +2,7 @@ import React, {Component} from "react";
 import ReactDOM from "react-dom";
 import { HotTable, HotRow } from "@handsontable/react";
 import { connect } from "react-redux";
-import Handsontable from "handsontable";
-import AuthorizedWarp from "./AuthorizedWarp";
+import AuthorizedWarp from "./AuthorizedWrap";
 import AnalyzerWrap from "./AnalyzerWrap";
 import Header from "./Header";
 import {Line, Bar} from "react-chartjs-2";
@@ -212,29 +211,29 @@ class FarmerCharts extends Component{
 			return (
 			<div>
 				<Header selected="charts"/>
-				<AnalyzerWrap activeTab={5}/>
+				<AnalyzerWrap activeTab={2}/>
 				<AuthorizedWarp>
 					<div style={{margin:"50px"}}>
 
 						<div >
 							<Grid container  direction="column" alignItems="center">
 								<Grid item>
-									<Bar key="line-2" data={arcplcPayments} options={barChartOptions} width="600" height="300" />
+									<Bar key="line-2" data={arcplcPayments} options={barChartOptions} width={600} height={300} />
 								</Grid>
 
-								<Grid item alignItems="center" justify="center" alignContent="center">
+								<Grid item  >
 
 									<div id="hot-app3" >
 										<HotTable  id="arcPlc" data={arrTable} colHeaders={false} rowHeaders={false} width="800" height="120" stretchH="all" />
 									</div>								</Grid>
 
 
-								<Grid item alignItems="center" justify="center" alignContent="center" style={{fontWeight: "bold"}} >
+								<Grid item style={{fontWeight: "bold"}} >
 									<br/>Expected Avg. Prices & Yields
 
 								</Grid>
 
-								<Grid item alignItems="center" justify="center" alignContent="center">
+								<Grid item >
 									<div id="hot-app4" >
 										<HotTable id="prYields" data={arrPrYields} colHeaders={false} rowHeaders={false} width="800" height="90" stretchH="all"   />
 									</div>
@@ -247,11 +246,11 @@ class FarmerCharts extends Component{
 						<div>
 							<Grid container  direction="column" alignItems="center">
 								<Grid item>
-									<Bar key="line-21" data={meanPrice} options={meanPriceChartOptions} width="600"  height="250" />
+									<Bar key="line-21" data={meanPrice} options={meanPriceChartOptions} width={600}  height={250} />
 								</Grid>
 
-								<Grid item alignItems="center" justify="center" alignContent="center">
-									<Bar key="line-22" data={meanYield} options={meanYieldChartOptions} width="600" height="250" />
+								<Grid item>
+									<Bar key="line-22" data={meanYield} options={meanYieldChartOptions} width={600} height={250} />
 								</Grid>
 							</Grid>
 						</div>

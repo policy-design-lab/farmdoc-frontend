@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 
-class AuthorizedWarp extends Component {
+class AuthorizedWrap extends Component {
 	render() {
 		if(!this.props.isAuthenticated){
 			window.location = "#/";
@@ -26,5 +26,5 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null)(AuthorizedWarp);
+export default connect(mapStateToProps, null)(AuthorizedWrap);
 
