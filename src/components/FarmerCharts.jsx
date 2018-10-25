@@ -124,9 +124,9 @@ class FarmerCharts extends Component{
 			jsonData = this.props["countyResultJson"];
 
 		}
-		else{ //Uncomment to test with static 5 year response
-			jsonData = "{\"mean_prices\":{\"title\":\"Mean prices\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":0.583,\"pos\":100,\"mean\":3.713,\"max\":5.96,\"min\":2.258},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.638,\"pos\":100,\"mean\":3.76,\"max\":5.813,\"min\":2.134},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.666,\"pos\":100,\"mean\":3.781,\"max\":6.123,\"min\":2.02},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.662,\"pos\":100,\"mean\":3.791,\"max\":6.128,\"min\":2.177},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.657,\"pos\":100,\"mean\":3.795,\"max\":6.448,\"min\":2.123},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"National mean prices\",\"yData1\":\"Price\"},\"county_yields\":{\"title\":\"County yields\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"bushel/acre\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":21.948,\"pos\":100,\"mean\":191.793,\"max\":241.99,\"min\":103.991},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":193.785,\"max\":243.905,\"min\":105.78},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":195.777,\"max\":245.821,\"min\":107.572},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.946,\"pos\":100,\"mean\":197.77,\"max\":247.739,\"min\":109.368},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.945,\"pos\":100,\"mean\":199.762,\"max\":249.659,\"min\":111.168},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"County mean yields\",\"yData1\":\"Yield\"},\"county_average_arc_and_plc_payments\":{\"title\":\"County average ARC and PLC payments\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"County PLC\",\"datasets\":{\"data\":[{\"value1\":{\"std\":27.06,\"pos\":45,\"mean\":22.2,\"max\":67.822,\"min\":0},\"point\":2017,\"value2\":{\"std\":28.743,\"pos\":52.2,\"mean\":22.211,\"max\":136.085,\"min\":0}},{\"value1\":{\"std\":23.611,\"pos\":32.5,\"mean\":13.59,\"max\":69.229,\"min\":0},\"point\":2018,\"value2\":{\"std\":30.799,\"pos\":48.9,\"mean\":21.238,\"max\":147.709,\"min\":0}},{\"value1\":{\"std\":23.261,\"pos\":29.7,\"mean\":12.834,\"max\":71.593,\"min\":0},\"point\":2019,\"value2\":{\"std\":31.262,\"pos\":48.3,\"mean\":20.98,\"max\":158.524,\"min\":0}},{\"value1\":{\"std\":21.487,\"pos\":24.8,\"mean\":10.423,\"max\":70.561,\"min\":0},\"point\":2020,\"value2\":{\"std\":30.672,\"pos\":47.7,\"mean\":20.842,\"max\":143.67,\"min\":0}},{\"value1\":{\"std\":23.132,\"pos\":27.6,\"mean\":12.292,\"max\":81.558,\"min\":0},\"point\":2021,\"value2\":{\"std\":30.362,\"pos\":46.7,\"mean\":20.387,\"max\":148.834,\"min\":0}}]},\"yData2Unit\":\"$/acre\",\"yDataSet\":\"County ARC and PLC payments\",\"yData1\":\"County ARC\"}}";
-		}
+		// else{ //Uncomment to test with static 5 year response
+		// 	jsonData = "{\"mean_prices\":{\"title\":\"Mean prices\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":0.583,\"pos\":100,\"mean\":3.713,\"max\":5.96,\"min\":2.258},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.638,\"pos\":100,\"mean\":3.76,\"max\":5.813,\"min\":2.134},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.666,\"pos\":100,\"mean\":3.781,\"max\":6.123,\"min\":2.02},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.662,\"pos\":100,\"mean\":3.791,\"max\":6.128,\"min\":2.177},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.657,\"pos\":100,\"mean\":3.795,\"max\":6.448,\"min\":2.123},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"National mean prices\",\"yData1\":\"Price\"},\"county_yields\":{\"title\":\"County yields\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"bushel/acre\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":21.948,\"pos\":100,\"mean\":191.793,\"max\":241.99,\"min\":103.991},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":193.785,\"max\":243.905,\"min\":105.78},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":195.777,\"max\":245.821,\"min\":107.572},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.946,\"pos\":100,\"mean\":197.77,\"max\":247.739,\"min\":109.368},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.945,\"pos\":100,\"mean\":199.762,\"max\":249.659,\"min\":111.168},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"County mean yields\",\"yData1\":\"Yield\"},\"county_average_arc_and_plc_payments\":{\"title\":\"County average ARC and PLC payments\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"County PLC\",\"datasets\":{\"data\":[{\"value1\":{\"std\":27.06,\"pos\":45,\"mean\":22.2,\"max\":67.822,\"min\":0},\"point\":2017,\"value2\":{\"std\":28.743,\"pos\":52.2,\"mean\":22.211,\"max\":136.085,\"min\":0}},{\"value1\":{\"std\":23.611,\"pos\":32.5,\"mean\":13.59,\"max\":69.229,\"min\":0},\"point\":2018,\"value2\":{\"std\":30.799,\"pos\":48.9,\"mean\":21.238,\"max\":147.709,\"min\":0}},{\"value1\":{\"std\":23.261,\"pos\":29.7,\"mean\":12.834,\"max\":71.593,\"min\":0},\"point\":2019,\"value2\":{\"std\":31.262,\"pos\":48.3,\"mean\":20.98,\"max\":158.524,\"min\":0}},{\"value1\":{\"std\":21.487,\"pos\":24.8,\"mean\":10.423,\"max\":70.561,\"min\":0},\"point\":2020,\"value2\":{\"std\":30.672,\"pos\":47.7,\"mean\":20.842,\"max\":143.67,\"min\":0}},{\"value1\":{\"std\":23.132,\"pos\":27.6,\"mean\":12.292,\"max\":81.558,\"min\":0},\"point\":2021,\"value2\":{\"std\":30.362,\"pos\":46.7,\"mean\":20.387,\"max\":148.834,\"min\":0}}]},\"yData2Unit\":\"$/acre\",\"yDataSet\":\"County ARC and PLC payments\",\"yData1\":\"County ARC\"}}";
+		// }
 
 		if(jsonData !== null){
 			let objData = JSON.parse(jsonData);
@@ -169,17 +169,17 @@ class FarmerCharts extends Component{
 			let rowElems = [];
 			for(let i = 0; i< years.length; i++){
 				rowElems.push(
-					<TableRow>
+					<TableRow key={`childRowArc-${i}`}>
 						<ArcTableCell>{arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<ArcTableCell>Graph</ArcTableCell>
-						<CommonTableCell rowspan={2}> {prices[i]} </CommonTableCell>
-						<CommonTableCell rowspan={2}> {yields[i]} </CommonTableCell>
+						<CommonTableCell rowSpan={2}> {prices[i]} </CommonTableCell>
+						<CommonTableCell rowSpan={2}> {yields[i]} </CommonTableCell>
 					</TableRow>
 				);
 
 				rowElems.push(
-					<TableRow>
+					<TableRow key={`childRowPlc-${i}`}>
 						<PlcTableCell>{plc[i]}</PlcTableCell>
 						<PlcTableCell>{probPlc[i]}%</PlcTableCell>
 						<PlcTableCell>Graph</PlcTableCell>
@@ -259,17 +259,17 @@ class FarmerCharts extends Component{
 							<TableCellWithTable>
 
 								<Table >
-									<TableRow style={{height:"64px"}}>
-										<TableCellHeader >Expected  &nbsp;Payment ($)</TableCellHeader>
-										<TableCellHeader >Likelihood of Payment (avg)</TableCellHeader>
-										<TableCellHeader >Simulation Distribution</TableCellHeader>
-										<TableCellHeader >Simulated Price ($)</TableCellHeader>
-										<TableCellHeader >Simulated Yield ({yieldUnits})</TableCellHeader>
-									</TableRow>
+									<TableBody>
+										<TableRow style={{height:"64px"}}>
+											<TableCellHeader >Expected  &nbsp;Payment ($)</TableCellHeader>
+											<TableCellHeader >Likelihood of Payment (avg)</TableCellHeader>
+											<TableCellHeader >Simulation Distribution</TableCellHeader>
+											<TableCellHeader >Simulated Price ($)</TableCellHeader>
+											<TableCellHeader >Simulated Yield ({yieldUnits})</TableCellHeader>
+										</TableRow>
 
-									{rowElems}
-
-
+										{rowElems}
+									</TableBody>
 								</Table>
 
 
