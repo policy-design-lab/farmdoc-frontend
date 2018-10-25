@@ -11,6 +11,7 @@ import {Cell, Grid, Title, Textfield, Button, Caption, Body1, Subheading2} from 
 import {isUserAuthenticated} from "../public/utils";
 import RegistrationPage from "./RegistrationPage";
 import FDModelPage from "./FDModelPage";
+import FarmerChartsPrev from "./FarmerChartsPrev";
 import FarmerCharts from "./FarmerCharts";
 import Login from "./Login";
 
@@ -48,6 +49,7 @@ class App extends Component {
 					<Route path="/model" component={FDModelPage}/>
 					<Route path="/about" component={AboutPage}/>
 					<Route path="/register" component={RegistrationPage}/>
+					<Route path="/chartsold" component={FarmerChartsPrev}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/login" component={Login}/>
 					<Route path="*" component={RouteMismatch}/>
