@@ -1,9 +1,6 @@
 const devConfig = {
 	basePath: "/",
-	fragilityServer: "",
-	fragilityMappingServer: "",
-	semanticServer: "",
-	CLUapi: "http://localhost:5000"
+	apiUrl: "http://localhost:5000/api"
 };
 
 const prodConfig = {
@@ -11,7 +8,7 @@ const prodConfig = {
 	fragilityServer: "",
 	fragilityMappingServer: "",
 	semanticServer: "",
-	CLUapi: "https://covercrop.ncsa.illinois.edu"
+	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api"
 };
 
 const config = getConfig();

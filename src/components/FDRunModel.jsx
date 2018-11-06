@@ -5,6 +5,7 @@ import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
+import {Select, FormControl, InputLabel, MenuItem} from "@material-ui/core";
 import Input from "@material-ui/core/Input";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -18,6 +19,8 @@ import {
 	handleResults, changeRefPrice, changeRange, changeCounty
 } from "../actions/model";
 import Spinner from "../components/Spinner";
+import config from "../app.config";
+
 
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -48,7 +51,13 @@ const styles = theme => ({
 	},
 	rightIcon: {
 		marginLeft: theme.spacing.unit,
-	}
+	},
+
+	formControl: {
+		margin: theme.spacing.unit,
+		minWidth: 150,
+		marginLeft: 0
+	},
 });
 
 class FDRunModel extends Component {
@@ -64,9 +73,13 @@ class FDRunModel extends Component {
 		//this.handleRangeChange = this.handleRangeChange.bind(this);
 		//this.handleRefPriceChange = this.handleRefPriceChange.bind(this);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
+		//this.populateCounties = this.populateCounties.bind(this);
 
 
 		this.state = {
+			states: [],
+			stateSel: "",
+			counties: [],
 			county:17113,
 			program:"both",
 			commodity: "Corn",
@@ -83,6 +96,9 @@ class FDRunModel extends Component {
 	}
 
 	state = {
+		states: [],
+		stateSel: "",
+		counties: [],
 		county: 17113,
 		program:"both",
 		commodity: "Corn",
@@ -96,6 +112,7 @@ class FDRunModel extends Component {
 		runStatus: "",
 		modelResult: null
 	};
+
 
 
 	async runModel(){
@@ -127,6 +144,7 @@ class FDRunModel extends Component {
 		plcYield = this.state.paymentYield;
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
+
 
 
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
@@ -221,7 +239,13 @@ class FDRunModel extends Component {
 		case "acres":
 			this.props.handleAcresChange(event.target.value);
 			break;
+
+		case "stateSel":
+			this.populateCounties(event.target.value);
+			break;
 		}
+
+
 	};
 
 	handleResultsChange(results){
@@ -233,6 +257,41 @@ class FDRunModel extends Component {
 		this.setState({ program: event.target.value });
 	};
 
+
+	componentDidMount(){
+		let statesJson = [];
+		
+		fetch(`${config.apiUrl}/states`)
+			.then(response => {
+				return response.json();
+			}).then(data => {
+				statesJson = data.map((st) => {
+					return st;
+				});
+				console.log(statesJson);
+				this.setState({
+					states: statesJson,
+				});
+			});
+	}
+
+	populateCounties(stateId){
+		let countiesJson = [];
+
+		fetch(`${config.apiUrl}/counties/${stateId}`)
+			.then(response => {
+				return response.json();
+			}).then(data => {
+				countiesJson = data.map((st) => {
+					return st;
+				});
+				console.log(countiesJson);
+				this.setState({
+					counties: countiesJson,
+				});
+			});
+	}
+
 	render(){
 		const { classes } = this.props;
 
@@ -242,11 +301,28 @@ class FDRunModel extends Component {
 			spinner = <Spinner/>;
 		}
 
+
+
+		let statesMenuItems = [];
+
+		this.state.states.forEach((item) => {
+			statesMenuItems.push(<MenuItem value={item.id}>{item.name}</MenuItem>);
+		});
+
+		let countiesMenuItems = [];
+
+		this.state.counties.forEach((item) => {
+			countiesMenuItems.push(<MenuItem value={item.id}>{item.name}</MenuItem>);
+		});
+
+
+
+
 		let errorMsg;
 		if(this.state.runStatus === "PARSE_ERROR"){
-			errorMsg = <div>
+			errorMsg = (<div>
 				<FormLabel component="legend" error={true}>Error Running the Model. Make sure the FIPS id and Payment Yields are valid.</FormLabel>
-			</div>;
+			</div>);
 		}
 
 
@@ -268,25 +344,56 @@ class FDRunModel extends Component {
 					{/*<FormControlLabel value="both" control={<Radio />} label="Both" />*/}
 
 				{/*</RadioGroup>*/}
-				<TextField
-				required={true}
-				id="county"
-				label="County FIPS ID"
-				value={this.state.county}
-				margin="normal"
-				onChange={this.handleChange("county")}
-				style={{width:"200px"}}
-				helperText={<span> ex.: 17019 for Champaign County, IL. Find your county code <a target="_blank" href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697"> here </a> </span> }
-				onInput={(e) => {
-					if(e.target.value !== "") {
-						if(isNaN(e.target.value)){
-							e.target.value = e.target.value.toString().slice(0,-1);
-						}
-					}
-				}}
-				/>
 
+				<FormControl className={classes.formControl}>
+					<InputLabel htmlFor="state-simple">State</InputLabel>
+					<Select
+						value={this.state.stateSel}
+						onChange={this.handleChange("stateSel")}
+						inputProps={{
+							name: "state",
+							id: "state-simple",
+						}}
+					>
+						{statesMenuItems}
+					</Select>
+				</FormControl>
 				<br/>
+
+				<FormControl className={classes.formControl}>
+					<InputLabel htmlFor="county-simple">County</InputLabel>
+					<Select
+						value={this.state.county}
+						onChange={this.handleChange("county")}
+						inputProps={{
+							name: "county",
+							id: "county-simple",
+						}}
+					>
+						{countiesMenuItems}
+
+					</Select>
+				</FormControl>
+
+				{/*<TextField*/}
+				{/*required={true}*/}
+				{/*id="county"*/}
+				{/*label="County FIPS ID"*/}
+				{/*value={this.state.county}*/}
+				{/*margin="normal"*/}
+				{/*onChange={this.handleChange("county")}*/}
+				{/*style={{width:"200px"}}*/}
+				{/*helperText={<span> ex.: 17019 for Champaign County, IL. Find your county code <a target="_blank" href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697"> here </a> </span>}*/}
+				{/*onInput={(e) => {*/}
+					{/*if(e.target.value !== "") {*/}
+						{/*if(isNaN(e.target.value)){*/}
+							{/*e.target.value = e.target.value.toString().slice(0,-1);*/}
+						{/*}*/}
+					{/*}*/}
+				{/*}}*/}
+				{/*/>*/}
+
+				{/*<br/>*/}
 				<TextField
 					required
 					id="runName"
@@ -298,6 +405,8 @@ class FDRunModel extends Component {
 					className={classes.invisbleField}
 					helperText="Identifier for the Simulation Results"
 				/>
+
+				<br/>
 
 				<TextField
 					id="Commodity"
@@ -326,7 +435,7 @@ class FDRunModel extends Component {
 				<TextField
 					id="paymentYield"
 					label="PLC Payment Yield"
-					error ={ this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false }
+					error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
 					value={this.state.paymentYield}
 					margin="normal"
 					style={{width:"230px"}}
@@ -334,7 +443,7 @@ class FDRunModel extends Component {
 
 					InputLabelProps={{shrink:true}}
 
-					InputProps={ {
+					InputProps={{
 						endAdornment: <InputAdornment position="end">bushels/acre</InputAdornment>
 					}}
 					onInput={(e) => {
