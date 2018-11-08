@@ -3,7 +3,7 @@
 const defaultState = {
 	county: null,
 	commodity: "Corn",
-	refprice: 3.70,
+	refPrice: 3.70,
 	paymentYield: 120,
 	coverage: 85,
 	range: 10,
@@ -23,7 +23,7 @@ const model = (state = defaultState, action) => {
 		});
 	case "CHANGE_REFPRICE":
 		return Object.assign({}, state, {
-			refprice: action.refprice
+			refPrice: action.refPrice
 		});
 	case "CHANGE_PAYMENT_YIELD":
 		return Object.assign({}, state, {

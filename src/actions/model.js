@@ -13,10 +13,10 @@ export function changeCommodity(commodity){
 	};
 }
 
-export function changeRefPrice(refprice){
+export function changeRefPrice(refPrice){
 	return {
 		type: "CHANGE_REFPRICE",
-		refprice
+		refPrice: refPrice
 	};
 }
 export function changePaymentYield(paymentYield){
