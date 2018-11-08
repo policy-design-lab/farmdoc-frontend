@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import { connect } from "react-redux";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
@@ -55,35 +53,39 @@ const styles = theme => ({
 
 	formControl: {
 		margin: theme.spacing.unit,
-		minWidth: 150,
+		minWidth: 200,
 		marginLeft: 0
 	},
+	geoSelectors: {
+		PaperProps: {
+			style: {
+				maxHeight: 400,
+				minWidth: 400
+			}
+		}
+	}
+
 });
+
 
 class FDRunModel extends Component {
 
 	constructor(props){
 		super(props);
 		this.runModel =this.runModel.bind(this);
-		//this.handleRefPriceChange = this.handleRefPriceChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-		//this.handleCoverageChange = this.handleCoverageChange.bind(this);
-		//this.handleCommodityChange = this.handleCommodityChange.bind(this);
-		//this.handlePaymentYieldChange = this.handlePaymentYieldChange.bind(this);
-		//this.handleRangeChange = this.handleRangeChange.bind(this);
-		//this.handleRefPriceChange = this.handleRefPriceChange.bind(this);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
-		//this.populateCounties = this.populateCounties.bind(this);
 
 
 		this.state = {
 			states: [],
-			stateSel: "",
+			stateSel: "AL",
 			counties: [],
 			county:17113,
 			program:"both",
 			commodity: "Corn",
-			refprice: 3.7,
+			units: "bushel/acre",
+			refPrice: 3.7,
 			acres: .85,
 			seqprice: 0.0,
 			coverage: .86,
@@ -97,12 +99,13 @@ class FDRunModel extends Component {
 
 	state = {
 		states: [],
-		stateSel: "",
+		stateSel: "AL",
 		counties: [],
 		county: 17113,
 		program:"both",
 		commodity: "Corn",
-		refprice: 3.7,
+		units: "bushel/acre",
+		refPrice: 3.7,
 		acres: .85,
 		seqprice: 0.0,
 		coverage: .86,
@@ -137,7 +140,7 @@ class FDRunModel extends Component {
 		countyId = this.state.county; //571;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
-		refPrice = this.state.refprice;
+		refPrice = this.state.refPrice;
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
@@ -201,11 +204,7 @@ class FDRunModel extends Component {
 		else{
 			this.setState({runStatus: "PARSE_ERROR"});
 		}
-
-
-
 	}
-
 
 	handleChange = name => event => {
 		this.setState({
@@ -218,9 +217,12 @@ class FDRunModel extends Component {
 			break;
 		case "commodity":
 			this.props.handleCommodityChange(event.target.value);
+			if(event.target.value !== "") {
+				this.populateRefPriceAndUnits(event.target.value);
+			}
 			break;
 
-		case "refprice":
+		case "refPrice":
 			this.props.handleRefPriceChange(event.target.value);
 			break;
 
@@ -241,7 +243,9 @@ class FDRunModel extends Component {
 			break;
 
 		case "stateSel":
-			this.populateCounties(event.target.value);
+			if(event.target.value !== "") {
+				this.populateCounties(event.target.value);
+			}
 			break;
 		}
 
@@ -268,7 +272,6 @@ class FDRunModel extends Component {
 				statesJson = data.map((st) => {
 					return st;
 				});
-				console.log(statesJson);
 				this.setState({
 					states: statesJson,
 				});
@@ -285,15 +288,35 @@ class FDRunModel extends Component {
 				countiesJson = data.map((st) => {
 					return st;
 				});
-				console.log(countiesJson);
 				this.setState({
 					counties: countiesJson,
 				});
 			});
 	}
 
+	populateRefPriceAndUnits(commodity){
+		config.commodities.forEach((item) => {
+			if(item.id === commodity){
+				this.setState({
+					refPrice: item.refPrice,
+				});
+				this.setState({
+					units: item.units,
+				});
+			}
+		});
+
+	}
+
 	render(){
 		const { classes } = this.props;
+		const MenuProps = {
+			PaperProps: {
+				style: {
+					maxHeight: 500
+				},
+			},
+		};
 
 		let spinner;
 
@@ -301,22 +324,24 @@ class FDRunModel extends Component {
 			spinner = <Spinner/>;
 		}
 
+		let emptyMenuItem;// = <MenuItem value="" key="ad"> <em>--Select--</em> </MenuItem>;
 
-
-		let statesMenuItems = [];
+		let statesMenuItems = [emptyMenuItem];
 
 		this.state.states.forEach((item) => {
-			statesMenuItems.push(<MenuItem value={item.id}>{item.name}</MenuItem>);
+			statesMenuItems.push(<MenuItem key={`state-${item.id}`}  value={item.id}>{item.name}</MenuItem>);
 		});
 
-		let countiesMenuItems = [];
+		let countiesMenuItems = [emptyMenuItem];
 
 		this.state.counties.forEach((item) => {
-			countiesMenuItems.push(<MenuItem value={item.id}>{item.name}</MenuItem>);
+			countiesMenuItems.push(<MenuItem key={`county-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 		});
 
-
-
+		let commodityMenuItems = [emptyMenuItem];
+		config.commodities.forEach((item) => {
+			commodityMenuItems.push(<MenuItem key={`commodity-${item.id}`} value={item.id}>{item.name}</MenuItem>);
+		});
 
 		let errorMsg;
 		if(this.state.runStatus === "PARSE_ERROR"){
@@ -325,27 +350,13 @@ class FDRunModel extends Component {
 			</div>);
 		}
 
-
-
 		return(
-
-
 			<div style={{margin:"50px"}}>
+				<InputLabel>
 				{errorMsg}
-				{/*<FormLabel component="legend">Program</FormLabel>*/}
-				{/*<RadioGroup style={{ display: "flex",  flexDirection:"row" }}*/}
-							{/*name="program"*/}
-							{/*//className={classes.group}*/}
-							{/*value={this.state.program}*/}
-							{/*onChange={this.handleChange("program")}>*/}
+				</InputLabel>
 
-					{/*<FormControlLabel value="arc" control={<Radio />} label="ARC" />*/}
-					{/*<FormControlLabel value="plc" control={<Radio />} label="PLC" />*/}
-					{/*<FormControlLabel value="both" control={<Radio />} label="Both" />*/}
-
-				{/*</RadioGroup>*/}
-
-				<FormControl className={classes.formControl}>
+				<FormControl className={classes.formControl} required>
 					<InputLabel htmlFor="state-simple">State</InputLabel>
 					<Select
 						value={this.state.stateSel}
@@ -354,13 +365,16 @@ class FDRunModel extends Component {
 							name: "state",
 							id: "state-simple",
 						}}
+						displayEmpty
+
+						MenuProps={MenuProps}
 					>
 						{statesMenuItems}
 					</Select>
 				</FormControl>
 				<br/>
 
-				<FormControl className={classes.formControl}>
+				<FormControl className={classes.formControl} required>
 					<InputLabel htmlFor="county-simple">County</InputLabel>
 					<Select
 						value={this.state.county}
@@ -369,82 +383,61 @@ class FDRunModel extends Component {
 							name: "county",
 							id: "county-simple",
 						}}
+						MenuProps={MenuProps}
 					>
 						{countiesMenuItems}
 
 					</Select>
 				</FormControl>
 
-				{/*<TextField*/}
-				{/*required={true}*/}
-				{/*id="county"*/}
-				{/*label="County FIPS ID"*/}
-				{/*value={this.state.county}*/}
-				{/*margin="normal"*/}
-				{/*onChange={this.handleChange("county")}*/}
-				{/*style={{width:"200px"}}*/}
-				{/*helperText={<span> ex.: 17019 for Champaign County, IL. Find your county code <a target="_blank" href="https://www.nrcs.usda.gov/wps/portal/nrcs/detail/national/home/?cid=nrcs143_013697"> here </a> </span>}*/}
-				{/*onInput={(e) => {*/}
-					{/*if(e.target.value !== "") {*/}
-						{/*if(isNaN(e.target.value)){*/}
-							{/*e.target.value = e.target.value.toString().slice(0,-1);*/}
-						{/*}*/}
-					{/*}*/}
-				{/*}}*/}
-				{/*/>*/}
-
-				{/*<br/>*/}
-				<TextField
-					required
-					id="runName"
-					label="Simulation Name"
-					value={this.state.runName}
-					margin="normal"
-					onChange={this.handleChange("runName")}
-					style={{width:"350px"}}
-					className={classes.invisbleField}
-					helperText="Identifier for the Simulation Results"
-				/>
 
 				<br/>
 
-				<TextField
-					id="Commodity"
-					label="Commodity"
-					value={this.state.commodity}
-					margin="normal"
-					disabled={true}
-				/>
+
+				<FormControl className={classes.formControl} required>
+					<InputLabel htmlFor="crop-simple">Crop</InputLabel>
+					<Select
+						value={this.state.commodity}
+						onChange={this.handleChange("commodity")}
+						inputProps={{
+							name: "crop",
+							id: "crop-simple",
+						}}
+						MenuProps={MenuProps}
+					>
+						{commodityMenuItems}
+					</Select>
+				</FormControl>
+
 
 				<TextField
 					id="refPrice"
 					label="Reference Price"
-					defaultValue={this.state.refprice}
-					//value={this.state.refprice}
-					//className={classes.textField}
+					value={this.state.refPrice}
 					disabled={true}
 					margin="normal"
-					onChange={this.handleChange("refprice")}
-					//onChange = {this.handleRefPriceChange}
+					onChange={this.handleChange("refPrice")}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
 
 				/> <br/>
 
-				<TextField
+				<FormControl className={classes.formControl} required>
+					<TextField
 					id="paymentYield"
 					label="PLC Payment Yield"
-					error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
 					value={this.state.paymentYield}
 					margin="normal"
 					style={{width:"230px"}}
 					onChange={this.handleChange("paymentYield")}
+					required
 
 					InputLabelProps={{shrink:true}}
 
 					InputProps={{
-						endAdornment: <InputAdornment position="end">bushels/acre</InputAdornment>
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
 					}}
 					onInput={(e) => {
 						if(e.target.value !== "") {
@@ -464,7 +457,8 @@ class FDRunModel extends Component {
 						}
 					}}
 
-				/><br/>
+				/>
+				</FormControl><br/>
 
 				<TextField
 					id="acres"
@@ -533,7 +527,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	handleCountyChange: county => dispatch(changeCounty(county)),
 	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
-	handleRefPriceChange: refprice => dispatch(changeRefPrice(refprice)),
+	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
 	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
 	handleRangeChange: range => dispatch(changeRange(range)),
