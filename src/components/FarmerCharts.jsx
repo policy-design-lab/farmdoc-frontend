@@ -285,6 +285,7 @@ class FarmerCharts extends Component{
 			);
 		}
 		else{
+			//TODO: Improve the error message format
 			return(
 				<div>
 				<Header selected="charts" />

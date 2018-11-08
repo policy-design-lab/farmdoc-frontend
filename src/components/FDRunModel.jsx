@@ -79,11 +79,11 @@ class FDRunModel extends Component {
 
 		this.state = {
 			states: [],
-			stateSel: "AL",
+			stateSel: "",
 			counties: [],
-			county:17113,
+			county:"",
 			program:"both",
-			commodity: "Corn",
+			commodity: "",
 			units: "bushel/acre",
 			refPrice: 3.7,
 			acres: .85,
@@ -99,11 +99,11 @@ class FDRunModel extends Component {
 
 	state = {
 		states: [],
-		stateSel: "AL",
+		stateSel: "",
 		counties: [],
-		county: 17113,
+		county: "",
 		program:"both",
-		commodity: "Corn",
+		commodity: "",
 		units: "bushel/acre",
 		refPrice: 3.7,
 		acres: .85,
@@ -305,7 +305,15 @@ class FDRunModel extends Component {
 				});
 			}
 		});
+	}
 
+	validateInputs(){
+		if(this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== ""){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	render(){
@@ -344,17 +352,17 @@ class FDRunModel extends Component {
 		});
 
 		let errorMsg;
+		// This error will never be shown when we get the applicable crops for a county from API
 		if(this.state.runStatus === "PARSE_ERROR"){
 			errorMsg = (<div>
-				<FormLabel component="legend" error={true}>Error Running the Model. Make sure the FIPS id and Payment Yields are valid.</FormLabel>
+				<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the county. Choose a different crop or county</FormLabel>
 			</div>);
 		}
 
 		return(
-			<div style={{margin:"50px"}}>
-				<InputLabel>
+			<div style={{marginLeft:"50px", marginRight:"50px", marginTop:"15px"}}>
+
 				{errorMsg}
-				</InputLabel>
 
 				<FormControl className={classes.formControl} required>
 					<InputLabel htmlFor="state-simple">State</InputLabel>
@@ -501,7 +509,7 @@ class FDRunModel extends Component {
 					}}
 				/>
 				<br/><br/>
-				<Button variant="contained" color="primary" onClick={this.runModel}>
+				<Button variant="contained" color="primary" onClick={this.runModel} disabled={!this.validateInputs()}>
 
 					<Icon className={classes.leftIcon}> send </Icon>
 					Run Model
