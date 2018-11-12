@@ -20,19 +20,13 @@ class AnalyzerWrap extends Component {
 				<div className="analyzer-tab">
 					<Tabbar>
 						<Tab
-							active={activeTab===3}
-							href="#/profile"
-						>
-							My Fields
-						</Tab>
-						<Tab
-							active={activeTab===4}
+							active={activeTab===1}
 							href="#/model"
 						>
 							Farmdoc Model
 						</Tab>
 						<Tab
-							active={activeTab===5}
+							active={activeTab===2}
 							href="#/charts"
 						>
 							Farmdoc Charts

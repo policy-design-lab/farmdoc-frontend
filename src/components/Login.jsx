@@ -47,7 +47,7 @@ class Login extends Component {
 			console.log(loginResponse);
 			if (loginResponse.status === 200) {
 
-				let jsonData = await loginResponse.json().then(function(data) {
+				let jsonData = await loginResponse.json().then(function (data) {
 					return data;
 				});
 
@@ -55,23 +55,9 @@ class Login extends Component {
 				sessionStorage.setItem("personId", jsonData["id"]); // Store person ID in session storage for future use
 				sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
 
-
-				const CLUapi = `${config.CLUapi  }/api/user`;
-				let serviceLoginResponse = await fetch(CLUapi, {
-					method: "POST",
-					headers: {
-						"Authorization": `Basic ${  hash}`,
-						"Content-Type": "application/json",
-						"Access-Control-Origin": "http://localhost:3000"
-					},
-					// credentials: 'include'
-				});
-
-				console.log(serviceLoginResponse);
-
 				// Check for authentication
 				// TODO: should we do something when status is not 200?
-				checkAuthentication().then(function (checkAuthResponse) {
+				checkAuthentication().then((checkAuthResponse) => {
 					if (checkAuthResponse.status === 200) {
 						this.setState({loginStatus: "success"});
 						console.log("Person Valid");
