@@ -1,51 +1,44 @@
 export const datawolfURL = "https://fd-datawolf.ncsa.illinois.edu/datawolf";
 
-const workflowId = "6e540fa0-740a-4de8-9746-d4ea66fd6883";
+const workflowId = "1ce73a96-c7cf-4a08-a88b-9f2650a7283b";
 
 export const steps = {
-	Farm_Model: "f2c7c102-1e9d-4590-f3b8-4eafa5ed8250"
+	Farm_Model:  "42315803-2613-4273-e5fb-93c402160029" //"f2c7c102-1e9d-4590-f3b8-4eafa5ed8250"
 };
 
 const inputDatasets =  {
-	Price_File: "7b1d0825-5eb2-4923-bb21-0efdadc0de01", //cornDev.mat
-	Model_Data_File: "de004f6e-7347-460b-82cd-94e333755dcb" //finalcornData.mat
+	Price_File: "454c0403-1481-4c34-89da-454b570dcc43" //commoditydata.mat
 };
 
-// const outputDatasets = {
-// 	Std_Out: "7bd67eee-93a2-4c47-8e9b-7610389afd1f",
-// 	Out_Json: "9c48cc03-21af-457e-871c-6c100da68955"
-// };
-
 export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice = 0 ){
+	let pracCode = 3;
 	return{
 		"workflowId": workflowId,
 		"creatorId": personId,
 		"title": title,
 		"description":"test",
 		"parameters": {
-			"9df9afb2-b195-426e-e7d1-88f67812201a": arcRange, //ARC Range
-			"7fb2f1f3-7f83-44ec-dea7-8c5c4f754afd": paymentAcres, // Payment Acres %
-			"eca927f5-209d-4c93-ad4a-6244f0470d22": commodity, //Commodity
-			"acb95d7c-893b-48fd-f714-f67ae838c624": arcCoverage, // ARC Coverage
-			"50e4d615-8275-42e8-fafb-1c4054d12c2f": refPrice, //Reference Price
-			"92e576a6-d2cb-4990-feaa-ab41187489e3": countyId, //County Id
-			"cdaadad1-23d9-4089-c428-744fe0ceb239": plcYield, //PLC Payment Yield
-			"e5821e9d-2254-4b3e-825f-d67f0c203caa": program, //Program - can be defunct
-			"43944d3b-3b5d-41c6-8996-c89fe8d6b46c": sequesterPrice, //Sequester Price
-			"97d653bf-fec1-41ba-8b8d-fffb2b3a3d5e": startYear   //Start year
-
+			"6122e54b-c0cc-4e3c-95f7-0b97d489044e": arcRange, //ARC Range
+			"b2be2b6d-698d-463e-d865-83e115af43c3": paymentAcres, // Payment Acres %
+			"283d016c-c5e2-480e-83e6-23903d8c9752": commodity, //Commodity
+			"1519192f-8cc1-41a3-eaf6-2c9902bfa851": arcCoverage, // ARC Coverage
+			"18a158a3-687c-49f2-a5f4-c25dbc6bbe91": refPrice, //Reference Price
+			"c445ad63-0ab0-41ca-a0ee-9faae6e1a3dd": countyId, //County Id
+			"fea2cf2b-a682-4a47-a7ad-772c31f46bc9": plcYield, //PLC Payment Yield
+			"c50ef6bf-4b52-40a9-fc32-7365ba27d06b": program, //Program - can be defunct
+			"cb3e9b65-49f2-4123-9342-a3801d7b4d2e": sequesterPrice, //Sequester Price
+			"eedcadf9-e028-4e50-9eb0-48876b23f61d": startYear,   //Start year
+			"9edf142f-001c-4681-a24e-e8abaf8de972": pracCode
 		},
 
-
 		"datasets": {
-			"82392893-8b9d-498d-acba-7219b00c0b6c": inputDatasets.Model_Data_File,
-			"d2a2f3d2-fd76-4868-befc-7087d5795049": inputDatasets.Price_File
+			// "82392893-8b9d-498d-acba-7219b00c0b6c": inputDatasets.Model_Data_File,
+			"5d3749ca-4ce4-4902-ef8a-24767ac8f160": inputDatasets.Price_File
+			//"d2a2f3d2-fd76-4868-befc-7087d5795049": inputDatasets.Price_File
 		}
-
 	};
-
 }
 
-export const resultDatasetId = "07ec54a8-46ec-47c1-ac3a-cf641a8a6652";
+export const resultDatasetId =  "eb57225f-a64c-47c3-84e6-d641f4a30b3b"; //07ec54a8-46ec-47c1-ac3a-cf641a8a6652";
 
 
