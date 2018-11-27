@@ -179,15 +179,17 @@ class FDRunModel extends Component {
 			if (executionResponse instanceof Response) {
 				try {
 					modelResult = await executionResponse.json();
+					console.log(modelResult);
 					this.setState({runStatus: modelResult.stepState[steps.Farm_Model]});
 				}
 				catch(error){
+					console.log("parse_Err caught");
 					this.setState({runStatus: "PARSE_ERROR"});
 				}
 			}
 		}
 
-
+		console.log(`Result Dataset id = ${resultDatasetId}`);
 		const resultDatasetGuid = modelResult.datasets[resultDatasetId];
 		const outputFilename = "output.json";
 		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)) {
