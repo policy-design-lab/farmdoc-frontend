@@ -6,13 +6,15 @@ const crops = [
 const devConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api", //http://localhost:5000/api
-	commodities: crops
+	commodities: crops,
+	domain: "localhost"
 };
 
 const prodConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api",
-	commodities: crops
+	commodities: crops,
+	domain: "fd-tools.ncsa.illinois.edu"
 };
 
 const config = getConfig();

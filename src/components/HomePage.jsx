@@ -15,7 +15,7 @@ class HomePage extends Component {
 		let welcome = (<div>
 			<h1 className="secondary-color">Welcome to the Farmdoc Project</h1>
 			<br/>
-			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph}</p>)}
+			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/> </p> )}
 		</div>);
 
 
@@ -23,7 +23,8 @@ class HomePage extends Component {
 			(<div>
 				<h1 className="secondary-color">How does the simulation work?</h1>
 				<br/>
-				<img src={require("../images/farmdoc-rep-image.png")} width="100%" />
+				<img src={require("../images/farmdoc-rep-image.png")}  style={{borderStyle: "ridge"}}/>
+				{/*<img src={require("../images/map-marker.png")} width="100%"  style={{borderStyle: "ridge"}}/>*/}
 			</div>);
 
 
@@ -43,7 +44,7 @@ class HomePage extends Component {
 
 								{welcome}
 							</Cell>
-							<Cell col={4}>
+							<Cell col={3}>
 								{howwork}
 							</Cell>
 							<Cell col={4}>

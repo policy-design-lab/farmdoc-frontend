@@ -30,10 +30,10 @@ class Header extends Component {
 			<div>
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection className="farmdoc" align="start">
-							<Link to="/">
-								<img src={require("../images/logo.png")}/>
-								FarmDoc
+						<ToolbarSection align="start">
+							<Link to="/" className="farmdoc">
+								<img src={require("../images/logo.png")} />
+								<span style={{display:"inline", verticalAlign:"middle"}}>FarmDoc</span>
 							</Link>
 						</ToolbarSection>
 						<ToolbarSection align="end" >
