@@ -13,5 +13,5 @@ export const welcometext = ["The objective of this project is to provide a web-b
 ];
 export const register = "Creating an account allows you to save the simulation data" +
 	" and information about your farm and fields.";
-export const unlogin = ["We are glad you want to check out Farmdoc Simulator " ,
+export const unauthorized = ["We are glad you want to check out Farmdoc Simulator " ,
 	"For the best experience, login or register for a free account."];

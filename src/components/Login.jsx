@@ -13,7 +13,7 @@ import {checkAuthentication} from "../public/utils";
 import {Link} from "react-router";
 import config from "../app.config";
 import FormLabel from "@material-ui/core/FormLabel";
-import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unlogin} from "../app.messages";
+import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthorized} from "../app.messages";
 
 
 class Login extends Component {
@@ -200,7 +200,7 @@ class Login extends Component {
 						<br />
 						<p className="bold-text" key="keyword">Please Login or register.</p>
 						<br />
-						{unlogin.map((p, index) => <p key={index}>{p}</p>)}
+						{unauthorized.map((p, index) => <p key={index}>{p}</p>)}
 					</DialogBody>
 					<DialogFooter>
 						<Button compact onClick={()=> { this.setState({isOpen: false}); }}>Close</Button>
