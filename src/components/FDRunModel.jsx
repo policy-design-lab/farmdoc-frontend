@@ -168,7 +168,9 @@ class FDRunModel extends Component {
 
 		let modelResult;
 
-		while(this.state.runStatus === "" || this.state.runStatus === "WAITING" || this.state.runStatus === "RUNNING") {
+		const waitingStatuses = ["QUEUED", "WAITING", "RUNNING"];
+
+		while(this.state.runStatus === "" || waitingStatuses.indexOf(this.state.runStatus) > 0 ) {
 			await wait(300); // is this necessary?
 			const executionResponse = await fetch(`${dwUrl}/executions/${modelExecutionGUID}`, {
 				method: "GET",
