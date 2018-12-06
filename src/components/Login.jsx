@@ -3,14 +3,17 @@ import React, {Component} from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import styles from "../styles/main.css";
+import styles2 from "../styles/home-page.css";
 import { connect } from "react-redux";
-import {Textfield, Title, Button, Caption, Card, CardMedia, CardHeader, CardTitle, CardSubtitle, CardActions, CardText, Body2} from "react-mdc-web";
+import {Textfield, Title, Button, Caption, Card, CardMedia, CardHeader, CardTitle, CardSubtitle, CardActions, CardText,
+	Dialog, DialogBody, DialogFooter, Icon, Body2} from "react-mdc-web";
 import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
 import {Link} from "react-router";
 import config from "../app.config";
 import FormLabel from "@material-ui/core/FormLabel";
+import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthorized} from "../app.messages";
 
 
 class Login extends Component {
@@ -21,7 +24,8 @@ class Login extends Component {
 		this.state = {
 			email: "",
 			password: "",
-			loginStatus: ""
+			statusText: "",
+			isOpen: this.props.message === "Please login."
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
@@ -51,6 +55,44 @@ class Login extends Component {
 					return data;
 				});
 
+				// Get token from Data Wolf
+				let keyResponse = await fetch(`${datawolfURL  }/login/key`, {
+					method: "GET",
+					headers: {
+						"Authorization": `Basic ${  hash}`,
+						"Content-Type": "application/json",
+						"Access-Control-Origin": "http://localhost:3000"
+					}
+				});
+
+				// Store token in cookie if request is successful
+				if(keyResponse.status === 200) {
+					let jsonKeyData = await keyResponse.json().then(function(data) {
+						return data;
+					});
+
+					// Set 24 hours expiration
+					let date = new Date();
+					date.setTime(date.getTime() + (24*60*60*1000));
+
+					let expiresString = `expires=${  date.toUTCString()}`;
+					let domainString = `domain=${config.domain}`;
+					let pathString = "path=/";
+					let tokenString = `token=${  jsonKeyData["token"]}`;
+
+					document.cookie =  `${tokenString  };${  domainString  };${  pathString  };${  expiresString}`;
+
+					// Calling event handler for successful logging in
+					this.props.handleUserLogin(this.state.email, jsonData["id"], true);
+					sessionStorage.setItem("personId", jsonData["id"]); // Store person ID in session storage for future use
+					sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
+				}
+				else {
+					console.error(`Call to get token from Data Wolf did not succeed. Response status: ${ 
+						keyResponse.status}`);
+					this.setState({statusText: dataWolfGetTokenCallFailed});
+				}
+
 				this.props.handleUserLogin(this.state.email, jsonData["id"], true);
 				sessionStorage.setItem("personId", jsonData["id"]); // Store person ID in session storage for future use
 				sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
@@ -74,11 +116,13 @@ class Login extends Component {
 			}
 
 			else if (loginResponse.status === 401) {
-				this.setState({loginStatus: "failure"});
+				console.log("Datawolf authorization failed");
+				this.setState({statusText: invalidLoginCredentials});
 			}
 			else {
-
-				console.log(loginResponse.status);
+				console.error(`Call to get token from Data Wolf did not succeed. Response status: ${ 
+					loginResponse.status}`);
+				this.setState({statusText: dataWolfGetTokenCallFailed});
 			}
 		} catch (error) {
 			console.error(`Error: ${  error}`);
@@ -100,52 +144,71 @@ class Login extends Component {
 		}
 
 		return (
-			<div>
-				<Card className="login">
-					<CardHeader>
-						<CardTitle>A Web-based Decision Support System for Farm Doc Management</CardTitle>
-					</CardHeader>
-					<CardMedia
-						style={{
-							backgroundImage: "url(\"../images/farmdoc-rep-image.png\")",
-							height: "250px",
-							padding: "10px"
-						}}/>
-				</Card>
+			<div >
 				<br/>
 				{/*Display login card only when user is not authenticated*/}
 				{this.props.isAuthenticated === true ? null :
 					<Card className="login">
+						<h2>Login</h2>
 						<CardText>
-							<Body2>Sign In {errorMsg} </Body2>
-							<span><Textfield autoFocus floatingLabel="Email" value={this.state.email} onChange={({target: {value: email}}) => {
-								this.setState({email: email});
-							}}/>
+							{this.state.statusText && <div className="login-error">
+								<Icon name="warning"/><p>{this.state.statusText}</p>
+							</div>}
+							<span className="inputbox">
+								<Textfield autoFocus floatingLabel="Username" value={this.state.email} onChange={({target: {value: email}}) => {
+									this.setState({email: email});
+								}}/>
 							</span>
-
-							<span><Textfield floatingLabel="Password" type="password" value={this.state.password} onChange={({target: {value: password}}) => {
-								this.setState({password});
-							}}/>
+							<span className="inputbox">
+								<Textfield floatingLabel="Password" type="password"	value={this.state.password}	onChange={({target: {value: password}}) => {
+									this.setState({password});
+								}}/>
 							</span>
 						</CardText>
 						<CardActions>
 							<form>
-							<span>
 								<Button
 									type="submit"
 									raised
 									onClick={this.handleLogin}
 									disabled={!this.validateLoginForm()}>Login
 								</Button>
-							</span>
-								<span><Caption><Link to="/register">Register</Link></Caption></span>
-								<span><Caption><a className="not-active" href="">Forgot password?</a></Caption></span>
+
+
+								<p className="forget-password"><a className="not-active" href="">Forgot password?</a></p>
 							</form>
 						</CardActions>
+						<CardText className="register-block">
+							<p><Icon name="spa"/>{register}</p>
+							<hr />
+							<div className="register">
+								<p className="bold-text">Don't have an account?</p>
+								<p className="bold-text"><Link to="/register">Get Registered!</Link></p>
+							</div>
+						</CardText>
+
 					</Card>
+
 				}
+				<Dialog
+					open={this.state.isOpen}
+					onClose={() => {this.setState({isOpen:false});}}
+					className="unlogin"
+				>
+					<DialogBody>
+						<Icon  name="warning"/>
+						<br />
+						<p className="bold-text" key="keyword">Please Login or register.</p>
+						<br />
+						{unauthorized.map((p, index) => <p key={index}>{p}</p>)}
+					</DialogBody>
+					<DialogFooter>
+						<Button compact onClick={()=> { this.setState({isOpen: false}); }}>Close</Button>
+					</DialogFooter>
+				</Dialog>
 			</div>
 		);
+
 	}
 }
 

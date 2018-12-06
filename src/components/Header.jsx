@@ -30,9 +30,11 @@ class Header extends Component {
 			<div>
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection className="farmdoc" align="start">
-							<img src={require("../images/logo.png")}/>
-							FarmDoc
+						<ToolbarSection align="start">
+							<Link to="/" className="farmdoc">
+								<img src={require("../images/logo.png")} />
+								<span style={{display:"inline", verticalAlign:"middle"}}>FarmDoc</span>
+							</Link>
 						</ToolbarSection>
 						<ToolbarSection align="end" >
 							<span className="email-address">{this.props.email}</span>
@@ -43,21 +45,22 @@ class Header extends Component {
 						</ToolbarSection>
 					</ToolbarRow>
 				</Toolbar>
-					<Grid className="no-bottom-grid">
 
-						<Cell col={5} className="rectangle-2">
-							<div>
-								<Link to="/model" className="farmdoc-analyzer" >FarmDoc </Link>
+				<div className="header-tab" >
+					<div className="rectangle-2">
+						<Link to="/model" className="farmdoc-analyzer" >FarmDoc Simulator </Link>
 
-							</div>
-						</Cell>
-						<Cell col={2} />
-						<Cell col={5} className="rectangle-3">
-							<div>
-								<Link to="/" className="about-the-project">About the Project</Link>
-							</div>
-						</Cell>
-					</Grid>
+					</div>
+
+					{this.props.selected === "home" && <div className="triangle-bottomright"></div> }
+					{this.props.selected === "home" ? <div className="rectangle-3-onselect">
+							<Link to="/" className="about-the-project-onselect">About the Project</Link>
+						</div> :
+						<Link to="/" className="about-the-project">About the Project</Link>
+
+					}
+				</div>
+
 			</div>
 
 		);

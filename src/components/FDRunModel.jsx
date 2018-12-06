@@ -189,7 +189,6 @@ class FDRunModel extends Component {
 			}
 		}
 
-
 		const resultDatasetGuid = modelResult.datasets[resultDatasetId];
 		const outputFilename = "output.json";
 		if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)) {
