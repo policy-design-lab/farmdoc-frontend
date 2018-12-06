@@ -1,7 +1,7 @@
 const crops = [
 	{"id": "corn", "name": "Corn", "units": "bushels/acre", "refPrice": 3.7},
 	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4},
-	{"id": "wheat", "name": "Wheat", "units": "lbs/acre", "refPrice": 5.5}
+	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5}
 ];
 const devConfig = {
 	basePath: "/",
