@@ -31,6 +31,12 @@ class AnalyzerWrap extends Component {
 						>
 							Farmdoc Charts
 						</Tab>
+						<Tab
+							active={activeTab===3}
+							href="#/dashboard"
+						>
+							Farmdoc Dashboard
+						</Tab>
 
 					</Tabbar>
 

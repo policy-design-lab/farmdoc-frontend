@@ -14,6 +14,8 @@ import FDModelPage from "./FDModelPage";
 import FarmerChartsPrev from "./FarmerChartsPrev";
 import FarmerCharts from "./FarmerCharts";
 import Login from "./Login";
+import Dashboard from "./Dashboard";
+import Results from "./Results";
 
 
 global.__base = `${__dirname  }/`;
@@ -46,10 +48,11 @@ class App extends Component {
 			<MuiThemeProvider theme={theme}>
 				<Router history={hashHistory}>
 					<Route path="/" component={HomePage}/>
+					<Route path="/dashboard" component={Dashboard}/>
 					<Route path="/model" component={FDModelPage}/>
 					<Route path="/about" component={AboutPage}/>
 					<Route path="/register" component={RegistrationPage}/>
-					<Route path="/chartsold" component={FarmerChartsPrev}/>
+					<Route path="/chartsold" component={Results}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/login" component={Login}/>
 					<Route path="*" component={RouteMismatch}/>
