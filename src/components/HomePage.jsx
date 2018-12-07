@@ -20,7 +20,7 @@ class HomePage extends Component {
 
 
 		let howwork =
-			(<div>
+			(<div style={{textAlign: "center"}}>
 				<h1 className="secondary-color">How does the simulation work?</h1>
 				<br/>
 				<img src={require("../images/farmdoc-rep-image.png")}  style={{borderStyle: "ridge"}}/>
@@ -44,7 +44,7 @@ class HomePage extends Component {
 
 								{welcome}
 							</Cell>
-							<Cell col={3}>
+							<Cell col={4} >
 								{howwork}
 							</Cell>
 							<Cell col={4}>

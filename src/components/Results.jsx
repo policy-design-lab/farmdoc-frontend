@@ -46,7 +46,7 @@ const ChartTableCell = withStyles({
 		borderWidth: 1,
 		borderColor: "rgb(224,224,224)",
 		paddingRight: 0,
-		minWidth: 450
+		minWidth: 340
 	}
 }) (TableCell);
 
@@ -65,7 +65,7 @@ const TableCellDefaultStyles = withStyles({
 		borderWidth: 1,
 		borderColor: "rgb(224,224,224)",
 		textAlign: "center",
-		width: "95px",
+		width: "90px",
 		paddingLeft: "4px !important",
 		paddingRight: "4px !important"
 	}
