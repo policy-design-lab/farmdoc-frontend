@@ -465,8 +465,8 @@ class FDRunModel extends Component {
 								if (e.target.value <= 0) {
 									e.target.value = 1;
 								}
-								else if (e.target.value > 200) {
-									e.target.value = 200;
+								else if (e.target.value > 300) {
+									e.target.value = 300;
 								}
 							}
 						}
