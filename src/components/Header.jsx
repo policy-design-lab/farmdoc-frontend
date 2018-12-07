@@ -48,7 +48,7 @@ class Header extends Component {
 
 				<div className="header-tab" >
 					<div className="rectangle-2">
-						<Link to="/model" className="farmdoc-analyzer" >FarmDoc Simulator </Link>
+						<Link to="/dashboard" className="farmdoc-analyzer" >Payment Calculator </Link>
 
 					</div>
 

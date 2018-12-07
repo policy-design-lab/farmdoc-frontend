@@ -9,6 +9,9 @@ import Header from "./Header";
 import {Line, Bar, HorizontalBar} from "react-chartjs-2";
 import {Grid, Table, TableCell, TableRow, TableHead, TableBody, Modal} from "@material-ui/core";
 import "handsontable/dist/handsontable.full.css";
+import {
+	handleResults
+} from "../actions/model";
 
 const styles = theme => ({
 	root: {
@@ -136,7 +139,17 @@ class Results extends Component{
 
 	constructor(props) {
 		super(props);
+		this.handleResultsChange = this.handleResultsChange.bind(this);
 	}
+
+	componentWillUnmount(){
+		this.props.handleResultsChange(null);
+	}
+
+	handleResultsChange(results){
+		this.props.handleResultsChange(results);
+	}
+
 
 
 	render() {
@@ -331,8 +344,8 @@ class Results extends Component{
 		else{
 			//TODO: Improve the error message format
 			return(
-				<div>
-					<div>Run the model first</div>
+				<div >
+					{/*<div style={{textAlign: "center"}}>Run the model first</div>*/}
 				</div>
 			);
 		}
@@ -345,4 +358,8 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default connect(mapStateToProps, null) (withStyles(styles)(Results));
+const mapDispatchToProps = dispatch => ({
+	handleResultsChange: results => dispatch(handleResults(results))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps) (withStyles(styles)(Results));

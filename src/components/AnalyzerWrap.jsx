@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router";
 import styles from "../styles/header.css";
-import {Button, Tabbar, Tab, ToolbarSection, ToolbarTitle, Grid, Cell, Textfield, Caption, Icon, MenuAnchor, Menu, MenuItem, MenuDivider} from 'react-mdc-web';
+import {Button, Tabbar, Tab, ToolbarSection, ToolbarTitle, Grid, Cell, Textfield, Caption, Icon, MenuAnchor, Menu, MenuItem, MenuDivider} from "react-mdc-web";
 import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
 
@@ -16,7 +16,7 @@ class AnalyzerWrap extends Component {
 		// Cannot use Link within Tab
 		return(
 			<div>
-				<span className="analyzer-line"> </span>
+				{/*<span className="analyzer-line"> </span>*/}
 				<div className="analyzer-tab">
 					<Tabbar>
 						<Tab
@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
 	return {
 		email: state.user.email,
 		isAuthenticated: state.user.isAuthenticated
-	}
+	};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 		handleUserLogout: () => {
 			dispatch(handleUserLogout());
 		}
-	}
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnalyzerWrap);
