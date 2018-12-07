@@ -103,6 +103,7 @@ class Login extends Component {
 					if (checkAuthResponse.status === 200) {
 						this.setState({loginStatus: "success"});
 						console.log("Person Valid");
+						window.location = "/#dashboard";
 					}
 					else if (checkAuthResponse.status === 401) {
 						this.setState({loginStatus: "failure"});
