@@ -150,7 +150,14 @@ class Results extends Component{
 		this.props.handleResultsChange(results);
 	}
 
-
+	roundResults = (val, n ) => {
+		if(n === undefined || n === 0){
+			return Math.round(val);
+		}
+		else {
+			return Number(val).toFixed(n);
+		}
+	};
 
 	render() {
 		const { classes } = this.props;
@@ -176,7 +183,7 @@ class Results extends Component{
 
 		if(jsonData !== null){
 			let objData = JSON.parse(jsonData);
-
+			let _this = this;
 			if(objData.county_average_arc_and_plc_payments && objData.county_average_arc_and_plc_payments !== null){
 
 				let arcplcData = objData.county_average_arc_and_plc_payments.datasets.data;
@@ -184,10 +191,11 @@ class Results extends Component{
 				arcplcData.forEach(function(element)
 				{
 					years.push(element.point);
-					arc.push(element.value1.mean);
-					plc.push(element.value2.mean);
-					probArc.push(element.value1.pos);
-					probPlc.push(element.value2.pos);
+					arc.push(_this.roundResults(element.value1.mean, 2));
+					plc.push(_this.roundResults(element.value2.mean, 2));
+
+					probArc.push(_this.roundResults(element.value1.pos));
+					probPlc.push(_this.roundResults(element.value2.pos));
 
 				});
 			}
@@ -197,7 +205,7 @@ class Results extends Component{
 				let priceData = objData.mean_prices.datasets.data;
 
 				priceData.forEach(function(element) {
-					prices.push(element.value1.mean);
+					prices.push(_this.roundResults(element.value1.mean, 2));
 				});
 			}
 
@@ -208,7 +216,7 @@ class Results extends Component{
 				yieldUnits = objData.county_yields.yData1Unit;
 
 				yieldData.forEach(function(element) {
-					yields.push(element.value1.mean);
+					yields.push(_this.roundResults(element.value1.mean,1));
 				});
 			}
 
