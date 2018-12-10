@@ -149,6 +149,7 @@ class RegistrationPage extends Component {
 		return (
 			<div>
 				<Header/>
+				<span className="analyzer-line"> </span>
 				<div className="content">
 					<Grid>
 						<Cell col={4}/>
