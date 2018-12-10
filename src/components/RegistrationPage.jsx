@@ -148,7 +148,8 @@ class RegistrationPage extends Component {
 	render() {
 		return (
 			<div>
-				<Header/>
+				<Header selected="home"/>
+				<span className="home-line" />
 				<div className="content">
 					<Grid>
 						<Cell col={4}/>
