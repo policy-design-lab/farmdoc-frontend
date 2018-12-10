@@ -145,7 +145,7 @@
 .rectangle-2 {
 	height: 49px;
 	width: 300px;
-	background-color: #1AB146;
+	background-color: #F66B16;
 	position: absolute;
 }
 
@@ -177,7 +177,7 @@
 .analyzer-line {
 	display: block;
 	height: 3px;
-	border: 3px solid #1AB146;
+	border: 3px solid #F66B16;
 	margin-top: -12px;
 }
 
@@ -196,8 +196,8 @@
 
 .analyzer-tab .mdc-tab-bar__indicator{
 	/*not working*/
-	background-color: #1AB146;
-	border: 6px solid #1AB146;
+	background-color: #F66B16;
+	border: 6px solid #F66B16;
 	height: 3px;
 }
 

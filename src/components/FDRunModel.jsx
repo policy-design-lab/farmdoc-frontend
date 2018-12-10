@@ -517,8 +517,8 @@ class FDRunModel extends Component {
 				/>
 				<br/><br/>
 				<div style={{textAlign: "center"}}>
-				<Button variant="contained" color="primary" onClick={this.runModel} disabled={!this.validateInputs()} style={{fontSize: "large"}}>
-
+				<Button variant="contained" color="primary" onClick={this.runModel} disabled={!this.validateInputs()}
+						style={{fontSize: "large", backgroundColor: "#455A64"}}>
 					<Icon className={classes.leftIcon}> send </Icon>
 					Run Model
 				</Button>
