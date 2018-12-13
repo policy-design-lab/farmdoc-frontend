@@ -17,12 +17,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.2.0] - 2018-12-10
 
 ### Added
-- Provided State and County selections to run the model. 
-- Support for Soy beans and Wheat, in addition to corn
+- Provided State and County selections to run the model
+- Support for Soy Beans and Wheat, in addition to Corn
 
 ### Changed
 - Look and feel of landing page and home pages. Appropriate Header and images are included
-- Merged model selections form and the results page to a single screen
+- Merged model selections form and the results page to a single page
 
 ### Fixed
 - Fixed the issue seen on slower connections by handling 'Queued' status of Datawolf 
