@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Ability to login through datawolf credentials
 - Inital setup of the needed packages and dependencies.
 
-## [0.2.0]
+
+## [0.2.0] - 2018-12-10
 
 ### Added
 - Provided State and County selections to run the model. 
