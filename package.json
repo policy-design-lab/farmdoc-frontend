@@ -1,6 +1,6 @@
 {
 	"name": "farmdoc",
-	"version": "0.0.1",
+	"version": "0.2.0",
 	"description": "A Web Based Decision Support Tool for Farm Doc.",
 	"engines": {
 		"npm": ">=3.10",
