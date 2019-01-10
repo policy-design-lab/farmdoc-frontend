@@ -1,13 +1,11 @@
 import React, {Component} from "react";
-import {Router, Route, hashHistory, Redirect} from "react-router";
+import {hashHistory, Redirect, Route, Router} from "react-router";
 
 import HomePage from "./HomePage";
 import AboutPage from "./AboutPage";
 import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
-import {MuiThemeProvider, createMuiTheme} from "@material-ui/core/styles";
-import {Cell, Grid, Title, Textfield, Button, Caption, Body1, Subheading2} from "react-mdc-web";
-//import injectTapEventPlugin from 'react-tap-event-plugin'
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import {isUserAuthenticated} from "../public/utils";
 import RegistrationPage from "./RegistrationPage";
 import FDModelPage from "./FDModelPage";
@@ -30,7 +28,7 @@ class App extends Component {
 			<Route
 				{...rest}
 				render={props =>
-					isUserAuthenticated()  ? (
+					isUserAuthenticated() ? (
 						<Component {...props} />
 					) : (
 						<Redirect

@@ -1,18 +1,5 @@
 import React, {Component} from "react";
-import {
-	Body1,
-	Button,
-	Card,
-	CardActions,
-	CardHeader,
-	CardSubtitle,
-	CardText,
-	CardTitle,
-	Cell,
-	Grid,
-	Textfield,
-	Title
-} from "react-mdc-web";
+import {Button, Card, CardActions, CardHeader, CardText, Cell, Grid, Textfield, Title} from "react-mdc-web";
 import Header from "./Header";
 import Footer from "./Footer";
 import {datawolfURL} from "../datawolf.config";
@@ -40,12 +27,12 @@ class RegistrationPage extends Component {
 		this.setState({statusText: ""});
 
 		try {
-			let createPersonResponse = await fetch(datawolfURL + "/persons?" +
-				"firstName=" + this.state.firstName +
-				"&lastName=" + this.state.lastName +
-				"&email=" + this.state.email,
+			let createPersonResponse = await fetch(`${datawolfURL  }/persons?` +
+				`firstName=${  this.state.firstName
+					}&lastName=${  this.state.lastName
+					}&email=${  this.state.email}`,
 				{
-					method: 'POST',
+					method: "POST",
 					headers: {
 						"Content-Type": "text/plain",
 						"Access-Control-Origin": "http://localhost:3000"
@@ -56,11 +43,11 @@ class RegistrationPage extends Component {
 
 				let personId = await createPersonResponse.text();
 
-				let createAccountResponse = await fetch(datawolfURL + "/login?" +
-					"email=" + this.state.email +
-					"&password=" + this.state.password,
+				let createAccountResponse = await fetch(`${datawolfURL  }/login?` +
+					`email=${  this.state.email
+						}&password=${  this.state.password}`,
 					{
-						method: 'POST',
+						method: "POST",
 						headers: {
 							"Content-Type": "text/plain",
 							"Access-Control-Origin": "http://localhost:3000"
@@ -72,7 +59,7 @@ class RegistrationPage extends Component {
 					let responseText = await createAccountResponse.text();
 
 					// User needs to be activated
-					if(responseText === "Not Active") {
+					if (responseText === "Not Active") {
 						console.log("User account not active.");
 						this.setState({statusText: userNotActiveMessage});
 					}
@@ -83,28 +70,27 @@ class RegistrationPage extends Component {
 					}
 				}
 				// Account creation unsuccessful. User already exists.
-				else if (createAccountResponse.status === 500){
+				else if (createAccountResponse.status === 500) {
 					let responseText = await createAccountResponse.text();
-					console.log("Status Text: " + responseText);
+					console.log(`Status Text: ${  responseText}`);
 					this.setState({statusText: responseText});
 				}
 				else {
-					console.log("Registration Step 2 Status: " + createAccountResponse.status);
+					console.log(`Registration Step 2 Status: ${  createAccountResponse.status}`);
 					let responseText = await createAccountResponse.text();
 					this.setState({statusText: genericRegistrationErrorMessage});
 				}
 			}
 			else {
-				console.log("Registration Step 1 Status: " + createPersonResponse.status);
+				console.log(`Registration Step 1 Status: ${  createPersonResponse.status}`);
 				this.setState({statusText: genericRegistrationErrorMessage});
 			}
 		}
 		catch (error) {
-			console.error("Error: " + error);
+			console.error(`Error: ${  error}`);
 			this.setState({statusText: genericRegistrationErrorMessage});
 		}
 	};
-
 	handleReset = () => {
 		this.setState({
 			firstName: "",
@@ -117,8 +103,7 @@ class RegistrationPage extends Component {
 			statusText: ""
 		});
 	};
-
-	verifyPasswords  = () => {
+	verifyPasswords = () => {
 
 		if (this.state.password !== this.state.passwordConfirm) {
 			this.setState({arePasswordsMatching: false});
@@ -127,7 +112,7 @@ class RegistrationPage extends Component {
 			this.setState({arePasswordsMatching: true});
 		}
 
-		if (this.state.password.length >= 6 ) {
+		if (this.state.password.length >= 6) {
 			this.setState({hasMinimumPasswordLength: true});
 		}
 		else {
@@ -149,7 +134,7 @@ class RegistrationPage extends Component {
 		return (
 			<div>
 				<Header selected="home"/>
-				<span className="home-line" />
+				<span className="home-line"/>
 				<div className="content">
 					<Grid>
 						<Cell col={4}/>
@@ -166,13 +151,13 @@ class RegistrationPage extends Component {
 															value={this.state.firstName}
 															size="40"
 															onChange={({target: {value: firstName}}) => {
-																this.setState({firstName: firstName})
+																this.setState({firstName: firstName});
 															}}/></div>
 											<div><Textfield floatingLabel="Last name" value={this.state.lastName}
 															required
 															size="40"
 															onChange={({target: {value: lastName}}) => {
-																this.setState({lastName: lastName})
+																this.setState({lastName: lastName});
 															}}/></div>
 											<div><Textfield floatingLabel="Email ID" value={this.state.email}
 															required
@@ -181,7 +166,7 @@ class RegistrationPage extends Component {
 															helptext="Please enter a valid email address."
 															helptextValidation
 															onChange={({target: {value: email}}) => {
-																this.setState({email: email})
+																this.setState({email: email});
 															}}/></div>
 											<div><Textfield floatingLabel="Password" type="password"
 															value={this.state.password}
@@ -192,7 +177,7 @@ class RegistrationPage extends Component {
 															helptext="Your password must be contain at least 6 letters."
 															helptextValidation
 															onChange={({target: {value: password}}) => {
-																this.setState({password: password})
+																this.setState({password: password});
 															}}
 															onKeyUp={this.verifyPasswords}/></div>
 											<div><Textfield floatingLabel="Confirm Password" type="password"
@@ -204,7 +189,7 @@ class RegistrationPage extends Component {
 															helptext={"Passwords do not match."}
 															helptextValidation
 															onChange={({target: {value: passwordConfirm}}) => {
-																this.setState({passwordConfirm: passwordConfirm})
+																this.setState({passwordConfirm: passwordConfirm});
 															}}
 															onKeyUp={this.verifyPasswords}/></div>
 										</CardText>
@@ -230,7 +215,7 @@ class RegistrationPage extends Component {
 				</div>
 				<Footer/>
 			</div>
-		)
+		);
 	}
 }
 

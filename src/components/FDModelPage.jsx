@@ -9,7 +9,7 @@ class FDModelPage extends Component {
 	render() {
 		return (
 			<div>
-				<Header selected='model'/>
+				<Header selected="model"/>
 				<AnalyzerWrap activeTab={1}/>
 				<AuthorizedWarp>
 

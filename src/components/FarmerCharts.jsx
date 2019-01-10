@@ -8,7 +8,7 @@ class FarmerCharts extends Component {
 	render() {
 		return (
 			<div>
-				<Header selected='charts'/>
+				<Header selected="charts"/>
 				<AnalyzerWrap activeTab={2}/>
 				<AuthorizedWarp>
 					<Results/>

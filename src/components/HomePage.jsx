@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import Header from "./Header";
-import Footer from "./Footer";
-import styles from "../styles/main.css";
-import styles2 from "../styles/home-page.css";
-import {Cell, Grid, Title, Textfield, Card, CardHeader, CardMedia, CardTitle, CardText, GridList, Tile, TileTitle, TilePrimary,TileSecondary, TileContent, Icon} from "react-mdc-web";
+import "../styles/main.css";
+import "../styles/home-page.css";
+import {Cell, Grid} from "react-mdc-web";
 import Login from "./Login";
 import {welcometext} from "../app.messages";
 
@@ -15,7 +14,7 @@ class HomePage extends Component {
 		let welcome = (<div>
 			<h1 className="secondary-color">Welcome to the Farmdoc Project</h1>
 			<br/>
-			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/> </p> )}
+			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
 		</div>);
 
 
@@ -23,20 +22,18 @@ class HomePage extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h1 className="secondary-color">How does the simulation work?</h1>
 				<br/>
-				<img src={require("../images/farmdoc-rep-image.png")}  style={{borderStyle: "ridge"}}/>
+				<img src={require("../images/farmdoc-rep-image.png")} style={{borderStyle: "ridge"}}/>
 				{/*<img src={require("../images/map-marker.png")} width="100%"  style={{borderStyle: "ridge"}}/>*/}
 			</div>);
 
 
 		return (
-			<div >
+			<div>
 				<Header selected="home"/>
-				<span className="home-line" />
+				<span className="home-line"/>
 
 				<div className="home-content"
-					style={{//backgroundImage: "url(\"../images/ground.jpg\")",
-						backgroundSize: "cover",
-						backgroundPosition: "center",}}
+					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
 				>
 					{window.innerWidth > 1300 ?
 						<Grid>
@@ -44,7 +41,7 @@ class HomePage extends Component {
 
 								{welcome}
 							</Cell>
-							<Cell col={4} >
+							<Cell col={4}>
 								{howwork}
 							</Cell>
 							<Cell col={4}>
@@ -54,7 +51,7 @@ class HomePage extends Component {
 						<Grid>
 							<Cell col={6}>
 								{welcome}
-								<br />
+								<br/>
 								{howwork}
 							</Cell>
 							<Cell col={6}>

@@ -1,12 +1,8 @@
 import React, {Component} from "react";
-
-import Header from "./Header";
-import Footer from "./Footer";
-import styles from "../styles/main.css";
-import styles2 from "../styles/home-page.css";
-import { connect } from "react-redux";
-import {Textfield, Title, Button, Caption, Card, CardMedia, CardHeader, CardTitle, CardSubtitle, CardActions, CardText,
-	Dialog, DialogBody, DialogFooter, Icon, Body2} from "react-mdc-web";
+import "../styles/main.css";
+import "../styles/home-page.css";
+import {connect} from "react-redux";
+import {Card, CardActions, CardText, Dialog, DialogBody, DialogFooter, Icon, Textfield, Button} from "react-mdc-web";
 import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
@@ -17,19 +13,6 @@ import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthori
 
 
 class Login extends Component {
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			email: "",
-			password: "",
-			statusText: "",
-			isOpen: this.props.message === "Please login."
-		};
-
-		this.handleLogin = this.handleLogin.bind(this);
-	}
 
 	handleLogin = async event => {
 		event.preventDefault();
@@ -66,21 +49,21 @@ class Login extends Component {
 				});
 
 				// Store token in cookie if request is successful
-				if(keyResponse.status === 200) {
-					let jsonKeyData = await keyResponse.json().then(function(data) {
+				if (keyResponse.status === 200) {
+					let jsonKeyData = await keyResponse.json().then(function (data) {
 						return data;
 					});
 
 					// Set 24 hours expiration
 					let date = new Date();
-					date.setTime(date.getTime() + (24*60*60*1000));
+					date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
 
 					let expiresString = `expires=${  date.toUTCString()}`;
 					let domainString = `domain=${config.domain}`;
 					let pathString = "path=/";
 					let tokenString = `token=${  jsonKeyData["token"]}`;
 
-					document.cookie =  `${tokenString  };${  domainString  };${  pathString  };${  expiresString}`;
+					document.cookie = `${tokenString  };${  domainString  };${  pathString  };${  expiresString}`;
 
 					// Calling event handler for successful logging in
 					this.props.handleUserLogin(this.state.email, jsonData["id"], true);
@@ -88,7 +71,7 @@ class Login extends Component {
 					sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
 				}
 				else {
-					console.error(`Call to get token from Data Wolf did not succeed. Response status: ${ 
+					console.error(`Call to get token from Data Wolf did not succeed. Response status: ${
 						keyResponse.status}`);
 					this.setState({statusText: dataWolfGetTokenCallFailed});
 				}
@@ -121,7 +104,7 @@ class Login extends Component {
 				this.setState({statusText: invalidLoginCredentials});
 			}
 			else {
-				console.error(`Call to get token from Data Wolf did not succeed. Response status: ${ 
+				console.error(`Call to get token from Data Wolf did not succeed. Response status: ${
 					loginResponse.status}`);
 				this.setState({statusText: dataWolfGetTokenCallFailed});
 			}
@@ -130,6 +113,19 @@ class Login extends Component {
 		}
 	};
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			email: "",
+			password: "",
+			statusText: "",
+			isOpen: this.props.message === "Please login."
+		};
+
+		this.handleLogin = this.handleLogin.bind(this);
+	}
+
 	validateLoginForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;
 	}
@@ -137,15 +133,15 @@ class Login extends Component {
 	render() {
 
 		let errorMsg;
-		if(this.state.loginStatus === "failure"){
-			errorMsg = 	<FormLabel error={true} style={{fontSize: 14}}> - Authentication failed </FormLabel>;
+		if (this.state.loginStatus === "failure") {
+			errorMsg = <FormLabel error={true} style={{fontSize: 14}}> - Authentication failed </FormLabel>;
 		}
-		else{
+		else {
 			errorMsg = null;
 		}
 
 		return (
-			<div >
+			<div>
 				<br/>
 				{/*Display login card only when user is not authenticated*/}
 				{this.props.isAuthenticated === true ? null :
@@ -156,14 +152,16 @@ class Login extends Component {
 								<Icon name="warning"/><p>{this.state.statusText}</p>
 							</div>}
 							<span className="inputbox">
-								<Textfield autoFocus floatingLabel="Username" value={this.state.email} onChange={({target: {value: email}}) => {
-									this.setState({email: email});
-								}}/>
+								<Textfield autoFocus floatingLabel="Username" value={this.state.email}
+										   onChange={({target: {value: email}}) => {
+											   this.setState({email: email});
+										   }}/>
 							</span>
 							<span className="inputbox">
-								<Textfield floatingLabel="Password" type="password"	value={this.state.password}	onChange={({target: {value: password}}) => {
-									this.setState({password});
-								}}/>
+								<Textfield floatingLabel="Password" type="password" value={this.state.password}
+										   onChange={({target: {value: password}}) => {
+											   this.setState({password});
+										   }}/>
 							</span>
 						</CardText>
 						<CardActions>
@@ -176,12 +174,13 @@ class Login extends Component {
 								</Button>
 
 
-								<p className="forget-password"><a className="not-active" href="">Forgot password?</a></p>
+								<p className="forget-password"><a className="not-active" href="">Forgot password?</a>
+								</p>
 							</form>
 						</CardActions>
 						<CardText className="register-block">
 							<p><Icon name="spa"/>{register}</p>
-							<hr />
+							<hr/>
 							<div className="register">
 								<p className="bold-text">Don't have an account?</p>
 								<p className="bold-text"><Link to="/register">Get Registered!</Link></p>
@@ -193,18 +192,22 @@ class Login extends Component {
 				}
 				<Dialog
 					open={this.state.isOpen}
-					onClose={() => {this.setState({isOpen:false});}}
+					onClose={() => {
+						this.setState({isOpen: false});
+					}}
 					className="unlogin"
 				>
 					<DialogBody>
-						<Icon  name="warning"/>
-						<br />
+						<Icon name="warning"/>
+						<br/>
 						<p className="bold-text" key="keyword">Please Login or register.</p>
-						<br />
+						<br/>
 						{unauthorized.map((p, index) => <p key={index}>{p}</p>)}
 					</DialogBody>
 					<DialogFooter>
-						<Button compact onClick={()=> { this.setState({isOpen: false}); }}>Close</Button>
+						<Button compact onClick={() => {
+							this.setState({isOpen: false});
+						}}>Close</Button>
 					</DialogFooter>
 				</Dialog>
 			</div>

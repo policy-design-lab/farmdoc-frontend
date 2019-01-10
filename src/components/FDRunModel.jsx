@@ -1,24 +1,26 @@
 import React, {Component} from "react";
-import { connect } from "react-redux";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import {connect} from "react-redux";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import {Select, FormControl, InputLabel, MenuItem} from "@material-ui/core";
-import Input from "@material-ui/core/Input";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
+import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import {ID, getOutputFileJson} from "../public/utils";
-import {datawolfURL, postExecutionRequest, steps, resultDatasetId} from "../datawolf.config";
+import {getOutputFileJson} from "../public/utils";
+import {datawolfURL, postExecutionRequest, resultDatasetId, steps} from "../datawolf.config";
 import {
-	changeAcres, changeCommodity, changeCoverage, changePaymentYield,
-	handleResults, changeRefPrice, changeRange, changeCounty
+	changeAcres,
+	changeCommodity,
+	changeCounty,
+	changeCoverage,
+	changePaymentYield,
+	changeRange,
+	changeRefPrice,
+	handleResults
 } from "../actions/model";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
-
 
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -70,9 +72,9 @@ const styles = theme => ({
 
 class FDRunModel extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
-		this.runModel =this.runModel.bind(this);
+		this.runModel = this.runModel.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
 
@@ -81,8 +83,8 @@ class FDRunModel extends Component {
 			states: [],
 			stateSel: "",
 			counties: [],
-			county:"",
-			program:"both",
+			county: "",
+			program: "both",
 			commodity: "",
 			units: "bushel/acre",
 			refPrice: 3.7,
@@ -91,7 +93,7 @@ class FDRunModel extends Component {
 			coverage: .86,
 			paymentYield: "",
 			range: .1,
-			runName:"",
+			runName: "",
 			runStatus: "",
 			modelResult: null
 		};
@@ -102,7 +104,7 @@ class FDRunModel extends Component {
 		stateSel: "",
 		counties: [],
 		county: "",
-		program:"both",
+		program: "both",
 		commodity: "",
 		units: "bushel/acre",
 		refPrice: 3.7,
@@ -111,14 +113,13 @@ class FDRunModel extends Component {
 		coverage: .86,
 		paymentYield: "",
 		range: .1,
-		runName:"",
+		runName: "",
 		runStatus: "",
 		modelResult: null
 	};
 
 
-
-	async runModel(){
+	async runModel() {
 		//let status = "STARTED";
 		let personId = sessionStorage.getItem("personId");
 		this.setState({
@@ -136,7 +137,8 @@ class FDRunModel extends Component {
 
 		let dwUrl = datawolfURL;
 
-		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice;
+		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
+			sequesterPrice;
 		countyId = this.state.county; //571;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
@@ -149,11 +151,10 @@ class FDRunModel extends Component {
 		sequesterPrice = this.state.seqprice;
 
 
-
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
 			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice);
 
-		let body =  JSON.stringify(postRequest);
+		let body = JSON.stringify(postRequest);
 
 		let modelResponse = await fetch(`${dwUrl}/executions`, {
 			method: "POST",
@@ -172,7 +173,7 @@ class FDRunModel extends Component {
 
 		const waitingStatuses = ["QUEUED", "WAITING", "RUNNING"];
 
-		while(this.state.runStatus === "" || waitingStatuses.indexOf(this.state.runStatus) >= 0 ) {
+		while (this.state.runStatus === "" || waitingStatuses.indexOf(this.state.runStatus) >= 0) {
 			await wait(300);
 			const executionResponse = await fetch(`${dwUrl}/executions/${modelExecutionGUID}`, {
 				method: "GET",
@@ -185,7 +186,7 @@ class FDRunModel extends Component {
 					modelResult = await executionResponse.json();
 					this.setState({runStatus: modelResult.stepState[steps.Farm_Model]});
 				}
-				catch(error){
+				catch (error) {
 					this.setState({runStatus: "PARSE_ERROR"});
 				}
 			}
@@ -204,7 +205,7 @@ class FDRunModel extends Component {
 			//window.location = "/#charts";
 
 		}
-		else{
+		else {
 			this.setState({runStatus: "PARSE_ERROR"});
 		}
 	}
@@ -214,13 +215,13 @@ class FDRunModel extends Component {
 			[name]: event.target.value,
 		});
 
-		switch(name){
+		switch (name) {
 		case "county":
 			this.props.handleCountyChange(event.target.value);
 			break;
 		case "commodity":
 			this.props.handleCommodityChange(event.target.value);
-			if(event.target.value !== "") {
+			if (event.target.value !== "") {
 				this.populateRefPriceAndUnits(event.target.value);
 			}
 			break;
@@ -246,7 +247,7 @@ class FDRunModel extends Component {
 			break;
 
 		case "stateSel":
-			if(event.target.value !== "") {
+			if (event.target.value !== "") {
 				this.populateCounties(event.target.value);
 			}
 			break;
@@ -255,19 +256,19 @@ class FDRunModel extends Component {
 
 	};
 
-	handleResultsChange(results){
+	handleResultsChange(results) {
 		this.props.handleResultsChange(results);
 	}
 
 
 	handleChanger = event => {
-		this.setState({ program: event.target.value });
+		this.setState({program: event.target.value});
 	};
 
 
-	componentDidMount(){
+	componentDidMount() {
 		let statesJson = [];
-		
+
 		fetch(`${config.apiUrl}/states`)
 			.then(response => {
 				return response.json();
@@ -281,7 +282,7 @@ class FDRunModel extends Component {
 			});
 	}
 
-	populateCounties(stateId){
+	populateCounties(stateId) {
 		let countiesJson = [];
 
 		fetch(`${config.apiUrl}/counties/${stateId}`)
@@ -297,9 +298,9 @@ class FDRunModel extends Component {
 			});
 	}
 
-	populateRefPriceAndUnits(commodity){
+	populateRefPriceAndUnits(commodity) {
 		config.commodities.forEach((item) => {
-			if(item.id === commodity){
+			if (item.id === commodity) {
 				this.setState({
 					refPrice: item.refPrice,
 				});
@@ -310,8 +311,8 @@ class FDRunModel extends Component {
 		});
 	}
 
-	validateInputs(){
-		if(this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== ""){
+	validateInputs() {
+		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "") {
 			return true;
 		}
 		else {
@@ -319,8 +320,8 @@ class FDRunModel extends Component {
 		}
 	}
 
-	render(){
-		const { classes } = this.props;
+	render() {
+		const {classes} = this.props;
 		const MenuProps = {
 			PaperProps: {
 				style: {
@@ -331,7 +332,7 @@ class FDRunModel extends Component {
 
 		let spinner;
 
-		if(this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR"){
+		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
 			spinner = <Spinner/>;
 		}
 
@@ -340,7 +341,7 @@ class FDRunModel extends Component {
 		let statesMenuItems = [emptyMenuItem];
 
 		this.state.states.forEach((item) => {
-			statesMenuItems.push(<MenuItem key={`state-${item.id}`}  value={item.id}>{item.name}</MenuItem>);
+			statesMenuItems.push(<MenuItem key={`state-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 		});
 
 		let countiesMenuItems = [emptyMenuItem];
@@ -356,17 +357,20 @@ class FDRunModel extends Component {
 
 		let errorMsg;
 		// This error will never be shown when we get the applicable crops for a county from API
-		if(this.state.runStatus === "PARSE_ERROR"){
+		if (this.state.runStatus === "PARSE_ERROR") {
 			errorMsg = (<div>
-				<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the county. Choose a different crop or county</FormLabel>
+				<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the
+					county. Choose a different crop or county</FormLabel>
 			</div>);
 		}
 
-		return(
-			<div style={{marginLeft:"50px", marginRight:"30px", marginTop:"15px", marginBottom:"15px", maxWidth: "400px",
+		return (
+			<div style={{
+				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
 				// outlineStyle: "solid", outlineWidth: "1px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"}}>
+				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
+			}}>
 
 				{errorMsg}
 
@@ -431,7 +435,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					margin="normal"
 					onChange={this.handleChange("refPrice")}
-					style={{width:"125px"}}
+					style={{width: "125px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
@@ -440,39 +444,39 @@ class FDRunModel extends Component {
 
 				<FormControl className={classes.formControl} required>
 					<TextField
-					id="paymentYield"
-					label="PLC Payment Yield"
-					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
-					value={this.state.paymentYield}
-					margin="normal"
-					style={{width:"230px"}}
-					onChange={this.handleChange("paymentYield")}
-					required
+						id="paymentYield"
+						label="PLC Payment Yield"
+						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+						value={this.state.paymentYield}
+						margin="normal"
+						style={{width: "230px"}}
+						onChange={this.handleChange("paymentYield")}
+						required
 
-					InputLabelProps={{shrink:true}}
+						InputLabelProps={{shrink: true}}
 
-					InputProps={{
-						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
-					}}
-					onInput={(e) => {
-						if(e.target.value !== "") {
-							if(isNaN(e.target.value)){
-								e.target.value = e.target.value.toString().slice(0,-1);
-							}
-							else {
-								//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
-
-								if (e.target.value <= 0) {
-									e.target.value = 1;
+						InputProps={{
+							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
+						}}
+						onInput={(e) => {
+							if (e.target.value !== "") {
+								if (isNaN(e.target.value)) {
+									e.target.value = e.target.value.toString().slice(0, -1);
 								}
-								else if (e.target.value > 300) {
-									e.target.value = 300;
+								else {
+									//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
+
+									if (e.target.value <= 0) {
+										e.target.value = 1;
+									}
+									else if (e.target.value > 300) {
+										e.target.value = 300;
+									}
 								}
 							}
-						}
-					}}
+						}}
 
-				/>
+					/>
 				</FormControl><br/>
 
 				<TextField
@@ -480,7 +484,7 @@ class FDRunModel extends Component {
 					label="Payment Acres"
 					value={this.state.acres}
 					margin="normal"
-					style={{width:"160px"}}
+					style={{width: "160px"}}
 					onChange={this.handleChange("acres")}
 					disabled={true}
 					InputProps={{
@@ -494,7 +498,7 @@ class FDRunModel extends Component {
 					label="ARC Coverage Level"
 					value={this.state.coverage}
 					margin="normal"
-					style={{width:"160px"}}
+					style={{width: "160px"}}
 					disabled={true}
 					onChange={this.handleChange("coverage")}
 					InputProps={{
@@ -508,7 +512,7 @@ class FDRunModel extends Component {
 					label="ARC Coverage Range"
 					value={this.state.range}
 					margin="normal"
-					style={{width:"160px"}}
+					style={{width: "160px"}}
 					disabled={true}
 					onChange={this.handleChange("range")}
 					InputProps={{
@@ -517,11 +521,12 @@ class FDRunModel extends Component {
 				/>
 				<br/><br/>
 				<div style={{textAlign: "center"}}>
-				<Button variant="contained" color="primary" onClick={this.runModel} disabled={!this.validateInputs()}
-						style={{fontSize: "large", backgroundColor: "#455A64"}}>
-					<Icon className={classes.leftIcon}> send </Icon>
-					Run Model
-				</Button>
+					<Button variant="contained" color="primary" onClick={this.runModel}
+							disabled={!this.validateInputs()}
+							style={{fontSize: "large", backgroundColor: "#455A64"}}>
+						<Icon className={classes.leftIcon}> send </Icon>
+						Run Model
+					</Button>
 				</div>
 				{spinner}
 			</div>
@@ -553,5 +558,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-
-export default connect(mapStateToProps, mapDispatchToProps) (withStyles(styles)(FDRunModel));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(FDRunModel));

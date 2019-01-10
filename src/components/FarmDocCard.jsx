@@ -1,5 +1,13 @@
 import React, {Component} from "react";
-import {Card, Fab, CardHeader, CardMedia, CardActions, Button, CardTitle, CardSubtitle, CardText, Icon} from "react-mdc-web";
+import {
+	Card,
+	CardActions,
+	CardHeader,
+	CardSubtitle,
+	CardText,
+	CardTitle,
+	Icon
+} from "react-mdc-web";
 
 class FarmDocCard extends Component {
 
@@ -18,16 +26,14 @@ class FarmDocCard extends Component {
 			<div>
 				<Card onClick={this.props.onClick} id={this.props.cardId} className={this.props.className}>
 					<CardHeader>
-						<CardTitle>{this.props.cardTitle}<Icon className="rightmap" name='edit'/></CardTitle>
+						<CardTitle>{this.props.cardTitle}<Icon className="rightmap" name="edit"/></CardTitle>
 						<CardSubtitle>{this.props.cardSubtitle}</CardSubtitle>
 					</CardHeader>
 					<CardText/>
-					<CardActions>
-
-					</CardActions>
+					<CardActions/>
 				</Card>
 			</div>
-		)
+		);
 	}
 }
 
