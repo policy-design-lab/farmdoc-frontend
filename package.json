@@ -28,12 +28,10 @@
 	"author": "NCSA",
 	"dependencies": {
 		"@babel/runtime": "7.0.0-beta.55",
-		"@handsontable/react": "^1.0.0",
 		"@material-ui/core": "3.0.1",
 		"algebra.js": "0.2.6",
 		"chart.js": "2.7.0",
 		"d3": "4.5.0",
-		"handsontable": "^4.0.0",
 		"hex-to-rgba": "0.2.0",
 		"highcharts": "5.0.7",
 		"jstat": "1.5.3",
@@ -50,6 +48,7 @@
 		"react-redux": "5.0.7",
 		"react-router": "3.2.1",
 		"react-router-redux": "4.0.7",
+		"react-select": "2.2.0",
 		"redux": "3.6.0",
 		"redux-logger": "^2.6.1",
 		"redux-thunk": "2.2.0",
@@ -116,8 +115,6 @@
 		"open": "0.0.5",
 		"postcss-loader": "1.2.1",
 		"prompt": "1.0.0",
-		"react-addons-test-utils": "15.6.2",
-		"react-select": "1.2.1",
 		"redux-immutable-state-invariant": "1.2.4",
 		"replace": "0.3.0",
 		"rimraf": "2.5.4",
@@ -132,9 +129,7 @@
 		"webpack-hot-middleware": "2.16.1",
 		"webpack-md5-hash": "0.0.5"
 	},
-	"peerDependencies": {
-		"handsontable": "^4.0.0"
-	},
+	"peerDependencies": {},
 	"keywords": [
 		"Farm Doc"
 	],

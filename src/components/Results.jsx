@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import ReactDOM from "react-dom";
-import { HotTable, HotRow } from "@handsontable/react";
 import { withStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import AuthorizedWrap from "./AuthorizedWrap";
@@ -8,7 +7,7 @@ import AnalyzerWrap from "./AnalyzerWrap";
 import Header from "./Header";
 import {Line, Bar, HorizontalBar} from "react-chartjs-2";
 import {Grid, Table, TableCell, TableRow, TableHead, TableBody, Modal} from "@material-ui/core";
-import "handsontable/dist/handsontable.full.css";
+
 import {
 	handleResults
 } from "../actions/model";
