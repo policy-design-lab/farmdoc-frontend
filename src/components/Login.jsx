@@ -14,6 +14,19 @@ import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthori
 
 class Login extends Component {
 
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			email: "",
+			password: "",
+			statusText: "",
+			isOpen: this.props.message === "Please login."
+		};
+
+		this.handleLogin = this.handleLogin.bind(this);
+	}
+
 	handleLogin = async event => {
 		event.preventDefault();
 
@@ -112,19 +125,6 @@ class Login extends Component {
 			console.error(`Error: ${  error}`);
 		}
 	};
-
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			email: "",
-			password: "",
-			statusText: "",
-			isOpen: this.props.message === "Please login."
-		};
-
-		this.handleLogin = this.handleLogin.bind(this);
-	}
 
 	validateLoginForm() {
 		return this.state.email.length > 0 && this.state.password.length > 0;

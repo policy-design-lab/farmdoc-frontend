@@ -116,6 +116,11 @@ function getModalStyle() {
 
 class Results extends Component {
 
+	constructor(props) {
+		super(props);
+		this.handleResultsChange = this.handleResultsChange.bind(this);
+	}
+
 	state = {
 		open: false,
 	};
@@ -135,11 +140,6 @@ class Results extends Component {
 			return Number(val).toFixed(n);
 		}
 	};
-
-	constructor(props) {
-		super(props);
-		this.handleResultsChange = this.handleResultsChange.bind(this);
-	}
 
 	componentWillUnmount() {
 		this.props.handleResultsChange(null);
