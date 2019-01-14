@@ -15,7 +15,7 @@ import Dashboard from "./Dashboard";
 import Results from "./Results";
 
 
-global.__base = `${__dirname  }/`;
+global.__base = `${__dirname}/`;
 //injectTapEventPlugin();
 
 const theme = createMuiTheme();

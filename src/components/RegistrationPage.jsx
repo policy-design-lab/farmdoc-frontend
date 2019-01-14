@@ -27,10 +27,10 @@ class RegistrationPage extends Component {
 		this.setState({statusText: ""});
 
 		try {
-			let createPersonResponse = await fetch(`${datawolfURL  }/persons?` +
-				`firstName=${  this.state.firstName
-				}&lastName=${  this.state.lastName
-				}&email=${  this.state.email}`,
+			let createPersonResponse = await fetch(`${datawolfURL}/persons?` +
+				`firstName=${this.state.firstName
+				}&lastName=${this.state.lastName
+				}&email=${this.state.email}`,
 			{
 				method: "POST",
 				headers: {
@@ -43,9 +43,9 @@ class RegistrationPage extends Component {
 
 				let personId = await createPersonResponse.text();
 
-				let createAccountResponse = await fetch(`${datawolfURL  }/login?` +
-					`email=${  this.state.email
-					}&password=${  this.state.password}`,
+				let createAccountResponse = await fetch(`${datawolfURL}/login?` +
+					`email=${this.state.email
+					}&password=${this.state.password}`,
 				{
 					method: "POST",
 					headers: {
@@ -72,21 +72,21 @@ class RegistrationPage extends Component {
 				// Account creation unsuccessful. User already exists.
 				else if (createAccountResponse.status === 500) {
 					let responseText = await createAccountResponse.text();
-					console.log(`Status Text: ${  responseText}`);
+					console.log(`Status Text: ${responseText}`);
 					this.setState({statusText: responseText});
 				}
 				else {
-					console.log(`Registration Step 2 Status: ${  createAccountResponse.status}`);
+					console.log(`Registration Step 2 Status: ${createAccountResponse.status}`);
 					this.setState({statusText: genericRegistrationErrorMessage});
 				}
 			}
 			else {
-				console.log(`Registration Step 1 Status: ${  createPersonResponse.status}`);
+				console.log(`Registration Step 1 Status: ${createPersonResponse.status}`);
 				this.setState({statusText: genericRegistrationErrorMessage});
 			}
 		}
 		catch (error) {
-			console.error(`Error: ${  error}`);
+			console.error(`Error: ${error}`);
 			this.setState({statusText: genericRegistrationErrorMessage});
 		}
 	};

@@ -31,12 +31,12 @@ class Login extends Component {
 
 		try {
 			//let loginResponse = await this.loginTest(this.state.email, this.state.password);
-			const token = `${this.state.email  }:${  this.state.password}`;
+			const token = `${this.state.email}:${this.state.password}`;
 			const hash = btoa(token);
-			let loginResponse = await fetch(`${datawolfURL  }/login?email=${  this.state.email}`, {
+			let loginResponse = await fetch(`${datawolfURL}/login?email=${this.state.email}`, {
 				method: "GET",
 				headers: {
-					"Authorization": `Basic ${  hash}`,
+					"Authorization": `Basic ${hash}`,
 					"Content-Type": "application/json",
 					"Access-Control-Origin": "http://localhost:3000"
 				},
@@ -51,10 +51,10 @@ class Login extends Component {
 				});
 
 				// Get token from Data Wolf
-				let keyResponse = await fetch(`${datawolfURL  }/login/key`, {
+				let keyResponse = await fetch(`${datawolfURL}/login/key`, {
 					method: "GET",
 					headers: {
-						"Authorization": `Basic ${  hash}`,
+						"Authorization": `Basic ${hash}`,
 						"Content-Type": "application/json",
 						"Access-Control-Origin": "http://localhost:3000"
 					}
@@ -70,12 +70,12 @@ class Login extends Component {
 					let date = new Date();
 					date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
 
-					let expiresString = `expires=${  date.toUTCString()}`;
+					let expiresString = `expires=${date.toUTCString()}`;
 					let domainString = `domain=${config.domain}`;
 					let pathString = "path=/";
-					let tokenString = `token=${  jsonKeyData["token"]}`;
+					let tokenString = `token=${jsonKeyData["token"]}`;
 
-					document.cookie = `${tokenString  };${  domainString  };${  pathString  };${  expiresString}`;
+					document.cookie = `${tokenString};${domainString};${pathString};${expiresString}`;
 
 					// Calling event handler for successful logging in
 					this.props.handleUserLogin(this.state.email, jsonData["id"], true);
@@ -121,7 +121,7 @@ class Login extends Component {
 				this.setState({statusText: dataWolfGetTokenCallFailed});
 			}
 		} catch (error) {
-			console.error(`Error: ${  error}`);
+			console.error(`Error: ${error}`);
 		}
 	};
 
