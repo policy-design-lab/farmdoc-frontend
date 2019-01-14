@@ -116,14 +116,14 @@ function getModalStyle() {
 
 class Results extends Component {
 
+	state = {
+		open: false,
+	};
+
 	constructor(props) {
 		super(props);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
 	}
-
-	state = {
-		open: false,
-	};
 
 	handleOpen = () => {
 		this.setState({open: true});

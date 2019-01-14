@@ -72,6 +72,25 @@ const styles = theme => ({
 
 class FDRunModel extends Component {
 
+	state = {
+		states: [],
+		stateSel: "",
+		counties: [],
+		county: "",
+		program: "both",
+		commodity: "",
+		units: "bushel/acre",
+		refPrice: 3.7,
+		acres: .85,
+		seqprice: 0.0,
+		coverage: .86,
+		paymentYield: "",
+		range: .1,
+		runName: "",
+		runStatus: "",
+		modelResult: null
+	};
+
 	constructor(props) {
 		super(props);
 		this.runModel = this.runModel.bind(this);
@@ -99,25 +118,49 @@ class FDRunModel extends Component {
 		};
 	}
 
-	state = {
-		states: [],
-		stateSel: "",
-		counties: [],
-		county: "",
-		program: "both",
-		commodity: "",
-		units: "bushel/acre",
-		refPrice: 3.7,
-		acres: .85,
-		seqprice: 0.0,
-		coverage: .86,
-		paymentYield: "",
-		range: .1,
-		runName: "",
-		runStatus: "",
-		modelResult: null
-	};
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
 
+		switch (name) {
+			case "county":
+				this.props.handleCountyChange(event.target.value);
+				break;
+			case "commodity":
+				this.props.handleCommodityChange(event.target.value);
+				if (event.target.value !== "") {
+					this.populateRefPriceAndUnits(event.target.value);
+				}
+				break;
+
+			case "refPrice":
+				this.props.handleRefPriceChange(event.target.value);
+				break;
+
+			case "paymentYield":
+				this.props.handlePaymentYieldChange(event.target.value);
+				break;
+
+			case "coverage":
+				this.props.handleCoverageChange(event.target.value);
+				break;
+
+			case "range":
+				this.props.handleRangeChange(event.target.value);
+				break;
+
+			case "acres":
+				this.props.handleAcresChange(event.target.value);
+				break;
+
+			case "stateSel":
+				if (event.target.value !== "") {
+					this.populateCounties(event.target.value);
+				}
+				break;
+		}
+	};
 
 	async runModel() {
 		//let status = "STARTED";
@@ -210,61 +253,9 @@ class FDRunModel extends Component {
 		}
 	}
 
-	handleChange = name => event => {
-		this.setState({
-			[name]: event.target.value,
-		});
-
-		switch (name) {
-		case "county":
-			this.props.handleCountyChange(event.target.value);
-			break;
-		case "commodity":
-			this.props.handleCommodityChange(event.target.value);
-			if (event.target.value !== "") {
-				this.populateRefPriceAndUnits(event.target.value);
-			}
-			break;
-
-		case "refPrice":
-			this.props.handleRefPriceChange(event.target.value);
-			break;
-
-		case "paymentYield":
-			this.props.handlePaymentYieldChange(event.target.value);
-			break;
-
-		case "coverage":
-			this.props.handleCoverageChange(event.target.value);
-			break;
-
-		case "range":
-			this.props.handleRangeChange(event.target.value);
-			break;
-
-		case "acres":
-			this.props.handleAcresChange(event.target.value);
-			break;
-
-		case "stateSel":
-			if (event.target.value !== "") {
-				this.populateCounties(event.target.value);
-			}
-			break;
-		}
-
-
-	};
-
 	handleResultsChange(results) {
 		this.props.handleResultsChange(results);
 	}
-
-
-	handleChanger = event => {
-		this.setState({program: event.target.value});
-	};
-
 
 	componentDidMount() {
 		let statesJson = [];
@@ -305,6 +296,7 @@ class FDRunModel extends Component {
 					refPrice: item.refPrice,
 				});
 				this.setState({
+
 					units: item.units,
 				});
 			}
@@ -522,8 +514,8 @@ class FDRunModel extends Component {
 				<br/><br/>
 				<div style={{textAlign: "center"}}>
 					<Button variant="contained" color="primary" onClick={this.runModel}
-							disabled={!this.validateInputs()}
-							style={{fontSize: "large", backgroundColor: "#455A64"}}>
+									disabled={!this.validateInputs()}
+									style={{fontSize: "large", backgroundColor: "#455A64"}}>
 						<Icon className={classes.leftIcon}> send </Icon>
 						Run Model
 					</Button>

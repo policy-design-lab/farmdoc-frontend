@@ -8,7 +8,6 @@ import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
 import {Link} from "react-router";
 import config from "../app.config";
-import FormLabel from "@material-ui/core/FormLabel";
 import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthorized} from "../app.messages";
 
 
@@ -131,15 +130,6 @@ class Login extends Component {
 	}
 
 	render() {
-
-		let errorMsg;
-		if (this.state.loginStatus === "failure") {
-			errorMsg = <FormLabel error={true} style={{fontSize: 14}}> - Authentication failed </FormLabel>;
-		}
-		else {
-			errorMsg = null;
-		}
-
 		return (
 			<div>
 				<br/>

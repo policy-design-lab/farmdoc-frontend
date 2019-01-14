@@ -55,8 +55,8 @@ class Header extends Component {
 
 					{this.props.selected === "home" && <div className="triangle-bottomright"/>}
 					{this.props.selected === "home" ? <div className="rectangle-3-onselect">
-							<Link to="/" className="about-the-project-onselect">About the Project</Link>
-						</div> :
+						<Link to="/" className="about-the-project-onselect">About the Project</Link>
+					</div> :
 						<Link to="/" className="about-the-project">About the Project</Link>
 
 					}

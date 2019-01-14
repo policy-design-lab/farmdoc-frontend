@@ -29,15 +29,15 @@ class RegistrationPage extends Component {
 		try {
 			let createPersonResponse = await fetch(`${datawolfURL  }/persons?` +
 				`firstName=${  this.state.firstName
-					}&lastName=${  this.state.lastName
-					}&email=${  this.state.email}`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "text/plain",
-						"Access-Control-Origin": "http://localhost:3000"
-					}
-				});
+				}&lastName=${  this.state.lastName
+				}&email=${  this.state.email}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "text/plain",
+					"Access-Control-Origin": "http://localhost:3000"
+				}
+			});
 
 			if (createPersonResponse.status === 200 || createPersonResponse.status === 204) {
 
@@ -45,14 +45,14 @@ class RegistrationPage extends Component {
 
 				let createAccountResponse = await fetch(`${datawolfURL  }/login?` +
 					`email=${  this.state.email
-						}&password=${  this.state.password}`,
-					{
-						method: "POST",
-						headers: {
-							"Content-Type": "text/plain",
-							"Access-Control-Origin": "http://localhost:3000"
-						}
-					});
+					}&password=${  this.state.password}`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "text/plain",
+						"Access-Control-Origin": "http://localhost:3000"
+					}
+				});
 
 				// Account creation successful
 				if (createAccountResponse.status === 200) {
@@ -77,7 +77,6 @@ class RegistrationPage extends Component {
 				}
 				else {
 					console.log(`Registration Step 2 Status: ${  createAccountResponse.status}`);
-					let responseText = await createAccountResponse.text();
 					this.setState({statusText: genericRegistrationErrorMessage});
 				}
 			}
@@ -131,6 +130,7 @@ class RegistrationPage extends Component {
 	}
 
 	render() {
+
 		return (
 			<div>
 				<Header selected="home"/>
