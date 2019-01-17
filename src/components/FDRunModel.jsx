@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
+import {FormControl, MenuItem} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
@@ -63,6 +63,7 @@ const styles = theme => ({
 		minWidth: 200,
 		marginLeft: 0
 	},
+
 	geoSelectors: {
 		PaperProps: {
 			style: {
@@ -71,8 +72,26 @@ const styles = theme => ({
 			}
 		}
 	}
-
 });
+
+const ReactSelectStyles = {
+	option: (provided, state) => ({
+		...provided,
+		fontSize: 16
+	}),
+	control: (provided, state) => ({
+		...provided,
+		width: 200,
+		height: 50,
+		fontSize: 16
+	})
+	// singleValue: (provided, state) => {
+	// 	const opacity = state.isDisabled ? 0.5 : 1;
+	// 	const transition = "opacity 300ms";
+	//
+	// 	return { ...provided, opacity, transition };
+	// }
+};
 
 
 class FDRunModel extends Component {
@@ -99,6 +118,7 @@ class FDRunModel extends Component {
 	constructor(props) {
 		super(props);
 		this.runModel = this.runModel.bind(this);
+		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
 
@@ -125,10 +145,30 @@ class FDRunModel extends Component {
 
 	handleReactSelectChange = name => event => {
 		this.setState({
-			[name]: event.target.value,
+			[name]: event.value,
 		});
+
+		switch (name) {
+			case "county":
+				this.props.handleCountyChange(event.value);
+				break;
+
+			case "stateSel":
+				if (event.value !== "") {
+					this.populateCounties(event.value);
+				}
+				this.props.inp;
+				break;
+			case "commodity":
+				this.props.handleCommodityChange(event.value);
+				if (event.value !== "") {
+					this.populateRefPriceAndUnits(event.value);
+				}
+				break;
+		}
 	};
 
+	//TODO: Remove unused from here
 	handleMuiChange = name => event => {
 		this.setState({
 			[name]: event.target.value,
@@ -193,7 +233,7 @@ class FDRunModel extends Component {
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
 			sequesterPrice;
-		countyId = this.state.county; //571;
+		countyId = this.state.county;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
@@ -339,27 +379,23 @@ class FDRunModel extends Component {
 			spinner = <Spinner/>;
 		}
 
-		let emptyMenuItem;// = <MenuItem value="" key="ad"> <em>--Select--</em> </MenuItem>;
-
-		let statesMenuItems = [emptyMenuItem];
 		let stateOptions = [];
 
 		this.state.states.forEach((item) => {
-			statesMenuItems.push(<MenuItem key={`state-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 			stateOptions.push({value: item.id, label: item.name});
 		});
 
-		let countiesMenuItems = [emptyMenuItem];
 		let countyOptions = [];
 
 		this.state.counties.forEach((item) => {
-			countiesMenuItems.push(<MenuItem key={`county-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 			countyOptions.push({value: item.id, label: item.name});
 		});
 
-		let commodityMenuItems = [emptyMenuItem];
+		let cropOptions = [];
+		let commodityMenuItems = [];
 		config.commodities.forEach((item) => {
 			commodityMenuItems.push(<MenuItem key={`commodity-${item.id}`} value={item.id}>{item.name}</MenuItem>);
+			cropOptions.push({value: item.id, label: item.name});
 		});
 
 		let errorMsg;
@@ -371,11 +407,6 @@ class FDRunModel extends Component {
 			</div>);
 		}
 
-		let options = [
-			{value: "chocolate", label: "Chocolate"},
-			{value: "strawberry", label: "Strawberry"},
-			{value: "vanilla", label: "Vanilla"}
-		];
 
 		return (
 			<div style={{
@@ -387,70 +418,43 @@ class FDRunModel extends Component {
 
 				{errorMsg}
 
-				<FormControl className={classes.formControl} required>
-					<InputLabel htmlFor="state-simple">State</InputLabel>
-					<Select
-						value={this.state.stateSel}
-						onChange={this.handleMuiChange("stateSel")}
-						inputProps={{
-							name: "state",
-							id: "state-simple",
-						}}
-						displayEmpty
-
-						MenuProps={MenuProps}
-					>
-						{statesMenuItems}
-					</Select>
-					<br/>
-
-					<ReactSelect options={stateOptions}
-											 value={this.state.stateSel}
-											 onChange={this.handleMuiChange("rstateSel")}
+				<FormControl className={classes.formControl} required style={{marginBottom: "16px", marginTop: "16px"}}>
+					<ReactSelect styles={ReactSelectStyles}
+											 //value="6"
+											 options={stateOptions}
+											 placeholder = "Select State"
+											 onChange={this.handleReactSelectChange("stateSel")}
 											 inputProps={{
-												 name: "rstate",
-												 id: "rstate-simple",
-											 }}
-					/>
+												 name: "state",
+												 id: "state-simple",
+											 }}	/>
 
 				</FormControl>
 				<br/>
 
 				<FormControl className={classes.formControl} required>
-					<InputLabel htmlFor="county-simple">County</InputLabel>
-					<Select
-						value={this.state.county}
-						onChange={this.handleMuiChange("county")}
-						inputProps={{
-							name: "county",
-							id: "county-simple",
-						}}
-						MenuProps={MenuProps}
-					>
-						{countiesMenuItems}
+					<ReactSelect styles={ReactSelectStyles}
+											placeholder = "Select County"
+											options={countyOptions}
+											onChange={this.handleReactSelectChange("county")}
+											inputProps={{
+												name: "county",
+												id: "county-simple",
+											}} />
 
-					</Select>
-					<br/>
-					<ReactSelect options={countyOptions} />
 				</FormControl>
-
-
 				<br/>
 
-
 				<FormControl className={classes.formControl} required>
-					<InputLabel htmlFor="crop-simple">Crop</InputLabel>
-					<Select
-						value={this.state.commodity}
-						onChange={this.handleMuiChange("commodity")}
-						inputProps={{
-							name: "crop",
-							id: "crop-simple",
-						}}
-						MenuProps={MenuProps}
-					>
-						{commodityMenuItems}
-					</Select>
+
+					<ReactSelect styles={ReactSelectStyles}
+											 placeholder="Select Crop"
+											 options={cropOptions}
+											 onChange={this.handleReactSelectChange("commodity")}
+											 inputProps={{
+												 name: "crop",
+												 id: "crop-simple",
+											 }}/>
 				</FormControl>
 
 
