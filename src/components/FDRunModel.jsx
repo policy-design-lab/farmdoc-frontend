@@ -8,7 +8,12 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {getOutputFileJson} from "../public/utils";
-import {datawolfURL, postExecutionRequest, resultDatasetId, steps} from "../datawolf.config";
+import {
+	datawolfURL,
+	postExecutionRequest,
+	resultDatasetId,
+	steps,
+} from "../datawolf.config";
 import {
 	changeAcres,
 	changeCommodity,
@@ -17,11 +22,11 @@ import {
 	changePaymentYield,
 	changeRange,
 	changeRefPrice,
-	handleResults
+	handleResults,
 } from "../actions/model";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
-
+import ReactSelect from "react-select";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -94,7 +99,7 @@ class FDRunModel extends Component {
 	constructor(props) {
 		super(props);
 		this.runModel = this.runModel.bind(this);
-		this.handleChange = this.handleChange.bind(this);
+		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handleResultsChange = this.handleResultsChange.bind(this);
 
 
@@ -118,7 +123,13 @@ class FDRunModel extends Component {
 		};
 	}
 
-	handleChange = name => event => {
+	handleReactSelectChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
+
+	handleMuiChange = name => event => {
 		this.setState({
 			[name]: event.target.value,
 		});
@@ -331,15 +342,19 @@ class FDRunModel extends Component {
 		let emptyMenuItem;// = <MenuItem value="" key="ad"> <em>--Select--</em> </MenuItem>;
 
 		let statesMenuItems = [emptyMenuItem];
+		let stateOptions = [];
 
 		this.state.states.forEach((item) => {
 			statesMenuItems.push(<MenuItem key={`state-${item.id}`} value={item.id}>{item.name}</MenuItem>);
+			stateOptions.push({value: item.id, label: item.name});
 		});
 
 		let countiesMenuItems = [emptyMenuItem];
+		let countyOptions = [];
 
 		this.state.counties.forEach((item) => {
 			countiesMenuItems.push(<MenuItem key={`county-${item.id}`} value={item.id}>{item.name}</MenuItem>);
+			countyOptions.push({value: item.id, label: item.name});
 		});
 
 		let commodityMenuItems = [emptyMenuItem];
@@ -356,6 +371,12 @@ class FDRunModel extends Component {
 			</div>);
 		}
 
+		let options = [
+			{value: "chocolate", label: "Chocolate"},
+			{value: "strawberry", label: "Strawberry"},
+			{value: "vanilla", label: "Vanilla"}
+		];
+
 		return (
 			<div style={{
 				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
@@ -370,7 +391,7 @@ class FDRunModel extends Component {
 					<InputLabel htmlFor="state-simple">State</InputLabel>
 					<Select
 						value={this.state.stateSel}
-						onChange={this.handleChange("stateSel")}
+						onChange={this.handleMuiChange("stateSel")}
 						inputProps={{
 							name: "state",
 							id: "state-simple",
@@ -381,6 +402,17 @@ class FDRunModel extends Component {
 					>
 						{statesMenuItems}
 					</Select>
+					<br/>
+
+					<ReactSelect options={stateOptions}
+											 value={this.state.stateSel}
+											 onChange={this.handleMuiChange("rstateSel")}
+											 inputProps={{
+												 name: "rstate",
+												 id: "rstate-simple",
+											 }}
+					/>
+
 				</FormControl>
 				<br/>
 
@@ -388,7 +420,7 @@ class FDRunModel extends Component {
 					<InputLabel htmlFor="county-simple">County</InputLabel>
 					<Select
 						value={this.state.county}
-						onChange={this.handleChange("county")}
+						onChange={this.handleMuiChange("county")}
 						inputProps={{
 							name: "county",
 							id: "county-simple",
@@ -398,6 +430,8 @@ class FDRunModel extends Component {
 						{countiesMenuItems}
 
 					</Select>
+					<br/>
+					<ReactSelect options={countyOptions} />
 				</FormControl>
 
 
@@ -408,7 +442,7 @@ class FDRunModel extends Component {
 					<InputLabel htmlFor="crop-simple">Crop</InputLabel>
 					<Select
 						value={this.state.commodity}
-						onChange={this.handleChange("commodity")}
+						onChange={this.handleMuiChange("commodity")}
 						inputProps={{
 							name: "crop",
 							id: "crop-simple",
@@ -426,7 +460,7 @@ class FDRunModel extends Component {
 					value={this.state.refPrice}
 					disabled={true}
 					margin="normal"
-					onChange={this.handleChange("refPrice")}
+					onChange={this.handleMuiChange("refPrice")}
 					style={{width: "125px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
@@ -442,7 +476,7 @@ class FDRunModel extends Component {
 						value={this.state.paymentYield}
 						margin="normal"
 						style={{width: "230px"}}
-						onChange={this.handleChange("paymentYield")}
+						onChange={this.handleMuiChange("paymentYield")}
 						required
 
 						InputLabelProps={{shrink: true}}
@@ -477,7 +511,7 @@ class FDRunModel extends Component {
 					value={this.state.acres}
 					margin="normal"
 					style={{width: "160px"}}
-					onChange={this.handleChange("acres")}
+					onChange={this.handleMuiChange("acres")}
 					disabled={true}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
@@ -492,7 +526,7 @@ class FDRunModel extends Component {
 					margin="normal"
 					style={{width: "160px"}}
 					disabled={true}
-					onChange={this.handleChange("coverage")}
+					onChange={this.handleMuiChange("coverage")}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
 					}}
@@ -506,7 +540,7 @@ class FDRunModel extends Component {
 					margin="normal"
 					style={{width: "160px"}}
 					disabled={true}
-					onChange={this.handleChange("range")}
+					onChange={this.handleMuiChange("range")}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>,
 					}}
