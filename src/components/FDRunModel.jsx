@@ -112,7 +112,8 @@ class FDRunModel extends Component {
 		range: .1,
 		runName: "",
 		runStatus: "",
-		modelResult: null
+		modelResult: null,
+		countySelValue: null
 	};
 
 	constructor(props) {
@@ -139,7 +140,8 @@ class FDRunModel extends Component {
 			range: .1,
 			runName: "",
 			runStatus: "",
-			modelResult: null
+			modelResult: null,
+			countySelValue: null
 		};
 	}
 
@@ -150,14 +152,16 @@ class FDRunModel extends Component {
 
 		switch (name) {
 			case "county":
+				this.setState({countySelValue: {value: event.value, label: event.label}});
 				this.props.handleCountyChange(event.value);
 				break;
 
 			case "stateSel":
 				if (event.value !== "") {
+					this.setState({countySelValue: null});
+					this.setState({county: ""});
 					this.populateCounties(event.value);
 				}
-				this.props.inp;
 				break;
 			case "commodity":
 				this.props.handleCommodityChange(event.value);
@@ -168,23 +172,12 @@ class FDRunModel extends Component {
 		}
 	};
 
-	//TODO: Remove unused from here
 	handleMuiChange = name => event => {
 		this.setState({
 			[name]: event.target.value,
 		});
 
 		switch (name) {
-			case "county":
-				this.props.handleCountyChange(event.target.value);
-				break;
-			case "commodity":
-				this.props.handleCommodityChange(event.target.value);
-				if (event.target.value !== "") {
-					this.populateRefPriceAndUnits(event.target.value);
-				}
-				break;
-
 			case "refPrice":
 				this.props.handleRefPriceChange(event.target.value);
 				break;
@@ -203,12 +196,6 @@ class FDRunModel extends Component {
 
 			case "acres":
 				this.props.handleAcresChange(event.target.value);
-				break;
-
-			case "stateSel":
-				if (event.target.value !== "") {
-					this.populateCounties(event.target.value);
-				}
 				break;
 		}
 	};
@@ -365,13 +352,6 @@ class FDRunModel extends Component {
 
 	render() {
 		const {classes} = this.props;
-		const MenuProps = {
-			PaperProps: {
-				style: {
-					maxHeight: 500
-				},
-			},
-		};
 
 		let spinner;
 
@@ -420,7 +400,6 @@ class FDRunModel extends Component {
 
 				<FormControl className={classes.formControl} required style={{marginBottom: "16px", marginTop: "16px"}}>
 					<ReactSelect styles={ReactSelectStyles}
-											 //value="6"
 											 options={stateOptions}
 											 placeholder = "Select State"
 											 onChange={this.handleReactSelectChange("stateSel")}
@@ -433,7 +412,7 @@ class FDRunModel extends Component {
 				<br/>
 
 				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<ReactSelect styles={ReactSelectStyles} value={this.state.countySelValue}
 											placeholder = "Select County"
 											options={countyOptions}
 											onChange={this.handleReactSelectChange("county")}
@@ -446,7 +425,6 @@ class FDRunModel extends Component {
 				<br/>
 
 				<FormControl className={classes.formControl} required>
-
 					<ReactSelect styles={ReactSelectStyles}
 											 placeholder="Select Crop"
 											 options={cropOptions}
