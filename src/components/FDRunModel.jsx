@@ -31,6 +31,10 @@ import ReactSelect from "react-select";
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const styles = theme => ({
+	input: {
+		display: "flex",
+		padding: 0
+	},
 	container: {
 		display: "flex",
 		flexWrap: "wrap",
@@ -75,11 +79,11 @@ const styles = theme => ({
 });
 
 const ReactSelectStyles = {
-	option: (provided, state) => ({
+	option: (provided) => ({
 		...provided,
 		fontSize: 16
 	}),
-	control: (provided, state) => ({
+	control: (provided) => ({
 		...provided,
 		width: 200,
 		height: 50,
@@ -93,6 +97,31 @@ const ReactSelectStyles = {
 	// }
 };
 
+function inputComponent({ inputRef, ...props }) {
+	return <div ref={inputRef} {...props} />;
+}
+
+function Control(props) {
+	return (
+		<TextField
+					fullWidth
+					InputProps={{
+						inputComponent,
+						inputProps: {
+							className: props.selectProps.classes.input,
+							inputRef: props.innerRef,
+							children: props.children,
+							...props.innerProps
+						}
+					}}
+					{...props.selectProps.textFieldProps}
+		/>
+	);
+}
+
+const components = {
+	Control
+};
 
 class FDRunModel extends Component {
 
@@ -400,8 +429,16 @@ class FDRunModel extends Component {
 
 				<FormControl className={classes.formControl} required style={{marginBottom: "16px", marginTop: "16px"}}>
 					<ReactSelect styles={ReactSelectStyles}
+											 classes={classes}
+											 textFieldProps={{
+												 label: "State",
+												 InputLabelProps: {
+													 shrink: true
+												 }
+											 }}
+											 components={components}
 											 options={stateOptions}
-											 placeholder = "Select State"
+											 placeholder = "Select"
 											 onChange={this.handleReactSelectChange("stateSel")}
 											 inputProps={{
 												 name: "state",
@@ -412,21 +449,38 @@ class FDRunModel extends Component {
 				<br/>
 
 				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles} value={this.state.countySelValue}
-											placeholder = "Select County"
-											options={countyOptions}
-											onChange={this.handleReactSelectChange("county")}
-											inputProps={{
-												name: "county",
-												id: "county-simple",
-											}} />
+					<ReactSelect styles={ReactSelectStyles}
+											 classes={classes}
+											 textFieldProps={{
+												 label: "County",
+												 InputLabelProps: {
+													 shrink: true,
+												 },
+											 }}
+											 components={components}
+											 value={this.state.countySelValue}
+											 placeholder="Select"
+											 options={countyOptions}
+											 onChange={this.handleReactSelectChange("county")}
+											 inputProps={{
+												 name: "county",
+												 id: "county-simple",
+											 }}/>
 
 				</FormControl>
 				<br/>
 
 				<FormControl className={classes.formControl} required>
 					<ReactSelect styles={ReactSelectStyles}
-											 placeholder="Select Crop"
+											 classes={classes}
+											 textFieldProps={{
+												 label: "Crop",
+												 InputLabelProps: {
+													 shrink: true,
+												 },
+											 }}
+											 components={components}
+											 placeholder="Select"
 											 options={cropOptions}
 											 onChange={this.handleReactSelectChange("commodity")}
 											 inputProps={{
@@ -472,8 +526,6 @@ class FDRunModel extends Component {
 									e.target.value = e.target.value.toString().slice(0, -1);
 								}
 								else {
-									//e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3);
-
 									if (e.target.value <= 0) {
 										e.target.value = 1;
 									}
