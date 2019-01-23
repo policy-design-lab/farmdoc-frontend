@@ -33,15 +33,11 @@ let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const styles = theme => ({
 	input: {
 		display: "flex",
-		padding: 0
+		padding: 0,
 	},
 	container: {
 		display: "flex",
 		flexWrap: "wrap",
-	},
-
-	invisbleField: {
-		display: "none"
 	},
 
 	textField: {
@@ -65,17 +61,9 @@ const styles = theme => ({
 	formControl: {
 		margin: theme.spacing.unit,
 		minWidth: 200,
-		marginLeft: 0
+		marginLeft: 0,
 	},
 
-	geoSelectors: {
-		PaperProps: {
-			style: {
-				maxHeight: 400,
-				minWidth: 400
-			}
-		}
-	}
 });
 
 const ReactSelectStyles = {
