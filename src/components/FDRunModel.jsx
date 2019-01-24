@@ -42,9 +42,8 @@ const styles = theme => ({
 	},
 
 	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-		width: 150,
+		marginTop: "8px",
+		width: 160,
 	},
 	menu: {
 		width: 150,
@@ -425,7 +424,7 @@ class FDRunModel extends Component {
 
 				{errorMsg}
 
-				<FormControl className={classes.formControl} required style={{marginBottom: "16px", marginTop: "16px"}}>
+				<FormControl className={classes.formControl} required style={{ marginTop: "16px"}}>
 					<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
@@ -495,7 +494,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					margin="normal"
 					onChange={this.handleMuiChange("refPrice")}
-					style={{width: "125px"}}
+					style={{width:"125px", marginTop: "8px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
@@ -521,40 +520,43 @@ class FDRunModel extends Component {
 											 }}/>
 				</FormControl>
 
-				<FormControl className={classes.formControl} required>
-					<TextField
-						id="paymentYield"
-						label="PLC Payment Yield"
-						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
-						value={this.state.paymentYield}
-						margin="normal"
-						style={{width: "230px"}}
-						onChange={this.handleMuiChange("paymentYield")}
-						required
 
-						InputLabelProps={{shrink: true}}
+				<TextField
+					id="paymentYield"
+					label="PLC Payment Yield"
+					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+					value={this.state.paymentYield}
+					margin="normal"
+					style={{width: "230px"}}
+					onChange={this.handleMuiChange("paymentYield")}
+					className={classes.textField}
+					required
 
-						InputProps={{
-							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
-						}}
-						onInput={(e) => {
-							if (e.target.value !== "") {
-								if (isNaN(e.target.value)) {
-									e.target.value = e.target.value.toString().slice(0, -1);
+					InputLabelProps={{shrink: true}}
+
+					InputProps={{
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
+					}}
+					onInput={(e) => {
+						if (e.target.value !== "") {
+							if (isNaN(e.target.value)) {
+								e.target.value = e.target.value.toString().slice(0, -1);
+							}
+							else {
+								if (e.target.value <= 0) {
+									e.target.value = 1;
 								}
-								else {
-									if (e.target.value <= 0) {
-										e.target.value = 1;
-									}
-									else if (e.target.value > 300) {
-										e.target.value = 300;
-									}
+								else if (e.target.value > 300) {
+									e.target.value = 300;
 								}
 							}
-						}}
+						}
+					}}
 
-					/>
-				</FormControl><br/>
+				/>
+				<br/>
+
+
 
 				<TextField
 					id="acres"
@@ -562,6 +564,7 @@ class FDRunModel extends Component {
 					value={this.state.acres}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					onChange={this.handleMuiChange("acres")}
 					disabled={true}
 					InputProps={{
@@ -576,6 +579,7 @@ class FDRunModel extends Component {
 					value={this.state.coverage}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("coverage")}
 					InputProps={{
@@ -590,6 +594,7 @@ class FDRunModel extends Component {
 					value={this.state.range}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("range")}
 					InputProps={{
