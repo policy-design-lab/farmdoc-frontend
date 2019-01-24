@@ -13,6 +13,13 @@ export function changeCommodity(commodity){
 	};
 }
 
+export function changeForecastType(forecastType){
+	return {
+		type: "CHANGE_FORECAST_TYPE",
+		forecastType
+	};
+}
+
 export function changeRefPrice(refPrice){
 	return {
 		type: "CHANGE_REFPRICE",

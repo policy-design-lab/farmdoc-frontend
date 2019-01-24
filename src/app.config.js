@@ -3,10 +3,44 @@ const crops = [
 	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4},
 	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5}
 ];
+
+const mpForecasts = [
+	{
+	  "id": "cbo",
+		"name": "CBO 2018",
+		"prices": {
+			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
+			"soybeans": [0, 0, 0, 0, 0],
+			"wheat": [0, 0, 0, 0, 0],
+		}
+	},
+	{
+	  "id": "usda",
+		"name": "USDA high/low",
+		"prices": {
+			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
+			"soybeans": [0, 0, 0, 0, 0],
+			"wheat": [0, 0, 0, 0, 0],
+		}
+	},
+	{
+		"id": "mixmatch",
+		"name": "Mix and Match",
+		"prices": {
+			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
+			"soybeans": [0, 0, 0, 0, 0],
+			"wheat": [0, 0, 0, 0, 0],
+		}
+	}
+];
+
+
+
 const devConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api", //http://localhost:5000/api
 	commodities: crops,
+	forecastTypes: mpForecasts,
 	domain: "localhost"
 };
 
@@ -14,6 +48,7 @@ const prodConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api",
 	commodities: crops,
+	forecastTypes: mpForecasts,
 	domain: "fd-tools.ncsa.illinois.edu"
 };
 

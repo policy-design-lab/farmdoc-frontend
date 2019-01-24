@@ -17,6 +17,7 @@ import {
 import {
 	changeAcres,
 	changeCommodity,
+	changeForecastType,
 	changeCounty,
 	changeCoverage,
 	changePaymentYield,
@@ -121,6 +122,7 @@ class FDRunModel extends Component {
 		program: "both",
 		commodity: "",
 		units: "bushel/acre",
+		forecastType: "cbo",
 		refPrice: 3.7,
 		acres: .85,
 		seqprice: 0.0,
@@ -149,6 +151,7 @@ class FDRunModel extends Component {
 			program: "both",
 			commodity: "",
 			units: "bushel/acre",
+			forecastType: "cbo",
 			refPrice: 3.7,
 			acres: .85,
 			seqprice: 0.0,
@@ -185,6 +188,9 @@ class FDRunModel extends Component {
 				if (event.value !== "") {
 					this.populateRefPriceAndUnits(event.value);
 				}
+				break;
+			case "forecastType":
+				this.props.handleForecastTypeChange(event.value);
 				break;
 		}
 	};
@@ -236,11 +242,12 @@ class FDRunModel extends Component {
 		let dwUrl = datawolfURL;
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
-			sequesterPrice;
+			sequesterPrice, forecastType;
 		countyId = this.state.county;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
+		forecastType = this.state.forecastType;
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
@@ -248,7 +255,7 @@ class FDRunModel extends Component {
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
 
-
+		//TODO: Add forecast
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
 			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice);
 
@@ -389,10 +396,13 @@ class FDRunModel extends Component {
 		});
 
 		let cropOptions = [];
-		let commodityMenuItems = [];
 		config.commodities.forEach((item) => {
-			commodityMenuItems.push(<MenuItem key={`commodity-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 			cropOptions.push({value: item.id, label: item.name});
+		});
+
+		let forecastTypeOptions = [];
+		config.forecastTypes.forEach((item) => {
+			forecastTypeOptions.push({value: item.id, label: item.name});
 		});
 
 		let errorMsg;
@@ -493,6 +503,25 @@ class FDRunModel extends Component {
 				/> <br/>
 
 				<FormControl className={classes.formControl} required>
+					<ReactSelect styles={ReactSelectStyles}
+											 classes={classes}
+											 textFieldProps={{
+												 label: "Forecast Model",
+												 InputLabelProps: {
+													 shrink: true,
+												 },
+											 }}
+											 components={components}
+											 placeholder="Select"
+											 options={forecastTypeOptions}
+											 onChange={this.handleReactSelectChange("forecastType")}
+											 inputProps={{
+												 name: "forecast",
+												 id: "forecast-simple",
+											 }}/>
+				</FormControl>
+
+				<FormControl className={classes.formControl} required>
 					<TextField
 						id="paymentYield"
 						label="PLC Payment Yield"
@@ -586,6 +615,7 @@ class FDRunModel extends Component {
 const mapStateToProps = state => ({
 	county: state.county,
 	commodity: state.commodity,
+	forecastType: state.forecastType,
 	refPrice: state.refPrice,
 	paymentYield: state.paymentYield,
 	coverage: state.coverage,
@@ -597,6 +627,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	handleCountyChange: county => dispatch(changeCounty(county)),
 	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
+	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
 	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
 	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
