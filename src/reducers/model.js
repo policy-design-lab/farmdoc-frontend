@@ -3,7 +3,7 @@
 const defaultState = {
 	county: null,
 	commodity: "Corn",
-	forecastType: "cbo",
+	forecastType: "",
 	refPrice: 3.70,
 	paymentYield: 120,
 	coverage: 85,

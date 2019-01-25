@@ -121,7 +121,7 @@ class FDRunModel extends Component {
 		program: "both",
 		commodity: "",
 		units: "bushel/acre",
-		forecastType: "cbo",
+		forecastType: "",
 		refPrice: 3.7,
 		acres: .85,
 		seqprice: 0.0,
@@ -150,7 +150,7 @@ class FDRunModel extends Component {
 			program: "both",
 			commodity: "",
 			units: "bushel/acre",
-			forecastType: "cbo",
+			forecastType: "",
 			refPrice: 3.7,
 			acres: .85,
 			seqprice: 0.0,
@@ -365,7 +365,7 @@ class FDRunModel extends Component {
 	}
 
 	validateInputs() {
-		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "") {
+		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "" && this.state.forecastType !== "") {
 			return true;
 		}
 		else {
@@ -417,7 +417,6 @@ class FDRunModel extends Component {
 		return (
 			<div style={{
 				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
-				// outlineStyle: "solid", outlineWidth: "1px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
 				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
 			}}>
@@ -555,8 +554,6 @@ class FDRunModel extends Component {
 
 				/>
 				<br/>
-
-
 
 				<TextField
 					id="acres"
