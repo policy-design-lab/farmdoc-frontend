@@ -120,7 +120,9 @@ class Login extends Component {
 					loginResponse.status}`);
 				this.setState({statusText: dataWolfGetTokenCallFailed});
 			}
-		} catch (error) {
+			"";		
+		}
+		catch (error) {
 			console.error(`Error: ${error}`);
 		}
 	};

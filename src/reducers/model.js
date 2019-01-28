@@ -1,5 +1,4 @@
 
-
 const defaultState = {
 	county: null,
 	commodity: "Corn",
@@ -58,5 +57,4 @@ const model = (state = defaultState, action) => {
 };
 
 export default model;
-
 

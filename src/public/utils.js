@@ -1,5 +1,4 @@
 import {datawolfURL} from "../datawolf.config";
-import config from "../app.config";
 
 /***
  * Checks if user
@@ -10,7 +9,7 @@ export async function checkAuthentication() {
 	let personId = "";
 	personId = sessionStorage.getItem("personId");
 
-	return await fetch(`${datawolfURL  }/persons/${  personId}`, {
+	return await fetch(`${datawolfURL }/persons/${ personId}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -36,7 +35,8 @@ export function groupBy(list, keyGetter) {
 		const collection = map.get(key);
 		if (!collection) {
 			map.set(key, [item]);
-		} else {
+		}
+		else {
 			collection.push(item);
 		}
 	});
@@ -51,7 +51,7 @@ export const ID = function () {
 	// Math.random should be unique because of its seeding algorithm.
 	// Convert it to base 36 (numbers + letters), and grab the first 9 characters
 	// after the decimal.
-	return `_${  Math.random().toString(36).substr(2, 9)}`;
+	return `_${ Math.random().toString(36).substr(2, 9)}`;
 };
 
 // check if withCoverCropDatasetResultGUID & withoutCoverCropDatasetResultGUID is validate is outside of this
@@ -64,11 +64,11 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 
 	// Get - Result Dataset
 	const datasetResponse = await
-		fetch(`${datawolfURL  }/datasets/${  datasetId}`, {
-			method: "GET",
-			headers: headers,
-			credentials: "include"
-		});
+	fetch(`${datawolfURL }/datasets/${ datasetId}`, {
+		method: "GET",
+		headers: headers,
+		credentials: "include"
+	});
 
 	const resultDataset = await datasetResponse.json();
 	let fileId = -1;
@@ -92,7 +92,7 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 
 	if (fileId !== -1) {
 		// Get - Result File Download
-		const fileDownloadResponse = await fetch(`${datawolfURL  }/datasets/${  datasetId  }/${  fileId  }/file`,
+		const fileDownloadResponse = await fetch(`${datawolfURL }/datasets/${ datasetId }/${ fileId }/file`,
 			{
 				method: "GET",
 				headers: headers,
@@ -110,14 +110,13 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 /**
  * @return {string}
  */
-export function ConvertDDToDMS(dd)
-{
+export function ConvertDDToDMS(dd) {
 	let deg = dd | 0; // truncate dd to get degrees
 	let frac = Math.abs(dd - deg); // get fractional part
 	let min = (frac * 60) | 0; // multiply fraction by 60 and truncate
 	let sec = frac * 3600 - min * 60;
 	sec = sec.toFixed(2);
-	return `${deg  }d ${  min  }' ${  sec  }"`;
+	return `${deg }d ${ min }' ${ sec }"`;
 }
 
 export function calculateDayOfYear(date: Date) {
@@ -126,7 +125,6 @@ export function calculateDayOfYear(date: Date) {
 	let today = Math.ceil((date.getTime()) / 86400000);
 	return today - yearFirstDay;
 }
-
 
 
 export async function wait(ms) {

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import {FormControl, MenuItem} from "@material-ui/core";
+import {FormControl} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
@@ -85,7 +85,7 @@ const ReactSelectStyles = {
 	// }
 };
 
-function inputComponent({ inputRef, ...props }) {
+function inputComponent({inputRef, ...props}) {
 	return <div ref={inputRef} {...props} />;
 }
 
@@ -241,12 +241,12 @@ class FDRunModel extends Component {
 		let dwUrl = datawolfURL;
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
-			sequesterPrice, forecastType;
+			sequesterPrice;
 		countyId = this.state.county;
 		startYear = 2019;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
-		forecastType = this.state.forecastType;
+		//forecastType = this.state.forecastType; to be used when model is ready
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
@@ -423,7 +423,7 @@ class FDRunModel extends Component {
 
 				{errorMsg}
 
-				<FormControl className={classes.formControl} required style={{ marginTop: "16px"}}>
+				<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
 					<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
@@ -493,7 +493,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					margin="normal"
 					onChange={this.handleMuiChange("refPrice")}
-					style={{width:"125px", marginTop: "8px"}}
+					style={{width: "125px", marginTop: "8px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}

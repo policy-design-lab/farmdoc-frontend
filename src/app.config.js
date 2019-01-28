@@ -34,8 +34,6 @@ const mpForecasts = [
 	}
 ];
 
-
-
 const devConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api", //http://localhost:5000/api
@@ -57,7 +55,8 @@ const config = getConfig();
 function getConfig() {
 	if (process.env.NODE_ENV === "production") {
 		return prodConfig;
-	} else {
+	}
+	else {
 		return devConfig;
 	}
 }
