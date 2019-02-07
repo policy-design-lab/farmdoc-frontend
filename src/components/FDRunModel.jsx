@@ -119,15 +119,16 @@ class FDRunModel extends Component {
 		counties: [],
 		county: "",
 		program: "both",
-		commodity: "",
-		units: "bushel/acre",
-		forecastType: "",
-		refPrice: 3.7,
-		acres: .85,
-		seqprice: 0.0,
-		coverage: .86,
+		commodity: config.defaultsJson.commodity,
+		units: config.defaultsJson.units,
+		forecastType: config.defaultsJson.forecastType,
+		forecastName: config.defaultsJson.forecastName,
+		refPrice: "",
+		acres: config.defaultsJson.acres,
+		seqprice: 0,
+		coverage: config.defaultsJson.coverage,
 		paymentYield: "",
-		range: .1,
+		range: config.defaultsJson.range,
 		runName: "",
 		runStatus: "",
 		modelResult: null,
@@ -148,15 +149,16 @@ class FDRunModel extends Component {
 			counties: [],
 			county: "",
 			program: "both",
-			commodity: "",
-			units: "bushel/acre",
-			forecastType: "",
-			refPrice: 3.7,
-			acres: .85,
-			seqprice: 0.0,
-			coverage: .86,
+			commodity: config.defaultsJson.commodity,
+			units: config.defaultsJson.units,
+			forecastType: config.defaultsJson.forecastType,
+			forecastName: config.defaultsJson.forecastName,
+			refPrice: "",
+			acres: config.defaultsJson.acres,
+			seqprice: config.defaultsJson.seqprice,
+			coverage: config.defaultsJson.coverage,
 			paymentYield: "",
-			range: .1,
+			range: config.defaultsJson.range,
 			runName: "",
 			runStatus: "",
 			modelResult: null,
@@ -190,6 +192,7 @@ class FDRunModel extends Component {
 				break;
 			case "forecastType":
 				this.props.handleForecastTypeChange(event.value);
+				this.setState({"forecastName": event.label});
 				break;
 		}
 	};
@@ -243,7 +246,7 @@ class FDRunModel extends Component {
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
 			sequesterPrice, forecastType;
 		countyId = this.state.county;
-		startYear = 2019;
+		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
 		forecastType = this.state.forecastType;
@@ -376,6 +379,7 @@ class FDRunModel extends Component {
 	render() {
 		const {classes} = this.props;
 
+		let textFieldInputStyle = {style: {padding: 10}};
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -502,6 +506,7 @@ class FDRunModel extends Component {
 
 				<FormControl className={classes.formControl} required>
 					<ReactSelect styles={ReactSelectStyles}
+											 value = {{value: this.state.forecastType, label: this.state.forecastName}}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "Forecast Model",
@@ -510,7 +515,7 @@ class FDRunModel extends Component {
 												 },
 											 }}
 											 components={components}
-											 placeholder="Select"
+											 //placeholder="Select"
 											 options={forecastTypeOptions}
 											 onChange={this.handleReactSelectChange("forecastType")}
 											 inputProps={{
@@ -534,8 +539,11 @@ class FDRunModel extends Component {
 					InputLabelProps={{shrink: true}}
 
 					InputProps={{
-						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
 					}}
+
+					inputProps={{padding: 10}}
+
 					onInput={(e) => {
 						if (e.target.value !== "") {
 							if (isNaN(e.target.value)) {
@@ -565,7 +573,7 @@ class FDRunModel extends Component {
 					onChange={this.handleMuiChange("acres")}
 					disabled={true}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 
 				/><br/>
@@ -580,7 +588,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					onChange={this.handleMuiChange("coverage")}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 					// helperText="ARC-CO Coverage"
 				/><br/>
@@ -595,7 +603,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					onChange={this.handleMuiChange("range")}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 				/>
 				<br/><br/>

@@ -1,14 +1,14 @@
-
+import config from "../app.config";
 
 const defaultState = {
 	county: null,
-	commodity: "Corn",
-	forecastType: "",
-	refPrice: 3.70,
-	paymentYield: 120,
-	coverage: 85,
-	range: 10,
-	acres: 85,
+	commodity: config.defaultsJson.commodity,
+	forecastType: config.defaultsJson.forecastType,
+	refPrice: "",
+	paymentYield: config.defaultsJson.paymentYield,
+	coverage: config.defaultsJson.coverage,
+	range: config.defaultsJson.range,
+	acres: config.defaultsJson.acres,
 	countyResults: null
 };
 

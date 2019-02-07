@@ -34,6 +34,17 @@ const mpForecasts = [
 	}
 ];
 
+const defaultsJson = {
+	commodity: "",
+	forecastType: "cbo",
+	forecastName: "CBO 2018",
+	paymentYield: "",
+	coverage: .86,
+	range: .1,
+	acres: .85,
+	units: "",
+	startYear: 2019
+};
 
 
 const devConfig = {
@@ -41,7 +52,8 @@ const devConfig = {
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api", //http://localhost:5000/api
 	commodities: crops,
 	forecastTypes: mpForecasts,
-	domain: "localhost"
+	domain: "localhost",
+	defaultsJson: defaultsJson
 };
 
 const prodConfig = {
@@ -49,7 +61,8 @@ const prodConfig = {
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api",
 	commodities: crops,
 	forecastTypes: mpForecasts,
-	domain: "fd-tools.ncsa.illinois.edu"
+	domain: "fd-tools.ncsa.illinois.edu",
+	defaultsJson: defaultsJson
 };
 
 const config = getConfig();
