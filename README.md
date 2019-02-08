@@ -14,6 +14,8 @@ are sucessfully installed on your computer
 
     `npm -v` and 
     `node -v`
+    
+	Recommended versions to be used are: node 10.x and npm 6.x.
 
 2. If not download `Node.js` package from, for example 
 [nodejs.org](https://nodejs.org/en/) and install it on your system. 
