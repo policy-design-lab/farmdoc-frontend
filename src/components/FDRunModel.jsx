@@ -17,6 +17,7 @@ import {
 import {
 	changeAcres,
 	changeCommodity,
+	changeForecastType,
 	changeCounty,
 	changeCoverage,
 	changePaymentYield,
@@ -41,9 +42,8 @@ const styles = theme => ({
 	},
 
 	textField: {
-		marginLeft: theme.spacing.unit,
-		marginRight: theme.spacing.unit,
-		width: 150,
+		marginTop: "8px",
+		width: 160,
 	},
 	menu: {
 		width: 150,
@@ -119,14 +119,16 @@ class FDRunModel extends Component {
 		counties: [],
 		county: "",
 		program: "both",
-		commodity: "",
-		units: "bushel/acre",
-		refPrice: 3.7,
-		acres: .85,
-		seqprice: 0.0,
-		coverage: .86,
+		commodity: config.defaultsJson.commodity,
+		units: config.defaultsJson.units,
+		forecastType: config.defaultsJson.forecastType,
+		forecastName: config.defaultsJson.forecastName,
+		refPrice: "",
+		acres: config.defaultsJson.acres,
+		seqprice: 0,
+		coverage: config.defaultsJson.coverage,
 		paymentYield: "",
-		range: .1,
+		range: config.defaultsJson.range,
 		runName: "",
 		runStatus: "",
 		modelResult: null,
@@ -147,14 +149,16 @@ class FDRunModel extends Component {
 			counties: [],
 			county: "",
 			program: "both",
-			commodity: "",
-			units: "bushel/acre",
-			refPrice: 3.7,
-			acres: .85,
-			seqprice: 0.0,
-			coverage: .86,
+			commodity: config.defaultsJson.commodity,
+			units: config.defaultsJson.units,
+			forecastType: config.defaultsJson.forecastType,
+			forecastName: config.defaultsJson.forecastName,
+			refPrice: "",
+			acres: config.defaultsJson.acres,
+			seqprice: config.defaultsJson.seqprice,
+			coverage: config.defaultsJson.coverage,
 			paymentYield: "",
-			range: .1,
+			range: config.defaultsJson.range,
 			runName: "",
 			runStatus: "",
 			modelResult: null,
@@ -185,6 +189,10 @@ class FDRunModel extends Component {
 				if (event.value !== "") {
 					this.populateRefPriceAndUnits(event.value);
 				}
+				break;
+			case "forecastType":
+				this.props.handleForecastTypeChange(event.value);
+				this.setState({"forecastName": event.label});
 				break;
 		}
 	};
@@ -236,11 +244,12 @@ class FDRunModel extends Component {
 		let dwUrl = datawolfURL;
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
-			sequesterPrice;
+			sequesterPrice, forecastType;
 		countyId = this.state.county;
-		startYear = 2019;
+		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
+		forecastType = this.state.forecastType;
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
@@ -248,7 +257,7 @@ class FDRunModel extends Component {
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
 
-
+		//TODO: Add forecast
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
 			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice);
 
@@ -359,7 +368,7 @@ class FDRunModel extends Component {
 	}
 
 	validateInputs() {
-		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "") {
+		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "" && this.state.forecastType !== "") {
 			return true;
 		}
 		else {
@@ -370,6 +379,7 @@ class FDRunModel extends Component {
 	render() {
 		const {classes} = this.props;
 
+		let textFieldInputStyle = {style: {padding: 10}};
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -389,10 +399,13 @@ class FDRunModel extends Component {
 		});
 
 		let cropOptions = [];
-		let commodityMenuItems = [];
 		config.commodities.forEach((item) => {
-			commodityMenuItems.push(<MenuItem key={`commodity-${item.id}`} value={item.id}>{item.name}</MenuItem>);
 			cropOptions.push({value: item.id, label: item.name});
+		});
+
+		let forecastTypeOptions = [];
+		config.forecastTypes.forEach((item) => {
+			forecastTypeOptions.push({value: item.id, label: item.name});
 		});
 
 		let errorMsg;
@@ -408,14 +421,13 @@ class FDRunModel extends Component {
 		return (
 			<div style={{
 				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
-				// outlineStyle: "solid", outlineWidth: "1px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
 				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
 			}}>
 
 				{errorMsg}
 
-				<FormControl className={classes.formControl} required style={{marginBottom: "16px", marginTop: "16px"}}>
+				<FormControl className={classes.formControl} required style={{ marginTop: "16px"}}>
 					<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
@@ -485,7 +497,7 @@ class FDRunModel extends Component {
 					disabled={true}
 					margin="normal"
 					onChange={this.handleMuiChange("refPrice")}
-					style={{width: "125px"}}
+					style={{width:"125px", marginTop: "8px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
@@ -493,39 +505,63 @@ class FDRunModel extends Component {
 				/> <br/>
 
 				<FormControl className={classes.formControl} required>
-					<TextField
-						id="paymentYield"
-						label="PLC Payment Yield"
-						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
-						value={this.state.paymentYield}
-						margin="normal"
-						style={{width: "230px"}}
-						onChange={this.handleMuiChange("paymentYield")}
-						required
+					<ReactSelect styles={ReactSelectStyles}
+											 value = {{value: this.state.forecastType, label: this.state.forecastName}}
+											 classes={classes}
+											 textFieldProps={{
+												 label: "Forecast Model",
+												 InputLabelProps: {
+													 shrink: true,
+												 },
+											 }}
+											 components={components}
+											 //placeholder="Select"
+											 options={forecastTypeOptions}
+											 onChange={this.handleReactSelectChange("forecastType")}
+											 inputProps={{
+												 name: "forecast",
+												 id: "forecast-simple",
+											 }}/>
+				</FormControl>
 
-						InputLabelProps={{shrink: true}}
 
-						InputProps={{
-							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>
-						}}
-						onInput={(e) => {
-							if (e.target.value !== "") {
-								if (isNaN(e.target.value)) {
-									e.target.value = e.target.value.toString().slice(0, -1);
+				<TextField
+					id="paymentYield"
+					label="PLC Payment Yield"
+					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+					value={this.state.paymentYield}
+					margin="normal"
+					style={{width: "230px"}}
+					onChange={this.handleMuiChange("paymentYield")}
+					className={classes.textField}
+					required
+
+					InputLabelProps={{shrink: true}}
+
+					InputProps={{
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
+					}}
+
+					inputProps={{padding: 10}}
+
+					onInput={(e) => {
+						if (e.target.value !== "") {
+							if (isNaN(e.target.value)) {
+								e.target.value = e.target.value.toString().slice(0, -1);
+							}
+							else {
+								if (e.target.value <= 0) {
+									e.target.value = 1;
 								}
-								else {
-									if (e.target.value <= 0) {
-										e.target.value = 1;
-									}
-									else if (e.target.value > 300) {
-										e.target.value = 300;
-									}
+								else if (e.target.value > 300) {
+									e.target.value = 300;
 								}
 							}
-						}}
+						}
+					}}
 
-					/>
-				</FormControl><br/>
+				/>
+				<br/>
 
 				<TextField
 					id="acres"
@@ -533,10 +569,11 @@ class FDRunModel extends Component {
 					value={this.state.acres}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					onChange={this.handleMuiChange("acres")}
 					disabled={true}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 
 				/><br/>
@@ -547,10 +584,11 @@ class FDRunModel extends Component {
 					value={this.state.coverage}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("coverage")}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 					// helperText="ARC-CO Coverage"
 				/><br/>
@@ -561,10 +599,11 @@ class FDRunModel extends Component {
 					value={this.state.range}
 					margin="normal"
 					style={{width: "160px"}}
+					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("range")}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>,
+						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 				/>
 				<br/><br/>
@@ -586,6 +625,7 @@ class FDRunModel extends Component {
 const mapStateToProps = state => ({
 	county: state.county,
 	commodity: state.commodity,
+	forecastType: state.forecastType,
 	refPrice: state.refPrice,
 	paymentYield: state.paymentYield,
 	coverage: state.coverage,
@@ -597,6 +637,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	handleCountyChange: county => dispatch(changeCounty(county)),
 	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
+	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
 	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
 	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
