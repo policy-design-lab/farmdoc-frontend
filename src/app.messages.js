@@ -13,12 +13,12 @@ export const welcometext = ["The farmdoc Farm Program project provides a web-bas
 "county level historical data and modeled price and yield forecasts. It will also produce detailed visualization options, such as mapping payments" +
 " at county, regional (including Congressional district), state and national levels. Currently, the tool supports corn, wheat and soybeans by" +
 " mapping estimated program payments for ARC (Agriculture Risk Coverage) and PLC (Price Loss Coverage) as reauthorized by Congress.",
-	"  ",
-	" Funding for this project has been provided by the Gardner Agricultural Policy Program (GAPP) in the Department of Agricultural and Consumer Economics" +
+"  ",
+" Funding for this project has been provided by the Gardner Agricultural Policy Program (GAPP) in the Department of Agricultural and Consumer Economics" +
 	" (ACE) at the University of Illinois at Urbana-Champaign and by a cooperative agreement with the Office of the Chief Economist" +
 	" at the U.S. Department of Agriculture."
 ];
 export const register = "Creating an account allows you to save the simulation data" +
 	" and information about your farm and fields.";
-export const unauthorized = ["We are glad you want to check out Farmdoc Simulator " ,
+export const unauthorized = ["We are glad you want to check out Farmdoc Simulator ",
 	"For the best experience, login or register for a free account."];

@@ -293,7 +293,7 @@ class Results extends Component {
 				<div>
 					<Modal open={this.state.open} onClose={this.handleClose}>
 						<div style={getModalStyle()} className={classes.paper}>
-							<Grid container style={{width: "900px",}}>
+							<Grid container style={{width: "900px"}}>
 								<Grid item style={{padding: "10px", width: "50%"}}>
 									<img src={require("../images/bin-arc.png")} style={{width: "100%"}}/>
 								</Grid>

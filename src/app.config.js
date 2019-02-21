@@ -70,7 +70,8 @@ const config = getConfig();
 function getConfig() {
 	if (process.env.NODE_ENV === "production") {
 		return prodConfig;
-	} else {
+	}
+	else {
 		return devConfig;
 	}
 }

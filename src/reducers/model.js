@@ -59,4 +59,3 @@ const model = (state = defaultState, action) => {
 
 export default model;
 
-
