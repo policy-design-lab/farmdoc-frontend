@@ -1,12 +1,8 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import {HorizontalBar} from "react-chartjs-2";
-import { Modal, Table, TableBody, TableCell, TableRow} from "@material-ui/core";
-
-import {handleResults} from "../actions/model";
-import {changeYearRow} from "../actions/results";
-import BinnedGraphs from "./BinnedGraphs";
+import {Bar} from "react-chartjs-2";
+import {Grid} from "@material-ui/core";
 
 
 const styles = theme => ({
@@ -35,153 +31,38 @@ const styles = theme => ({
 	}
 });
 
-const ChartTableCell = withStyles({
-	root: {
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
-		paddingRight: 0,
-		minWidth: 340
-	}
-})(TableCell);
 
-const TableCellWithTable = withStyles({
-	root: {
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
-		padding: "0 0 0 0 !important"
-	}
-})(TableCell);
-
-const TableCellDefaultStyles = withStyles({
-	root: {
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
-		textAlign: "center",
-		width: "90px",
-		paddingLeft: "4px !important",
-		paddingRight: "4px !important"
-	}
-})(TableCell);
-
-const TableCellHeader = withStyles({
-	root: {
-		color: "rgba(0, 0, 0, 0.54)",
-		fontFamily: "Roboto",
-		fontSize: "0.75rem",
-		fontWeight: "500",
-
-	}
-})(TableCellDefaultStyles);
-
-
-const ArcTableCell = withStyles({
-	root: {
-		borderBottomStyle: "none",
-		paddingBottom: "1px",
-		verticalAlign: "bottom",
-		color: "Orange",
-		fontWeight: "bolder"
-	}
-})(TableCellDefaultStyles);
-
-const PlcTableCell = withStyles({
-	root: {
-		borderTopStyle: "none",
-		verticalAlign: "top",
-		color: "SkyBlue",
-		fontWeight: "bolder"
-
-	}
-})(TableCellDefaultStyles);
-
-const CommonTableCell = withStyles({
-	root: {
-		fontWeight: "bolder"
-	}
-})(TableCellDefaultStyles);
-
-
-function getModalStyle() {
-	const top = 50; //+ rand();
-	const left = 50;// + rand();
-
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`,
-		display: "inline-block"
-	};
-}
-
-
-class Results extends Component {
+class BinnedGraphs extends Component {
 
 	state = {
 		open: false,
-		yearRowIndex: 0
+		binYearRow: 0
 	};
 
 	constructor(props) {
 		super(props);
-		this.handleResultsChange = this.handleResultsChange.bind(this);
-		this.handleYearRowChange = this.handleYearRowChange.bind(this);
-	}
-
-	handleOpen = (i) => {
-		this.setState({open: true});
-		this.setState({yearRowIndex: i});
-		this.props.handleYearRowChange(i);
-	};
-
-	handleClose = () => {
-		this.setState({open: false});
-	};
-	roundResults = (val, n) => {
-		if (n === undefined || n === 0) {
-			return Math.round(val);
-		}
-		else {
-			return Number(val).toFixed(n);
-		}
-	};
-
-	componentWillUnmount() {
-		this.props.handleResultsChange(null);
-	}
-
-	handleResultsChange(results) {
-		this.props.handleResultsChange(results);
-	}
-
-	handleYearRowChange(yearRowIndex) {
-		this.props.handleYearRowChange(yearRowIndex);
 	}
 
 
 	render() {
-		const {classes} = this.props;
 
-		let years = [];
-		let prices = [];
-		let yields = [];
-		let arc = [];
-		let plc = [];
-		let probArc = [];
-		let probPlc = [];
-		let yieldUnits = "";
+		let arcBins = [];
+		let arcDists = [];
+		let plcBins = [];
+		let plcDists = [];
 
 		let jsonData = null;
+		let yearRowIndex = 0;
 
 		if (this.props.hasOwnProperty("countyResultJson") && this.props["countyResultJson"] !== null) {
 			jsonData = this.props["countyResultJson"];
 
 		}
 		else { //Uncomment to test with static 5 year response
+		  //without bins
+			//jsonData = "{\"mean_prices\":{\"title\":\"Mean prices\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":0.583,\"pos\":100,\"mean\":3.713,\"max\":5.96,\"min\":2.258},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.638,\"pos\":100,\"mean\":3.76,\"max\":5.813,\"min\":2.134},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.666,\"pos\":100,\"mean\":3.781,\"max\":6.123,\"min\":2.02},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.662,\"pos\":100,\"mean\":3.791,\"max\":6.128,\"min\":2.177},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":0.657,\"pos\":100,\"mean\":3.795,\"max\":6.448,\"min\":2.123},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"National mean prices\",\"yData1\":\"Price\"},\"county_yields\":{\"title\":\"County yields\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"bushel/acre\",\"yData2\":\"\",\"datasets\":{\"data\":[{\"value1\":{\"std\":21.948,\"pos\":100,\"mean\":191.793,\"max\":241.99,\"min\":103.991},\"point\":2017,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":193.785,\"max\":243.905,\"min\":105.78},\"point\":2018,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.947,\"pos\":100,\"mean\":195.777,\"max\":245.821,\"min\":107.572},\"point\":2019,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.946,\"pos\":100,\"mean\":197.77,\"max\":247.739,\"min\":109.368},\"point\":2020,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}},{\"value1\":{\"std\":21.945,\"pos\":100,\"mean\":199.762,\"max\":249.659,\"min\":111.168},\"point\":2021,\"value2\":{\"std\":null,\"pos\":null,\"mean\":null,\"max\":null,\"min\":null}}]},\"yData2Unit\":\"\",\"yDataSet\":\"County mean yields\",\"yData1\":\"Yield\"},\"county_average_arc_and_plc_payments\":{\"title\":\"County average ARC and PLC payments\",\"xData\":\"Year\",\"xDataUnit\":\"\",\"yData1Unit\":\"$\",\"yData2\":\"County PLC\",\"datasets\":{\"data\":[{\"value1\":{\"std\":27.06,\"pos\":45,\"mean\":22.2,\"max\":67.822,\"min\":0},\"point\":2017,\"value2\":{\"std\":28.743,\"pos\":52.2,\"mean\":22.211,\"max\":136.085,\"min\":0}},{\"value1\":{\"std\":23.611,\"pos\":32.5,\"mean\":13.59,\"max\":69.229,\"min\":0},\"point\":2018,\"value2\":{\"std\":30.799,\"pos\":48.9,\"mean\":21.238,\"max\":147.709,\"min\":0}},{\"value1\":{\"std\":23.261,\"pos\":29.7,\"mean\":12.834,\"max\":71.593,\"min\":0},\"point\":2019,\"value2\":{\"std\":31.262,\"pos\":48.3,\"mean\":20.98,\"max\":158.524,\"min\":0}},{\"value1\":{\"std\":21.487,\"pos\":24.8,\"mean\":10.423,\"max\":70.561,\"min\":0},\"point\":2020,\"value2\":{\"std\":30.672,\"pos\":47.7,\"mean\":20.842,\"max\":143.67,\"min\":0}},{\"value1\":{\"std\":23.132,\"pos\":27.6,\"mean\":12.292,\"max\":81.558,\"min\":0},\"point\":2021,\"value2\":{\"std\":30.362,\"pos\":46.7,\"mean\":20.387,\"max\":148.834,\"min\":0}}]},\"yData2Unit\":\"$/acre\",\"yDataSet\":\"County ARC and PLC payments\",\"yData1\":\"County ARC\"}}";
 
-			//with bins
+		  //with bins
 			jsonData = "{\"mean_prices\":{\"xData\": \"Year\", \"xDataUnit\": \"\", \"yDataSet\": \"National mean prices\", \"yData1\": \"Price\", \"yData1Unit\": \"$\", \"yData2\": \"\", \"yData2Unit\": \"\", \"title\": \"Mean prices\", \"datasets\": {\"data\": [{\"point\": 2019, \"value1\": {\"mean\": 3.637, \"std\": 0.638, \"min\": 2.023, \"max\": 5.708, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2020, \"value1\": {\"mean\": 3.671, \"std\": 0.666, \"min\": 1.92, \"max\": 6.025, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2021, \"value1\": {\"mean\": 3.686, \"std\": 0.662, \"min\": 2.08, \"max\": 6.032, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2022, \"value1\": {\"mean\": 3.693, \"std\": 0.657, \"min\": 2.028, \"max\": 6.356, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2023, \"value1\": {\"mean\": 3.696, \"std\": 0.654, \"min\": 2.121, \"max\": 5.79, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}]}},\n" +
 					"\"county_yields\":{\"xData\": \"Year\", \"xDataUnit\": \"\", \"yDataSet\": \"County mean yields\", \"yData1\": \"Yield\", \"yData1Unit\": \"bushel/acre\", \"yData2\": \"\", \"yData2Unit\": \"\", \"title\": \"County yields\", \"datasets\": {\"data\": [{\"point\": 2019, \"value1\": {\"mean\": 199.029, \"std\": 24.163, \"min\": 103.698, \"max\": 254.788, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2020, \"value1\": {\"mean\": 201.087, \"std\": 24.162, \"min\": 105.521, \"max\": 256.754, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2021, \"value1\": {\"mean\": 203.144, \"std\": 24.161, \"min\": 107.349, \"max\": 258.723, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2022, \"value1\": {\"mean\": 205.202, \"std\": 24.161, \"min\": 109.181, \"max\": 260.694, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}, {\"point\": 2023, \"value1\": {\"mean\": 207.259, \"std\": 24.16, \"min\": 111.017, \"max\": 262.666, \"pos\": 100.0}, \"value2\": {\"mean\": null, \"std\": null, \"min\": null, \"max\": null, \"pos\": null}}]}},\n" +
 					"\"county_average_arc_and_plc_payments\":{\"xData\": \"Year\", \"xDataUnit\": \"\", \"yDataSet\": \"County ARC and PLC payments\", \"yData1\": \"County ARC\", \"yData1Unit\": \"$\", \"yData2\": \"County PLC\", \"yData2Unit\": \"$/acre\", \"title\": \"County average ARC and PLC payments\", \"datasets\": {\"data\": [{\"point\": 2019, \"value1\": {\"mean\": 13.441, \"std\": 23.411, \"min\": 0.0, \"max\": 64.473, \"pos\": 31.5}, \"value2\": {\"mean\": 29.517, \"std\": 37.578, \"min\": 0.0, \"max\": 171.09, \"pos\": 56.0}}, {\"point\": 2020, \"value1\": {\"mean\": 13.876, \"std\": 24.339, \"min\": 0.0, \"max\": 67.215, \"pos\": 30.8}, \"value2\": {\"mean\": 28.509, \"std\": 37.558, \"min\": 0.0, \"max\": 178.5, \"pos\": 54.8}}, {\"point\": 2021, \"value1\": {\"mean\": 11.166, \"std\": 22.346, \"min\": 0.0, \"max\": 69.858, \"pos\": 25.8}, \"value2\": {\"mean\": 27.954, \"std\": 36.848, \"min\": 0.0, \"max\": 165.232, \"pos\": 53.8}}, {\"point\": 2022, \"value1\": {\"mean\": 12.999, \"std\": 23.822, \"min\": 0.0, \"max\": 72.461, \"pos\": 28.8}, \"value2\": {\"mean\": 27.274, \"std\": 36.418, \"min\": 0.0, \"max\": 170.507, \"pos\": 53.3}}, {\"point\": 2023, \"value1\": {\"mean\": 11.75, \"std\": 22.946, \"min\": 0.0, \"max\": 76.034, \"pos\": 26.1}, \"value2\": {\"mean\": 26.924, \"std\": 36.713, \"min\": 0.0, \"max\": 161.014, \"pos\": 51.7}}]}},\n" +
@@ -190,74 +71,32 @@ class Results extends Component {
 					"}";
 		}
 
+		if (this.props.hasOwnProperty("yearRowIndex") && this.props["yearRowIndex"] !== null) {
+			yearRowIndex = this.props["yearRowIndex"];
+		}
+		else {
+			yearRowIndex = 0;
+		}
+
 		if (jsonData !== null) {
 			let objData = JSON.parse(jsonData);
-			let _this = this;
-			if (objData.county_average_arc_and_plc_payments && objData.county_average_arc_and_plc_payments !== null) {
+			if (objData.histograms_of_county_arc_payments && objData.histograms_of_county_arc_payments !== null) {
 
-				let arcplcData = objData.county_average_arc_and_plc_payments.datasets.data;
-
-				arcplcData.forEach(function (element) {
-					years.push(element.point);
-					arc.push(_this.roundResults(element.value1.mean, 2));
-					plc.push(_this.roundResults(element.value2.mean, 2));
-
-					probArc.push(_this.roundResults(element.value1.pos));
-					probPlc.push(_this.roundResults(element.value2.pos));
-
-				});
+				arcBins = objData.histograms_of_county_arc_payments.datasets.data[yearRowIndex].xdata;
+				arcDists = objData.histograms_of_county_arc_payments.datasets.data[yearRowIndex].ydata;
 			}
 
-			if (objData.mean_prices && objData.mean_prices !== null) {
+			if (objData.histograms_of_county_arc_payments && objData.histograms_of_county_arc_payments !== null) {
 
-				let priceData = objData.mean_prices.datasets.data;
-
-				priceData.forEach(function (element) {
-					prices.push(_this.roundResults(element.value1.mean, 2));
-				});
+				plcBins = objData.histograms_of_county_plc_payments.datasets.data[yearRowIndex].xdata;
+				plcDists = objData.histograms_of_county_plc_payments.datasets.data[yearRowIndex].ydata;
 			}
 
-			if (objData.county_yields && objData.county_yields !== null) {
-
-				//yData1Unit
-				let yieldData = objData.county_yields.datasets.data;
-				yieldUnits = objData.county_yields.yData1Unit;
-
-				yieldData.forEach(function (element) {
-					yields.push(_this.roundResults(element.value1.mean, 1));
-				});
-			}
-
-
-			let rowElems = [];
-			for (let i = 0; i < years.length; i++) {
-				rowElems.push(
-					<TableRow key={`childRowArc-${i}`}>
-						<ArcTableCell>{arc[i]}</ArcTableCell>
-						<ArcTableCell>{probArc[i]}%</ArcTableCell>
-						<PlcTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<img src={require(`../images/sample-dist${i + 1}.png`)} onClick={() => this.handleOpen(i)}
-								 style={{cursor: "pointer"}}/>
-						</PlcTableCell>
-						<CommonTableCell rowSpan={2}> {prices[i]} </CommonTableCell>
-						<CommonTableCell rowSpan={2}> {yields[i]} </CommonTableCell>
-					</TableRow>
-				);
-
-				rowElems.push(
-					<TableRow key={`childRowPlc-${i}`}>
-						<PlcTableCell>{plc[i]}</PlcTableCell>
-						<PlcTableCell>{probPlc[i]}%</PlcTableCell>
-					</TableRow>
-				);
-			}
-
-
-			let arcplcPayments = {
-				labels: years,
+			let arcData = {
+				labels: arcBins,
 				datasets: [
 					{
-						label: "ARC Payments",
+						label: "ARC Payments Distribution",
 						backgroundColor: "Orange",
 						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(220,220,220,1)",
@@ -265,86 +104,60 @@ class Results extends Component {
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
 						pointHighlightStroke: "rgba(220,220,220,1)",
-						data: arc
-					},
+						data: arcDists
+					}
+				]
+			};
+
+			let plcData = {
+				labels: plcBins,
+				datasets: [
 					{
-						label: "PLC Payments",
+						label: "PLC Payments Distribution",
 						backgroundColor: "SkyBlue",
-						hoverBackgroundColor: "DarkGray",
+						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
 						pointHighlightStroke: "rgba(151,187,205,1)",
-						data: plc
+						data: plcDists
 					}
 				]
 			};
 
-			let barChartOptions = {
+			let chartOptions = {
 				responsive: true,
 				maintainAspectRatio: false,
 				scales: {
 					xAxes: [{
 						ticks: {
 							beginAtZero: true
-
 						},
-						gridLines: {
-							display: true,
-							drawTicks: true,
-							drawBorder: true,
-							color: "rgba(0,0,0,0.1)"
-						},
-						position: "top"
+						position: "bottom"
+					}],
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							min:0,
+							max: 1000
+						}
 					}]
-				},
-				title: {
-					display: false,
-					text: "ARC/PLC Payments - Coverage: 86% Range: 10%",
-					fontColor: "DarkBlue",
-					fontSize: 18
 				}
 			};
 
 
 			return (
 				<div>
-					<Modal open={this.state.open} onClose={this.handleClose}>
-						<div style={getModalStyle()} className={classes.paper}>
-							<BinnedGraphs/>
-						</div>
-					</Modal>
 
-					<Table className={classes.table}>
-
-						<TableBody>
-							<TableRow>
-								<ChartTableCell rowSpan={1}>
-									<HorizontalBar key="line-2" data={arcplcPayments} options={barChartOptions}/>
-
-								</ChartTableCell>
-								<TableCellWithTable>
-
-									<Table>
-										<TableBody>
-											<TableRow style={{height: "64px"}}>
-												<TableCellHeader>Expected  &nbsp;Payment ($)</TableCellHeader>
-												<TableCellHeader>Likelihood of Payment (avg)</TableCellHeader>
-												<TableCellHeader>Simulation Distribution</TableCellHeader>
-												<TableCellHeader>Simulated  &nbsp;Price ($)</TableCellHeader>
-												<TableCellHeader>Simulated Yield ({yieldUnits})</TableCellHeader>
-											</TableRow>
-
-											{rowElems}
-										</TableBody>
-									</Table>
-
-								</TableCellWithTable>
-							</TableRow>
-
-						</TableBody>
-					</Table>
+					<Grid container style={{width: "1000px", height: "400px"}}>
+						<Grid item style={{padding: "10px", width: "50%"}}>
+							<Bar key="line-2" data={arcData} options={chartOptions}/>
+						</Grid>
+						<Grid item style={{padding: "10px", width: "50%"}}>
+							<Bar key="line-3" data={plcData} options={chartOptions}/>
+						</Grid>
+					</Grid>
 
 				</div>
 			);
@@ -353,7 +166,7 @@ class Results extends Component {
 			//TODO: Improve the error message format
 			return (
 				<div>
-					{/*<div style={{textAlign: "center"}}>Run the model first</div>*/}
+					Nothing to show
 				</div>
 			);
 		}
@@ -362,13 +175,9 @@ class Results extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		countyResultJson: state.model.countyResults
+		countyResultJson: state.model.countyResults,
+		yearRowIndex: state.results.yearRowIndex
 	};
 };
 
-const mapDispatchToProps = dispatch => ({
-	handleResultsChange: results => dispatch(handleResults(results)),
-	handleYearRowChange: yearRowIndex => dispatch(changeYearRow(yearRowIndex))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Results));
+export default connect(mapStateToProps, null)(withStyles(styles)(BinnedGraphs));
