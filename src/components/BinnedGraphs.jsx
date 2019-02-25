@@ -55,7 +55,6 @@ class BinnedGraphs extends Component {
 			for (let i = 0; i < arcBins.length; i++) {
 				let lenArc = arcBins[i].length;
 				let lenPlc = plcBins[i].length;
-				console.log(i+":"+lenArc+lenPlc);
 
 				let diff = 0;
 				if (lenArc > lenPlc) {
@@ -182,7 +181,7 @@ class BinnedGraphs extends Component {
 					yAxes: [{
 						ticks: {
 							beginAtZero: true,
-							min:0,
+							min: 0,
 							max: 1000
 						}
 					}]
