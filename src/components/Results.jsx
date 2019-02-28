@@ -227,7 +227,7 @@ class Results extends Component {
 						<ArcTableCell>{arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<PlcTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<img src={require(`../images/sample-dist${i + 1}.png`)} onClick={() => this.handleOpen(i)}
+							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
 								 style={{cursor: "pointer"}}/>
 						</PlcTableCell>
 						<CommonTableCell rowSpan={2}> {prices[i]} </CommonTableCell>
