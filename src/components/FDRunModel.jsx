@@ -7,7 +7,10 @@ import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import {getOutputFileJson} from "../public/utils";
+import {getOutputFileJson,
+	getMarketPricesForForecastModel,
+	getBinSizeForCrop,
+} from "../public/utils";
 import {
 	datawolfURL,
 	postExecutionRequest,
@@ -249,7 +252,6 @@ class FDRunModel extends Component {
 		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
 		refPrice = this.state.refPrice;
-		//forecastType = this.state.forecastType; to be used when model is ready
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
@@ -257,9 +259,14 @@ class FDRunModel extends Component {
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
 
+		let forecastPrices = getMarketPricesForForecastModel(this.state.forecastType, this.state.commodity);
+
+		let binSize = getBinSizeForCrop(this.state.commodity);
+
+
 		//TODO: Add forecast
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
-			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice);
+			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice, forecastPrices, binSize);
 
 		let body = JSON.stringify(postRequest);
 
