@@ -241,3 +241,33 @@ h1, h2, h3, h5, h6, p, ul {
 	0% { transform: rotate(0deg); }
 	100% { transform: rotate(360deg); }
 }
+
+.bin-header{
+	color: white;
+	font-size: 24px;
+	font-weight: bold;
+	margin-left: 1px;
+	padding-top: 20px;
+	padding-left: 25px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+.bin-subheader{
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 1px;
+	padding-top: 5px;
+	padding-left: 25px;
+	padding-right: 10px;
+	padding-bottom: 15px;
+}
+
+.bin-griditem{
+	padding-top: 40px;
+	padding-bottom: 15px;
+	padding-right: 20px;
+	border-style: none;
+	box-shadow: 0 2px 4px 0;
+}
