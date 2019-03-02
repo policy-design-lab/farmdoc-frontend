@@ -1,7 +1,7 @@
 const crops = [
-	{"id": "corn", "name": "Corn", "units": "bushels/acre", "refPrice": 3.7},
-	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4},
-	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5}
+	{"id": "corn", "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
+	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 8},
+	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 8}
 ];
 
 const mpForecasts = [
@@ -9,25 +9,25 @@ const mpForecasts = [
 	  "id": "cbo",
 		"name": "CBO 2018",
 		"prices": {
-			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
-			"soybeans": [0, 0, 0, 0, 0],
-			"wheat": [0, 0, 0, 0, 0],
+			"corn": [3.7, 3.61, 3.36, 3.3, 3.5],
+			"soybeans": [10.1, 8.95, 9.47, 9.3, 8.6],
+			"wheat": [5.99, 4.89, 3.89, 4.6, 5.1],
 		}
 	},
 	{
 	  "id": "usda",
 		"name": "USDA high/low",
 		"prices": {
-			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
-			"soybeans": [0, 0, 0, 0, 0],
-			"wheat": [0, 0, 0, 0, 0],
+			"corn": [2, 2.1, 2.2, 2.3, 2.4],
+			"soybeans": [0.1, 0.1, 0.1, 0.1, 0.1],
+			"wheat": [1, 1, 1, 1, 1],
 		}
 	},
 	{
 		"id": "mixmatch",
 		"name": "Mix and Match",
 		"prices": {
-			"corn": [4.2, 4.06, 3.55, 5.18, 6.22],
+			"corn": [0, 0, 0, 0, 0],
 			"soybeans": [0, 0, 0, 0, 0],
 			"wheat": [0, 0, 0, 0, 0],
 		}

@@ -1,4 +1,5 @@
 import {datawolfURL} from "../datawolf.config";
+import config from "../app.config";
 
 /***
  * Checks if user
@@ -129,5 +130,38 @@ export function calculateDayOfYear(date: Date) {
 
 export async function wait(ms) {
 	new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function getMarketPricesForForecastModel(modelId, commodity){
+	let modelsList = config.forecastTypes;
+	let retstr = "";
+	for (let i = 0 ; i < modelsList.length ; i++) {
+		if (modelsList[i]["id"] === modelId) {
+			return retstr = modelsList[i]["prices"][commodity].join();
+		}
+	}
+
+	return retstr;
+}
+
+export function getBinSizeForCrop(cropId){
+	let cropsList = config.commodities;
+	let binSize = 10;
+	for (let i = 0 ; i < cropsList.length ; i++) {
+		if (cropsList[i]["id"] === cropId) {
+			return binSize = cropsList[i]["binSize"];
+		}
+	}
+
+	return binSize;
+}
+
+export function roundResults(val, n){
+	if (n === undefined || n === 0) {
+		return Math.round(val);
+	}
+	else {
+		return Number(val).toFixed(n);
+	}
 }
 
