@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import FormLabel from "@material-ui/core/FormLabel";
 import TextField from "@material-ui/core/TextField";
-import {FormControl} from "@material-ui/core";
+import {FormControl, Modal} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
@@ -31,6 +31,10 @@ import {
 import Spinner from "../components/Spinner";
 import config from "../app.config";
 import ReactSelect from "react-select";
+import IconButton from "@material-ui/core/IconButton";
+import HelpOutline from "@material-ui/icons/HelpOutline";
+import ForecastModels from "./ForecastModels";
+import ToolTip from "@material-ui/core/Tooltip";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -66,6 +70,16 @@ const styles = theme => ({
 		minWidth: 200,
 		marginLeft: 0,
 	},
+	helpIcon: {
+		fontSize: 32
+	},
+	paper: {
+		position: "absolute",
+		//width: theme.spacing.unit * 50,
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing.unit * 4,
+	}
 
 });
 
@@ -110,6 +124,18 @@ function Control(props) {
 	);
 }
 
+function getModalStyle() {
+	const top = 50; //+ rand();
+	const left = 50;// + rand();
+
+	return {
+		top: `${top}%`,
+		left: `${left}%`,
+		transform: `translate(-${top}%, -${left}%)`,
+		display: "inline-block"
+	};
+}
+
 const components = {
 	Control
 };
@@ -135,7 +161,8 @@ class FDRunModel extends Component {
 		runName: "",
 		runStatus: "",
 		modelResult: null,
-		countySelValue: null
+		countySelValue: null,
+		forecastPopupOpen: false
 	};
 
 	constructor(props) {
@@ -165,9 +192,18 @@ class FDRunModel extends Component {
 			runName: "",
 			runStatus: "",
 			modelResult: null,
-			countySelValue: null
+			countySelValue: null,
+			forecastPopupOpen: false
 		};
 	}
+
+	handleForecastOpen = () => {
+		this.setState({forecastPopupOpen: true});
+	};
+
+	handleForecastClose = () => {
+		this.setState({forecastPopupOpen: false});
+	};
 
 	handleReactSelectChange = name => event => {
 		this.setState({
@@ -424,6 +460,14 @@ class FDRunModel extends Component {
 			</div>);
 		}
 
+		let forecastToolTip = "Click to see the applicable forecast prices for the selected crop";
+		if (this.state.commodity == null || this.state.commodity === "") {
+			forecastToolTip = "Please select a crop first and click here to see the applicable forecast prices for the selected crop";
+		}
+		else {
+			forecastToolTip = `Click here to see the applicable forecast prices for ${ this.state.commodity}`;
+		}
+
 
 		return (
 			<div style={{
@@ -431,6 +475,12 @@ class FDRunModel extends Component {
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
 				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
 			}}>
+
+				<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
+					<div style={getModalStyle()} className={classes.paper}>
+						<ForecastModels/>
+					</div>
+				</Modal>
 
 				{errorMsg}
 
@@ -529,8 +579,19 @@ class FDRunModel extends Component {
 												 name: "forecast",
 												 id: "forecast-simple",
 											 }}/>
+
+
 				</FormControl>
 
+				<ToolTip title={forecastToolTip} disableFocusListener={true}>
+					<span>
+						<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
+											disabled={(this.state.commodity === "")}>
+							<HelpOutline color="inherit" className={classes.helpIcon}/>
+						</IconButton>
+					</span>
+
+				</ToolTip>
 
 				<TextField
 					id="paymentYield"

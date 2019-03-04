@@ -28,6 +28,7 @@
 	"author": "NCSA",
 	"dependencies": {
 		"@material-ui/core": "3.0.1",
+		"@material-ui/icons": "3.0.2",
 		"algebra.js": "0.2.6",
 		"chart.js": "2.7.3",
 		"hex-to-rgba": "0.2.0",
