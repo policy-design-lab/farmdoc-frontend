@@ -79,6 +79,7 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
+		outline: "none"
 	}
 
 });
@@ -132,7 +133,8 @@ function getModalStyle() {
 		top: `${top}%`,
 		left: `${left}%`,
 		transform: `translate(-${top}%, -${left}%)`,
-		display: "inline-block"
+		display: "inline-block",
+		borderRadius: 12
 	};
 }
 
@@ -462,10 +464,10 @@ class FDRunModel extends Component {
 
 		let forecastToolTip = "Click to see the applicable forecast prices for the selected crop";
 		if (this.state.commodity == null || this.state.commodity === "") {
-			forecastToolTip = "Please select a crop first and click here to see the applicable forecast prices for the selected crop";
+			forecastToolTip = "Please select a crop first and click here to see forecast prices";
 		}
 		else {
-			forecastToolTip = `Click here to see the applicable forecast prices for ${ this.state.commodity}`;
+			forecastToolTip = `Click here to see the forecast prices for ${ this.state.commodity}`;
 		}
 
 
