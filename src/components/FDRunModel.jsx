@@ -424,7 +424,7 @@ class FDRunModel extends Component {
 	render() {
 		const {classes} = this.props;
 
-		let textFieldInputStyle = {style: {padding: 10}};
+		let textFieldInputStyle = {};
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -597,11 +597,10 @@ class FDRunModel extends Component {
 
 				<TextField
 					id="paymentYield"
-					label="PLC Payment Yield"
+					label="ARC Trend Yield"
 					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
 					value={this.state.paymentYield}
 					margin="normal"
-					style={{width: "230px"}}
 					onChange={this.handleMuiChange("paymentYield")}
 					className={classes.textField}
 					required
@@ -629,31 +628,51 @@ class FDRunModel extends Component {
 							}
 						}
 					}}
+				/>
+
+				<TextField
+						id="paymentYield"
+						label="PLC Payment Yield"
+						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+						value={this.state.paymentYield}
+						margin="normal"
+						onChange={this.handleMuiChange("paymentYield")}
+						className={classes.textField}
+						style={{marginLeft: 20}}
+						required
+
+						InputLabelProps={{shrink: true}}
+
+						InputProps={{
+							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
+						}}
+
+						inputProps={{padding: 10}}
+
+						onInput={(e) => {
+							if (e.target.value !== "") {
+								if (isNaN(e.target.value)) {
+									e.target.value = e.target.value.toString().slice(0, -1);
+								}
+								else {
+									if (e.target.value <= 0) {
+										e.target.value = 1;
+									}
+									else if (e.target.value > 300) {
+										e.target.value = 300;
+									}
+								}
+							}
+						}}
 
 				/>
 				<br/>
-
-				<TextField
-					id="acres"
-					label="Payment Acres"
-					value={this.state.acres}
-					margin="normal"
-					style={{width: "160px"}}
-					className={classes.textField}
-					onChange={this.handleMuiChange("acres")}
-					disabled={true}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-
-				/><br/>
 
 				<TextField
 					id="coverage"
 					label="ARC Coverage Level"
 					value={this.state.coverage}
 					margin="normal"
-					style={{width: "160px"}}
 					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("coverage")}
@@ -661,20 +680,34 @@ class FDRunModel extends Component {
 						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
 					// helperText="ARC-CO Coverage"
-				/><br/>
+				/>
 
 				<TextField
 					id="range"
 					label="ARC Coverage Range"
 					value={this.state.range}
 					margin="normal"
-					style={{width: "160px"}}
 					className={classes.textField}
 					disabled={true}
 					onChange={this.handleMuiChange("range")}
+					style={{marginLeft: 20}}
 					InputProps={{
 						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
 					}}
+				/>
+				<br/>
+				<TextField
+						id="acres"
+						label="Payment Acres"
+						value={this.state.acres}
+						margin="normal"
+						className={classes.textField}
+						onChange={this.handleMuiChange("acres")}
+						disabled={true}
+						InputProps={{
+							endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle, className:"model-input-subscript"
+						}}
+
 				/>
 				<br/><br/>
 				<div style={{textAlign: "center"}}>
