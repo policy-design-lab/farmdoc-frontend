@@ -6,9 +6,6 @@ const defaultState = {
 	forecastType: config.defaultsJson.forecastType,
 	refPrice: "",
 	paymentYield: config.defaultsJson.paymentYield,
-	coverage: config.defaultsJson.coverage,
-	range: config.defaultsJson.range,
-	acres: config.defaultsJson.acres,
 	countyResults: null
 };
 
@@ -33,18 +30,6 @@ const model = (state = defaultState, action) => {
 		case "CHANGE_PAYMENT_YIELD":
 			return Object.assign({}, state, {
 				paymentYield: action.paymentYield
-			});
-		case "CHANGE_COVERAGE":
-			return Object.assign({}, state, {
-				coverage: action.coverage
-			});
-		case "CHANGE_RANGE":
-			return Object.assign({}, state, {
-				range: action.range
-			});
-		case "CHANGE_ACRES":
-			return Object.assign({}, state, {
-				acres: action.acres
 			});
 		case "ADD_RESULT":
 			return Object.assign({}, state, {

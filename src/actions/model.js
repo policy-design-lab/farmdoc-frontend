@@ -32,24 +32,6 @@ export function changePaymentYield(paymentYield){
 		paymentYield
 	};
 }
-export function changeCoverage(coverage){
-	return {
-		type: "CHANGE_COVERAGE",
-		coverage
-	};
-}
-export function changeRange(range){
-	return {
-		type: "CHANGE_RANGE",
-		range
-	};
-}
-export function changeAcres(acres){
-	return {
-		type: "CHANGE_ACRES",
-		acres
-	};
-}
 
 export const handleResults = (countyResults) => ({
 	type: "ADD_RESULT",

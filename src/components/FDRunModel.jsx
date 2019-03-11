@@ -18,13 +18,10 @@ import {
 	steps,
 } from "../datawolf.config";
 import {
-	changeAcres,
 	changeCommodity,
 	changeForecastType,
 	changeCounty,
-	changeCoverage,
 	changePaymentYield,
-	changeRange,
 	changeRefPrice,
 	handleResults,
 } from "../actions/model";
@@ -743,9 +740,6 @@ const mapDispatchToProps = dispatch => ({
 	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
 	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
-	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
-	handleRangeChange: range => dispatch(changeRange(range)),
-	handleAcresChange: acres => dispatch(changeAcres(acres)),
 	handleResultsChange: results => dispatch(handleResults(results))
 });
 
