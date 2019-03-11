@@ -32,6 +32,7 @@ import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
 import ForecastModels from "./ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
+import ProgramParams from "./ProgramParams";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -470,21 +471,24 @@ class FDRunModel extends Component {
 
 		return (
 			<div style={{
-				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
+				 maxWidth: "370px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
+				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", paddingBottom: "12px"
 			}}>
+				<div style={{
+					paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "8px"
+				}}>
 
-				<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
-					<div style={getModalStyle()} className={classes.paper}>
-						<ForecastModels/>
-					</div>
-				</Modal>
+					<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
+						<div style={getModalStyle()} className={classes.paper}>
+							<ForecastModels/>
+						</div>
+					</Modal>
 
-				{errorMsg}
+					{errorMsg}
 
-				<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "State",
@@ -501,11 +505,11 @@ class FDRunModel extends Component {
 												 id: "state-simple",
 											 }}	/>
 
-				</FormControl>
-				<br/>
+					</FormControl>
+					<br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "County",
@@ -523,11 +527,11 @@ class FDRunModel extends Component {
 												 id: "county-simple",
 											 }}/>
 
-				</FormControl>
-				<br/>
+					</FormControl>
+					<br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "Crop",
@@ -543,25 +547,25 @@ class FDRunModel extends Component {
 												 name: "crop",
 												 id: "crop-simple",
 											 }}/>
-				</FormControl>
+					</FormControl>
 
 
-				<TextField
+					<TextField
 					id="refPrice"
 					label="Reference Price"
 					value={this.state.refPrice}
 					disabled={true}
 					margin="normal"
 					onChange={this.handleMuiChange("refPrice")}
-					style={{width: "125px", marginTop: "8px"}}
+					style={{width: "115px", marginTop: "8px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
 
-				/> <br/>
+					/> <br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 value = {{value: this.state.forecastType, label: this.state.forecastName}}
 											 classes={classes}
 											 textFieldProps={{
@@ -580,19 +584,19 @@ class FDRunModel extends Component {
 											 }}/>
 
 
-				</FormControl>
+					</FormControl>
 
-				<ToolTip title={forecastToolTip} disableFocusListener={true}>
-					<span>
-						<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
+					<ToolTip title={forecastToolTip} disableFocusListener={true}>
+						<span>
+							<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
 											disabled={(this.state.commodity === "")}>
-							<HelpOutline color="inherit" className={classes.helpIcon}/>
-						</IconButton>
-					</span>
+								<HelpOutline color="inherit" className={classes.helpIcon}/>
+							</IconButton>
+						</span>
 
-				</ToolTip>
+					</ToolTip>
 
-				<TextField
+					<TextField
 					id="paymentYield"
 					label="ARC Trend Yield"
 					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
@@ -625,9 +629,10 @@ class FDRunModel extends Component {
 							}
 						}
 					}}
-				/>
+					/>
+					<br/>
 
-				<TextField
+					<TextField
 						id="paymentYield"
 						label="PLC Payment Yield"
 						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
@@ -635,7 +640,7 @@ class FDRunModel extends Component {
 						margin="normal"
 						onChange={this.handleMuiChange("paymentYield")}
 						className={classes.textField}
-						style={{marginLeft: 20}}
+						// style={{marginLeft: 20}}
 						required
 
 						InputLabelProps={{shrink: true}}
@@ -662,51 +667,15 @@ class FDRunModel extends Component {
 							}
 						}}
 
-				/>
+					/>
+					<br/>
+				</div>
+
+				<div >
+					<ProgramParams/>
+				</div>
 				<br/>
 
-				<TextField
-					id="coverage"
-					label="ARC Coverage Level"
-					value={this.state.coverage}
-					margin="normal"
-					className={classes.textField}
-					disabled={true}
-					onChange={this.handleMuiChange("coverage")}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-					// helperText="ARC-CO Coverage"
-				/>
-
-				<TextField
-					id="range"
-					label="ARC Coverage Range"
-					value={this.state.range}
-					margin="normal"
-					className={classes.textField}
-					disabled={true}
-					onChange={this.handleMuiChange("range")}
-					style={{marginLeft: 20}}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-				/>
-				<br/>
-				<TextField
-						id="acres"
-						label="Payment Acres"
-						value={this.state.acres}
-						margin="normal"
-						className={classes.textField}
-						onChange={this.handleMuiChange("acres")}
-						disabled={true}
-						InputProps={{
-							endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle, className:"model-input-subscript"
-						}}
-
-				/>
-				<br/><br/>
 				<div style={{textAlign: "center"}}>
 					<Button variant="contained" color="primary" onClick={this.runModel}
 									disabled={!this.validateInputs()}
