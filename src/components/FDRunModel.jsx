@@ -445,7 +445,7 @@ class FDRunModel extends Component {
 	render() {
 		const {classes} = this.props;
 
-		let textFieldInputStyle = {};
+		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -630,7 +630,8 @@ class FDRunModel extends Component {
 					required
 					InputLabelProps={{shrink: true}}
 					InputProps={{
-						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+						inputProps: textFieldInputStyle
 					}}
 					inputProps={{padding: 10}}
 					onInput={this.validateMaxValue(300)}
@@ -649,7 +650,8 @@ class FDRunModel extends Component {
 						required
 						InputLabelProps={{shrink: true}}
 						InputProps={{
-							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
+							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+							inputProps: textFieldInputStyle
 						}}
 						inputProps={{padding: 10}}
 						onInput={this.validateMaxValue(300)}
