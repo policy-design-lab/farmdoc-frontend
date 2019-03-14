@@ -438,7 +438,8 @@ class FDRunModel extends Component {
 
 	validateInputs() {
 		return this.state.county > 0 && this.state.commodity !== "" &&
-				this.state.paymentYield !== "" && this.state.forecastType !== "";
+				this.state.paymentYield !== "" && this.state.forecastType !== "" &&
+				this.state.arcYield !== "";
 	}
 
 	render() {

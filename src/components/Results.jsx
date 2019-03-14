@@ -23,8 +23,6 @@ const styles = theme => ({
 		width: "auto",
 		margin: 15,
 		borderRadius: 15
-
-
 	},
 
 	tableCell: {},
