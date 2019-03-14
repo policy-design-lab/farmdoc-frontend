@@ -70,7 +70,7 @@ const styles = theme => ({
 		marginLeft: 0,
 	},
 	helpIcon: {
-		fontSize: 32
+		fontSize: 24
 	},
 	paper: {
 		position: "absolute",
