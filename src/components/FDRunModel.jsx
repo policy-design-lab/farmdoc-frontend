@@ -22,6 +22,7 @@ import {
 	changeForecastType,
 	changeCounty,
 	changePaymentYield,
+	changeArcYield,
 	changeRefPrice,
 	handleResults,
 } from "../actions/model";
@@ -157,6 +158,7 @@ class FDRunModel extends Component {
 		seqprice: 0,
 		coverage: config.defaultsJson.coverage,
 		paymentYield: "",
+		arcYield: "",
 		range: config.defaultsJson.range,
 		runName: "",
 		runStatus: "",
@@ -188,6 +190,7 @@ class FDRunModel extends Component {
 			seqprice: config.defaultsJson.seqprice,
 			coverage: config.defaultsJson.coverage,
 			paymentYield: "",
+			arcYield: "",
 			range: config.defaultsJson.range,
 			runName: "",
 			runStatus: "",
@@ -261,6 +264,10 @@ class FDRunModel extends Component {
 			case "acres":
 				this.props.handleAcresChange(event.target.value);
 				break;
+
+			case "arcYield":
+				this.props.handleArcYieldChange(event.target.value);
+				break;
 		}
 	};
 
@@ -282,8 +289,8 @@ class FDRunModel extends Component {
 
 		let dwUrl = datawolfURL;
 
-		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
-			sequesterPrice;
+		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield,
+			arcYield, program, sequesterPrice;
 		countyId = this.state.county;
 		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
@@ -291,6 +298,7 @@ class FDRunModel extends Component {
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
+		arcYield = this.state.arcYield;
 		plcYield = this.state.paymentYield;
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
@@ -300,7 +308,7 @@ class FDRunModel extends Component {
 		let binSize = getBinSizeForCrop(this.state.commodity);
 
 
-		//TODO: Add forecast
+		//TODO: Add arcYield
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
 			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice, forecastPrices, binSize);
 
@@ -411,12 +419,8 @@ class FDRunModel extends Component {
 	}
 
 	validateInputs() {
-		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "" && this.state.forecastType !== "") {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return this.state.county > 0 && this.state.commodity !== "" &&
+				this.state.paymentYield !== "" && this.state.forecastType !== "";
 	}
 
 	render() {
@@ -600,9 +604,9 @@ class FDRunModel extends Component {
 					id="paymentYield"
 					label="ARC Trend Yield"
 					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
-					value={this.state.paymentYield}
+					value={this.state.arcYield}
 					margin="normal"
-					onChange={this.handleMuiChange("paymentYield")}
+					onChange={this.handleMuiChange("arcYield")}
 					className={classes.textField}
 					required
 
@@ -696,6 +700,7 @@ const mapStateToProps = state => ({
 	commodity: state.commodity,
 	forecastType: state.forecastType,
 	refPrice: state.refPrice,
+	arcYield: state.arcYield,
 	paymentYield: state.paymentYield,
 	coverage: state.coverage,
 	range: state.range,
@@ -709,6 +714,7 @@ const mapDispatchToProps = dispatch => ({
 	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
 	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
+	handleArcYieldChange: arcYield => dispatch(changeArcYield(arcYield)),
 	handleResultsChange: results => dispatch(handleResults(results))
 });
 

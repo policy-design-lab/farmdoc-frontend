@@ -6,6 +6,7 @@ const defaultState = {
 	forecastType: config.defaultsJson.forecastType,
 	refPrice: "",
 	paymentYield: config.defaultsJson.paymentYield,
+	arcYield: config.defaultsJson.arcYield,
 	countyResults: null
 };
 
@@ -30,6 +31,10 @@ const model = (state = defaultState, action) => {
 		case "CHANGE_PAYMENT_YIELD":
 			return Object.assign({}, state, {
 				paymentYield: action.paymentYield
+			});
+		case "CHANGE_ARC_YIELD":
+			return Object.assign({}, state, {
+				arcYield: action.arcYield
 			});
 		case "ADD_RESULT":
 			return Object.assign({}, state, {

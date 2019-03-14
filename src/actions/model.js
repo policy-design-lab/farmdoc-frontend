@@ -26,10 +26,18 @@ export function changeRefPrice(refPrice){
 		refPrice: refPrice
 	};
 }
+
 export function changePaymentYield(paymentYield){
 	return {
 		type: "CHANGE_PAYMENT_YIELD",
 		paymentYield
+	};
+}
+
+export function changeArcYield(arcYield){
+	return {
+		type: "CHANGE_ARC_YIELD",
+		arcYield
 	};
 }
 

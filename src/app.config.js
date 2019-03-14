@@ -42,6 +42,7 @@ const defaultsJson = {
 	forecastType: "cbo",
 	forecastName: "CBO 2018",
 	paymentYield: "",
+	arcYield: "",
 	coverage: .86,
 	range: .1,
 	acres: .85,
