@@ -271,6 +271,24 @@ class FDRunModel extends Component {
 		}
 	};
 
+
+	validateMaxValue = value => event => {
+		if (event.target.value !== "") {
+			if (isNaN(event.target.value)) {
+				event.target.value = event.target.value.toString().slice(0, -1);
+			}
+			else {
+				if (event.target.value <= 0) {
+					event.target.value = 1;
+				}
+				else if (event.target.value > value) {
+					event.target.value = value;
+				}
+			}
+		}
+	};
+
+
 	async runModel() {
 		//let status = "STARTED";
 		let personId = sessionStorage.getItem("personId");
@@ -609,30 +627,12 @@ class FDRunModel extends Component {
 					onChange={this.handleMuiChange("arcYield")}
 					className={classes.textField}
 					required
-
 					InputLabelProps={{shrink: true}}
-
 					InputProps={{
 						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
 					}}
-
 					inputProps={{padding: 10}}
-
-					onInput={(e) => {
-						if (e.target.value !== "") {
-							if (isNaN(e.target.value)) {
-								e.target.value = e.target.value.toString().slice(0, -1);
-							}
-							else {
-								if (e.target.value <= 0) {
-									e.target.value = 1;
-								}
-								else if (e.target.value > 300) {
-									e.target.value = 300;
-								}
-							}
-						}
-					}}
+					onInput={this.validateMaxValue(300)}
 					/>
 					<br/>
 
@@ -646,31 +646,12 @@ class FDRunModel extends Component {
 						className={classes.textField}
 						// style={{marginLeft: 20}}
 						required
-
 						InputLabelProps={{shrink: true}}
-
 						InputProps={{
 							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
 						}}
-
 						inputProps={{padding: 10}}
-
-						onInput={(e) => {
-							if (e.target.value !== "") {
-								if (isNaN(e.target.value)) {
-									e.target.value = e.target.value.toString().slice(0, -1);
-								}
-								else {
-									if (e.target.value <= 0) {
-										e.target.value = 1;
-									}
-									else if (e.target.value > 300) {
-										e.target.value = 300;
-									}
-								}
-							}
-						}}
-
+						onInput={this.validateMaxValue(300)}
 					/>
 					<br/>
 				</div>
