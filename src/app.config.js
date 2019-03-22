@@ -71,7 +71,7 @@ const devConfig = {
 };
 
 const prodConfig = {
-	basePath: "/",
+	basePath: "/dev/",
 	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api",
 	commodities: crops,
 	forecastTypes: mpForecasts,

@@ -234,7 +234,7 @@ class BinnedGraphs extends Component {
 						</Grid>
 
 						<Grid item style={{width: "100%"}} className="bin-checkbox">
-							<FormControlLabel label = "Hide Zero Payouts" control={
+							<FormControlLabel label = "Hide Zero Payments" control={
 								<Checkbox
 										checked={this.state.hideZeroes}
 										onChange={this.handleChange("hideZeroes")}

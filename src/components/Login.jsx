@@ -6,7 +6,7 @@ import {Card, CardActions, CardText, Dialog, DialogBody, DialogFooter, Icon, Tex
 import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
-import {Link} from "react-router";
+import {hashHistory, Link} from "react-router";
 import config from "../app.config";
 import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthorized} from "../app.messages";
 
@@ -98,7 +98,7 @@ class Login extends Component {
 					if (checkAuthResponse.status === 200) {
 						this.setState({loginStatus: "success"});
 						console.log("Person Valid");
-						window.location = "/#dashboard";
+						hashHistory.push("dashboard");
 					}
 					else if (checkAuthResponse.status === 401) {
 						this.setState({loginStatus: "failure"});
