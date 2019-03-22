@@ -11,8 +11,6 @@ import FarmerCharts from "./FarmerCharts";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Results from "./Results";
-import BinnedGraphs from "./BinnedGraphs";
-
 
 global.__base = `${__dirname}/`;
 
@@ -32,7 +30,6 @@ class App extends Component {
 					<Route path="/chartsold" component={Results}/>
 					<Route path="/charts" component={FarmerCharts}/>
 					<Route path="/login" component={Login}/>
-					<Route path="/bins" component={BinnedGraphs}/>
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
 			</MuiThemeProvider>
