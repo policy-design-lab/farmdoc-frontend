@@ -12,7 +12,6 @@ import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Results from "./Results";
 
-
 global.__base = `${__dirname}/`;
 
 const theme = createMuiTheme();
@@ -34,7 +33,6 @@ class App extends Component {
 					<Route path="*" component={RouteMismatch}/>
 				</Router>
 			</MuiThemeProvider>
-
 		);
 	}
 }
