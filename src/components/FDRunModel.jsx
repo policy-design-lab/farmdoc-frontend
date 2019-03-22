@@ -49,7 +49,7 @@ const styles = theme => ({
 
 	textField: {
 		marginTop: "8px",
-		width: 160,
+		width: 200,
 	},
 	menu: {
 		width: 150,
@@ -438,8 +438,8 @@ class FDRunModel extends Component {
 
 	validateInputs() {
 		return this.state.county > 0 && this.state.commodity !== "" &&
-				this.state.paymentYield !== "" && this.state.forecastType !== "" &&
-				this.state.arcYield !== "";
+				this.state.paymentYield !== "" && this.state.forecastType !== "";
+		//&& this.state.arcYield !== "";
 	}
 
 	render() {
@@ -622,7 +622,7 @@ class FDRunModel extends Component {
 					<TextField
 					id="paymentYield"
 					label="ARC Trend Yield"
-					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
+					style={{display: "none"}}
 					value={this.state.arcYield}
 					margin="normal"
 					onChange={this.handleMuiChange("arcYield")}
@@ -636,12 +636,11 @@ class FDRunModel extends Component {
 					inputProps={{padding: 10}}
 					onInput={this.validateMaxValue(300)}
 					/>
-					<br/>
+					{/*<br/>*/}
 
 					<TextField
 						id="paymentYield"
 						label="PLC Payment Yield"
-						//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
 						value={this.state.paymentYield}
 						margin="normal"
 						onChange={this.handleMuiChange("paymentYield")}
