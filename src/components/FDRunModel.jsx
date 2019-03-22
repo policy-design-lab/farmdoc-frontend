@@ -18,13 +18,11 @@ import {
 	steps,
 } from "../datawolf.config";
 import {
-	changeAcres,
 	changeCommodity,
 	changeForecastType,
 	changeCounty,
-	changeCoverage,
 	changePaymentYield,
-	changeRange,
+	changeArcYield,
 	changeRefPrice,
 	handleResults,
 } from "../actions/model";
@@ -35,6 +33,7 @@ import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
 import ForecastModels from "./ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
+import ProgramParams from "./ProgramParams";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -50,7 +49,7 @@ const styles = theme => ({
 
 	textField: {
 		marginTop: "8px",
-		width: 160,
+		width: 200,
 	},
 	menu: {
 		width: 150,
@@ -71,7 +70,7 @@ const styles = theme => ({
 		marginLeft: 0,
 	},
 	helpIcon: {
-		fontSize: 32
+		fontSize: 24
 	},
 	paper: {
 		position: "absolute",
@@ -159,6 +158,7 @@ class FDRunModel extends Component {
 		seqprice: 0,
 		coverage: config.defaultsJson.coverage,
 		paymentYield: "",
+		arcYield: "",
 		range: config.defaultsJson.range,
 		runName: "",
 		runStatus: "",
@@ -190,6 +190,7 @@ class FDRunModel extends Component {
 			seqprice: config.defaultsJson.seqprice,
 			coverage: config.defaultsJson.coverage,
 			paymentYield: "",
+			arcYield: "",
 			range: config.defaultsJson.range,
 			runName: "",
 			runStatus: "",
@@ -263,8 +264,30 @@ class FDRunModel extends Component {
 			case "acres":
 				this.props.handleAcresChange(event.target.value);
 				break;
+
+			case "arcYield":
+				this.props.handleArcYieldChange(event.target.value);
+				break;
 		}
 	};
+
+
+	validateMaxValue = value => event => {
+		if (event.target.value !== "") {
+			if (isNaN(event.target.value)) {
+				event.target.value = event.target.value.toString().slice(0, -1);
+			}
+			else {
+				if (event.target.value <= 0) {
+					event.target.value = 1;
+				}
+				else if (event.target.value > value) {
+					event.target.value = value;
+				}
+			}
+		}
+	};
+
 
 	async runModel() {
 		//let status = "STARTED";
@@ -284,8 +307,8 @@ class FDRunModel extends Component {
 
 		let dwUrl = datawolfURL;
 
-		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield, program,
-			sequesterPrice;
+		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield,
+			arcYield, program, sequesterPrice;
 		countyId = this.state.county;
 		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
@@ -293,6 +316,7 @@ class FDRunModel extends Component {
 		paymentAcres = this.state.acres;
 		arcCoverage = this.state.coverage;
 		arcRange = this.state.range;
+		arcYield = this.state.arcYield;
 		plcYield = this.state.paymentYield;
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
@@ -302,7 +326,7 @@ class FDRunModel extends Component {
 		let binSize = getBinSizeForCrop(this.state.commodity);
 
 
-		//TODO: Add forecast
+		//TODO: Add arcYield
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
 			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice, forecastPrices, binSize);
 
@@ -413,18 +437,15 @@ class FDRunModel extends Component {
 	}
 
 	validateInputs() {
-		if (this.state.county > 0 && this.state.commodity !== "" && this.state.paymentYield !== "" && this.state.forecastType !== "") {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return this.state.county > 0 && this.state.commodity !== "" &&
+				this.state.paymentYield !== "" && this.state.forecastType !== "";
+		//&& this.state.arcYield !== "";
 	}
 
 	render() {
 		const {classes} = this.props;
 
-		let textFieldInputStyle = {style: {padding: 10}};
+		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -473,21 +494,24 @@ class FDRunModel extends Component {
 
 		return (
 			<div style={{
-				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", maxWidth: "400px",
+				 maxWidth: "370px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-				paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "12px"
+				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", paddingBottom: "12px"
 			}}>
+				<div style={{
+					paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "8px"
+				}}>
 
-				<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
-					<div style={getModalStyle()} className={classes.paper}>
-						<ForecastModels/>
-					</div>
-				</Modal>
+					<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
+						<div style={getModalStyle()} className={classes.paper}>
+							<ForecastModels/>
+						</div>
+					</Modal>
 
-				{errorMsg}
+					{errorMsg}
 
-				<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "State",
@@ -504,11 +528,11 @@ class FDRunModel extends Component {
 												 id: "state-simple",
 											 }}	/>
 
-				</FormControl>
-				<br/>
+					</FormControl>
+					<br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "County",
@@ -526,11 +550,11 @@ class FDRunModel extends Component {
 												 id: "county-simple",
 											 }}/>
 
-				</FormControl>
-				<br/>
+					</FormControl>
+					<br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 classes={classes}
 											 textFieldProps={{
 												 label: "Crop",
@@ -546,25 +570,25 @@ class FDRunModel extends Component {
 												 name: "crop",
 												 id: "crop-simple",
 											 }}/>
-				</FormControl>
+					</FormControl>
 
 
-				<TextField
+					<TextField
 					id="refPrice"
 					label="Reference Price"
 					value={this.state.refPrice}
 					disabled={true}
 					margin="normal"
 					onChange={this.handleMuiChange("refPrice")}
-					style={{width: "125px", marginTop: "8px"}}
+					style={{width: "115px", marginTop: "8px"}}
 					InputProps={{
 						startAdornment: <InputAdornment position="start">$</InputAdornment>,
 					}}
 
-				/> <br/>
+					/> <br/>
 
-				<FormControl className={classes.formControl} required>
-					<ReactSelect styles={ReactSelectStyles}
+					<FormControl className={classes.formControl} required>
+						<ReactSelect styles={ReactSelectStyles}
 											 value = {{value: this.state.forecastType, label: this.state.forecastName}}
 											 classes={classes}
 											 textFieldProps={{
@@ -583,100 +607,62 @@ class FDRunModel extends Component {
 											 }}/>
 
 
-				</FormControl>
+					</FormControl>
 
-				<ToolTip title={forecastToolTip} disableFocusListener={true}>
-					<span>
-						<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
+					<ToolTip title={forecastToolTip} disableFocusListener={true}>
+						<span>
+							<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
 											disabled={(this.state.commodity === "")}>
-							<HelpOutline color="inherit" className={classes.helpIcon}/>
-						</IconButton>
-					</span>
+								<HelpOutline color="inherit" className={classes.helpIcon}/>
+							</IconButton>
+						</span>
 
-				</ToolTip>
+					</ToolTip>
 
-				<TextField
+					<TextField
 					id="paymentYield"
-					label="PLC Payment Yield"
-					//error ={this.state.paymentYield === "" || this.state.paymentYield.length === 0 ? true : false}
-					value={this.state.paymentYield}
+					label="ARC Trend Yield"
+					style={{display: "none"}}
+					value={this.state.arcYield}
 					margin="normal"
-					style={{width: "230px"}}
-					onChange={this.handleMuiChange("paymentYield")}
+					onChange={this.handleMuiChange("arcYield")}
 					className={classes.textField}
 					required
-
 					InputLabelProps={{shrink: true}}
-
 					InputProps={{
-						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>, inputProps: textFieldInputStyle
+						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+						inputProps: textFieldInputStyle
 					}}
-
 					inputProps={{padding: 10}}
+					onInput={this.validateMaxValue(300)}
+					/>
+					{/*<br/>*/}
 
-					onInput={(e) => {
-						if (e.target.value !== "") {
-							if (isNaN(e.target.value)) {
-								e.target.value = e.target.value.toString().slice(0, -1);
-							}
-							else {
-								if (e.target.value <= 0) {
-									e.target.value = 1;
-								}
-								else if (e.target.value > 300) {
-									e.target.value = 300;
-								}
-							}
-						}
-					}}
+					<TextField
+						id="paymentYield"
+						label="PLC Payment Yield"
+						value={this.state.paymentYield}
+						margin="normal"
+						onChange={this.handleMuiChange("paymentYield")}
+						className={classes.textField}
+						// style={{marginLeft: 20}}
+						required
+						InputLabelProps={{shrink: true}}
+						InputProps={{
+							endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+							inputProps: textFieldInputStyle
+						}}
+						inputProps={{padding: 10}}
+						onInput={this.validateMaxValue(300)}
+					/>
+					<br/>
+				</div>
 
-				/>
+				<div >
+					<ProgramParams/>
+				</div>
 				<br/>
 
-				<TextField
-					id="acres"
-					label="Payment Acres"
-					value={this.state.acres}
-					margin="normal"
-					style={{width: "160px"}}
-					className={classes.textField}
-					onChange={this.handleMuiChange("acres")}
-					disabled={true}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-
-				/><br/>
-
-				<TextField
-					id="coverage"
-					label="ARC Coverage Level"
-					value={this.state.coverage}
-					margin="normal"
-					style={{width: "160px"}}
-					className={classes.textField}
-					disabled={true}
-					onChange={this.handleMuiChange("coverage")}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-					// helperText="ARC-CO Coverage"
-				/><br/>
-
-				<TextField
-					id="range"
-					label="ARC Coverage Range"
-					value={this.state.range}
-					margin="normal"
-					style={{width: "160px"}}
-					className={classes.textField}
-					disabled={true}
-					onChange={this.handleMuiChange("range")}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">%</InputAdornment>, inputProps: textFieldInputStyle
-					}}
-				/>
-				<br/><br/>
 				<div style={{textAlign: "center"}}>
 					<Button variant="contained" color="primary" onClick={this.runModel}
 									disabled={!this.validateInputs()}
@@ -697,6 +683,7 @@ const mapStateToProps = state => ({
 	commodity: state.commodity,
 	forecastType: state.forecastType,
 	refPrice: state.refPrice,
+	arcYield: state.arcYield,
 	paymentYield: state.paymentYield,
 	coverage: state.coverage,
 	range: state.range,
@@ -710,9 +697,7 @@ const mapDispatchToProps = dispatch => ({
 	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
 	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
 	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
-	handleCoverageChange: coverage => dispatch(changeCoverage(coverage)),
-	handleRangeChange: range => dispatch(changeRange(range)),
-	handleAcresChange: acres => dispatch(changeAcres(acres)),
+	handleArcYieldChange: arcYield => dispatch(changeArcYield(arcYield)),
 	handleResultsChange: results => dispatch(handleResults(results))
 });
 

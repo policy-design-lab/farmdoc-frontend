@@ -21,7 +21,8 @@ const styles = theme => ({
 		//minWidth: 700,
 		padding: 10,
 		width: "auto",
-		margin: 15
+		margin: 15,
+		borderRadius: 15
 	},
 
 	tableCell: {},
@@ -32,6 +33,7 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
+		outline: "none"
 	}
 });
 
@@ -112,7 +114,8 @@ function getModalStyle() {
 		top: `${top}%`,
 		left: `${left}%`,
 		transform: `translate(-${top}%, -${left}%)`,
-		display: "inline-block"
+		display: "inline-block",
+		borderRadius: 12
 	};
 }
 

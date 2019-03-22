@@ -26,28 +26,18 @@ export function changeRefPrice(refPrice){
 		refPrice: refPrice
 	};
 }
+
 export function changePaymentYield(paymentYield){
 	return {
 		type: "CHANGE_PAYMENT_YIELD",
 		paymentYield
 	};
 }
-export function changeCoverage(coverage){
+
+export function changeArcYield(arcYield){
 	return {
-		type: "CHANGE_COVERAGE",
-		coverage
-	};
-}
-export function changeRange(range){
-	return {
-		type: "CHANGE_RANGE",
-		range
-	};
-}
-export function changeAcres(acres){
-	return {
-		type: "CHANGE_ACRES",
-		acres
+		type: "CHANGE_ARC_YIELD",
+		arcYield
 	};
 }
 
