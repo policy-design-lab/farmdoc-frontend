@@ -4,12 +4,38 @@ import "../styles/main.css";
 import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
 import Login from "./Login";
-import {welcometext} from "../app.messages";
-
+import {welcometext, browserWarning} from "../app.messages";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 class HomePage extends Component {
 
-	render() {
+	state = {
+		IEPopup: false
+	};
+
+	handlePopupOpen = () => {
+		this.setState({IEPopup: true});
+	};
+
+	handlePopupClose = () => {
+		this.setState({IEPopup: false});
+	};
+
+	componentDidMount() {
+		if (sessionStorage.getItem("firstVisit") === "true"){
+			if (sessionStorage.getItem("isIE") === "true") {
+				this.handlePopupOpen();
+			}
+			sessionStorage.setItem("firstVisit", "false");
+		}
+	}
+	
+	render(){
 
 		let welcome = (<div>
 			<h1 className="secondary-color">Welcome to the Farmdoc Project</h1>
@@ -23,12 +49,33 @@ class HomePage extends Component {
 				<h1 className="secondary-color">How does the simulation work?</h1>
 				<br/>
 				<img src={require("../images/farmdoc-rep-image.png")} style={{borderStyle: "ridge"}}/>
-				{/*<img src={require("../images/map-marker.png")} width="100%"  style={{borderStyle: "ridge"}}/>*/}
 			</div>);
 
 
 		return (
 			<div>
+
+				<Dialog
+						open={this.state.IEPopup}
+						onClose={this.handlePopupClose}
+						aria-labelledby="alert-dialog-title"
+						aria-describedby="alert-dialog-description"
+				>
+					<DialogTitle id="alert-dialog-title" >
+						<span style={{fontWeight: "bolder"}}> Unsupported Browser Detected</span>
+					</DialogTitle>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							{browserWarning}
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handlePopupClose} color="primary" autoFocus>
+							Continue
+						</Button>
+					</DialogActions>
+				</Dialog>
+
 				<Header selected="home"/>
 				<span className="home-line"/>
 

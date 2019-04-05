@@ -5,6 +5,7 @@ import "../styles/main.css";
 import {Button, Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
 import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
+import {browserWarning} from "../app.messages";
 
 class Header extends Component {
 
@@ -31,13 +32,16 @@ class Header extends Component {
 			<div>
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start">
+						<ToolbarSection align="start" style={{maxWidth: 350}}>
 							<Link to="/" className="farmdoc">
 								<img src={require("../images/GAPP-logo.png")}/>
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
 							</Link>
 						</ToolbarSection>
-						<ToolbarSection align="end">
+						<ToolbarSection >
+							<span className="notification" > {browserWarning} </span>
+						</ToolbarSection>
+						<ToolbarSection align="end" style={{maxWidth: 350}}>
 							<span className="email-address">{this.props.email}</span>
 
 							{this.props.isAuthenticated === false ? null :
