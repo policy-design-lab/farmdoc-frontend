@@ -28,6 +28,11 @@ class Header extends Component {
 
 	//TODO: add fixed for Toolbar
 	render() {
+		let browserWarningSpan = "";
+		if (sessionStorage.getItem("isIE") === "true") {
+			browserWarningSpan = 	<span className="notification" > {browserWarning} </span>;
+		}
+
 		return (
 			<div>
 				<Toolbar>
@@ -39,7 +44,7 @@ class Header extends Component {
 							</Link>
 						</ToolbarSection>
 						<ToolbarSection >
-							<span className="notification" > {browserWarning} </span>
+							{browserWarningSpan}
 						</ToolbarSection>
 						<ToolbarSection align="end" style={{maxWidth: 350}}>
 							<span className="email-address">{this.props.email}</span>
