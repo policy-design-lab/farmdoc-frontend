@@ -22,3 +22,5 @@ export const register = "Creating an account allows you to save the simulation d
 	" and information about your farm and fields.";
 export const unauthorized = ["We are glad you want to check out Farmdoc Simulator ",
 	"For the best experience, login or register for a free account."];
+export const browserWarning = ["Your browser does not support all features of Farmdoc. " +
+"You will not be able to login or run the application. Please use Google Chrome, Edge, Firefox or Safari"];
