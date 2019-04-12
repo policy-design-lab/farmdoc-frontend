@@ -34,6 +34,11 @@ import HelpOutline from "@material-ui/icons/HelpOutline";
 import ForecastModels from "./ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
 import ProgramParams from "./ProgramParams";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -164,7 +169,10 @@ class FDRunModel extends Component {
 		runStatus: "",
 		modelResult: null,
 		countySelValue: null,
-		forecastPopupOpen: false
+		forecastPopupOpen: false,
+		customPopupOpen: false,
+		customforecastPrice: "",
+		customSubmitEnabled: false
 	};
 
 	constructor(props) {
@@ -196,7 +204,10 @@ class FDRunModel extends Component {
 			runStatus: "",
 			modelResult: null,
 			countySelValue: null,
-			forecastPopupOpen: false
+			forecastPopupOpen: false,
+			customPopupOpen: false,
+			customforecastPrice: "",
+			customSubmitEnabled: false
 		};
 	}
 
@@ -206,6 +217,23 @@ class FDRunModel extends Component {
 
 	handleForecastClose = () => {
 		this.setState({forecastPopupOpen: false});
+	};
+
+	handleCustomSubmit = () => {
+		if (this.state.customforecastPrice.trim() !== "") {
+			this.setState({customPopupOpen: false});
+		}
+	};
+
+	handleCustomClose = () => {
+		this.setState({customPopupOpen: false});
+	};
+
+	handleCustomCancel = () => {
+		this.setState({customforecastPrice: ""});
+		this.setState({forecastType: config.defaultsJson.forecastType});
+		this.setState({forecastName: config.defaultsJson.forecastName});
+		this.setState({customPopupOpen: false});
 	};
 
 	handleReactSelectChange = name => event => {
@@ -235,6 +263,9 @@ class FDRunModel extends Component {
 			case "forecastType":
 				this.props.handleForecastTypeChange(event.value);
 				this.setState({"forecastName": event.label});
+				if (event.value === "custom"){
+					this.setState({customPopupOpen: true});
+				}
 				break;
 		}
 	};
@@ -268,6 +299,15 @@ class FDRunModel extends Component {
 			case "arcYield":
 				this.props.handleArcYieldChange(event.target.value);
 				break;
+
+			case "customforecastPrice":
+				if (event.target.value.trim() !== "") {
+					this.setState({customSubmitEnabled: true});
+				}
+				else {
+					this.setState({customSubmitEnabled: false});
+				}
+
 		}
 	};
 
@@ -321,7 +361,14 @@ class FDRunModel extends Component {
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
 
-		let forecastPrices = getMarketPricesForForecastModel(this.state.forecastType, this.state.commodity);
+
+		let forecastPrices = null;
+		if (this.state.forecastType !== "custom") {
+			forecastPrices = getMarketPricesForForecastModel(this.state.forecastType, this.state.commodity);
+		}
+		else {
+			forecastPrices = this.state.customforecastPrice;
+		}
 
 		let binSize = getBinSizeForCrop(this.state.commodity);
 
@@ -376,6 +423,9 @@ class FDRunModel extends Component {
 			getOutputFileJson(resultDatasetGuid, outputFilename).then(
 				res => {
 					this.handleResultsChange(JSON.stringify(res));
+					if (config.browserLog) {
+						console.log(JSON.stringify(res));
+					}
 				});
 			// TODO: Dynamically change it when switching between 1 page and 2 page model
 			//window.location = "/#charts";
@@ -473,7 +523,10 @@ class FDRunModel extends Component {
 		config.forecastTypes.forEach((item) => {
 			forecastTypeOptions.push({value: item.id, label: item.name});
 		});
-
+		if (config.showCustomForecast) {
+			forecastTypeOptions.push({value: "custom", label: "Custom"});
+		}
+		
 		let errorMsg;
 		// This error will never be shown when we get the applicable crops for a county from API
 		if (this.state.runStatus === "PARSE_ERROR") {
@@ -507,6 +560,44 @@ class FDRunModel extends Component {
 							<ForecastModels/>
 						</div>
 					</Modal>
+
+					<Dialog
+							open={this.state.customPopupOpen}
+							onClose={this.handleCustomClose}
+							aria-labelledby="form-dialog-title"
+							disableBackdropClick={true}
+							disableEscapeKeyDown={true}
+
+					>
+						<DialogTitle id="form-dialog-title">
+							<span style={{fontWeight: "bolder"}}>Custom Forecast Prices </span>
+						</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								Enter your own forecast prices for the next 5 years. <br/> Sample format: 3.78, 3.8, 4.12, 4.23, 4.4
+							</DialogContentText>
+							<TextField
+									autoFocus
+									margin="dense"
+									id="customforecastPrice"
+									label="Forecast Price"
+									type="text"
+									value={this.state.customforecastPrice}
+									onChange={this.handleMuiChange("customforecastPrice")}
+									required={true}
+									fullWidth
+							/>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={this.handleCustomCancel} color="primary">
+								Clear
+							</Button>
+							<Button onClick={this.handleCustomSubmit} disabled={!this.state.customSubmitEnabled} color="primary">
+								Submit
+							</Button>
+						</DialogActions>
+					</Dialog>
+
 
 					{errorMsg}
 

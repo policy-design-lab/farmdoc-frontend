@@ -40,7 +40,7 @@ const mpForecasts = [
 		"name": "CBO",
 		"description": "This is the CBO 2018 forecast model that forecasts market prices for the next five years",
 		"prices": {
-			"corn": [3.53, 3.66, 4.76, 3.72, 3.72],
+			"corn": [3.53, 3.66, 3.76, 3.72, 3.72],
 			"soybeans": [9.67, 9.81, 9.67, 9.69, 9.7],
 			"wheat": [5.11, 5.11, 5.11, 5.11, 5.11],
 		}
@@ -67,7 +67,9 @@ const devConfig = {
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "localhost",
-	defaultsJson: defaultsJson
+	defaultsJson: defaultsJson,
+	showCustomForecast: true,
+	browserLog: true
 };
 
 const prodConfig = {
@@ -76,7 +78,9 @@ const prodConfig = {
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "fd-tools.ncsa.illinois.edu",
-	defaultsJson: defaultsJson
+	defaultsJson: defaultsJson,
+	showCustomForecast: false,
+	browserLog: false
 };
 
 const config = getConfig();
