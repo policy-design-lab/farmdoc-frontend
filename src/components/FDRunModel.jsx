@@ -39,6 +39,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import {roundResults} from "../public/utils.js";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -172,7 +173,9 @@ class FDRunModel extends Component {
 		forecastPopupOpen: false,
 		customPopupOpen: false,
 		customforecastPrice: "",
-		customSubmitEnabled: false
+		customSubmitEnabled: false,
+		fetchYields: false,
+		showError: false
 	};
 
 	constructor(props) {
@@ -207,7 +210,9 @@ class FDRunModel extends Component {
 			forecastPopupOpen: false,
 			customPopupOpen: false,
 			customforecastPrice: "",
-			customSubmitEnabled: false
+			customSubmitEnabled: false,
+			fetchYields: false,
+			showError: false
 		};
 	}
 
@@ -238,8 +243,13 @@ class FDRunModel extends Component {
 
 	handleReactSelectChange = name => event => {
 		this.setState({
-			[name]: event.value,
+			[name]: event.value}, function(){
+			if (this.state.commodity !== "" && this.state.county !== ""){
+				this.setState({fetchYields: true});
+				this.populateYields(this.state.county, this.state.commodity);
+			}
 		});
+
 
 		switch (name) {
 			case "county":
@@ -411,6 +421,7 @@ class FDRunModel extends Component {
 				}
 				catch (error) {
 					this.setState({runStatus: "PARSE_ERROR"});
+					this.setState({showError: true});
 				}
 			}
 		}
@@ -426,6 +437,7 @@ class FDRunModel extends Component {
 					if (config.browserLog) {
 						console.log(JSON.stringify(res));
 					}
+					this.setState({showError: false});
 				});
 			// TODO: Dynamically change it when switching between 1 page and 2 page model
 			//window.location = "/#charts";
@@ -433,6 +445,7 @@ class FDRunModel extends Component {
 		}
 		else {
 			this.setState({runStatus: "PARSE_ERROR"});
+			this.setState({showError: true});
 		}
 	}
 
@@ -472,6 +485,30 @@ class FDRunModel extends Component {
 			});
 	}
 
+	populateYields(countyFips, commodity){
+		let arcYield = "";
+
+		fetch(`${config.apiUrl}/commodities/${countyFips}/commodity/${commodity}`)
+			.then(response => {
+				return response.json();
+			}).then(data => {
+				arcYield = data.map((row) => {
+					return row["arcYield"];
+				});
+			  console.log(arcYield);
+			  if (arcYield.length > 0) {
+					this.setState({arcYield: roundResults(arcYield[0], 2)});
+					this.setState({showError: false});
+				}
+				else {
+					this.setState({arcYield: ""});
+					this.setState({showError: true});
+
+				}
+
+			});
+	}
+
 	populateRefPriceAndUnits(commodity) {
 		config.commodities.forEach((item) => {
 			if (item.id === commodity) {
@@ -488,8 +525,8 @@ class FDRunModel extends Component {
 
 	validateInputs() {
 		return this.state.county > 0 && this.state.commodity !== "" &&
-				this.state.paymentYield !== "" && this.state.forecastType !== "";
-		//&& this.state.arcYield !== "";
+				this.state.paymentYield !== "" && this.state.forecastType !== "" &&
+				this.state.arcYield !== "";
 	}
 
 	render() {
@@ -526,15 +563,7 @@ class FDRunModel extends Component {
 		if (config.showCustomForecast) {
 			forecastTypeOptions.push({value: "custom", label: "Custom"});
 		}
-		
-		let errorMsg;
-		// This error will never be shown when we get the applicable crops for a county from API
-		if (this.state.runStatus === "PARSE_ERROR") {
-			errorMsg = (<div>
-				<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the
-					county. Choose a different crop or county</FormLabel>
-			</div>);
-		}
+
 
 		let forecastToolTip = "Click to see the applicable forecast prices for the selected crop";
 		if (this.state.commodity == null || this.state.commodity === "") {
@@ -598,8 +627,10 @@ class FDRunModel extends Component {
 						</DialogActions>
 					</Dialog>
 
-
-					{errorMsg}
+					<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4}}>
+						<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the
+							county. Choose a different crop or county</FormLabel>
+					</div>
 
 					<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
 						<ReactSelect styles={ReactSelectStyles}
@@ -711,25 +742,6 @@ class FDRunModel extends Component {
 					</ToolTip>
 
 					<TextField
-					id="paymentYield"
-					label="ARC Trend Yield"
-					style={{display: "none"}}
-					value={this.state.arcYield}
-					margin="normal"
-					onChange={this.handleMuiChange("arcYield")}
-					className={classes.textField}
-					required
-					InputLabelProps={{shrink: true}}
-					InputProps={{
-						endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-						inputProps: textFieldInputStyle
-					}}
-					inputProps={{padding: 10}}
-					onInput={this.validateMaxValue(300)}
-					/>
-					{/*<br/>*/}
-
-					<TextField
 						id="paymentYield"
 						label="PLC Payment Yield"
 						value={this.state.paymentYield}
@@ -747,6 +759,27 @@ class FDRunModel extends Component {
 						onInput={this.validateMaxValue(300)}
 					/>
 					<br/>
+
+					<TextField
+							id="paymentYield"
+							label="ARC Trend Yield"
+							// style={{display: "none"}}
+							value={this.state.arcYield}
+							disabled={true}
+							margin="normal"
+							onChange={this.handleMuiChange("arcYield")}
+							className={classes.textField}
+							required
+							InputLabelProps={{shrink: true}}
+							InputProps={{
+								endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+								inputProps: textFieldInputStyle
+							}}
+							inputProps={{padding: 10}}
+							onInput={this.validateMaxValue(300)}
+					/>
+					<br/>
+
 				</div>
 
 				<div >

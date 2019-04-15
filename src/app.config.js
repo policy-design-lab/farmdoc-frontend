@@ -63,7 +63,7 @@ const defaultsJson = {
 
 const devConfig = {
 	basePath: "/",
-	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api", //http://localhost:5000/api
+	apiUrl: "http://localhost:5000/api",
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "localhost",
