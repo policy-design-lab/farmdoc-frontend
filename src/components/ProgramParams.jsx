@@ -52,7 +52,7 @@ class ProgramParams extends Component {
 								ARC Coverage Level
 							</CustomLabelCell>
 							<CustomValueCell >
-								{config.defaultsJson.coverage} %
+								{config.defaultsJson.coverage * 100} %
 							</CustomValueCell>
 						</CustomTableRow>
 						<CustomTableRow >
@@ -60,7 +60,7 @@ class ProgramParams extends Component {
 								ARC Coverage Range
 							</CustomLabelCell>
 							<CustomValueCell>
-								{config.defaultsJson.range} %
+								{config.defaultsJson.range * 100} %
 							</CustomValueCell>
 						</CustomTableRow>
 						<CustomTableRow>
@@ -68,7 +68,7 @@ class ProgramParams extends Component {
 								Payment Acres
 							</CustomLabelCell>
 							<CustomValueCell>
-								{config.defaultsJson.acres} %
+								{config.defaultsJson.acres * 100} %
 							</CustomValueCell>
 						</CustomTableRow>
 					</TableBody>
