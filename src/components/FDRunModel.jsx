@@ -495,7 +495,7 @@ class FDRunModel extends Component {
 				arcYield = data.map((row) => {
 					return row["arcYield"];
 				});
-			  console.log(arcYield);
+
 			  if (arcYield.length > 0) {
 					this.setState({arcYield: roundResults(arcYield[0], 2)});
 					this.setState({showError: false});
