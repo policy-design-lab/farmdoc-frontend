@@ -28,6 +28,7 @@ import {
 } from "../actions/model";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
+import {dataNotAvailable, pracCodeNotSupported} from "../app.messages";
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
@@ -175,7 +176,8 @@ class FDRunModel extends Component {
 		customforecastPrice: "",
 		customSubmitEnabled: false,
 		fetchYields: false,
-		showError: false
+		showError: false,
+		errorMsg: dataNotAvailable
 	};
 
 	constructor(props) {
@@ -212,7 +214,8 @@ class FDRunModel extends Component {
 			customforecastPrice: "",
 			customSubmitEnabled: false,
 			fetchYields: false,
-			showError: false
+			showError: false,
+			errorMsg: dataNotAvailable
 		};
 	}
 
@@ -422,6 +425,7 @@ class FDRunModel extends Component {
 				catch (error) {
 					this.setState({runStatus: "PARSE_ERROR"});
 					this.setState({showError: true});
+					this.setState({errorMsg: dataNotAvailable});
 				}
 			}
 		}
@@ -446,6 +450,7 @@ class FDRunModel extends Component {
 		else {
 			this.setState({runStatus: "PARSE_ERROR"});
 			this.setState({showError: true});
+			this.setState({errorMsg: dataNotAvailable});
 		}
 	}
 
@@ -486,23 +491,32 @@ class FDRunModel extends Component {
 	}
 
 	populateYields(countyFips, commodity){
-		let arcYield = "";
+		let cropParams = "";
 
 		fetch(`${config.apiUrl}/commodities/${countyFips}/commodity/${commodity}`)
 			.then(response => {
 				return response.json();
 			}).then(data => {
-				arcYield = data.map((row) => {
-					return row["arcYield"];
+				cropParams = data.map((row) => {
+					return row;
 				});
 
-			  if (arcYield.length > 0) {
-					this.setState({arcYield: roundResults(arcYield[0], 2)});
-					this.setState({showError: false});
+				if (cropParams.length > 0) {
+					if (cropParams.length === 1 && cropParams[0]["pracCode"] != null &&
+							cropParams[0]["pracCode"] === 3) {
+						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+						this.setState({showError: false});
+					}
+					else {
+						this.setState({arcYield: ""});
+						this.setState({showError: true});
+						this.setState({errorMsg: pracCodeNotSupported});
+					}
 				}
 				else {
 					this.setState({arcYield: ""});
 					this.setState({showError: true});
+					this.setState({errorMsg: dataNotAvailable});
 
 				}
 
@@ -627,9 +641,8 @@ class FDRunModel extends Component {
 						</DialogActions>
 					</Dialog>
 
-					<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4}}>
-						<FormLabel component="legend" error={true}>Error: Data not available for the selected crop in the
-							county. Choose a different crop or county</FormLabel>
+					<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4, textAlign: "center"}}>
+						<FormLabel component="legend" error={true}> {this.state.errorMsg}</FormLabel>
 					</div>
 
 					<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
