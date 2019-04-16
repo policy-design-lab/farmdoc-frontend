@@ -502,18 +502,32 @@ class FDRunModel extends Component {
 				});
 
 				if (cropParams.length > 0) {
-					if (cropParams.length === 1 && cropParams[0]["pracCode"] != null &&
-							cropParams[0]["pracCode"] === 3) {
-						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-						this.setState({showError: false});
+					if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
+						if (cropParams[0]["pracCode"] === 3) {
+							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+							this.setState({showError: false});
+						}
+						else {
+							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+							this.setState({showError: true});
+							this.setState({errorMsg: pracCodeNotSupported});
+						}
 					}
-					else {
-						this.setState({arcYield: ""});
+					else { //more than one pracCode Present
+
+						let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
+						cropParams.forEach((item) => {
+							if (item.pracCode === 2) {
+								selPrac = item;
+							}
+						});
+
+						this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
 						this.setState({showError: true});
 						this.setState({errorMsg: pracCodeNotSupported});
 					}
 				}
-				else {
+				else { // No crop data is available
 					this.setState({arcYield: ""});
 					this.setState({showError: true});
 					this.setState({errorMsg: dataNotAvailable});
