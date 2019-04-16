@@ -24,8 +24,8 @@ export const unauthorized = ["We are glad you want to check out Farmdoc Simulato
 	"For the best experience, login or register for a free account."];
 export const browserWarning = ["Your browser does not support all features of Farmdoc. " +
 "You will not be able to login or run the application. Please use Google Chrome, Edge, Firefox or Safari"];
-export const dataNotAvailable = ["ERROR: Data not available for the selected crop in the county. " +
+export const dataNotAvailable = ["Error: Data not available for the selected crop in the county. " +
 "Choose a different crop or county."];
-export const pracCodeNotSupported = ["ALERT: We are not supporting selecting irrigated and non-irrigated fields, " +
-"we will default to non-irrigated if available, otherwise irrigated"];
+export const pracCodeNotSupported = ["Note: We are not supporting selecting irrigated and non-irrigated fields, yet. " +
+"We will default to non-irrigated if available, otherwise irrigated."];
 
