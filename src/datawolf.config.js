@@ -11,8 +11,7 @@ const inputDatasets = {
 };
 
 export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange,
-																		 plcYield, program, sequesterPrice = 0, forecastPrices, binSize ){
-	let pracCode = 3;
+																		 plcYield, program, sequesterPrice = 0, forecastPrices, binSize, pracCode ){
 	return {
 		"workflowId": workflowId,
 		"creatorId": personId,

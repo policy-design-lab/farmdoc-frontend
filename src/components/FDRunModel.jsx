@@ -161,6 +161,7 @@ class FDRunModel extends Component {
 		forecastType: config.defaultsJson.forecastType,
 		forecastName: config.defaultsJson.forecastName,
 		refPrice: "",
+		pracCode: "",
 		acres: config.defaultsJson.acres,
 		seqprice: 0,
 		coverage: config.defaultsJson.coverage,
@@ -199,6 +200,7 @@ class FDRunModel extends Component {
 			forecastType: config.defaultsJson.forecastType,
 			forecastName: config.defaultsJson.forecastName,
 			refPrice: "",
+			pracCode: "",
 			acres: config.defaultsJson.acres,
 			seqprice: config.defaultsJson.seqprice,
 			coverage: config.defaultsJson.coverage,
@@ -361,7 +363,7 @@ class FDRunModel extends Component {
 		let dwUrl = datawolfURL;
 
 		let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield,
-			arcYield, program, sequesterPrice;
+			arcYield, program, sequesterPrice, pracCode;
 		countyId = this.state.county;
 		startYear = config.defaultsJson.startYear;
 		commodity = this.state.commodity.toLowerCase();
@@ -373,6 +375,7 @@ class FDRunModel extends Component {
 		plcYield = this.state.paymentYield;
 		program = "ARC";
 		sequesterPrice = this.state.seqprice;
+		pracCode = this.state.pracCode;
 
 
 		let forecastPrices = null;
@@ -388,7 +391,7 @@ class FDRunModel extends Component {
 
 		//TODO: Add arcYield
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
-			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice, forecastPrices, binSize);
+			paymentAcres, arcCoverage, arcRange, plcYield, program, sequesterPrice, forecastPrices, binSize, pracCode);
 
 		let body = JSON.stringify(postRequest);
 
@@ -512,6 +515,8 @@ class FDRunModel extends Component {
 							this.setState({showError: true});
 							this.setState({errorMsg: pracCodeNotSupported});
 						}
+
+						this.setState({pracCode: cropParams[0]["pracCode"]});
 					}
 					else { //more than one pracCode Present
 
@@ -523,12 +528,14 @@ class FDRunModel extends Component {
 						});
 
 						this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
+						this.setState({pracCode: selPrac["pracCode"]});
 						this.setState({showError: true});
 						this.setState({errorMsg: pracCodeNotSupported});
 					}
 				}
 				else { // No crop data is available
 					this.setState({arcYield: ""});
+					this.setState({pracCode: ""});
 					this.setState({showError: true});
 					this.setState({errorMsg: dataNotAvailable});
 
@@ -554,7 +561,7 @@ class FDRunModel extends Component {
 	validateInputs() {
 		return this.state.county > 0 && this.state.commodity !== "" &&
 				this.state.paymentYield !== "" && this.state.forecastType !== "" &&
-				this.state.arcYield !== "";
+				this.state.arcYield !== "" && this.state.pracCode !== "";
 	}
 
 	render() {
