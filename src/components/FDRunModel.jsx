@@ -28,7 +28,14 @@ import {
 } from "../actions/model";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
-import {dataNotAvailable, pracCodeNotSupported} from "../app.messages";
+import {
+	dataNotAvailable,
+	pracCodeNotSupported,
+	plcPayYieldToolTip,
+	arcTrendYieldToolTip,
+	plcPayYieldInputToolTip,
+	stateCountySelectToolTip, cropSelectToolTip
+} from "../app.messages";
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
@@ -665,26 +672,33 @@ class FDRunModel extends Component {
 					<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4, textAlign: "center"}}>
 						<FormLabel component="legend" error={true}> {this.state.errorMsg}</FormLabel>
 					</div>
-
 					<FormControl className={classes.formControl} required style={{marginTop: "16px"}}>
 						<ReactSelect styles={ReactSelectStyles}
-											 classes={classes}
-											 textFieldProps={{
-												 label: "State",
-												 InputLabelProps: {
-													 shrink: true
-												 }
-											 }}
-											 components={components}
-											 options={stateOptions}
-											 placeholder = "Select"
-											 onChange={this.handleReactSelectChange("stateSel")}
-											 inputProps={{
-												 name: "state",
-												 id: "state-simple",
-											 }}	/>
+									 classes={classes}
+									 textFieldProps={{
+										 label: "State",
+										 InputLabelProps: {
+											 shrink: true
+										 }
+									 }}
+									 components={components}
+									 options={stateOptions}
+									 placeholder = "Select"
+									 onChange={this.handleReactSelectChange("stateSel")}
+									 inputProps={{
+										 name: "state",
+										 id: "state-simple",
+									 }}	/>
 
 					</FormControl>
+					<ToolTip title={stateCountySelectToolTip} disableFocusListener={true}>
+						<span>
+							<Icon>
+								<HelpOutline color="inherit" className={classes.helpIcon}/>
+							</Icon>
+						</span>
+
+					</ToolTip>
 					<br/>
 
 					<FormControl className={classes.formControl} required>
@@ -711,37 +725,41 @@ class FDRunModel extends Component {
 
 					<FormControl className={classes.formControl} required>
 						<ReactSelect styles={ReactSelectStyles}
-											 classes={classes}
-											 textFieldProps={{
-												 label: "Crop",
-												 InputLabelProps: {
-													 shrink: true,
-												 },
-											 }}
-											 components={components}
-											 placeholder="Select"
-											 options={cropOptions}
-											 onChange={this.handleReactSelectChange("commodity")}
-											 inputProps={{
-												 name: "crop",
-												 id: "crop-simple",
-											 }}/>
+									 classes={classes}
+									 textFieldProps={{
+										 label: "Crop",
+										 InputLabelProps: {
+											 shrink: true,
+										 },
+									 }}
+									 components={components}
+									 placeholder="Select"
+									 options={cropOptions}
+									 onChange={this.handleReactSelectChange("commodity")}
+									 inputProps={{
+										 name: "crop",
+										 id: "crop-simple",
+									 }}/>
 					</FormControl>
 
+					<ToolTip title="The reference price is the statutory reference price fixed by Congress in the bill">
 
-					<TextField
-					id="refPrice"
-					label="Reference Price"
-					value={this.state.refPrice}
-					disabled={true}
-					margin="normal"
-					onChange={this.handleMuiChange("refPrice")}
-					style={{width: "115px", marginTop: "8px"}}
-					InputProps={{
-						startAdornment: <InputAdornment position="start">$</InputAdornment>,
-					}}
+						<TextField
+						id="refPrice"
+						label="Reference Price"
+						value={this.state.refPrice}
+						disabled={true}
+						margin="normal"
+						onChange={this.handleMuiChange("refPrice")}
+						style={{width: "115px", marginTop: "8px"}}
+						InputProps={{
+							startAdornment: <InputAdornment position="start">$</InputAdornment>,
+						}}
 
-					/> <br/>
+						/>
+					</ToolTip>
+
+					<br/>
 
 					<FormControl className={classes.formControl} required>
 						<ReactSelect styles={ReactSelectStyles}
@@ -768,7 +786,7 @@ class FDRunModel extends Component {
 					<ToolTip title={forecastToolTip} disableFocusListener={true}>
 						<span>
 							<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
-											disabled={(this.state.commodity === "")}>
+							                                disabled={(this.state.commodity === "")}>
 								<HelpOutline color="inherit" className={classes.helpIcon}/>
 							</IconButton>
 						</span>
@@ -792,6 +810,13 @@ class FDRunModel extends Component {
 						inputProps={{padding: 10}}
 						onInput={this.validateMaxValue(300)}
 					/>
+					<ToolTip title={plcPayYieldToolTip} disableFocusListener={true}>
+						<span>
+							<Icon>
+								<HelpOutline color="inherit" className={classes.helpIcon}/>
+							</Icon>
+						</span>
+					</ToolTip>
 					<br/>
 
 					<TextField
@@ -812,6 +837,15 @@ class FDRunModel extends Component {
 							inputProps={{padding: 10}}
 							onInput={this.validateMaxValue(300)}
 					/>
+
+					<ToolTip title={arcTrendYieldToolTip} disableFocusListener={true}>
+						<span>
+							<Icon>
+								<HelpOutline color="inherit" className={classes.helpIcon}/>
+							</Icon>
+						</span>
+
+					</ToolTip>
 					<br/>
 
 				</div>

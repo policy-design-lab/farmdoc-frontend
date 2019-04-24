@@ -7,6 +7,7 @@ import {roundResults} from "../public/utils.js";
 import "../styles/main.css";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import ToolTip from "@material-ui/core/Tooltip";
 
 const styles = theme => ({
 	root: {
@@ -157,7 +158,7 @@ class BinnedGraphs extends Component {
 				datasets: [
 					{
 						label: "ARC Payments Distribution",
-						backgroundColor: "Orange",
+						backgroundColor: "#fd8a43",
 						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(220,220,220,1)",
 						pointColor: "rgba(220,220,220,1)",
@@ -168,7 +169,7 @@ class BinnedGraphs extends Component {
 					},
 					{
 						label: "PLC Payments Distribution",
-						backgroundColor: "SkyBlue",
+						backgroundColor: "#7ecffc",
 						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
@@ -221,29 +222,31 @@ class BinnedGraphs extends Component {
 
 					<Grid container style={{width: "1120px", boxShadow: " 0 2px 4px 0px"}} >
 
-						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "Orange"}}>
+						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#fd8a43"}}>
 							<div className="bin-header"> ARC Payout Distribution - {currYear} </div>
 							<div className="bin-subheader"> Avg. Payout: ${arcAvgPayout} &nbsp; &nbsp; Likelihood: {arcLikelihood}% </div>
 
 						</Grid>
 
 
-						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "SkyBlue"}}>
+						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#7ecffc"}}>
 							<div className="bin-header"> PLC Payout Distribution - {currYear} </div>
 							<div className="bin-subheader"> Avg. Payout: ${plcAvgPayout} &nbsp; &nbsp; Likelihood: {plcLikelihood}% </div>
 						</Grid>
 
 						<Grid item style={{width: "100%"}} className="bin-checkbox">
-							<FormControlLabel label = "Hide Zero Payments" control={
-								<Checkbox
+							<ToolTip title={"Click to remove all $0 payments from the simulation and compare only estimated\n" +
+							"outcomes from the model that result in an estimated payment."}>
+								<FormControlLabel label = "Hide Zero Payments" control={
+									<Checkbox
 										checked={this.state.hideZeroes}
 										onChange={this.handleChange("hideZeroes")}
 										value="checkedA"
 										color="primary"
+									/>
+								}
 								/>
-							}
-							/>
-
+							</ToolTip>
 
 						</Grid>
 

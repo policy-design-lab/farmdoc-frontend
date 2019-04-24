@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import config from "../app.config";
 import {Table, TableBody, TableCell, TableRow} from "@material-ui/core";
+import ToolTip from "@material-ui/core/Tooltip";
 import {withStyles} from "@material-ui/core/styles";
+import {arcCoverageRangeToolTip, arcCoverageToolTip, paymentAcresToolTip} from "../app.messages";
 
 const CustomTableRow = withStyles(() => ({
 	root: {
@@ -44,33 +46,39 @@ class ProgramParams extends Component {
 					<TableBody>
 						<CustomTableHeadRow>
 							<TableCell colSpan={2} style={{textAlign: "center", fontWeight: "bold"}}>
-							ARC/PLC Program Inputs
+								ARC/PLC Program Inputs
 							</TableCell>
 						</CustomTableHeadRow>
-						<CustomTableRow >
-							<CustomLabelCell>
-								ARC Coverage Level
-							</CustomLabelCell>
-							<CustomValueCell >
-								{config.defaultsJson.coverage * 100} %
-							</CustomValueCell>
-						</CustomTableRow>
-						<CustomTableRow >
-							<CustomLabelCell>
-								ARC Coverage Range
-							</CustomLabelCell>
-							<CustomValueCell>
-								{config.defaultsJson.range * 100} %
-							</CustomValueCell>
-						</CustomTableRow>
-						<CustomTableRow>
-							<CustomLabelCell>
-								Payment Acres
-							</CustomLabelCell>
-							<CustomValueCell>
-								{config.defaultsJson.acres * 100} %
-							</CustomValueCell>
-						</CustomTableRow>
+						<ToolTip title={arcCoverageToolTip}>
+							<CustomTableRow >
+								<CustomLabelCell>
+									ARC Coverage Level
+								</CustomLabelCell>
+								<CustomValueCell >
+									{config.defaultsJson.coverage * 100} %
+								</CustomValueCell>
+							</CustomTableRow>
+						</ToolTip>
+						<ToolTip title={arcCoverageRangeToolTip}>
+							<CustomTableRow >
+								<CustomLabelCell>
+									ARC Coverage Range
+								</CustomLabelCell>
+								<CustomValueCell>
+									{config.defaultsJson.range * 100} %
+								</CustomValueCell>
+							</CustomTableRow>
+						</ToolTip>
+						<ToolTip title={paymentAcresToolTip}>
+							<CustomTableRow>
+								<CustomLabelCell>
+									Payment Acres
+								</CustomLabelCell>
+								<CustomValueCell>
+									{config.defaultsJson.acres * 100} %
+								</CustomValueCell>
+							</CustomTableRow>
+						</ToolTip>
 					</TableBody>
 				</Table>
 			</div>

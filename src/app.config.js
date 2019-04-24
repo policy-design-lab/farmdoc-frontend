@@ -38,7 +38,8 @@ const mpForecasts = [
 	{
 		"id": "cbo",
 		"name": "CBO",
-		"description": "This is the CBO 2018 forecast model that forecasts market prices for the next five years",
+		"description": "The CBO price scenario uses the Marketing Year Average prices as forecast by the " +
+			"Congressional Budget Office (CBO) in its January 2019 Baseline estimates, available from CBO",
 		"prices": {
 			"corn": [3.53, 3.66, 3.76, 3.72, 3.72],
 			"soybeans": [9.67, 9.81, 9.67, 9.69, 9.7],

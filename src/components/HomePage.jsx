@@ -38,7 +38,7 @@ class HomePage extends Component {
 	render(){
 
 		let welcome = (<div>
-			<h1 className="secondary-color">Welcome to the Farmdoc Project</h1>
+			<h2 className="secondary-color">Welcome to the Gardner Program Payment Calculator</h2>
 			<br/>
 			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
 		</div>);
@@ -46,7 +46,7 @@ class HomePage extends Component {
 
 		let howwork =
 			(<div style={{textAlign: "center"}}>
-				<h1 className="secondary-color">How does the simulation work?</h1>
+				<h2 className="secondary-color">How does the simulation work?</h2>
 				<br/>
 				<img src={require("../images/farmdoc-rep-image.png")} style={{borderStyle: "ridge"}}/>
 			</div>);

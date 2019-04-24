@@ -11,6 +11,7 @@ import config from "../app.config";
 import ToolTip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
+import {forecastYearsToolTip} from "../app.messages";
 
 
 const styles = theme => ({
@@ -56,7 +57,7 @@ class ForecastModels extends Component {
 			if (this.props.hasOwnProperty("commodity") && this.props["commodity"] !== null && this.props["commodity"] !== "") {
 				commodity = this.props["commodity"];
 			}
-			let tableTitle = `Forecast Model Prices for ${commodity.charAt(0).toUpperCase()}${commodity.substr(1)}`;
+			let tableTitle = `Price Scenarios Used in Model for Payment Estimates for ${commodity.charAt(0).toUpperCase()}${commodity.substr(1)}`;
 			let years = [startYear++, startYear++, startYear++, startYear++, startYear++];
 			let headers = ["Model"].concat(years);
 
@@ -85,9 +86,10 @@ class ForecastModels extends Component {
 
 					<Table className={classes.table} aria-labelledby="tableTitle">
 						<TableHead>
+
 							<TableRow key="rowheader">
 								{headers.map(header => (
-									<TableCell key={`header-${header}`}> {header}</TableCell>
+									<ToolTip title={forecastYearsToolTip}><TableCell key={`header-${header}`}> {header}</TableCell></ToolTip>
 								))}
 
 							</TableRow>

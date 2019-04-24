@@ -7,6 +7,13 @@ import {handleResults} from "../actions/model";
 import {changeYearRow} from "../actions/results";
 import BinnedGraphs from "./BinnedGraphs";
 import {roundResults} from "../public/utils.js";
+import {
+	likelihoodTableToolTip,
+	simulatedPriceTableToolTip,
+	simulatedYieldTableToolTip,
+	simulationGraphToolTip
+} from "../app.messages";
+import ToolTip from "@material-ui/core/Tooltip";
 
 
 const styles = theme => ({
@@ -84,7 +91,7 @@ const ArcTableCell = withStyles({
 		borderBottomStyle: "none",
 		paddingBottom: "1px",
 		verticalAlign: "bottom",
-		color: "Orange",
+		color: "#fd8a43",
 		fontWeight: "bolder"
 	}
 })(TableCellDefaultStyles);
@@ -93,7 +100,7 @@ const PlcTableCell = withStyles({
 	root: {
 		borderTopStyle: "none",
 		verticalAlign: "top",
-		color: "SkyBlue",
+		color: "#7ecffc",
 		fontWeight: "bolder"
 
 	}
@@ -227,20 +234,22 @@ class Results extends Component {
 			for (let i = 0; i < years.length; i++) {
 				rowElems.push(
 					<TableRow key={`childRowArc-${i}`}>
-						<ArcTableCell>{arc[i]}</ArcTableCell>
+						<ArcTableCell>${arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<PlcTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
-								 style={{cursor: "pointer"}}/>
+							<ToolTip title={simulationGraphToolTip} >
+								<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
+									 style={{cursor: "pointer"}}/>
+							</ToolTip>
 						</PlcTableCell>
-						<CommonTableCell rowSpan={2}> {prices[i]} </CommonTableCell>
+						<CommonTableCell rowSpan={2}> ${prices[i]} </CommonTableCell>
 						<CommonTableCell rowSpan={2}> {yields[i]} </CommonTableCell>
 					</TableRow>
 				);
 
 				rowElems.push(
 					<TableRow key={`childRowPlc-${i}`}>
-						<PlcTableCell>{plc[i]}</PlcTableCell>
+						<PlcTableCell>${plc[i]}</PlcTableCell>
 						<PlcTableCell>{probPlc[i]}%</PlcTableCell>
 					</TableRow>
 				);
@@ -251,25 +260,26 @@ class Results extends Component {
 				labels: years,
 				datasets: [
 					{
-						label: "ARC Payments",
-						backgroundColor: "Orange",
+						label: "ARC-CO Payments",
+						backgroundColor: "#fd8a43",
 						hoverBackgroundColor: "LightSlateGray",
-						strokeColor: "rgba(220,220,220,1)",
-						pointColor: "rgba(220,220,220,1)",
+						strokeColor: "rgba(246,107,22,1)",
+						pointColor: "rgba(246,107,22,1)",
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
-						pointHighlightStroke: "rgba(220,220,220,1)",
+						pointHighlightStroke: "rgba(246,107,22,1)",
 						data: arc
 					},
 					{
 						label: "PLC Payments",
-						backgroundColor: "SkyBlue",
+						/*backgroundColor: "#003366", */
+						backgroundColor: "#7ecff3",
 						hoverBackgroundColor: "DarkGray",
-						strokeColor: "rgba(151,187,205,1)",
-						pointColor: "rgba(151,187,205,1)",
+						strokeColor: "rgba(0,51,102,1)",
+						pointColor: "rgba(0,51,102,1)",
 						pointStrokeColor: "#fff",
 						pointHighlightFill: "#fff",
-						pointHighlightStroke: "rgba(151,187,205,1)",
+						pointHighlightStroke: "rgba(0,51,102,1)",
 						data: plc
 					}
 				]
@@ -324,10 +334,10 @@ class Results extends Component {
 										<TableBody>
 											<TableRow style={{height: "64px"}}>
 												<TableCellHeader>Expected  &nbsp;Payment ($)</TableCellHeader>
-												<TableCellHeader>Likelihood of Payment (avg)</TableCellHeader>
+												<ToolTip title={likelihoodTableToolTip}><TableCellHeader>Likelihood of Payment (avg)</TableCellHeader></ToolTip>
 												<TableCellHeader>Simulation Distribution</TableCellHeader>
-												<TableCellHeader>Simulated  &nbsp;Price ($)</TableCellHeader>
-												<TableCellHeader>Simulated Yield ({yieldUnits})</TableCellHeader>
+												<ToolTip title={simulatedPriceTableToolTip}><TableCellHeader>Simulated  &nbsp;Price ($)</TableCellHeader></ToolTip>
+												<ToolTip title={simulatedYieldTableToolTip}><TableCellHeader>Simulated Yield ({yieldUnits})</TableCellHeader></ToolTip>
 											</TableRow>
 
 											{rowElems}
