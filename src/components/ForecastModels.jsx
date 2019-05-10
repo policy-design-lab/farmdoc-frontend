@@ -10,7 +10,7 @@ import "../styles/main.css";
 import config from "../app.config";
 import ToolTip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
-import HelpOutline from "@material-ui/icons/HelpOutline";
+import Info from "@material-ui/icons/Info";
 import {forecastYearsToolTip} from "../app.messages";
 
 
@@ -99,9 +99,9 @@ class ForecastModels extends Component {
 								<TableRow key={row.id}>
 									<TableCell component="th" scope="row" className={classes.modelColumn}>
 										{row.name}
-										<ToolTip title={row.description}>
+										<ToolTip title={row.description} enterTouchDelay={50}>
 											<IconButton aria-label={row.description}>
-												<HelpOutline />
+												<Info />
 											</IconButton>
 										</ToolTip>
 

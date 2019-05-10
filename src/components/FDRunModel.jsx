@@ -39,6 +39,7 @@ import {
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
+import Info from "@material-ui/icons/Info";
 import ForecastModels from "./ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
 import ProgramParams from "./ProgramParams";
@@ -85,6 +86,9 @@ const styles = theme => ({
 	},
 	helpIcon: {
 		fontSize: 24
+	},
+	popupButton: {
+		width: 38
 	},
 	paper: {
 		position: "absolute",
@@ -691,14 +695,16 @@ class FDRunModel extends Component {
 									 }}	/>
 
 					</FormControl>
-					<ToolTip title={stateCountySelectToolTip} disableFocusListener={true}>
-						<span>
-							<Icon>
-								<HelpOutline color="inherit" className={classes.helpIcon}/>
-							</Icon>
-						</span>
 
+					<ToolTip title={stateCountySelectToolTip} enterTouchDelay={50}>
+						<span>
+							<IconButton >
+								<Info color="inherit" className={classes.helpIcon}/>
+							</IconButton>
+						</span>
 					</ToolTip>
+
+
 					<br/>
 
 					<FormControl className={classes.formControl} required>
@@ -785,7 +791,7 @@ class FDRunModel extends Component {
 
 					<ToolTip title={forecastToolTip} disableFocusListener={true}>
 						<span>
-							<IconButton aria-label="Open Forecast Models" onClick={this.handleForecastOpen}
+							<IconButton aria-label="Open Forecast Models" className={classes.popupButton} onClick={this.handleForecastOpen}
 							                                disabled={(this.state.commodity === "")}>
 								<HelpOutline color="inherit" className={classes.helpIcon}/>
 							</IconButton>
@@ -810,13 +816,16 @@ class FDRunModel extends Component {
 						inputProps={{padding: 10}}
 						onInput={this.validateMaxValue(300)}
 					/>
-					<ToolTip title={plcPayYieldToolTip} disableFocusListener={true}>
+
+					<ToolTip title={plcPayYieldInputToolTip} enterTouchDelay={50}>
 						<span>
-							<Icon>
-								<HelpOutline color="inherit" className={classes.helpIcon}/>
-							</Icon>
+							<IconButton >
+								<Info color="inherit" className={classes.helpIcon}/>
+							</IconButton>
 						</span>
 					</ToolTip>
+
+
 					<br/>
 
 					<TextField
@@ -838,14 +847,14 @@ class FDRunModel extends Component {
 							onInput={this.validateMaxValue(300)}
 					/>
 
-					<ToolTip title={arcTrendYieldToolTip} disableFocusListener={true}>
+					<ToolTip title={arcTrendYieldToolTip} enterTouchDelay={50}>
 						<span>
-							<Icon>
-								<HelpOutline color="inherit" className={classes.helpIcon}/>
-							</Icon>
+							<IconButton >
+								<Info color="inherit" className={classes.helpIcon}/>
+							</IconButton>
 						</span>
-
 					</ToolTip>
+
 					<br/>
 
 				</div>
