@@ -579,6 +579,7 @@ class FDRunModel extends Component {
 		const {classes} = this.props;
 
 		let textFieldInputStyle = {style: {paddingLeft: 8}};
+		let tooltipTouchDelay = config.tooltipTouchDelay;
 		let spinner;
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
@@ -696,7 +697,7 @@ class FDRunModel extends Component {
 
 					</FormControl>
 
-					<ToolTip title={stateCountySelectToolTip} enterTouchDelay={50}>
+					<ToolTip title={stateCountySelectToolTip} enterTouchDelay={tooltipTouchDelay}>
 						<span>
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>
@@ -817,7 +818,7 @@ class FDRunModel extends Component {
 						onInput={this.validateMaxValue(300)}
 					/>
 
-					<ToolTip title={plcPayYieldInputToolTip} enterTouchDelay={50}>
+					<ToolTip title={plcPayYieldInputToolTip} enterTouchDelay={tooltipTouchDelay}>
 						<span>
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>
@@ -847,7 +848,7 @@ class FDRunModel extends Component {
 							onInput={this.validateMaxValue(300)}
 					/>
 
-					<ToolTip title={arcTrendYieldToolTip} enterTouchDelay={50}>
+					<ToolTip title={arcTrendYieldToolTip} enterTouchDelay={tooltipTouchDelay}>
 						<span>
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>

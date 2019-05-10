@@ -14,7 +14,8 @@ import {
 	simulationGraphToolTip
 } from "../app.messages";
 import ToolTip from "@material-ui/core/Tooltip";
-
+import "../styles/main.css";
+import config from "../app.config";
 
 const styles = theme => ({
 	root: {
@@ -334,10 +335,10 @@ class Results extends Component {
 										<TableBody>
 											<TableRow style={{height: "64px"}}>
 												<TableCellHeader>Expected  &nbsp;Payment ($)</TableCellHeader>
-												<ToolTip title={likelihoodTableToolTip}><TableCellHeader>Likelihood of Payment (avg)</TableCellHeader></ToolTip>
+												<ToolTip title={likelihoodTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Likelihood of Payment (avg)</TableCellHeader></ToolTip>
 												<TableCellHeader>Simulation Distribution</TableCellHeader>
-												<ToolTip title={simulatedPriceTableToolTip}><TableCellHeader>Simulated  &nbsp;Price ($)</TableCellHeader></ToolTip>
-												<ToolTip title={simulatedYieldTableToolTip}><TableCellHeader>Simulated Yield ({yieldUnits})</TableCellHeader></ToolTip>
+												<ToolTip title={simulatedPriceTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated  &nbsp;Price ($)</TableCellHeader></ToolTip>
+												<ToolTip title={simulatedYieldTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated Yield ({yieldUnits})</TableCellHeader></ToolTip>
 											</TableRow>
 
 											{rowElems}

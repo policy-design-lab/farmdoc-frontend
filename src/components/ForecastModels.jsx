@@ -89,7 +89,7 @@ class ForecastModels extends Component {
 
 							<TableRow key="rowheader">
 								{headers.map(header => (
-									<ToolTip title={forecastYearsToolTip}><TableCell key={`header-${header}`}> {header}</TableCell></ToolTip>
+									<ToolTip title={forecastYearsToolTip}><TableCell key={`header-${header}`} className="table-header-tooltip"> {header}</TableCell></ToolTip>
 								))}
 
 							</TableRow>
@@ -99,7 +99,7 @@ class ForecastModels extends Component {
 								<TableRow key={row.id}>
 									<TableCell component="th" scope="row" className={classes.modelColumn}>
 										{row.name}
-										<ToolTip title={row.description} enterTouchDelay={50}>
+										<ToolTip title={row.description} enterTouchDelay={config.tooltipTouchDelay}>
 											<IconButton aria-label={row.description}>
 												<Info />
 											</IconButton>

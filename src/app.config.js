@@ -61,6 +61,8 @@ const defaultsJson = {
 	startYear: 2019
 };
 
+const tooltipTouchDelay = 50; //milli seconds
+
 
 const devConfig = {
 	basePath: "/",
@@ -70,7 +72,8 @@ const devConfig = {
 	domain: "localhost",
 	defaultsJson: defaultsJson,
 	showCustomForecast: true,
-	browserLog: true
+	browserLog: true,
+	tooltipTouchDelay: tooltipTouchDelay
 };
 
 const prodConfig = {
@@ -81,7 +84,8 @@ const prodConfig = {
 	domain: "fd-tools.ncsa.illinois.edu",
 	defaultsJson: defaultsJson,
 	showCustomForecast: false,
-	browserLog: false
+	browserLog: false,
+	tooltipTouchDelay: tooltipTouchDelay
 };
 
 const config = getConfig();

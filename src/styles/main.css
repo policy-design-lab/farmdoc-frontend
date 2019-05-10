@@ -289,3 +289,8 @@ h1, h2, h3, h5, h6, p, ul {
 	padding: 2px 10px 2px 10px;
 }
 
+.table-header-tooltip{
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+}
+
