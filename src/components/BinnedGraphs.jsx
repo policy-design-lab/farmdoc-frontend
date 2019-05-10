@@ -169,7 +169,7 @@ class BinnedGraphs extends Component {
 					},
 					{
 						label: "PLC Payments Distribution",
-						backgroundColor: "#7ecffc",
+						backgroundColor: "#5EACCF",
 						hoverBackgroundColor: "LightSlateGray",
 						strokeColor: "rgba(151,187,205,1)",
 						pointColor: "rgba(151,187,205,1)",
@@ -229,7 +229,7 @@ class BinnedGraphs extends Component {
 						</Grid>
 
 
-						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#7ecffc"}}>
+						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#5EACCF"}}>
 							<div className="bin-header"> PLC Payout Distribution - {currYear} </div>
 							<div className="bin-subheader"> Avg. Payout: ${plcAvgPayout} &nbsp; &nbsp; Likelihood: {plcLikelihood}% </div>
 						</Grid>
