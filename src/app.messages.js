@@ -39,7 +39,7 @@ export const cropSelectToolTip = "Select the crop for program payment estimate";
 
 export const likelihoodTableToolTip = "Likelihood of payment represents the average of payments in the model over " +
 	"1,000 model runs in the price and yield scenarios";
-export const simulationGraphToolTip = "Click here for information about the distribution of payments in the 1,000 " +
+export const simulationGraphToolTip = "Click on the graph images below to see information about the distribution of payments in the 1,000 " +
 	"model runs.";
 export const simulatedPriceTableToolTip = "The simulated price is the Marketing Year Average price based on...";
 export const simulatedYieldTableToolTip = "The simulated yield is the trend-adjusted yield for the county";
