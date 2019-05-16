@@ -625,7 +625,7 @@ class FDRunModel extends Component {
 			<div style={{
 				 maxWidth: "370px",
 				borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-				marginLeft: "50px", marginRight: "30px", marginTop: "15px", marginBottom: "15px", paddingBottom: "12px"
+				marginLeft: "50px", marginRight: "5px", marginTop: "15px", marginBottom: "15px", paddingBottom: "12px"
 			}}>
 				<div style={{
 					paddingTop: "2px", paddingRight: "8px", paddingLeft: "18px", paddingBottom: "8px"

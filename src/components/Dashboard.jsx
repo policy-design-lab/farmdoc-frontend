@@ -22,7 +22,7 @@ class Dashboard extends Component {
 							</div>
 						</Grid>
 
-						<Grid item cols={8} style={{paddingTop: "16px"}}>
+						<Grid item cols={8} style={{marginLeft: 30, padding: 3, alignItems: "center", display: "flex"}}>
 							<Results/>
 						</Grid>
 					</Grid>

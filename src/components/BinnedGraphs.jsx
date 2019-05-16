@@ -220,7 +220,7 @@ class BinnedGraphs extends Component {
 			return (
 				<div >
 
-					<Grid container style={{width: "1120px", boxShadow: " 0 2px 4px 0px"}} >
+					<Grid container style={{width: "900px", boxShadow: " 0 2px 4px 0px"}} >
 
 						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#fd8a43"}}>
 							<div className="bin-header"> ARC Payout Distribution - {currYear} </div>

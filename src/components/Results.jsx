@@ -26,11 +26,13 @@ const styles = theme => ({
 	},
 
 	table: {
-		//minWidth: 700,
-		padding: 10,
+		padding: 2,
 		width: "auto",
-		margin: 15,
-		borderRadius: 15
+		borderRadius: 15,
+		borderStyle: "solid",
+		borderColor: "rgb(144,144,144)",
+		borderWidth: 1,
+		borderCollapse: "separate"
 	},
 
 	tableCell: {},
@@ -47,19 +49,21 @@ const styles = theme => ({
 
 const ChartTableCell = withStyles({
 	root: {
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
+		borderRightStyle: "solid",
+		borderRightWidth: 0,
+		borderRightColor: "rgb(144,144,144)",
 		paddingRight: 0,
-		minWidth: 340
+		borderBottomWidth: 0,
+		maxWidth: 340,
+		paddingLeft: 10
 	}
 })(TableCell);
 
 const TableCellWithTable = withStyles({
 	root: {
-		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
+		borderStyle: "none",
+		borderWidth: 0,
+		borderColor: "rgb(144,144,144)",
 		padding: "0 0 0 0 !important"
 	}
 })(TableCell);
@@ -67,12 +71,15 @@ const TableCellWithTable = withStyles({
 const TableCellDefaultStyles = withStyles({
 	root: {
 		borderStyle: "solid",
-		borderWidth: 1,
-		borderColor: "rgb(224,224,224)",
+		borderTopWidth: 1,
+		borderRightWidth: 0,
+		borderLeftWidth: 1,
+		borderBottomWidth: 0,
+		borderColor: "rgb(144,144,144)",
 		textAlign: "center",
 		width: "90px",
-		paddingLeft: "4px !important",
-		paddingRight: "4px !important"
+		paddingLeft: "3px !important",
+		paddingRight: "3px !important"
 	}
 })(TableCell);
 
@@ -82,6 +89,8 @@ const TableCellHeader = withStyles({
 		fontFamily: "Roboto",
 		fontSize: "0.75rem",
 		fontWeight: "500",
+		borderTopWidth: 0,
+		borderRightWidth: 0
 
 	}
 })(TableCellDefaultStyles);
@@ -237,10 +246,10 @@ class Results extends Component {
 					<TableRow key={`childRowArc-${i}`}>
 						<ArcTableCell>${arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
-						<PlcTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
+						<CommonTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
 							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
 								 style={{cursor: "pointer"}}/>
-						</PlcTableCell>
+						</CommonTableCell>
 						<CommonTableCell rowSpan={2}> ${prices[i]} </CommonTableCell>
 						<CommonTableCell rowSpan={2}> {yields[i]} </CommonTableCell>
 					</TableRow>
