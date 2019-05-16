@@ -238,10 +238,8 @@ class Results extends Component {
 						<ArcTableCell>${arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<PlcTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<ToolTip title={simulationGraphToolTip} >
-								<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
-									 style={{cursor: "pointer"}}/>
-							</ToolTip>
+							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
+								 style={{cursor: "pointer"}}/>
 						</PlcTableCell>
 						<CommonTableCell rowSpan={2}> ${prices[i]} </CommonTableCell>
 						<CommonTableCell rowSpan={2}> {yields[i]} </CommonTableCell>
@@ -336,7 +334,7 @@ class Results extends Component {
 											<TableRow style={{height: "64px"}}>
 												<TableCellHeader>Expected  &nbsp;Payment ($)</TableCellHeader>
 												<ToolTip title={likelihoodTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Likelihood of Payment (avg)</TableCellHeader></ToolTip>
-												<TableCellHeader>Simulation Distribution</TableCellHeader>
+												<ToolTip title={simulationGraphToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulation Distributions</TableCellHeader></ToolTip>
 												<ToolTip title={simulatedPriceTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated  &nbsp;Price ($)</TableCellHeader></ToolTip>
 												<ToolTip title={simulatedYieldTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated Yield ({yieldUnits})</TableCellHeader></ToolTip>
 											</TableRow>
