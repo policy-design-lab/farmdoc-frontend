@@ -30,7 +30,7 @@ export const pracCodeNotSupported = ["Note: We are not supporting selecting irri
 "We will default to non-irrigated if available, otherwise irrigated."];
 export const plcPayYieldToolTip = "The PLC Payment Yield is the payment yield for your FSA farm based on historic " +
 	"average yields and available from the Farm Service Agency (FSA). The 2018 Farm Bill provided a one-time " +
-	"opportunity for the landlord to elect to update the payment yield for the FSA farm.";
+	"opportunity for the landlord to elect to update the payment yield for the FSA farm";
 export const arcTrendYieldToolTip = "The Arc Trend Yield is...";
 export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA farm as provided by FSA; default is " +
 	"the county average payment yield for PLC";
@@ -40,21 +40,14 @@ export const cropSelectToolTip = "Select the crop for program payment estimate";
 export const likelihoodTableToolTip = "Likelihood of payment represents the average of payments in the model over " +
 	"1,000 model runs in the price and yield scenarios";
 export const simulationGraphToolTip = "Click on the graph images below to see information about the distribution of payments in the 1,000 " +
-	"model runs.";
+	"model runs";
 export const simulatedPriceTableToolTip = "The simulated price is the Marketing Year Average price based on...";
 export const simulatedYieldTableToolTip = "The simulated yield is the trend-adjusted yield for the county";
 export const arcCoverageRangeToolTip = "The ARC-CO payment is capped at a maximum of 10% of the benchmark revenue " +
 	"for the crop";
-export const arcCoverageToolTip = "ARC provides coverage at 86% of the benchmark revenue (price multiplied by yield) " +
-	"for the crop on the farm. The benchmark revenue is calculated using the average of the national Marketing Year " +
-	"Average (MYA) prices for the crop for the most recent five years, excluding both the highest and lowest price " +
-	"years (Olympic moving average), multiplied by the Olympic moving average of the county average yields for the " +
-	"most recent five years. The farm bill provides for the reference price to replace any price below it in the " +
-	"five most recent years. It also requires use of the trend-adjusted yield used by crop insurance in place of the " +
-	"county average yields and a plug yield at 80% of the transitional yield for the county used by crop insurance.";
-export const paymentAcresToolTip = "Both ARC-CO and PLC make payments on 85% of the base acres for the farm. Base " +
-	"acres are a record of historic planting on the FSA farm available from the Farm Service Agency (FSA). Payments " +
-	"are made using the base acres in place of actual planted acres on the FSA farm. The 2014 Farm Bill provided " +
-	"land owners a one-time opportunity to revise the allocation of base acres for the FSA farm.";
+export const arcCoverageToolTip = "ARC provides payments when actual revenue (price multiplied by yield) in a crop year" +
+		" is below 86% of the benchmark (5 year Olympic moving average of prices and county average yields)";
+export const paymentAcresToolTip = "Both ARC and PLC pay on 85% of the base acres for the FSA farm, not the actual acres " +
+		"planted to the crop receiving payment";
 export const forecastYearsToolTip = "Crop years covered by the farm bill; note that payments will be made after " +
-	"October 1 st of the year following the crop year.";
+	"October 1 st of the year following the crop year";
