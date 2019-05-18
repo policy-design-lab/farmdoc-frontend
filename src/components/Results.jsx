@@ -8,6 +8,7 @@ import {changeYearRow} from "../actions/results";
 import BinnedGraphs from "./BinnedGraphs";
 import {roundResults} from "../public/utils.js";
 import {
+	expectedPayoutTooltip,
 	likelihoodTableToolTip,
 	simulatedPriceTableToolTip,
 	simulatedYieldTableToolTip,
@@ -341,11 +342,11 @@ class Results extends Component {
 									<Table>
 										<TableBody>
 											<TableRow style={{height: "64px"}}>
-												<TableCellHeader>Expected  &nbsp;Payment ($)</TableCellHeader>
+												<ToolTip title={expectedPayoutTooltip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Expected  &nbsp;Payment ($)</TableCellHeader></ToolTip>
 												<ToolTip title={likelihoodTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Likelihood of Payment (avg)</TableCellHeader></ToolTip>
-												<ToolTip title={simulationGraphToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulation Distributions</TableCellHeader></ToolTip>
-												<ToolTip title={simulatedPriceTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated  &nbsp;Price ($)</TableCellHeader></ToolTip>
-												<ToolTip title={simulatedYieldTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Simulated Yield ({yieldUnits})</TableCellHeader></ToolTip>
+												<ToolTip title={simulationGraphToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Payment Distributions</TableCellHeader></ToolTip>
+												<ToolTip title={simulatedPriceTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip"> MYA <br/>Price ($)</TableCellHeader></ToolTip>
+												<ToolTip title={simulatedYieldTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Expected Yield ({yieldUnits})</TableCellHeader></ToolTip>
 											</TableRow>
 
 											{rowElems}

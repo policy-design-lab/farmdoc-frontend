@@ -36,13 +36,13 @@ export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA
 	"the county average payment yield for PLC";
 export const stateCountySelectToolTip = "Select the state and county for the FSA farm’s location";
 export const cropSelectToolTip = "Select the crop for program payment estimate";
-
-export const likelihoodTableToolTip = "Likelihood of payment represents the average of payments in the model over " +
-	"1,000 model runs in the price and yield scenarios";
+export const expectedPayoutTooltip = "This is the average expected payments including those cases that are $0 and those that are larger";
+export const likelihoodTableToolTip = "Represents the changes of payments during a given year. A value of 14% means that " +
+		"there is a 14% chance of payment";
 export const simulationGraphToolTip = "Click on the graph images below to see information about the distribution of payments in the 1,000 " +
 	"model runs";
-export const simulatedPriceTableToolTip = "The simulated price is the Marketing Year Average price based on...";
-export const simulatedYieldTableToolTip = "The simulated yield is the trend-adjusted yield for the county";
+export const simulatedPriceTableToolTip = "The expected price given the forecast model selected";
+export const simulatedYieldTableToolTip = "The average of the yields in the given year";
 export const arcCoverageRangeToolTip = "The ARC-CO payment is capped at a maximum of 10% of the benchmark revenue " +
 	"for the crop";
 export const arcCoverageToolTip = "ARC provides payments when actual revenue (price multiplied by yield) in a crop year" +
