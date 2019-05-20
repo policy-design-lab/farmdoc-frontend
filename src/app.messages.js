@@ -31,7 +31,7 @@ export const pracCodeNotSupported = ["Note: We are not supporting selecting irri
 export const plcPayYieldToolTip = "The PLC Payment Yield is the payment yield for your FSA farm based on historic " +
 	"average yields and available from the Farm Service Agency (FSA). The 2018 Farm Bill provided a one-time " +
 	"opportunity for the landlord to elect to update the payment yield for the FSA farm";
-export const arcTrendYieldToolTip = "The Arc Trend Yield is...";
+export const arcTrendYieldToolTip = "The ARC Trend Yield is used to increase yields in previous years when calculating the ARC guarantee";
 export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA farm as provided by FSA; default is " +
 	"the county average payment yield for PLC";
 export const stateCountySelectToolTip = "Select the state and county for the FSA farm’s location";
