@@ -9,15 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Searchable dropdowns for State, County, Crop and Model fields
 - ARC Trend Yield input text field
-- Popup to show Forecast model prices per crop
+- Forecast Model Selection and popup to show Forecast model prices per crop
 - ARC and PLC payout comparision through binned histograms with option to hide/show zero payouts
 - Tooltips explaining the fields and results
 - Feedback message included when the user chooses a county that has irrigated and/or non-irrigated fields
 - Alert message if using Internet Explorer
 
 ### Changed
+- Landing page text
 - Separated Program Parameters into a read-only section
 - Updated spacings, borders and colors to render well in smaller screens and while projecting.
+- Removed unused dependencies and updated some package to fix the audit errors
 
 ## [0.2.0] - 2018-12-10
 
