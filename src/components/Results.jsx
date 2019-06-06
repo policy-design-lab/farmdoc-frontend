@@ -17,6 +17,8 @@ import {
 import ToolTip from "@material-ui/core/Tooltip";
 import "../styles/main.css";
 import config from "../app.config";
+import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = theme => ({
 	root: {
@@ -40,7 +42,7 @@ const styles = theme => ({
 
 	paper: {
 		position: "absolute",
-		//width: theme.spacing.unit * 50,
+		paddingTop: "0px",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
@@ -325,6 +327,9 @@ class Results extends Component {
 				<div>
 					<Modal open={this.state.open} onClose={this.handleClose}>
 						<div style={getModalStyle()} className={classes.paper}>
+							<IconButton className="closeImg" onClick={this.handleClose}>
+								<CloseIcon />
+							</IconButton>
 							<BinnedGraphs/>
 						</div>
 					</Modal>

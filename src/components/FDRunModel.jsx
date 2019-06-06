@@ -39,6 +39,7 @@ import {
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
+import CloseIcon from "@material-ui/icons/Close";
 import Info from "@material-ui/icons/Info";
 import ForecastModels from "./ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
@@ -633,6 +634,9 @@ class FDRunModel extends Component {
 
 					<Modal open={this.state.forecastPopupOpen} onClose={this.handleForecastClose}>
 						<div style={getModalStyle()} className={classes.paper}>
+							<IconButton className="closeImg" onClick={this.handleForecastClose}>
+								<CloseIcon />
+							</IconButton>
 							<ForecastModels/>
 						</div>
 					</Modal>
