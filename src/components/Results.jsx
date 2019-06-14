@@ -327,7 +327,7 @@ class Results extends Component {
 				<div>
 					<Modal open={this.state.open} onClose={this.handleClose}>
 						<div style={getModalStyle()} className={classes.paper}>
-							<IconButton className="closeImg" onClick={this.handleClose}>
+							<IconButton className="distributionCloseImg" onClick={this.handleClose}>
 								<CloseIcon />
 							</IconButton>
 							<BinnedGraphs/>
