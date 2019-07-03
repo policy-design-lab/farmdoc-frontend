@@ -314,9 +314,13 @@ h1, h2, h3, h5, h6, p, ul {
 }
 
 .masterContent{
-	/*199px needs to change as per new header height*/
-	min-height: calc(100vh - 128px);
+	min-height: calc(100vh - 116px);
 	max-width: 1400px;
 	margin: auto;
+	border-left-color: darkgrey;
+	border-left-style: double;
+	border-right-color: darkgrey;
+	border-right-style: double;
+
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import "../styles/header.css";
+import "../styles/header-footer.css";
 import {Tab, Tabbar} from "react-mdc-web";
 import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
