@@ -313,3 +313,8 @@ h1, h2, h3, h5, h6, p, ul {
 	height: 24px !important;
 }
 
+.masterContent{
+	/*199px needs to change as per new header height*/
+	min-height: calc(100vh - 199px);
+}
+

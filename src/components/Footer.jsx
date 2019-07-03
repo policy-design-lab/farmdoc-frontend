@@ -1,17 +1,18 @@
 import React, {Component} from "react";
-import {Cell, Grid} from "react-mdc-web";
+import {Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
 
 class Footer extends Component {
 
 	render() {
 		return (
-			<Grid>
-				<Cell col={12}>
-					<hr/>
-					<Grid/>
-					<hr/>
-				</Cell>
-			</Grid>
+			<div>
+				<Toolbar>
+					<ToolbarRow style={{backgroundColor: "#455A64", height: "50px"}} align="center">
+						<ToolbarSection start="center" />
+					</ToolbarRow>
+				</Toolbar>
+			</div>
+
 		);
 	}
 }
