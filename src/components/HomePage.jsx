@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Header from "./Header";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
@@ -11,6 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Layout from "./Layout";
 
 class HomePage extends Component {
 
@@ -54,59 +54,59 @@ class HomePage extends Component {
 
 		return (
 			<div>
+				<Layout>
 
-				<Dialog
+					<Dialog
 						open={this.state.IEPopup}
 						onClose={this.handlePopupClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description"
-				>
-					<DialogTitle id="alert-dialog-title" >
-						<span style={{fontWeight: "bolder"}}> Unsupported Browser Detected</span>
-					</DialogTitle>
-					<DialogContent>
-						<DialogContentText id="alert-dialog-description">
-							{browserWarning}
-						</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={this.handlePopupClose} color="primary" autoFocus>
+					>
+						<DialogTitle id="alert-dialog-title" >
+							<span style={{fontWeight: "bolder"}}> Unsupported Browser Detected</span>
+						</DialogTitle>
+						<DialogContent>
+							<DialogContentText id="alert-dialog-description">
+								{browserWarning}
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={this.handlePopupClose} color="primary" autoFocus>
 							Continue
-						</Button>
-					</DialogActions>
-				</Dialog>
+							</Button>
+						</DialogActions>
+					</Dialog>
 
-				<Header selected="home"/>
-				<span className="home-line"/>
-
-				<div className="home-content"
+					<div className="home-content"
 					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
-				>
-					{window.innerWidth > 1300 ?
-						<Grid>
-							<Cell col={4}>
+					>
+						{window.innerWidth > 1300 ?
+							<Grid>
+								<Cell col={4}>
 
-								{welcome}
-							</Cell>
-							<Cell col={4}>
-								{howwork}
-							</Cell>
-							<Cell col={4}>
-								<Login message={this.props.message}/>
-							</Cell>
-						</Grid> :
-						<Grid>
-							<Cell col={6}>
-								{welcome}
-								<br/>
-								{howwork}
-							</Cell>
-							<Cell col={6}>
-								<Login message={this.props.message}/>
-							</Cell>
-						</Grid>}
-				</div>
+									{welcome}
+								</Cell>
+								<Cell col={4}>
+									{howwork}
+								</Cell>
+								<Cell col={4}>
+									<Login message={this.props.message}/>
+								</Cell>
+							</Grid> :
+							<Grid>
+								<Cell col={6}>
+									{welcome}
+									<br/>
+									{howwork}
+								</Cell>
+								<Cell col={6}>
+									<Login message={this.props.message}/>
+								</Cell>
+							</Grid>}
+					</div>
+				</Layout>
 			</div>
+
 		);
 
 

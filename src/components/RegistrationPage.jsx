@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import {datawolfURL} from "../datawolf.config";
 import {genericRegistrationErrorMessage, userNotActiveMessage} from "../app.messages";
+import Layout from "./Layout";
 
 class RegistrationPage extends Component {
 
@@ -133,33 +134,33 @@ class RegistrationPage extends Component {
 
 		return (
 			<div>
-				<Header selected="home"/>
-				<span className="home-line"/>
-				<div className="content">
-					<Grid>
-						<Cell col={4}/>
-						<Cell col={3}>
-							<div>
-								<form>
-									<Card className="registration">
-										<CardHeader>
-											<Title>Create an account</Title>
-										</CardHeader>
-										<CardText>
-											<div><Textfield autoFocus floatingLabel="First name"
+				<Layout>
+					<span className="home-line"/>
+					<div className="content">
+						<Grid>
+							<Cell col={4}/>
+							<Cell col={3}>
+								<div>
+									<form>
+										<Card className="registration">
+											<CardHeader>
+												<Title>Create an account</Title>
+											</CardHeader>
+											<CardText>
+												<div><Textfield autoFocus floatingLabel="First name"
 															required
 															value={this.state.firstName}
 															size="40"
 															onChange={({target: {value: firstName}}) => {
 																this.setState({firstName: firstName});
 															}}/></div>
-											<div><Textfield floatingLabel="Last name" value={this.state.lastName}
+												<div><Textfield floatingLabel="Last name" value={this.state.lastName}
 															required
 															size="40"
 															onChange={({target: {value: lastName}}) => {
 																this.setState({lastName: lastName});
 															}}/></div>
-											<div><Textfield floatingLabel="Email ID" value={this.state.email}
+												<div><Textfield floatingLabel="Email ID" value={this.state.email}
 															required
 															size="40"
 															type="email"
@@ -168,7 +169,7 @@ class RegistrationPage extends Component {
 															onChange={({target: {value: email}}) => {
 																this.setState({email: email});
 															}}/></div>
-											<div><Textfield floatingLabel="Password" type="password"
+												<div><Textfield floatingLabel="Password" type="password"
 															value={this.state.password}
 															required
 															size="40"
@@ -180,7 +181,7 @@ class RegistrationPage extends Component {
 																this.setState({password: password});
 															}}
 															onKeyUp={this.verifyPasswords}/></div>
-											<div><Textfield floatingLabel="Confirm Password" type="password"
+												<div><Textfield floatingLabel="Confirm Password" type="password"
 															required
 															value={this.state.passwordConfirm}
 															size="40"
@@ -192,28 +193,28 @@ class RegistrationPage extends Component {
 																this.setState({passwordConfirm: passwordConfirm});
 															}}
 															onKeyUp={this.verifyPasswords}/></div>
-										</CardText>
-										<CardActions>
-											<Button
+											</CardText>
+											<CardActions>
+												<Button
 												type="submit"
 												raised
 												onClick={this.handleRegistration}
 												disabled={!this.validateRegistrationForm()}>Register
-											</Button>
-											<Button
+												</Button>
+												<Button
 												raised
 												onClick={this.handleReset}>Clear
-											</Button>
-										</CardActions>
-										<p className="error-message">{this.state.statusText}</p>
-									</Card>
-								</form>
-							</div>
-						</Cell>
-						<Cell col={4}/>
-					</Grid>
-				</div>
-				<Footer/>
+												</Button>
+											</CardActions>
+											<p className="error-message">{this.state.statusText}</p>
+										</Card>
+									</form>
+								</div>
+							</Cell>
+							<Cell col={4}/>
+						</Grid>
+					</div>
+				</Layout>
 			</div>
 		);
 	}

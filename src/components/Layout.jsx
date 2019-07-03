@@ -8,7 +8,9 @@ class Layout extends Component {
 	render() {
 		return ( <div>
 			<Header/>
-			{this.props.children}
+			<div className="masterContent">
+				{this.props.children}
+			</div>
 			<Footer/>
 		</div>
 		);

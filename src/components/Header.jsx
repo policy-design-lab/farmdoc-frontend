@@ -56,20 +56,20 @@ class Header extends Component {
 					</ToolbarRow>
 				</Toolbar>
 
-				<div className="header-tab">
-					<div className="rectangle-2">
-						<Link to="/dashboard" className="farmdoc-analyzer">Payment Calculator </Link>
+				{/*<div className="header-tab">*/}
+				{/*<div className="rectangle-2">*/}
+				{/*<Link to="/dashboard" className="farmdoc-analyzer">Payment Calculator </Link>*/}
 
-					</div>
+				{/*</div>*/}
 
-					{this.props.selected === "home" && <div className="triangle-bottomright"/>}
-					{this.props.selected === "home" ? <div className="rectangle-3-onselect">
-						<Link to="/" className="about-the-project-onselect">About the Project</Link>
-					</div> :
-						<Link to="/" className="about-the-project">About the Project</Link>
+				{/*{this.props.selected === "home" && <div className="triangle-bottomright"/>}*/}
+				{/*{this.props.selected === "home" ? <div className="rectangle-3-onselect">*/}
+				{/*<Link to="/" className="about-the-project-onselect">About the Project</Link>*/}
+				{/*</div> :*/}
+				{/*<Link to="/" className="about-the-project">About the Project</Link>*/}
 
-					}
-				</div>
+				{/*}*/}
+				{/*</div>*/}
 
 			</div>
 

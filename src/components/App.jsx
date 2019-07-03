@@ -31,23 +31,18 @@ class App extends Component {
 		return (
 			<div>
 				<MuiThemeProvider theme={theme}>
-					<Layout>
-						<div className="masterContent">
-							<Router history={hashHistory}>
-								<Route path="/" component={HomePage}/>
-								<Route path="/dashboard" component={Dashboard}/>
-								<Route path="/model" component={FDModelPage}/>
-								<Route path="/about" component={AboutPage}/>
-								<Route path="/register" component={RegistrationPage}/>
-								<Route path="/chartsold" component={Results}/>
-								<Route path="/charts" component={FarmerCharts}/>
-								<Route path="/login" component={Login}/>
-								<Route path="/params" component={ProgramParams}/>
-
-								<Route path="*" component={RouteMismatch}/>
-							</Router>
-						</div>
-					</Layout>
+					<Router history={hashHistory}>
+						<Route path="/" component={HomePage}/>
+						<Route path="/dashboard" component={Dashboard}/>
+						<Route path="/model" component={FDModelPage}/>
+						<Route path="/about" component={AboutPage}/>
+						<Route path="/register" component={RegistrationPage}/>
+						<Route path="/chartsold" component={Results}/>
+						<Route path="/charts" component={FarmerCharts}/>
+						<Route path="/login" component={Login}/>
+						<Route path="/params" component={ProgramParams}/>
+						<Route path="*" component={RouteMismatch}/>
+					</Router>
 				</MuiThemeProvider>
 			</div>
 		);
