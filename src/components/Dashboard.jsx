@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Header from "./Header";
 import AuthorizedWarp from "./AuthorizedWrap";
 import FDRunModel from "./FDRunModel";
 import Results from "./Results";
@@ -12,8 +11,7 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<div>
-				<Layout>
-					{/*<AnalyzerWrap activeTab={3}/>*/}
+				<Layout selectedTab="calculator">
 					<AuthorizedWarp>
 						<Grid container>
 							<Grid item cols={4}>

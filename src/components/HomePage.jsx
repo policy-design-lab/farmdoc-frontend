@@ -54,7 +54,7 @@ class HomePage extends Component {
 
 		return (
 			<div>
-				<Layout>
+				<Layout selectedTab="about">
 
 					<Dialog
 						open={this.state.IEPopup}

@@ -1,15 +1,32 @@
 import React, {Component} from "react";
-import {hashHistory} from "react-router";
+import {hashHistory, Link} from "react-router";
+import {withStyles} from "@material-ui/core/styles";
 import "../styles/header-footer.css";
 import "../styles/main.css";
 import {Button, Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
 import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
 import {browserWarning} from "../app.messages";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+
+const styles = theme => ({
+	root: {
+		flexGrow: 1,
+		backgroundColor: theme.palette.background.paper,
+	},
+	label: {
+		textTransform: "none",
+		fontSize: "16px !important"
+	},
+	tab: {
+		minWidth: "90px"
+	}
+});
 
 class Header extends Component {
 
-	constructor(props) {
+	constructor(props){
 		super(props);
 
 		this.state = {
@@ -18,8 +35,8 @@ class Header extends Component {
 
 		this.handleLogout = this.handleLogout.bind(this);
 	}
-
-	handleLogout() {
+	
+	handleLogout(){
 		sessionStorage.removeItem("personId");
 		sessionStorage.removeItem("email");
 		this.props.handleUserLogout();
@@ -27,14 +44,17 @@ class Header extends Component {
 	}
 
 	//TODO: add fixed for Toolbar
-	render() {
+	render(){
+
+		const {classes} = this.props;
+
 		let browserWarningSpan = "";
 		if (sessionStorage.getItem("isIE") === "true") {
 			browserWarningSpan = 	<span className="notification" > {browserWarning} </span>;
 		}
 
 		return (
-			<div>
+			<div className={classes.root}>
 				<Toolbar>
 					<ToolbarRow className="banner">
 						<ToolbarSection align="start" style={{maxWidth: 350}}>
@@ -44,7 +64,18 @@ class Header extends Component {
 							</a>
 						</ToolbarSection>
 						<ToolbarSection >
-							{browserWarningSpan}
+							{/*{browserWarningSpan}*/}
+							{(!this.props.selectedTab || !this.props.isAuthenticated) ? null :
+								<Tabs value={this.props.selectedTab}
+												TabIndicatorProps={{style: {backgroundColor: "orange"}}} >
+									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
+											 className={classes.tab} component={Link} to="/dashboard"/>
+									<Tab value="documentation" label={<span className={classes.label}>Documentation</span>}
+											 className={classes.tab} component={Link}	to="/about"/>
+									<Tab value="about" label={<span className={classes.label}>About</span>}
+											 className={classes.tab} component={Link} to="/about"/>
+								</Tabs>
+							}
 						</ToolbarSection>
 						<ToolbarSection align="end" style={{maxWidth: 350}}>
 							<span className="email-address">{this.props.email}</span>
@@ -55,21 +86,6 @@ class Header extends Component {
 						</ToolbarSection>
 					</ToolbarRow>
 				</Toolbar>
-
-				{/*<div className="header-tab">*/}
-				{/*<div className="rectangle-2">*/}
-				{/*<Link to="/dashboard" className="farmdoc-analyzer">Payment Calculator </Link>*/}
-
-				{/*</div>*/}
-
-				{/*{this.props.selected === "home" && <div className="triangle-bottomright"/>}*/}
-				{/*{this.props.selected === "home" ? <div className="rectangle-3-onselect">*/}
-				{/*<Link to="/" className="about-the-project-onselect">About the Project</Link>*/}
-				{/*</div> :*/}
-				{/*<Link to="/" className="about-the-project">About the Project</Link>*/}
-
-				{/*}*/}
-				{/*</div>*/}
 
 			</div>
 
@@ -92,4 +108,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps) ( withStyles(styles) (Header));

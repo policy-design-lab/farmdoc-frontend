@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import {Button, Card, CardActions, CardHeader, CardText, Cell, Grid, Textfield, Title} from "react-mdc-web";
-import Header from "./Header";
-import Footer from "./Footer";
 import {datawolfURL} from "../datawolf.config";
 import {genericRegistrationErrorMessage, userNotActiveMessage} from "../app.messages";
 import Layout from "./Layout";
@@ -135,8 +133,7 @@ class RegistrationPage extends Component {
 		return (
 			<div>
 				<Layout>
-					<span className="home-line"/>
-					<div className="content">
+					<div >
 						<Grid>
 							<Cell col={4}/>
 							<Cell col={3}>

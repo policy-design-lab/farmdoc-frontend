@@ -5,7 +5,6 @@ import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import RegistrationPage from "./RegistrationPage";
-import FDModelPage from "./FDModelPage";
 import FarmerCharts from "./FarmerCharts";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
@@ -31,7 +30,6 @@ class App extends Component {
 					<Router history={hashHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/dashboard" component={Dashboard}/>
-						<Route path="/model" component={FDModelPage}/>
 						<Route path="/about" component={HomePage}/>
 						<Route path="/register" component={RegistrationPage}/>
 						<Route path="/chartsold" component={Results}/>

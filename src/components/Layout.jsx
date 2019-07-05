@@ -7,7 +7,7 @@ class Layout extends Component {
 
 	render() {
 		return ( <div>
-			<Header/>
+			<Header selectedTab={this.props.selectedTab}/>
 			<div className="masterContent">
 				{this.props.children}
 			</div>
