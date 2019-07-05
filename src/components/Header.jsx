@@ -20,7 +20,7 @@ const styles = theme => ({
 		fontSize: "16px !important"
 	},
 	tab: {
-		minWidth: "90px"
+		minWidth: "80px"
 	}
 });
 
@@ -57,7 +57,7 @@ class Header extends Component {
 			<div className={classes.root}>
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start" style={{maxWidth: 350}}>
+						<ToolbarSection align="start" style={{maxWidth: 300}}>
 							<a href="/" className={"farmdoc"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
@@ -77,7 +77,7 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 350}}>
+						<ToolbarSection align="end" style={{maxWidth: 300}}>
 							<span className="email-address">{this.props.email}</span>
 
 							{this.props.isAuthenticated === false ? null :
