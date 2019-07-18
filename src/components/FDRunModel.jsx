@@ -65,6 +65,7 @@ const styles = theme => ({
 
 	textField: {
 		marginTop: "8px",
+		marginRight: "8px",
 		width: 200,
 	},
 	menu: {
@@ -89,7 +90,7 @@ const styles = theme => ({
 		fontSize: 24
 	},
 	popupButton: {
-		width: 38
+		width: 48
 	},
 	paper: {
 		position: "absolute",
