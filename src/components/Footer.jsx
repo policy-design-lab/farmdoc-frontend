@@ -10,15 +10,15 @@ class Footer extends Component {
 				<Toolbar>
 					<ToolbarRow align="center" className={"footer"}>
 						<ToolbarSection start="center" >
-							<a href="http://farmdoc.illinois.edu/" target="blank" className={"footerlogo"}>
+							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 							</a>
 
-							<a href="https://farmdocdaily.illinois.edu/" target="blank" className={"footerlogo"}>
+							<a href="https://farmdocdaily.illinois.edu/" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/fdd-logo.png")}/>
 							</a>
 
-							<a href="http://www.ncsa.illinois.edu" target="blank" className={"footerlogo"}>
+							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/ncsa-logo.png")}/>
 							</a>
 						</ToolbarSection>

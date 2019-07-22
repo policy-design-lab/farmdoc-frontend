@@ -57,7 +57,7 @@ class Header extends Component {
 			<div className={classes.root}>
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start" style={{maxWidth: 300}}>
+						<ToolbarSection align="start" style={{maxWidth: 225}}>
 							<a href="/" className={"farmdoc"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
