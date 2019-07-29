@@ -66,7 +66,6 @@ const tooltipTouchDelay = 50; //milli seconds
 const demoUser = "demouser@illinois.edu";
 const demoUserPw = "demo8user";
 
-
 const devConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",

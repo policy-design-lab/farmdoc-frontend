@@ -33,7 +33,6 @@ class Login extends Component {
 			() => this.handleLogin(event));
 	};
 
-
 	handleLogin = async event => {
 		event.preventDefault();
 
