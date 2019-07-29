@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {connect} from "react-redux";
-import {Card, CardActions, CardText, Dialog, DialogBody, DialogFooter, Icon, Textfield, Button} from "react-mdc-web";
+import {Card, CardText, Dialog, DialogBody, DialogFooter, Icon, Textfield, Button} from "react-mdc-web";
 import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
@@ -24,7 +24,15 @@ class Login extends Component {
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleTryIt = this.handleTryIt.bind(this);
 	}
+
+	handleTryIt= async event => {
+		event.preventDefault();
+		this.setState({"email": config.demoUser, "password": config.demoUserPw},
+			() => this.handleLogin(event));
+	};
+
 
 	handleLogin = async event => {
 		event.preventDefault();
@@ -120,7 +128,7 @@ class Login extends Component {
 					loginResponse.status}`);
 				this.setState({statusText: dataWolfGetTokenCallFailed});
 			}
-			"";		
+			"";
 		}
 		catch (error) {
 			console.error(`Error: ${error}`);
@@ -143,41 +151,46 @@ class Login extends Component {
 							{this.state.statusText && <div className="login-error">
 								<Icon name="warning"/><p>{this.state.statusText}</p>
 							</div>}
-							<span className="inputbox">
-								<Textfield autoFocus floatingLabel="Username" value={this.state.email}
+
+							<div style={{textAlign: "center"}}>
+
+								<Textfield autoFocus floatingLabel="Username" value={this.state.email} className="loginInput"
 										   onChange={({target: {value: email}}) => {
 											   this.setState({email: email});
 										   }}/>
-							</span>
-							<span className="inputbox">
-								<Textfield floatingLabel="Password" type="password" value={this.state.password}
+										   <br/>
+
+								<Textfield floatingLabel="Password" type="password" value={this.state.password} className="loginInput"
 										   onChange={({target: {value: password}}) => {
 											   this.setState({password});
 										   }}/>
-							</span>
-						</CardText>
-						<CardActions>
-							<form>
-								<Button
-									type="submit"
-									raised
-									onClick={this.handleLogin}
-									disabled={!this.validateLoginForm()}>Login
+										   <br/>
+
+								<Button	type="submit" raised onClick={this.handleLogin} disabled={!this.validateLoginForm()} className="loginButton">
+									Login
 								</Button>
 
-
-								<p className="forget-password"><a className="not-active" href="">Forgot password?</a>
-								</p>
-							</form>
-						</CardActions>
-						<CardText className="register-block">
-							<p><Icon name="spa"/>{register}</p>
-							<hr/>
-							<div className="register">
-								<p className="bold-text">Don't have an account?</p>
-								<p className="bold-text"><Link to="/register">Get Registered!</Link></p>
+								{/*<p className="forget-password"><a className="not-active" href="">Forgot password?</a>*/}
+								{/*</p>*/}
 							</div>
+
+							<div className="register-block">
+								<p><Icon name="spa"/>{register}</p>
+								<hr/>
+								<div >
+									<p className="bold-text">Don't have an account?</p>
+
+									<Button	type="submit" raised onClick={this.handleTryIt} className="loginButton">
+										Try it out!
+									</Button>
+
+									{/*<p className="bold-text"><Link to="/register">Get Registered!</Link></p>*/}
+									<p >Create Account (Coming Soon)</p>
+								</div>
+							</div>
+						
 						</CardText>
+
 
 					</Card>
 

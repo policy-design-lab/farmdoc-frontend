@@ -16,12 +16,11 @@
 
 .mdc-card.login {
 	height: auto;
-	width: 271px;
+	width: 280px;
 	/*TODO: if set opacity, the text above seems blur*/
 	/*opacity: 0.63;*/
 	background-color: #CFEBD7;
 	margin: 0 auto;
-	padding-bottom: 10px;
 }
 
 .login h2 {
@@ -34,8 +33,6 @@
 }
 
 .login-error {
-	height: 70px;
-	width: 241px;
 	background-color: #E05869;
 	color: #FFF;
 	padding: 5px 10px 5px 10px;
@@ -57,28 +54,25 @@
 	text-align: center;
 }
 
-/*login button*/
-.login button{
-	width: 167px;
-	margin-left: 29px;
-	margin-bottom: 10px;
-}
-
 .login .mdc-button--raised:not(:disabled), .mdc-button--unelevated:not(:disabled){
 	background-color: #34515E;
 }
 
-.login .inputbox{
-	margin-left: 29px;
+
+.loginInput{
+	width: 200px;
 }
 
-/*.login span{*/
-/*margin-right: 10px;*/
-/*margin-left: 10px;*/
-/*}*/
+.loginButton{
+	width: 150px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 
 .login .mdc-card__supporting-text {
 	color: #455A64;
+	padding-bottom: 16px !important;
 }
 
 .login .not-active {
@@ -88,11 +82,9 @@
 
 /*on the home page*/
 .register-block {
-	height: 190px;
-	width: 243px;
 	background-color: #108632;
-	padding: 0 5px 0 5px;
-	margin: auto;
+	padding: 5px 10px 5px 10px;
+	text-align: center;
 }
 
 .register-block p,a{
