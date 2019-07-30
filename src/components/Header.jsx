@@ -63,11 +63,11 @@ class Header extends Component {
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
 							</a>
 						</ToolbarSection>
-						<ToolbarSection >
+						<ToolbarSection>
 							{/*{browserWarningSpan}*/}
 							{(!this.props.selectedTab || !this.props.isAuthenticated) ? null :
 								<Tabs value={this.props.selectedTab}
-												TabIndicatorProps={{style: {backgroundColor: "orange"}}} >
+												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
 											 className={classes.tab} component={Link} to="/dashboard"/>
 									<Tab value="documentation" label={<span className={classes.label}>Documentation</span>}
@@ -77,12 +77,11 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 300}}>
-							<span className="email-address">{this.props.email}</span>
-
-							{this.props.isAuthenticated === false ? null :
-								<Button onClick={this.handleLogout}>Logout</Button>}
-
+						<ToolbarSection align="end" style={{maxWidth: 300}} >
+							<div className="headerSection"> <span >{this.props.email} </span>
+								{this.props.isAuthenticated === false ? null :
+									<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>}
+							</div>
 						</ToolbarSection>
 					</ToolbarRow>
 				</Toolbar>
