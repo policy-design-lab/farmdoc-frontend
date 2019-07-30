@@ -63,8 +63,8 @@ const defaultsJson = {
 
 const tooltipTouchDelay = 50; //milli seconds
 
-const demoUser = "demouser@illinois.edu";
-const demoUserPw = "demo8user";
+const demoUser = "farmdoc";
+const demoUserPw = "farmdoc1234";
 
 const devConfig = {
 	basePath: "/",

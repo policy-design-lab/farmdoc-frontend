@@ -205,9 +205,19 @@
 	margin-top: 10px;
 }
 
-.footer{
+.footer {
 	background-color: #455A64;
 	min-height: 52px !important;
+}
+
+.footerCorners {
+	padding: 15px;
+}
+
+.footerLogos {
+	max-width: 500px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .footerlogo {

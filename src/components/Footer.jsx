@@ -9,7 +9,10 @@ class Footer extends Component {
 			<div>
 				<Toolbar>
 					<ToolbarRow align="center" className={"footer"}>
-						<ToolbarSection start="center" >
+						<ToolbarSection align ="start" className="footerCorners" >
+							v1.0.0 alpha
+						</ToolbarSection>
+						<ToolbarSection align="center" className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 							</a>
@@ -21,6 +24,9 @@ class Footer extends Component {
 							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/ncsa-logo.png")}/>
 							</a>
+						</ToolbarSection>
+
+						<ToolbarSection align ="end" className="footerCorners" >
 						</ToolbarSection>
 
 					</ToolbarRow>
