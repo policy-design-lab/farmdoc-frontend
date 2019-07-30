@@ -152,24 +152,26 @@ class Login extends Component {
 
 							<div style={{textAlign: "center"}}>
 
-								<Textfield autoFocus floatingLabel="Username" value={this.state.email} className="loginInput"
+								<form onSubmit={this.handleLogin}>
+									<Textfield autoFocus floatingLabel="Username" value={this.state.email} className="loginInput"
 										   onChange={({target: {value: email}}) => {
 											   this.setState({email: email});
 										   }}/>
 										   <br/>
 
-								<Textfield floatingLabel="Password" type="password" value={this.state.password} className="loginInput"
+									<Textfield floatingLabel="Password" type="password" value={this.state.password} className="loginInput"
 										   onChange={({target: {value: password}}) => {
 											   this.setState({password});
 										   }}/>
 										   <br/>
 
-								<Button	type="submit" raised onClick={this.handleLogin} disabled={!this.validateLoginForm()} className="loginButton">
+									<Button	type="submit" raised disabled={!this.validateLoginForm()} className="loginButton">
 									Login
-								</Button>
+									</Button>
 
-								{/*<p className="forget-password"><a className="not-active" href="">Forgot password?</a>*/}
-								{/*</p>*/}
+									{/*<p className="forget-password"><a className="not-active" href="">Forgot password?</a>*/}
+									{/*</p>*/}
+								</form>
 							</div>
 
 							<div className="register-block">
@@ -178,7 +180,7 @@ class Login extends Component {
 								<div >
 									<p className="bold-text">Don't have an account?</p>
 
-									<Button	type="submit" raised onClick={this.handleTryIt} className="loginButton">
+									<Button	type="button" raised onClick={this.handleTryIt} className="loginButton">
 										Try it out!
 									</Button>
 
