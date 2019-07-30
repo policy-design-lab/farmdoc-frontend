@@ -27,10 +27,9 @@ class Login extends Component {
 		this.handleTryIt = this.handleTryIt.bind(this);
 	}
 
-	handleTryIt= async event => {
+	handleTryIt = async event => {
 		event.preventDefault();
-		this.setState({"email": config.demoUser, "password": config.demoUserPw},
-			() => this.handleLogin(event));
+		this.setState({"email": config.demoUser, "password": config.demoUserPw});
 	};
 
 	handleLogin = async event => {
