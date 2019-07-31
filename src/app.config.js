@@ -63,6 +63,8 @@ const defaultsJson = {
 
 const tooltipTouchDelay = 50; //milli seconds
 
+const demoUser = "farmdoc";
+const demoUserPw = "farmdoc1234";
 
 const devConfig = {
 	basePath: "/",
@@ -73,7 +75,9 @@ const devConfig = {
 	defaultsJson: defaultsJson,
 	showCustomForecast: true,
 	browserLog: true,
-	tooltipTouchDelay: tooltipTouchDelay
+	tooltipTouchDelay: tooltipTouchDelay,
+	demoUser: demoUser,
+	demoUserPw: demoUserPw
 };
 
 const prodConfig = {
@@ -85,7 +89,9 @@ const prodConfig = {
 	defaultsJson: defaultsJson,
 	showCustomForecast: false,
 	browserLog: false,
-	tooltipTouchDelay: tooltipTouchDelay
+	tooltipTouchDelay: tooltipTouchDelay,
+	demoUser: demoUser,
+	demoUserPw: demoUserPw
 };
 
 const config = getConfig();
