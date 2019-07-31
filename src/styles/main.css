@@ -321,6 +321,41 @@ h1, h2, h3, h5, h6, p, ul {
 	border-left-style: double;
 	border-right-color: darkgrey;
 	border-right-style: double;
-
 }
 
+.termName{
+	color: #34515E;
+	font-size: 24px;
+	font-weight: 500;
+	padding-bottom: 8px;
+	padding-left: 12px;
+}
+
+.termDefinition{
+	color: #34515E;
+	font-size: 14px;
+	padding-bottom: 24px;
+	padding-left: 12px;
+}
+
+.glossaryHeader{
+	color: #F66B16;
+	font-size: 36px;
+	font-weight: 500;
+	line-height: 53px;
+	padding-top: 8px;
+	padding-bottom: 20px;
+	padding-left: 8px;
+}
+
+.termLink{
+	text-decoration: underline !important;
+	color: #0000ff !important;
+	padding-right: 6px;
+}
+
+.docMenu{
+	max-width: 200px;
+	background-color: #f8f8f8;
+	height: 100%;
+}
