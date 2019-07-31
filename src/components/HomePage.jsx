@@ -43,14 +43,12 @@ class HomePage extends Component {
 			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
 		</div>);
 
-
 		let howwork =
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the simulation work?</h2>
 				<br/>
-				<img src={require("../images/farmdoc-rep-image.png")} style={{borderStyle: "ridge"}}/>
+				<img src={require("../images/farmdoc-rep-image.png")} alt="Payment Calculator Inputs"/>
 			</div>);
-
 
 		return (
 			<div>
@@ -106,9 +104,7 @@ class HomePage extends Component {
 					</div>
 				</Layout>
 			</div>
-
 		);
-
 
 	}
 }
