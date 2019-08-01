@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Term from "./Term";
 import "../styles/main.css";
-import {glossaryTerms} from "../app.messages";
+import {termDefinitions} from "../app.messages";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
 
@@ -11,17 +11,17 @@ class Documentation extends Component {
 	}
 
 	render(){
-		let allGeneralTerms = [];
-		glossaryTerms.forEach((item) => {
-			allGeneralTerms.push(<Term key={item.term} term={item.term} definition={item.definition} links={item.links}/>);
+		let allTerms = [];
+		termDefinitions.forEach((item) => {
+			allTerms.push(<Term key={item.term} term={item.term} definition={item.definition} links={item.links}/>);
 		});
 
 		return (
 			<div>
-				<Layout selectedTab="glossary">
+				<Layout selectedTab="docs">
 					<AuthorizedWrap>
-						<div className="glossaryHeader"> Glossary of Terms </div>
-						{allGeneralTerms}
+						<div className="docsHeader"> Term Definitions </div>
+						{allTerms}
 					</AuthorizedWrap>
 				</Layout>
 			</div>

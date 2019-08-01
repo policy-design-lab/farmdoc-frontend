@@ -70,8 +70,8 @@ class Header extends Component {
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} >
 									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
 											 className={classes.tab} component={Link} to="/dashboard"/>
-									<Tab value="glossary" label={<span className={classes.label}>Documentation</span>}
-											 className={classes.tab} component={Link}	to="/glossary"/>
+									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
+											 className={classes.tab} component={Link}	to="/docs"/>
 									<Tab value="about" label={<span className={classes.label}>About</span>}
 											 className={classes.tab} component={Link} to="/about"/>
 								</Tabs>

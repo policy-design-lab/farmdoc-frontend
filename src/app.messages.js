@@ -52,7 +52,7 @@ export const paymentAcresToolTip = "Both ARC and PLC pay on 85% of the base acre
 export const forecastYearsToolTip = "Crop years covered by the farm bill; note that payments will be made after " +
 	"October 1 st of the year following the crop year";
 
-export const glossaryTerms = [
+export const termDefinitions = [
 	{
 		"term": "PLC Payment Yield",
 		"definition": "The PLC Payment Yield is the payment yield for your FSA farm based on historic average yields and available " +
@@ -103,7 +103,7 @@ export const glossaryTerms = [
 		"definition": "Need details......"
 	},
 	{
-		"term": "\"High\" - Price Scenario",
+		"term": "\"High\" Price Scenario",
 		"definition": "Need details......"
 	},
 	{

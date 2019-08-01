@@ -37,7 +37,7 @@ class App extends Component {
 						<Route path="/charts" component={FarmerCharts}/>
 						<Route path="/login" component={Login}/>
 						<Route path="/params" component={ProgramParams}/>
-						<Route path="/glossary" component={Documentation}/>
+						<Route path="/docs" component={Documentation}/>
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
 				</MuiThemeProvider>
