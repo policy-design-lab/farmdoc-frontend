@@ -106,6 +106,15 @@
 	margin-right: 14px;
 }
 
+.headerSection {
+	line-height: 40px !important;
+	text-align: center;
+	display: flex;
+	vertical-align: middle;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
 .farmdoc-analyzer {
 	color: #FFFFFF;
 	font-family: Roboto;
