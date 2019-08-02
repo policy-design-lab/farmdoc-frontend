@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  ## [1.0.0-alpha.0] - 2019-08-06
 
 ### Added
-- Try it Out button for users who do not have famrdoc user accounts
+- 'Try it Out' button for users who do not have famrdoc user accounts
 - Documentation page with term definitions
 - Footer section with logos
 
