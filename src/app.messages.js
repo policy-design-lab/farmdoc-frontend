@@ -51,3 +51,68 @@ export const paymentAcresToolTip = "Both ARC and PLC pay on 85% of the base acre
 		"planted to the crop receiving payment";
 export const forecastYearsToolTip = "Crop years covered by the farm bill; note that payments will be made after " +
 	"October 1 st of the year following the crop year";
+
+export const termDefinitions = [
+	{
+		"term": "PLC Payment Yield",
+		"definition": "The PLC Payment Yield is the payment yield for your FSA farm based on historic average yields and available " +
+			"from the Farm Service Agency (FSA).  The 2018 Farm Bill provided a one-time opportunity for the landlord to elect to " +
+			"update the payment yield for the FSA farm.",
+		 "links": [{"name": "Farm Bill PLC Yield Update", "href": "https://farmdocdaily.illinois.edu/2019/02/understanding-the-2018-farm-bill-plc-yield-update.html"}]
+	},
+	{
+		"term": "ARC Trend Yield",
+		"definition": "Need details......",
+		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+	},
+	{
+		"term": "Payment Acres",
+		"definition": "Both ARC-CO and PLC make payments on 85% of the base acres for the farm.  Base acres are a record of" +
+			" historic planting on the FSA farm available from the Farm Service Agency (FSA).  Payments are made using the base " +
+			"acres in place of actual planted acres on the FSA farm.  The 2014 Farm Bill provided land owners a one-time " +
+			"opportunity to revise the allocation of base acres for the FSA farm.",
+		"links": [{"name": "Farm Bill Reallocating Base Acerage", "href": "https://farmdocdaily.illinois.edu/2014/03/2014-farm-bill-reallocating-base-acreage.html"}]
+	},
+	{
+		"term": "ARC Coverage Level",
+		"definition": "ARC provides coverage at 86% of the benchmark revenue (price multiplied by yield) for the crop " +
+			"on the farm. The benchmark revenue is calculated using the average of the national Marketing Year Average (MYA) " +
+			"prices for the crop for the most recent five years, excluding both the highest and lowest price years (Olympic moving" +
+			" average), multiplied by the Olympic moving average of the county average yields for the most recent five years.  " +
+			"The farm bill provides for the reference price to replace any price below it in the five most recent years.  " +
+			"It also requires use of the trend-adjusted yield used by crop insurance in place of the county average yields and a plug " +
+			"yield at 80% of the transitional yield for the county used by crop insurance.  The ARC-CO payment is capped at a maximum of " +
+			"10% of the benchmark revenue for the crop.",
+	},
+	{
+		"term": "ARC Coverage Range",
+		"definition": "Need details......",
+		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+	},
+	{
+		"term": "Reference Price",
+		"definition": "Need details?",
+		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+	},
+	{
+		"term": "Forecast Models",
+		"definition": "The price scenarios used in the model to estimate payments for PLC and ARC-CO."
+	},
+	{
+		"term": "\"Forecast\" Price Scenario",
+		"definition": "Need details......"
+	},
+	{
+		"term": "\"High\" Price Scenario",
+		"definition": "Need details......"
+	},
+	{
+		"term": "\"Low\" Price Scenario",
+		"definition": "Need details......"
+	},
+	{
+		"term": "\"CBO\" Price Scenario",
+		"definition": "The CBO price scenario uses the Marketing Year Average prices as forecast by the Congressional Budget Office (CBO).",
+		"links": [{"name": "January 2019 Estimates", "href": "https://www.cbo.gov/system/files?file=2019-01/51317-2019-01-usda.pdf"}]
+	},
+];

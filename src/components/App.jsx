@@ -12,6 +12,7 @@ import Results from "./Results";
 import {isIE} from "react-device-detect";
 import ProgramParams from "./ProgramParams";
 import "../styles/main.css";
+import Documentation from "./Documentation";
 
 global.__base = `${__dirname}/`;
 
@@ -36,6 +37,7 @@ class App extends Component {
 						<Route path="/charts" component={FarmerCharts}/>
 						<Route path="/login" component={Login}/>
 						<Route path="/params" component={ProgramParams}/>
+						<Route path="/docs" component={Documentation}/>
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
 				</MuiThemeProvider>

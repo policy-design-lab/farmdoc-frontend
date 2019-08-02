@@ -12,7 +12,7 @@ class Footer extends Component {
 						<ToolbarSection align ="start" className="footerCorners" >
 							v1.0.0 alpha
 						</ToolbarSection>
-						<ToolbarSection align="center" className="footerLogos" >
+						<ToolbarSection className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 							</a>
