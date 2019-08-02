@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+ ## [1.0.0-alpha.0] - 2019-08-06
+
+### Added
+- Try it Out button for users who do not have famrdoc user accounts
+- Documentation page with term definitions
+- Footer section with logos
+
+### Changed
+- Updated the layout and merged both the headers
+- Minor enhancements to ensure content fits well on smaller screens
+
 ## [0.3.0] - 2019-05-21
 
 ### Added
