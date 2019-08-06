@@ -37,7 +37,7 @@ export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA
 export const stateCountySelectToolTip = "Select the state and county for the FSA farm’s location";
 export const cropSelectToolTip = "Select the crop for program payment estimate";
 export const expectedPayoutTooltip = "This is the average expected payments including those cases that are $0 and those that are larger";
-export const likelihoodTableToolTip = "Represents the changes of payments during a given year. A value of 14% means that " +
+export const likelihoodTableToolTip = "Represents the chance of payments during a given year. A value of 14% means that " +
 		"there is a 14% chance of payment";
 export const simulationGraphToolTip = "Click on the graph images below to see information about the distribution of payments in the 1,000 " +
 	"model runs";
