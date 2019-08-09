@@ -24,9 +24,10 @@ export const unauthorized = ["We are glad you want to check out Farmdoc Simulato
 	"For the best experience, login or register for a free account."];
 export const browserWarning = ["Your browser does not support all features of Farmdoc. " +
 "You will not be able to login or run the application. Please use Google Chrome, Edge, Firefox or Safari"];
-export const tryItOutWarning = ["You are using a Pre-Release Version. " +
-" This is a temporary account and will not stay active once the release is official. The results are based on FSA data from Month/Year. " +
-"Please 'Login' to continue using this account."];
+export const tryItOutWarning = ["By clicking ‘Login’ you are using a beta release version of this tool which remains under development. " +
+"The beta release operates as a demonstration of the tool using a temporary account and FSA data current as of the beta release. " +
+"Additional developments and data will be incorporated into the final release version of the tool." +
+"The temporary account will cease being active upon final release requiring everyone to establish an account to use the full features of the tool. "];
 export const dataNotAvailable = ["Error: Data not available for the selected crop in the county. " +
 "Choose a different crop or county."];
 export const pracCodeNotSupported = ["Note: We are not supporting selecting irrigated and non-irrigated fields, yet. " +

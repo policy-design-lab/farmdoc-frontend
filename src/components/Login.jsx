@@ -13,7 +13,7 @@ import {
 	dataWolfGetTokenCallFailed,
 	invalidLoginCredentials,
 	register,
-	unauthorized,
+	unauthorized
 } from "../app.messages";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -166,11 +166,11 @@ class Login extends Component {
 					aria-describedby="alert-dialog-description"
 				>
 					<DialogTitle id="alert-dialog-title" >
-						<span style={{fontWeight: "bolder"}}> Alpha/Beta Release Notification </span>
+						<span style={{fontWeight: "bolder"}}> Pre-Release Notification </span>
 					</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
-							{tryItOutWarning}
+							{tryItOutWarning.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>
