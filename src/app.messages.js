@@ -61,9 +61,18 @@ export const termDefinitions = [
 		 "links": [{"name": "Farm Bill PLC Yield Update", "href": "https://farmdocdaily.illinois.edu/2019/02/understanding-the-2018-farm-bill-plc-yield-update.html"}]
 	},
 	{
-		"term": "ARC Trend Yield",
-		"definition": "Need details......",
-		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+		"term": "ARC Trend-Adjusted Yield",
+		"definition": "The Agriculture Risk Coverage (ARC) program calculates a revenue-based (prices times yields) payment, " +
+			"including the average of the yields from the 5 most recent crop years (dropping the highest and lowest) at either the county" +
+			" (ARC-CO) or individual (ARC-IC) farm levels.  The 2018 Farm Bill included a provision to permit the use of a trend-adjusted " +
+			"yield factor to adjust the yields used in the ARC program calculations by replacing the yield with the trend-adjusted yield in " +
+			"a manner similar to the yield factor that is used to increase yield history under the endorsement under the Federal Crop Insurance Act.",
+		"links": [
+			{"name": "Exceptional 2018 Corn and Soybean Yields and Budgeting for 2019",
+				"href": "https://farmdocdaily.illinois.edu/2018/09/exceptional-2018-corn-and-soybean-yields-and-budgeting-for-2019.html"},
+			{"name": "Trend-Adjusted APH Yield Endorsement",
+				"href": "https://farmdocdaily.illinois.edu/2011/12/trend-adjusted-aph-yield-endor.html"}
+		]
 	},
 	{
 		"term": "Payment Acres",
@@ -71,7 +80,7 @@ export const termDefinitions = [
 			" historic planting on the FSA farm available from the Farm Service Agency (FSA).  Payments are made using the base " +
 			"acres in place of actual planted acres on the FSA farm.  The 2014 Farm Bill provided land owners a one-time " +
 			"opportunity to revise the allocation of base acres for the FSA farm.",
-		"links": [{"name": "Farm Bill Reallocating Base Acerage", "href": "https://farmdocdaily.illinois.edu/2014/03/2014-farm-bill-reallocating-base-acreage.html"}]
+		"links": [{"name": "Farm Bill Reallocating Base Acreage", "href": "https://farmdocdaily.illinois.edu/2014/03/2014-farm-bill-reallocating-base-acreage.html"}]
 	},
 	{
 		"term": "ARC Coverage Level",
@@ -86,33 +95,50 @@ export const termDefinitions = [
 	},
 	{
 		"term": "ARC Coverage Range",
-		"definition": "Need details......",
-		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+		"definition": "The ARC program calculates a revenue-based (prices times yields) payment that begins when actual revenue is " +
+			"below 86% of the benchmark revenue, but payments are capped at no more than 10% of the benchmark revenue.  This creates" +
+			" an effective coverage range of 86% to 76% of the benchmark revenue for payments."
 	},
 	{
 		"term": "Reference Price",
-		"definition": "Need details?",
-		// "links": [{"name": "Link?", "href": "https://farmdocdaily.illinois.edu"}]
+		"definition": "The reference price was created by the 2014 Farm Bill to replace the target price created in the 2002 Farm " +
+			"Bill. It is a commodity-specific fixed price in statute used to determine whether Price Loss Coverage (PLC) program payments" +
+			" are triggered.  For a crop year, if the national Marketing Year Average (MYA) price is below the reference price, a payment is triggered" +
+			" for the base acres of that commodity.  It is also known as the statutory reference price and is also used as a plug for the prices used " +
+			"in the ARC program benchmark calculation, such that any crop year where the MYA is below the reference price the reference price " +
+			"replaces that price for that year."
 	},
 	{
-		"term": "Forecast Models",
-		"definition": "The price scenarios used in the model to estimate payments for PLC and ARC-CO."
+		"term": "Price Forecast Models",
+		"definition": "The tool estimates ARC-CO and PLC payments for the 5 years of program operation under the 2018 Farm Bill " +
+			"(2019 to 2023 crop years).  Because MYA prices are used in the program and payment calculations but are unknown for the " +
+			"future, the models used in the tool incorporate MYA crop price forecasts to help farmers in their program decision."
 	},
 	{
 		"term": "\"Forecast\" Price Scenario",
-		"definition": "Need details......"
+		"definition": "This is the base price forecast for each of the 2019 through 2023 crop years determined by crop price forecast " +
+			"modeling.  Each year of the price scenario will be used in the program payment estimate model to run 1,000 estimates and average " +
+			"them to estimate the ARC-CO and PLC payments and likelihood of payments under the MYA price forecast for each crop year.  It provides an" +
+			" estimate of the potential payment if MYA prices were at the price forecast level for that crop year."
 	},
 	{
 		"term": "\"High\" Price Scenario",
-		"definition": "Need details......"
+		"definition": "This scenario increases the MYA price used in the model runs to estimate payments and likelihood of payments if the MYA price in each " +
+			"crop year was at a level higher than the forecast scenario.  This is not a forecast of prices but an increase in forecast prices to provide the" +
+			" farmer with a comparison scenario where prices are above forecast levels and how that would change payments and the likelihood of payments from ARC-CO and PLC."
 	},
 	{
 		"term": "\"Low\" Price Scenario",
-		"definition": "Need details......"
+		"definition": "Similar to the high price scenario, the low price scenario alters the price forecast to account for prices lower than the forecast scenario" +
+			" to give the farmer a comparison of payments and likelihood of payments if MYA prices in each crop year are lower than the forecast."
 	},
 	{
 		"term": "\"CBO\" Price Scenario",
-		"definition": "The CBO price scenario uses the Marketing Year Average prices as forecast by the Congressional Budget Office (CBO).",
+		"definition": "The Congressional Budget Office (CBO) forecasts crop prices for future years using modeling and information from USDA.  These price" +
+			" forecasts are used by CBO to estimate the payments and total costs of the farm programs for future years.  The tool permits a farmer " +
+			"to select the CBO price forecasts as an alternative scenario for estimating ARC-CO and PLC payments and their likelihood.  The CBO forecast" +
+			" of MYA prices are used for the 1,000 model runs of the tool in each of the crop years 2019 through 2023 as if those forecasts were the MYA price" +
+			" for the crop year.  CBO updates its price forecasts each year and the tool will incorporate the latest CBO price forecasts in the scenario.",
 		"links": [{"name": "January 2019 Estimates", "href": "https://www.cbo.gov/system/files?file=2019-01/51317-2019-01-usda.pdf"}]
 	},
 ];
