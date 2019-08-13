@@ -8,7 +8,17 @@ import {handleUserLogin} from "../actions/user";
 import {checkAuthentication} from "../public/utils";
 import {hashHistory, Link} from "react-router";
 import config from "../app.config";
-import {dataWolfGetTokenCallFailed, invalidLoginCredentials, register, unauthorized} from "../app.messages";
+import {
+	tryItOutWarning,
+	dataWolfGetTokenCallFailed,
+	invalidLoginCredentials,
+	register,
+	unauthorized
+} from "../app.messages";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
 
 
 class Login extends Component {
@@ -20,16 +30,24 @@ class Login extends Component {
 			email: "",
 			password: "",
 			statusText: "",
-			isOpen: this.props.message === "Please login."
+			isOpen: this.props.message === "Please login.",
+			TryItOutPopup: false
 		};
 
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleTryIt = this.handleTryIt.bind(this);
+		this.handlePopupClose = this.handlePopupClose.bind(this);
 	}
+
+	handlePopupClose = () => {
+		this.setState({TryItOutPopup: false});
+	};
 
 	handleTryIt = async event => {
 		event.preventDefault();
 		this.setState({"email": config.demoUser, "password": config.demoUserPw});
+		this.setState({TryItOutPopup: true});
+
 	};
 
 	handleLogin = async event => {
@@ -140,6 +158,28 @@ class Login extends Component {
 	render() {
 		return (
 			<div>
+
+				<Dialog
+					open={this.state.TryItOutPopup}
+					onClose={this.handlePopupClose}
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogTitle id="alert-dialog-title" >
+						<span style={{fontWeight: "bolder"}}> Pre-Release Notification </span>
+					</DialogTitle>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							{tryItOutWarning.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={this.handlePopupClose} color="primary" autoFocus >
+							Continue
+						</Button>
+					</DialogActions>
+				</Dialog>
+
 				<br/>
 				{/*Display login card only when user is not authenticated*/}
 				{this.props.isAuthenticated === true ? null :
