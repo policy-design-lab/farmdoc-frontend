@@ -24,8 +24,8 @@ export const unauthorized = ["We are glad you want to check out Farmdoc Simulato
 	"For the best experience, login or register for a free account."];
 export const browserWarning = ["Your browser does not support all features of Farmdoc. " +
 "You will not be able to login or run the application. Please use Google Chrome, Edge, Firefox or Safari"];
-export const tryItOutWarning = ["By clicking ‘Login’ you are using a beta release version of this tool which remains under development. " +
-"The beta release operates as a demonstration of the tool using a temporary account and FSA data current as of the beta release. " +
+export const tryItOutWarning = ["By clicking ‘Login’ you are using an alpha release version of this tool which remains under development. " +
+"The alpha release operates as a demonstration of the tool using a temporary account and FSA data current as of the alpha release. " +
 "Additional developments and data will be incorporated into the final release version of the tool." +
 "The temporary account will cease being active upon final release requiring everyone to establish an account to use the full features of the tool. "];
 export const dataNotAvailable = ["Error: Data not available for the selected crop in the county. " +
