@@ -14,15 +14,15 @@ class Footer extends Component {
 						</ToolbarSection>
 						<ToolbarSection className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/GAPP-logo.png")}/>
+								<img src={require("../images/GAPP-logo.png")} alt="Farmdoc" title="Farmdoc"/>
 							</a>
 
 							<a href="https://farmdocdaily.illinois.edu/" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/fdd-logo.png")}/>
+								<img src={require("../images/fdd-logo.png")} alt="Farmdoc Daily" title="Farmdoc Daily"/>
 							</a>
 
 							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/ncsa-logo.png")}/>
+								<img src={require("../images/ncsa-logo.png")} alt="NCSA" title="National Center for Supercomputing Applications" />
 							</a>
 						</ToolbarSection>
 
