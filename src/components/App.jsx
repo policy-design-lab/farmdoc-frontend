@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {hashHistory, Route, Router} from "react-router";
+import {hashHistory, Route, Router, browserHistory} from "react-router";
 import HomePage from "./HomePage";
 import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
@@ -13,6 +13,7 @@ import {isIE} from "react-device-detect";
 import ProgramParams from "./ProgramParams";
 import "../styles/main.css";
 import Documentation from "./Documentation";
+import Test from "./Test";
 
 global.__base = `${__dirname}/`;
 
@@ -28,7 +29,7 @@ class App extends Component {
 		return (
 			<div>
 				<MuiThemeProvider theme={theme}>
-					<Router history={hashHistory}>
+					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/dashboard" component={Dashboard}/>
 						<Route path="/about" component={HomePage}/>
@@ -38,6 +39,7 @@ class App extends Component {
 						<Route path="/login" component={Login}/>
 						<Route path="/params" component={ProgramParams}/>
 						<Route path="/docs" component={Documentation}/>
+						<Route path="/kc" component={Test}/>
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
 				</MuiThemeProvider>

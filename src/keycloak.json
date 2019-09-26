@@ -1,0 +1,13 @@
+{
+	"realm": "farmdoc",
+	"auth-server-url": "https://fd-auth.ncsa.illinois.edu/auth",
+	"ssl-required": "external",
+	"resource": "kong",
+	"verify-token-audience": true,
+	"credentials": {
+		"secret": "ee82e269-ac03-4fdd-b09a-a52621e3ac9b"
+	},
+	"confidential-port": 0,
+	"policy-enforcer": {},
+	"enable-cors": true
+}
