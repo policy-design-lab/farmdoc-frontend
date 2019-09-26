@@ -21,7 +21,7 @@ class Test extends Component {
 			function(authenticated){
 				this.setState({keycloak: keycloak, authenticated: authenticated});
 				alert(this.state.authenticated);
-			});
+			}.bind(this));
 	}
 
 	render() {
