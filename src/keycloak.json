@@ -2,7 +2,7 @@
 	"realm": "farmdoc",
 	"auth-server-url": "https://fd-auth.ncsa.illinois.edu/auth",
 	"ssl-required": "external",
-	"resource": "kong-dev",
+	"resource": "webapp-dev",
 	"public-client": true,
 	"confidential-port": 0
 }

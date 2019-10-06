@@ -5,6 +5,7 @@ import config from "../app.config";
  * Checks if user
  * @returns {Promise.<*>}
  */
+
 export async function checkAuthentication() {
 
 	let personId = "";
@@ -18,6 +19,25 @@ export async function checkAuthentication() {
 		},
 		credentials: "include"
 	});
+}
+
+export async function getDataWolfUsers(token) {
+
+	let token_header = `Bearer ${token}` ;
+	// fetch(`${datawolfURL }/persons?email=${ email}`, {
+	fetch(`${datawolfURL }/persons`, {
+		method: "GET",
+		headers: {
+			// "Accept" : "application/json",
+			"Authorization": token_header
+		},
+
+	}).then(response => response.json()).then(users => {
+		console.log("show datawolf users")
+		console.log(users);
+	});
+
+
 }
 
 
