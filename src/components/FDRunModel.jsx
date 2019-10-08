@@ -556,6 +556,7 @@ class FDRunModel extends Component {
 						this.setState({hidePraccode: false});
 						this.setState({disablePraccode: false});
 					}
+					this.setState({showError: false});
 				}
 				else { // No crop data is available
 					this.setState({arcYield: ""});
