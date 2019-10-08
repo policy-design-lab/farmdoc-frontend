@@ -30,11 +30,10 @@ import Spinner from "../components/Spinner";
 import config from "../app.config";
 import {
 	dataNotAvailable,
-	pracCodeNotSupported,
-	plcPayYieldToolTip,
+	practiceTypeToolTip,
 	arcTrendYieldToolTip,
 	plcPayYieldInputToolTip,
-	stateCountySelectToolTip, cropSelectToolTip
+	stateCountySelectToolTip
 } from "../app.messages";
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
@@ -50,6 +49,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import {roundResults} from "../public/utils.js";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -191,7 +193,9 @@ class FDRunModel extends Component {
 		customSubmitEnabled: false,
 		fetchYields: false,
 		showError: false,
-		errorMsg: dataNotAvailable
+		errorMsg: dataNotAvailable,
+		disablePraccode: true,
+		hidePraccode: true
 	};
 
 	constructor(props) {
@@ -230,9 +234,15 @@ class FDRunModel extends Component {
 			customSubmitEnabled: false,
 			fetchYields: false,
 			showError: false,
-			errorMsg: dataNotAvailable
+			errorMsg: dataNotAvailable,
+			disablePraccode: true,
+			hidePraccode: true
 		};
 	}
+
+	handlePracCodeChange = event => {
+		this.setState({pracCode: event.target.value});
+	};
 
 	handleForecastOpen = () => {
 		this.setState({forecastPopupOpen: true});
@@ -521,15 +531,16 @@ class FDRunModel extends Component {
 					if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
 						if (cropParams[0]["pracCode"] === 3) {
 							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-							this.setState({showError: false});
+							this.setState({disablePraccode: true});
+							this.setState({hidePraccode: true});
 						}
 						else {
 							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-							this.setState({showError: true});
-							this.setState({errorMsg: pracCodeNotSupported});
+							this.setState({hidePraccode: false});
+							this.setState({disablePraccode: true});
 						}
 
-						this.setState({pracCode: cropParams[0]["pracCode"]});
+						this.setState({pracCode: cropParams[0]["pracCode"].toString()});
 					}
 					else { //more than one pracCode Present
 
@@ -541,14 +552,16 @@ class FDRunModel extends Component {
 						});
 
 						this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
-						this.setState({pracCode: selPrac["pracCode"]});
-						this.setState({showError: true});
-						this.setState({errorMsg: pracCodeNotSupported});
+						this.setState({pracCode: selPrac["pracCode"].toString()});
+						this.setState({hidePraccode: false});
+						this.setState({disablePraccode: false});
 					}
 				}
 				else { // No crop data is available
 					this.setState({arcYield: ""});
 					this.setState({pracCode: ""});
+					this.setState({hidePraccode: true});
+					this.setState({disablePraccode: true});
 					this.setState({showError: true});
 					this.setState({errorMsg: dataNotAvailable});
 
@@ -772,6 +785,26 @@ class FDRunModel extends Component {
 					</ToolTip>
 
 					<br/>
+
+					<FormControl className={classes.formControl} required
+											 disabled={this.state.disablePraccode}
+											 style={{display: this.state.hidePraccode ? "none" : "", marginBottom: "0px"}}
+					 >
+						<FormLabel style={{fontSize: "12px"}}>Practice Type</FormLabel>
+						<RadioGroup aria-label="pracCode" name="pracCode" row={true}
+												value={this.state.pracCode} onChange={this.handlePracCodeChange}>
+							<FormControlLabel value="1" control={<Radio />} label="Irrigated" />
+							<FormControlLabel value="2" control={<Radio />} label="Non-Irrigated" />
+							<ToolTip title={practiceTypeToolTip} enterTouchDelay={tooltipTouchDelay}>
+								<span>
+									<IconButton >
+										<Info color="inherit" className={classes.helpIcon}/>
+									</IconButton>
+								</span>
+							</ToolTip>
+						</RadioGroup>
+					</FormControl>
+
 
 					<FormControl className={classes.formControl} required>
 						<ReactSelect styles={ReactSelectStyles}

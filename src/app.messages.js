@@ -30,12 +30,13 @@ export const tryItOutWarning = ["By clicking ‘Login’ you are using an alpha 
 "The temporary account will cease being active upon final release requiring everyone to establish an account to use the full features of the tool. "];
 export const dataNotAvailable = ["Error: Data not available for the selected crop in the county. " +
 "Choose a different crop or county."];
+export const arcTrendYieldToolTip = "The ARC Trend Yield is used to increase yields in previous years when calculating the ARC guarantee";
 export const pracCodeNotSupported = ["Note: We are not supporting selecting irrigated and non-irrigated fields, yet. " +
 "We will default to non-irrigated if available, otherwise irrigated."];
 export const plcPayYieldToolTip = "The PLC Payment Yield is the payment yield for your FSA farm based on historic " +
 	"average yields and available from the Farm Service Agency (FSA). The 2018 Farm Bill provided a one-time " +
 	"opportunity for the landlord to elect to update the payment yield for the FSA farm";
-export const arcTrendYieldToolTip = "The ARC Trend Yield is used to increase yields in previous years when calculating the ARC guarantee";
+export const practiceTypeToolTip = "Practice type can be irrigated or non-irrigated when applicable";
 export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA farm as provided by FSA; default is " +
 	"the county average payment yield for PLC";
 export const stateCountySelectToolTip = "Select the state and county for the FSA farm’s location";
