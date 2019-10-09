@@ -794,8 +794,8 @@ class FDRunModel extends Component {
 						<FormLabel style={{fontSize: "12px"}}>Practice Type</FormLabel>
 						<RadioGroup aria-label="pracCode" name="pracCode" row={true}
 												value={this.state.pracCode} onChange={this.handlePracCodeChange}>
-							<FormControlLabel value="1" control={<Radio />} label="Irrigated" />
-							<FormControlLabel value="2" control={<Radio />} label="Non-Irrigated" />
+							<FormControlLabel value="1" control={<Radio color="primary"/>} label="Irrigated" />
+							<FormControlLabel value="2" control={<Radio color="primary"/>} label="Non-Irrigated" />
 							<ToolTip title={practiceTypeToolTip} enterTouchDelay={tooltipTouchDelay}>
 								<span>
 									<IconButton >
