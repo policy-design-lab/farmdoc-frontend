@@ -1,31 +1,85 @@
 import {datawolfURL} from "../datawolf.config";
 import config from "../app.config";
 
-/***
- * Checks if user
- * @returns {Promise.<*>}
- */
-export async function checkAuthentication() {
 
-	let personId = "";
-	personId = sessionStorage.getItem("personId");
+export function checkIfDatawolfUserExists(email) {
+	console.log("checkIfDatawolfUserExists");
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}`;
 
-	return await fetch(`${datawolfURL }/persons/${ personId}`, {
+	return fetch(`${datawolfURL}/persons?email=${email}`, {
 		method: "GET",
 		headers: {
-			"Content-Type": "application/json",
-			"Access-Control-Origin": "http://localhost:3000"
+			"Authorization": token_header
 		},
-		credentials: "include"
+	}).then(function(response){
+		return response;
 	});
 }
 
+export function createDatawolfUser(email, fname, lname){
+	console.log("createDatawolfUser");
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
 
-export function isUserAuthenticated() {
+	return fetch(`${datawolfURL}/persons?email=${email}&firstname=${fname}&lastname=${lname}`, {
+		method: "POST",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response) {
+		return response;
+	});
+}
 
-	// Return true if the user is authenticated, else return false.
-	checkAuthentication().then(function (checkAuthResponse) {
-		return checkAuthResponse.status === 200;
+export function getStates(){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
+
+	return fetch(`${config.apiUrl}/states`, {
+		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getStates Flask api call. Most likely due to network or service being down");
+	});
+}
+
+export function getCounties(stateId){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
+
+	return fetch(`${config.apiUrl}/counties/${stateId}`, {
+		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getStates Flask api call. Most likely due to network or service being down");
+	});
+}
+
+export function getCropParams(countyFips, commodity){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
+
+	return fetch(`${config.apiUrl}/commodities/${countyFips}/commodity/${commodity}`, {
+		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getStates Flask api call. Most likely due to network or service being down");
 	});
 }
 
@@ -58,17 +112,20 @@ export const ID = function () {
 // check if withCoverCropDatasetResultGUID & withoutCoverCropDatasetResultGUID is validate is outside of this
 // function
 export async function getOutputFileJson(datasetId, outputFileName = null) {
-	let headers = {
+
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}`;
+
+	let kcHeaders = {
 		"Content-Type": "application/json",
-		"Access-Control-Origin": "http://localhost:3000"
+		"Authorization": token_header
 	};
 
 	// Get - Result Dataset
 	const datasetResponse = await
 	fetch(`${datawolfURL }/datasets/${ datasetId}`, {
 		method: "GET",
-		headers: headers,
-		credentials: "include"
+		headers: kcHeaders,
 	});
 
 	const resultDataset = await datasetResponse.json();
@@ -96,8 +153,7 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 		const fileDownloadResponse = await fetch(`${datawolfURL }/datasets/${ datasetId }/${ fileId }/file`,
 			{
 				method: "GET",
-				headers: headers,
-				credentials: "include"
+				headers: kcHeaders,
 			});
 
 		return await fileDownloadResponse.json();

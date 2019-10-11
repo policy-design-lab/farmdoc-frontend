@@ -1,3 +1,5 @@
+import Keycloak from "keycloak-js";
+
 const crops = [
 	{"id": "corn", "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
 	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
@@ -77,12 +79,13 @@ const devConfig = {
 	browserLog: true,
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
-	demoUserPw: demoUserPw
+	demoUserPw: demoUserPw,
+	keycloak: Keycloak("keycloak.json")
 };
 
 const prodConfig = {
 	basePath: "/dev/",
-	apiUrl: "https://fd-postgres.ncsa.illinois.edu/farmdoc/api",
+	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "fd-tools.ncsa.illinois.edu",
@@ -91,7 +94,8 @@ const prodConfig = {
 	browserLog: false,
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
-	demoUserPw: demoUserPw
+	demoUserPw: demoUserPw,
+	keycloak: Keycloak("keycloak.json")
 };
 
 const config = getConfig();

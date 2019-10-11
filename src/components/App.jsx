@@ -1,18 +1,16 @@
 import React, {Component} from "react";
-import {hashHistory, Route, Router} from "react-router";
+import {browserHistory, Route, Router} from "react-router";
 import HomePage from "./HomePage";
 import RouteMismatch from "./RouteMismatch";
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-import RegistrationPage from "./RegistrationPage";
-import FarmerCharts from "./FarmerCharts";
-import Login from "./Login";
 import Dashboard from "./Dashboard";
 import Results from "./Results";
 import {isIE} from "react-device-detect";
 import ProgramParams from "./ProgramParams";
 import "../styles/main.css";
 import Documentation from "./Documentation";
+import Login from "./Login";
 
 global.__base = `${__dirname}/`;
 
@@ -28,14 +26,12 @@ class App extends Component {
 		return (
 			<div>
 				<MuiThemeProvider theme={theme}>
-					<Router history={hashHistory}>
+					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/dashboard" component={Dashboard}/>
 						<Route path="/about" component={HomePage}/>
-						<Route path="/register" component={RegistrationPage}/>
-						<Route path="/chartsold" component={Results}/>
-						<Route path="/charts" component={FarmerCharts}/>
 						<Route path="/login" component={Login}/>
+						<Route path="/charts" component={Results}/>
 						<Route path="/params" component={ProgramParams}/>
 						<Route path="/docs" component={Documentation}/>
 						<Route path="*" component={RouteMismatch}/>

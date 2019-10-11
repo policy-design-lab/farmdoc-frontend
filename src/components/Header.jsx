@@ -1,14 +1,17 @@
 import React, {Component} from "react";
-import {hashHistory, Link} from "react-router";
+import {browserHistory, Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import "../styles/header-footer.css";
 import "../styles/main.css";
 import {Button, Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
 import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
-import {browserWarning} from "../app.messages";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import config from "../app.config";
+
+const keycloak = config.keycloak;
+
 
 const styles = theme => ({
 	root: {
@@ -29,29 +32,40 @@ class Header extends Component {
 	constructor(props){
 		super(props);
 
-		this.state = {
-			open: false
-		};
-
 		this.handleLogout = this.handleLogout.bind(this);
+		this.handleLogin = this.handleLogin.bind(this);
+		this.handleRegister = this.handleRegister.bind(this);
 	}
-	
+
+	handleLogin(){
+		browserHistory.push("/login");
+	}
+
+	handleRegister(){
+		keycloak.init().success(function(){
+			keycloak.register({});
+		});
+	}
+
 	handleLogout(){
-		sessionStorage.removeItem("personId");
-		sessionStorage.removeItem("email");
+		localStorage.removeItem("dwPersonId");
+		localStorage.removeItem("kcEmail");
+		localStorage.removeItem("kcToken");
+		localStorage.removeItem("kcRefreshToken");
+		localStorage.setItem("isAuthenticated", "false");
 		this.props.handleUserLogout();
-		hashHistory.push("/");
+		keycloak.init().success(function(){
+			keycloak.logout({}).success(function(){
+				browserHistory.push("/");
+			});
+		});
+
 	}
 
 	//TODO: add fixed for Toolbar
 	render(){
 
 		const {classes} = this.props;
-
-		let browserWarningSpan = "";
-		if (sessionStorage.getItem("isIE") === "true") {
-			browserWarningSpan = 	<span className="notification" > {browserWarning} </span>;
-		}
 
 		return (
 			<div className={classes.root}>
@@ -65,7 +79,8 @@ class Header extends Component {
 						</ToolbarSection>
 						<ToolbarSection>
 							{/*{browserWarningSpan}*/}
-							{(!this.props.selectedTab || !this.props.isAuthenticated) ? null :
+							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null && localStorage.getItem("isAuthenticated") === "true")) ? null :
+
 								<Tabs value={this.props.selectedTab}
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
@@ -78,9 +93,17 @@ class Header extends Component {
 							}
 						</ToolbarSection>
 						<ToolbarSection align="end" style={{maxWidth: 300}} >
-							<div className="headerSection"> <span >{this.props.email} </span>
-								{this.props.isAuthenticated === false ? null :
-									<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>}
+							<div className="headerSection">
+								{localStorage.getItem("isAuthenticated") !== "true" ?
+									<div>
+										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
+										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
+									</div>
+									:
+									<div><span>{localStorage.getItem("kcEmail")} </span>
+										<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>
+									</div>
+								}
 							</div>
 						</ToolbarSection>
 					</ToolbarRow>

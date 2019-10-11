@@ -1,19 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {browserHistory} from "react-router";
 
 class AuthorizedWrap extends Component {
 	render() {
-		if (!this.props.isAuthenticated) {
-			window.location = "#/";
-		}
-
-		let unauthorizedDiv =
-			(<div className="contentcenter">
-				<h3>401 Unauthorized. Please click Home and login first.</h3>
-			</div>);
 		return (
 			<div>
-				{this.props.isAuthenticated ? this.props.children : unauthorizedDiv}
+				{ localStorage.getItem("isAuthenticated") === "true" ? this.props.children : browserHistory.push("/")}
 			</div>
 		);
 	}

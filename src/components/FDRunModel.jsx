@@ -7,9 +7,13 @@ import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import {getOutputFileJson,
+import {
+	getOutputFileJson,
 	getMarketPricesForForecastModel,
 	getBinSizeForCrop,
+	getStates,
+	getCounties,
+	getCropParams
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -369,7 +373,7 @@ class FDRunModel extends Component {
 
 	async runModel() {
 		//let status = "STARTED";
-		let personId = sessionStorage.getItem("personId");
+		let personId = localStorage.getItem("dwPersonId");
 		this.setState({
 			runStatus: status
 		});
@@ -378,9 +382,12 @@ class FDRunModel extends Component {
 		curTime = curTime.toUTCString();
 		let title = `Run at ${curTime}`;
 
-		let headers = {
+		let token = localStorage.getItem("kcToken");
+		let token_header = `Bearer ${token}`;
+
+		let kcHeaders = {
 			"Content-Type": "application/json",
-			"Access-Control-Allow-Origin": datawolfURL
+			"Authorization": token_header
 		};
 
 		let dwUrl = datawolfURL;
@@ -420,9 +427,7 @@ class FDRunModel extends Component {
 
 		let modelResponse = await fetch(`${dwUrl}/executions`, {
 			method: "POST",
-			//mode: "no-cors",
-			headers: headers,
-			credentials: "include",
+			headers: kcHeaders,
 			body: body
 		});
 
@@ -439,8 +444,7 @@ class FDRunModel extends Component {
 			await wait(300);
 			const executionResponse = await fetch(`${dwUrl}/executions/${modelExecutionGUID}`, {
 				method: "GET",
-				headers: headers,
-				credentials: "include"
+				headers: kcHeaders,
 			});
 
 			if (executionResponse instanceof Response) {
@@ -487,88 +491,103 @@ class FDRunModel extends Component {
 	componentDidMount() {
 		let statesJson = [];
 
-		fetch(`${config.apiUrl}/states`)
-			.then(response => {
+		getStates().then(function(response){
+			if (response.status === 200){
 				return response.json();
-			}).then(data => {
-				statesJson = data.map((st) => {
-					return st;
-				});
-				this.setState({
-					states: statesJson,
-				});
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			statesJson = data.map((st) => {
+				return st;
 			});
+			this.setState({
+				states: statesJson,
+			});
+		});
 	}
 
 	populateCounties(stateId) {
 		let countiesJson = [];
 
-		fetch(`${config.apiUrl}/counties/${stateId}`)
-			.then(response => {
+		getCounties(stateId).then(function(response){
+			if (response.status === 200){
 				return response.json();
-			}).then(data => {
-				countiesJson = data.map((st) => {
-					return st;
-				});
-				this.setState({
-					counties: countiesJson,
-				});
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			countiesJson = data.map((st) => {
+				return st;
 			});
+			this.setState({
+				counties: countiesJson,
+			});
+		});
 	}
 
 	populateYields(countyFips, commodity){
 		let cropParams = "";
 
-		fetch(`${config.apiUrl}/commodities/${countyFips}/commodity/${commodity}`)
-			.then(response => {
+		getCropParams(countyFips, commodity).then(function(response){
+			if (response.status === 200){
 				return response.json();
-			}).then(data => {
-				cropParams = data.map((row) => {
-					return row;
-				});
-
-				if (cropParams.length > 0) {
-					if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
-						if (cropParams[0]["pracCode"] === 3) {
-							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-							this.setState({disablePraccode: true});
-							this.setState({hidePraccode: true});
-						}
-						else {
-							this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-							this.setState({hidePraccode: false});
-							this.setState({disablePraccode: true});
-						}
-
-						this.setState({pracCode: cropParams[0]["pracCode"].toString()});
-					}
-					else { //more than one pracCode Present
-
-						let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
-						cropParams.forEach((item) => {
-							if (item.pracCode === 2) {
-								selPrac = item;
-							}
-						});
-
-						this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
-						this.setState({pracCode: selPrac["pracCode"].toString()});
-						this.setState({hidePraccode: false});
-						this.setState({disablePraccode: false});
-					}
-					this.setState({showError: false});
-				}
-				else { // No crop data is available
-					this.setState({arcYield: ""});
-					this.setState({pracCode: ""});
-					this.setState({hidePraccode: true});
-					this.setState({disablePraccode: true});
-					this.setState({showError: true});
-					this.setState({errorMsg: dataNotAvailable});
-
-				}
-
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			cropParams = data.map((row) => {
+				return row;
 			});
+
+			if (cropParams.length > 0) {
+				if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
+					if (cropParams[0]["pracCode"] === 3) {
+						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+						this.setState({disablePraccode: true});
+						this.setState({hidePraccode: true});
+					}
+					else {
+						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+						this.setState({hidePraccode: false});
+						this.setState({disablePraccode: true});
+					}
+
+					this.setState({pracCode: cropParams[0]["pracCode"].toString()});
+				}
+				else { //more than one pracCode Present
+
+					let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
+					cropParams.forEach((item) => {
+						if (item.pracCode === 2) {
+							selPrac = item;
+						}
+					});
+
+					this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
+					this.setState({pracCode: selPrac["pracCode"].toString()});
+					this.setState({hidePraccode: false});
+					this.setState({disablePraccode: false});
+				}
+				this.setState({showError: false});
+			}
+			else { // No crop data is available
+				this.setState({arcYield: ""});
+				this.setState({pracCode: ""});
+				this.setState({hidePraccode: true});
+				this.setState({disablePraccode: true});
+				this.setState({showError: true});
+				this.setState({errorMsg: dataNotAvailable});
+
+			}
+
+		});
 	}
 
 	populateRefPriceAndUnits(commodity) {

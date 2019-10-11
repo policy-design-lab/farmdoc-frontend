@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
-import Login from "./Login";
 import {welcometext, browserWarning} from "../app.messages";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -80,15 +79,12 @@ class HomePage extends Component {
 					>
 						{window.innerWidth > 1300 ?
 							<Grid>
-								<Cell col={4}>
+								<Cell col={6}>
 
 									{welcome}
 								</Cell>
-								<Cell col={4}>
+								<Cell col={6}>
 									{howwork}
-								</Cell>
-								<Cell col={4}>
-									<Login message={this.props.message}/>
 								</Cell>
 							</Grid> :
 							<Grid>
@@ -96,9 +92,6 @@ class HomePage extends Component {
 									{welcome}
 									<br/>
 									{howwork}
-								</Cell>
-								<Cell col={6}>
-									<Login message={this.props.message}/>
 								</Cell>
 							</Grid>}
 					</div>

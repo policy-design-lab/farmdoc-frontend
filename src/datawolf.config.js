@@ -1,4 +1,4 @@
-export const datawolfURL = "https://fd-datawolf.ncsa.illinois.edu/datawolf";
+export const datawolfURL = "https://fd-api.ncsa.illinois.edu/datawolf";
 
 const workflowId = "71bcf219-6219-4caf-97c9-b4b7cc8f7531";
 

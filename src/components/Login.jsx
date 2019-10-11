@@ -2,259 +2,93 @@ import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {connect} from "react-redux";
-import {Card, CardText, Dialog, DialogBody, DialogFooter, Icon, Textfield, Button} from "react-mdc-web";
-import {datawolfURL} from "../datawolf.config";
 import {handleUserLogin} from "../actions/user";
-import {checkAuthentication} from "../public/utils";
-import {hashHistory, Link} from "react-router";
+import {browserHistory} from "react-router";
 import config from "../app.config";
-import {
-	tryItOutWarning,
-	dataWolfGetTokenCallFailed,
-	invalidLoginCredentials,
-	register,
-	unauthorized
-} from "../app.messages";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
+import {checkIfDatawolfUserExists, createDatawolfUser} from "../public/utils";
 
+const keycloak = config.keycloak;
 
 class Login extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			email: "",
-			password: "",
-			statusText: "",
-			isOpen: this.props.message === "Please login.",
-			TryItOutPopup: false
-		};
-
-		this.handleLogin = this.handleLogin.bind(this);
-		this.handleTryIt = this.handleTryIt.bind(this);
-		this.handlePopupClose = this.handlePopupClose.bind(this);
 	}
 
-	handlePopupClose = () => {
-		this.setState({TryItOutPopup: false});
-	};
+	componentDidMount() {
+		keycloak.init({onLoad: "login-required"}).success(function(){
 
-	handleTryIt = async event => {
-		event.preventDefault();
-		this.setState({"email": config.demoUser, "password": config.demoUserPw});
-		this.setState({TryItOutPopup: true});
+			localStorage.setItem("kcToken", keycloak.token);
+			localStorage.setItem("kcRefreshToken", keycloak.refreshToken);
 
-	};
+			keycloak.loadUserProfile().success(function(profile) {
+				// console.log(JSON.stringify(profile, null, "  "));
 
-	handleLogin = async event => {
-		event.preventDefault();
+				localStorage.setItem("isAuthenticated", "true");
+				localStorage.setItem("kcEmail", profile["username"]); // Store email ID in local storage for future use
 
-		try {
-			//let loginResponse = await this.loginTest(this.state.email, this.state.password);
-			const token = `${this.state.email}:${this.state.password}`;
-			const hash = btoa(token);
-			let loginResponse = await fetch(`${datawolfURL}/login?email=${this.state.email}`, {
-				method: "GET",
-				headers: {
-					"Authorization": `Basic ${hash}`,
-					"Content-Type": "application/json",
-					"Access-Control-Origin": "http://localhost:3000"
-				},
-				credentials: "include"
-			});
-
-			console.log(loginResponse);
-			if (loginResponse.status === 200) {
-
-				let jsonData = await loginResponse.json().then(function (data) {
-					return data;
-				});
-
-				// Get token from Data Wolf
-				let keyResponse = await fetch(`${datawolfURL}/login/key`, {
-					method: "GET",
-					headers: {
-						"Authorization": `Basic ${hash}`,
-						"Content-Type": "application/json",
-						"Access-Control-Origin": "http://localhost:3000"
-					}
-				});
-
-				// Store token in cookie if request is successful
-				if (keyResponse.status === 200) {
-					let jsonKeyData = await keyResponse.json().then(function (data) {
-						return data;
-					});
-
-					// Set 24 hours expiration
-					let date = new Date();
-					date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
-
-					let expiresString = `expires=${date.toUTCString()}`;
-					let domainString = `domain=${config.domain}`;
-					let pathString = "path=/";
-					let tokenString = `token=${jsonKeyData["token"]}`;
-
-					document.cookie = `${tokenString};${domainString};${pathString};${expiresString}`;
-
-					// Calling event handler for successful logging in
-					this.props.handleUserLogin(this.state.email, jsonData["id"], true);
-					sessionStorage.setItem("personId", jsonData["id"]); // Store person ID in session storage for future use
-					sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
-				}
-				else {
-					console.error(`Call to get token from Data Wolf did not succeed. Response status: ${
-						keyResponse.status}`);
-					this.setState({statusText: dataWolfGetTokenCallFailed});
-				}
-
-				this.props.handleUserLogin(this.state.email, jsonData["id"], true);
-				sessionStorage.setItem("personId", jsonData["id"]); // Store person ID in session storage for future use
-				sessionStorage.setItem("email", jsonData["email"]); // Store email ID in session storage for future use
-
-				// Check for authentication
-				// TODO: should we do something when status is not 200?
-				checkAuthentication().then((checkAuthResponse) => {
-					if (checkAuthResponse.status === 200) {
-						this.setState({loginStatus: "success"});
-						console.log("Person Valid");
-						hashHistory.push("dashboard");
-					}
-					else if (checkAuthResponse.status === 401) {
-						this.setState({loginStatus: "failure"});
-						console.log("Unauthorized");
+				checkIfDatawolfUserExists(profile["username"]).then(function(response){
+					if (response.status === 200){
+						return response.json();
 					}
 					else {
-						this.setState({loginStatus: "unknown"});
-						console.log("Unknown");
+						localStorage.removeItem("dwPersonId");
+						console.log("Datawolf API call failed. Most likely the token expired");
+						//Bad response. Most likely token expired TODO: how to handle?
 					}
+				}).then(function(users){
+					let createUser = false;
+					if (users.length === 0){
+						createUser = true;
+						console.log("no users found..create user");
+					}
+					else if (users.length === 1){
+						if (users[0] !== null){
+							localStorage.setItem("dwPersonId", users[0].id);
+						}
+						else {
+							createUser = true;
+							console.log("no users found..create user");
+						}
+					}
+					else {
+						console.log("Unexpected output: More than one user found");
+					}
+
+					if (createUser){
+						createDatawolfUser(profile["username"], profile["firstName"], profile["lastName"]).then(function(response) {
+							if (response.status === 200){
+								return response.text();
+							}
+							else {
+								localStorage.removeItem("dwPersonId");
+								console.log("Datawolf API call failed. Most likely the token expired");
+								//Bad response. Most likely token expired TODO: how to handle?
+							}
+						}).then(function(personId){
+							localStorage.setItem("dwPersonId", personId);
+						});
+					}
+				}).catch(error => {
+					localStorage.removeItem("dwPersonId");
+					console.log(error);
+					console.log("Error in making the api call. Most likely due to network or service being down");
 				});
-			}
 
-			else if (loginResponse.status === 401) {
-				console.log("Datawolf authorization failed");
-				this.setState({statusText: invalidLoginCredentials});
-			}
-			else {
-				console.error(`Call to get token from Data Wolf did not succeed. Response status: ${
-					loginResponse.status}`);
-				this.setState({statusText: dataWolfGetTokenCallFailed});
-			}
-			"";
-		}
-		catch (error) {
-			console.error(`Error: ${error}`);
-		}
-	};
+				handleUserLogin(profile["username"], profile["username"], true);
+				browserHistory.push("/dashboard");
 
-	validateLoginForm() {
-		return this.state.email.length > 0 && this.state.password.length > 0;
+			}).error(function() {
+				console.log("Failed to load user profile");
+			});
+
+		});
 	}
 
 	render() {
 		return (
 			<div>
-
-				<Dialog
-					open={this.state.TryItOutPopup}
-					onClose={this.handlePopupClose}
-					aria-labelledby="alert-dialog-title"
-					aria-describedby="alert-dialog-description"
-				>
-					<DialogTitle id="alert-dialog-title" >
-						<span style={{fontWeight: "bolder"}}> Pre-Release Notification </span>
-					</DialogTitle>
-					<DialogContent>
-						<DialogContentText id="alert-dialog-description">
-							{tryItOutWarning.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
-						</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={this.handlePopupClose} color="primary" autoFocus >
-							Continue
-						</Button>
-					</DialogActions>
-				</Dialog>
-
-				<br/>
-				{/*Display login card only when user is not authenticated*/}
-				{this.props.isAuthenticated === true ? null :
-					<Card className="login">
-						<h2>Login</h2>
-						<CardText>
-							{this.state.statusText && <div className="login-error">
-								<Icon name="warning"/><p>{this.state.statusText}</p>
-							</div>}
-
-							<div style={{textAlign: "center"}}>
-
-								<form onSubmit={this.handleLogin}>
-									<Textfield autoFocus floatingLabel="Username" value={this.state.email} className="loginInput"
-										   onChange={({target: {value: email}}) => {
-											   this.setState({email: email});
-										   }}/>
-										   <br/>
-
-									<Textfield floatingLabel="Password" type="password" value={this.state.password} className="loginInput"
-										   onChange={({target: {value: password}}) => {
-											   this.setState({password});
-										   }}/>
-										   <br/>
-
-									<Button	type="submit" raised disabled={!this.validateLoginForm()} className="loginButton">
-									Login
-									</Button>
-
-									{/*<p className="forget-password"><a className="not-active" href="">Forgot password?</a>*/}
-									{/*</p>*/}
-								</form>
-							</div>
-
-							<div className="register-block">
-								<p><Icon name="spa"/>{register}</p>
-								<hr/>
-								<div >
-									<p className="bold-text">Don't have an account?</p>
-
-									<Button	type="button" raised onClick={this.handleTryIt} className="loginButton">
-										Try it out!
-									</Button>
-
-									{/*<p className="bold-text"><Link to="/register">Get Registered!</Link></p>*/}
-									<p >Create Account (Coming Soon)</p>
-								</div>
-							</div>
-						
-						</CardText>
-
-
-					</Card>
-
-				}
-				<Dialog
-					open={this.state.isOpen}
-					onClose={() => {
-						this.setState({isOpen: false});
-					}}
-					className="unlogin"
-				>
-					<DialogBody>
-						<Icon name="warning"/>
-						<br/>
-						<p className="bold-text" key="keyword">Please Login or register.</p>
-						<br/>
-						{unauthorized.map((p, index) => <p key={index}>{p}</p>)}
-					</DialogBody>
-					<DialogFooter>
-						<Button compact onClick={() => {
-							this.setState({isOpen: false});
-						}}>Close</Button>
-					</DialogFooter>
-				</Dialog>
+				Redirecting to keycloak...
 			</div>
 		);
 
