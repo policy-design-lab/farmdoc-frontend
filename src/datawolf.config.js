@@ -1,9 +1,9 @@
 export const datawolfURL = "https://fd-api.ncsa.illinois.edu/datawolf";
 
-const workflowId = "71bcf219-6219-4caf-97c9-b4b7cc8f7531";
+const workflowId = "43c512ee-606f-450b-aea4-ecfe8b880bd2";
 
 export const steps = {
-	Farm_Model: "1837d87b-04b3-4902-bdf7-ea53c71467b0"
+	Farm_Model: "7ebc89d3-d5a6-4df1-b75f-eeed11acf174"
 };
 
 const inputDatasets = {
@@ -18,27 +18,23 @@ export function postExecutionRequest(personId, title, countyId, startYear, commo
 		"title": title,
 		"description": "test",
 		"parameters": {
-			"be1aeac8-781e-49f1-b8be-533580377bd7": arcRange, //ARC Range
-			"8c97da97-624b-4a1c-f826-2663fb23e365": paymentAcres, // Payment Acres %
-			"d5ab0594-d234-4e86-ef88-0021c12990a2": commodity, //Commodity
-			"bc5f25cb-75b5-4441-b088-14590e6f32a1": arcCoverage, // ARC Coverage
-			"4fc6629c-16d2-48c8-ad6c-b952c8a59713": refPrice, //Reference Price
-			"b144b8d7-1839-4af3-ec54-565efb39da64": countyId, //County Id
-			"24d75c6c-f115-418c-9d93-e9996659a3ff": plcYield, //PLC Payment Yield
-			"1ff27e78-94c4-461b-c658-4dbf216a1eea": program, //Program - can be defunct
-			"371c485f-1793-4fa4-ea4c-7c40b41f53a7": sequesterPrice, //Sequester Price
-			"5b1074be-c4b8-480d-efd6-37bdf28ed848": startYear, //Start year
-			"9ab51a09-ab06-4b41-bca8-e60a53e2e2b1": pracCode,
-			"b3d7d841-a15b-47d7-92ff-0c093bc10add": forecastPrices,
-			"37c9520e-7d7b-4a5b-8aca-77e038f3702c": binSize
-		},
-
-		"datasets": {
-			// "82392893-8b9d-498d-acba-7219b00c0b6c": inputDatasets.Model_Data_File,
-			"f8583dca-3056-4452-9c5d-a67e7251f11b": inputDatasets.Price_File
+			"04554766-6d02-4123-ae41-5802950620d1": arcRange, //ARC Range
+			"b1cd6724-cc1f-45fc-b69d-9b60f5f65627": paymentAcres, // Payment Acres %
+			"4744261b-d50e-4bf7-8cf2-a5274c01a2e7": commodity, //Commodity
+			"8a4c5fad-9ec5-45d4-98fb-c03f192b31cd": arcCoverage, // ARC Coverage
+			"652f8811-6560-4d4b-c293-9cf41fa7304e": refPrice, //Reference Price
+			"72fe600b-3013-4229-d73f-213fd830860a": countyId, //County Id
+			"e5a5f432-abbb-451d-dd10-1a3904b1b65d": plcYield, //PLC Payment Yield
+			"097c166c-94ec-40e3-c46e-7d3c22d63f4c": program, //Program - can be defunct
+			"23b2175d-992f-4b44-ea1f-f2611f9cd18d": sequesterPrice, //Sequester Price
+			"727ed062-a252-4d71-bb50-34a0c3c66132": startYear, //Start year
+			"cd4d71e9-98a6-4a8f-d821-ba3ee38a80ef": pracCode,
+			"9603f52b-a88d-4cd3-e965-1dbb7c0c75da": forecastPrices,
+			"7bf5e9f3-336b-4928-94cd-72e60bb5642f": binSize
 		}
+
 	};
 }
 
-export const resultDatasetId = "eb2eaad5-389b-421d-bc3d-378730d6ffd2";
+export const resultDatasetId = "06f553c1-1098-4792-e395-62d26f6164fa";
 
