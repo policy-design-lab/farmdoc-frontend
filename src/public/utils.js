@@ -1,9 +1,37 @@
 import {datawolfURL} from "../datawolf.config";
 import config from "../app.config";
 
+export function clearKeycloakStorage(){
+	localStorage.removeItem("dwPersonId");
+	localStorage.removeItem("kcEmail");
+	localStorage.removeItem("kcToken");
+	localStorage.removeItem("kcRefreshToken");
+	localStorage.removeItem("kcTokenExpiry");
+	localStorage.setItem("isAuthenticated", "false");
+}
+
+export function checkForTokenExpiry(){
+	let expUtcSeconds = 0;
+
+	if (localStorage.getItem("kcTokenExpiry") != null){
+		expUtcSeconds = localStorage.getItem("kcTokenExpiry");
+	}
+
+	let expDateTime = new Date(0);
+	expDateTime.setUTCSeconds(expUtcSeconds);
+
+	let curDate = new Date();
+
+	if (curDate >= expDateTime){
+		console.log("Keycloak Token Expired. Logging out in a few seconds..");
+		return true;
+	}
+
+	return false;
+}
+
 
 export function checkIfDatawolfUserExists(email) {
-	console.log("checkIfDatawolfUserExists");
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}`;
 
@@ -18,7 +46,6 @@ export function checkIfDatawolfUserExists(email) {
 }
 
 export function createDatawolfUser(email, fname, lname){
-	console.log("createDatawolfUser");
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
 

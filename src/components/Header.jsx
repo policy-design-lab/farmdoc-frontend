@@ -9,6 +9,10 @@ import {handleUserLogout} from "../actions/user";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import config from "../app.config";
+import {
+	clearKeycloakStorage,
+	checkForTokenExpiry
+} from "../public/utils";
 
 const keycloak = config.keycloak;
 
@@ -37,6 +41,32 @@ class Header extends Component {
 		this.handleRegister = this.handleRegister.bind(this);
 	}
 
+	componentDidMount(): void {
+		if (localStorage.getItem("isAuthenticated") === "true") {
+			this.handleTokenExpiry();
+
+			let interval = setInterval( function(){
+				if (localStorage.getItem("isAuthenticated") === "true") {
+					if (checkForTokenExpiry()) {
+						clearKeycloakStorage();
+						browserHistory.push("/");
+					}
+				}
+				else {
+					clearInterval(interval);
+					browserHistory.push("/");
+				}
+			}, 15000);
+		}
+	}
+
+	handleTokenExpiry(){
+		if (checkForTokenExpiry()) {
+			clearKeycloakStorage();
+			browserHistory.push("/");
+		}
+	}
+
 	handleLogin(){
 		browserHistory.push("/login");
 	}
@@ -48,11 +78,7 @@ class Header extends Component {
 	}
 
 	handleLogout(){
-		localStorage.removeItem("dwPersonId");
-		localStorage.removeItem("kcEmail");
-		localStorage.removeItem("kcToken");
-		localStorage.removeItem("kcRefreshToken");
-		localStorage.setItem("isAuthenticated", "false");
+		clearKeycloakStorage();
 		this.props.handleUserLogout();
 		keycloak.init().success(function(){
 			keycloak.logout({}).success(function(){
