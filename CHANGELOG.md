@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+ ## [1.0.0-beta.0] - 2019-10-18
+
+### Added
+- Added keycloak for user authentication and used it's token for all API calls
+- Selection to choose irrigated or non-irrigated practice types, when applicable
+- Implemented auto logout after keycloak token expires
+
+### Changed
+- Removed existing Login and Register pages that were using Datawolf
+- Removed 'Try it Out' button for alpha users
+- Updated workflow ids to work with the new model that gets inputs from postgres database
+
  ## [1.0.0-alpha.0] - 2019-08-06
 
 ### Added
