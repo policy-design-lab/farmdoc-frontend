@@ -23,6 +23,13 @@ class App extends Component {
 			sessionStorage.setItem("firstVisit", "true");
 		}
 
+		if (localStorage.getItem("fdFirstVisit") == null){
+			localStorage.setItem("fdFirstVisit", "true");
+		}
+		else if (localStorage.getItem("fdFirstVisit") === "true"){
+			localStorage.setItem("fdFirstVisit", "false");
+		}
+
 		return (
 			<div>
 				<MuiThemeProvider theme={theme}>

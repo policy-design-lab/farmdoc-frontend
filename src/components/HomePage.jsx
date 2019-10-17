@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
-import {welcometext, browserWarning} from "../app.messages";
+import {welcometext, browserWarning, preReleaseMessage} from "../app.messages";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -14,23 +14,37 @@ import Layout from "./Layout";
 class HomePage extends Component {
 
 	state = {
-		IEPopup: false
+		IEPopup: false,
+		PreReleasePopup: false
 	};
 
-	handlePopupOpen = () => {
-		this.setState({IEPopup: true});
+	handleIEPopupOpen = () => {
+		this.setState({PreReleasePopup: true});
 	};
 
-	handlePopupClose = () => {
-		this.setState({IEPopup: false});
+	handleIEPopupClose = () => {
+		this.setState({PreReleasePopup: false});
+	};
+
+	handlePrereleasePopupOpen = () => {
+		this.setState({PreReleasePopup: true});
+	};
+
+	handlePrereleasePopupClose = () => {
+		this.setState({PreReleasePopup: false});
 	};
 
 	componentDidMount() {
 		if (sessionStorage.getItem("firstVisit") === "true"){
 			if (sessionStorage.getItem("isIE") === "true") {
-				this.handlePopupOpen();
+				this.handleIEPopupOpen();
 			}
 			sessionStorage.setItem("firstVisit", "false");
+		}
+
+		if (localStorage.getItem("fdFirstVisit") === "true"){
+			this.handlePrereleasePopupOpen();
+			localStorage.setItem("fdFirstVisit", "false");
 		}
 	}
 	
@@ -55,7 +69,7 @@ class HomePage extends Component {
 
 					<Dialog
 						open={this.state.IEPopup}
-						onClose={this.handlePopupClose}
+						onClose={this.handleIEPopupClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description"
 					>
@@ -68,8 +82,29 @@ class HomePage extends Component {
 							</DialogContentText>
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={this.handlePopupClose} color="primary" autoFocus>
-							Continue
+							<Button onClick={this.handleIEPopupClose} color="primary" autoFocus>
+								Continue
+							</Button>
+						</DialogActions>
+					</Dialog>
+
+					<Dialog
+						open={this.state.PreReleasePopup}
+						onClose={this.handlePrereleasePopupClose}
+						aria-labelledby="alert-dialog-title"
+						aria-describedby="alert-dialog-description"
+					>
+						<DialogTitle id="alert-dialog-title" >
+							<span style={{fontWeight: "bolder"}}> Beta Release Notification</span>
+						</DialogTitle>
+						<DialogContent>
+							<DialogContentText id="alert-dialog-description">
+								{preReleaseMessage}
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={this.handlePrereleasePopupClose} color="primary" autoFocus>
+								Continue
 							</Button>
 						</DialogActions>
 					</Dialog>

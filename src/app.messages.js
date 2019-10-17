@@ -24,10 +24,13 @@ export const unauthorized = ["We are glad you want to check out Farmdoc Simulato
 	"For the best experience, login or register for a free account."];
 export const browserWarning = ["Your browser does not support all features of Farmdoc. " +
 "You will not be able to login or run the application. Please use Google Chrome, Edge, Firefox or Safari"];
-export const tryItOutWarning = ["By clicking ‘Login’ you are using an alpha release version of this tool which remains under development. " +
-"The alpha release operates as a demonstration of the tool using a temporary account and FSA data current as of the alpha release. " +
-"Additional developments and data will be incorporated into the final release version of the tool." +
-"The temporary account will cease being active upon final release requiring everyone to establish an account to use the full features of the tool. "];
+export const preReleaseMessage = ["You are using a beta version of this tool which remains under development. " +
+"The alpha release temporary account is now disabled. " +
+"If you haven't already done so, you will need to click the REGISTER link at the top of this page to create an account. " +
+"You will only need to create an account once, all subsequent releases of the tool will be available using the account you create. " +
+"After creating and verifying your account, use the LOGIN button at the top of this page to access the payment calculator. " +
+"The beta release operates as a demonstration of the tool and additional developments and data may be " +
+"incorporated into the final version."];
 export const dataNotAvailable = ["Error: Data not available for the selected crop in the county. " +
 "Choose a different crop or county."];
 export const arcTrendYieldToolTip = "The ARC Trend Yield is used to increase yields in previous years when calculating the ARC guarantee";
