@@ -99,7 +99,14 @@ class HomePage extends Component {
 						</DialogTitle>
 						<DialogContent>
 							<DialogContentText id="alert-dialog-description">
-								{preReleaseMessage}
+								{/*{preReleaseMessage}*/}
+								You are using a beta version of this tool which remains under development.
+								The alpha release temporary account is now disabled.
+								If you haven't already done so, you will need to click the
+								<span style={{color: "red"}}><strong> REGISTER</strong></span> link at the top of this page to create an account.
+								You will only need to create an account once, all subsequent releases of the tool will be available using the account you create.
+								After creating and verifying your account, use the LOGIN button at the top of this page to access the payment calculator.
+								The beta release operates as a demonstration of the tool and additional developments and data may be incorporated into the final version.
 							</DialogContentText>
 						</DialogContent>
 						<DialogActions>
