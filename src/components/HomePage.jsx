@@ -55,7 +55,7 @@ class HomePage extends Component {
 
 		if (localStorage.getItem("isAuthenticated") !== "true"){
 			notificationDiv = (<div className="notification_div">
-				<span className="isa_info">
+				<span className="isa_warning">
 					{loginMessage}
 				</span>
 			</div>);
