@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
-import {welcometext, browserWarning, preReleaseMessage} from "../app.messages";
+import {welcometext, browserWarning, preReleaseMessage, loginMessage, sessionExpired} from "../app.messages";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -46,9 +46,21 @@ class HomePage extends Component {
 			this.handlePrereleasePopupOpen();
 			localStorage.setItem("fdFirstVisit", "false");
 		}
+
 	}
 	
 	render(){
+
+		let notificationDiv = null;
+
+		if (localStorage.getItem("isAuthenticated") !== "true"){
+			notificationDiv = (<div className="notification_div">
+				<span className="isa_info">
+					{loginMessage}
+				</span>
+			</div>);
+		}
+
 
 		let welcome = (<div>
 			<h2 className="secondary-color">Welcome to the Gardner Program Payment Calculator</h2>
@@ -116,26 +128,19 @@ class HomePage extends Component {
 						</DialogActions>
 					</Dialog>
 
+					{notificationDiv}
+
 					<div className="home-content"
 					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
 					>
-						{window.innerWidth > 1300 ?
-							<Grid>
-								<Cell col={6}>
-
-									{welcome}
-								</Cell>
-								<Cell col={6}>
-									{howwork}
-								</Cell>
-							</Grid> :
-							<Grid>
-								<Cell col={6}>
-									{welcome}
-									<br/>
-									{howwork}
-								</Cell>
-							</Grid>}
+						<Grid>
+							<Cell col={6}>
+								{welcome}
+							</Cell>
+							<Cell col={6}>
+								{howwork}
+							</Cell>
+						</Grid>
 					</div>
 				</Layout>
 			</div>

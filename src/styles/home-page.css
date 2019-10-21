@@ -115,3 +115,35 @@
 .registration button{
 	width: 160px;
 }
+
+
+.notification_div {
+	position: relative;
+	top: 6px;
+	padding:4px 8px;
+	text-align: center;
+}
+
+.isa_info, .isa_success, .isa_warning, .isa_error {
+	margin: 0 0;
+	padding:4px 12px;
+	font-size: 15px;
+	border-radius: 7px;
+}
+
+.isa_info {
+	color: #00529B;
+	background-color: #BDE5F8;
+}
+.isa_success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+}
+.isa_warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+}
+.isa_error {
+	color: #D8000C;
+	background-color: #FFD2D2;
+}

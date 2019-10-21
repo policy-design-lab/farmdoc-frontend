@@ -60,6 +60,10 @@ export const paymentAcresToolTip = "Both ARC and PLC pay on 85% of the base acre
 export const forecastYearsToolTip = "Crop years covered by the farm bill; note that payments will be made after " +
 	"October 1 st of the year following the crop year";
 
+export const loginMessage = "Please login with your account to access the payment calculator. " +
+	"Use the 'REGISTER' button to create an account, if you don't have an account yet.";
+export const sessionExpired = "Your session has expired. Please login again to access the payment calculator";
+
 export const termDefinitions = [
 	{
 		"term": "PLC Payment Yield",
