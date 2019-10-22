@@ -22,6 +22,10 @@ export function checkForTokenExpiry(){
 
 	let curDate = new Date();
 
+	// console.log(expDateTime);
+	// console.log(curDate);
+	// console.log(`Expiry in secs: ${ expUtcSeconds - Date.now() / 1000}`);
+
 	if (curDate >= expDateTime){
 		console.log("Keycloak Token Expired. Logging out in a few seconds..");
 		return true;

@@ -43,27 +43,25 @@ class Header extends Component {
 
 	componentDidMount(): void {
 		if (localStorage.getItem("isAuthenticated") === "true") {
-			this.handleTokenExpiry();
-
-			let interval = setInterval( function(){
-				if (localStorage.getItem("isAuthenticated") === "true") {
-					if (checkForTokenExpiry()) {
-						clearKeycloakStorage();
-						browserHistory.push("/");
+			// if authenticated flag is set, re-check for token expiry. Reload page if expired
+			if (checkForTokenExpiry()) {
+				clearKeycloakStorage();
+				window.location.reload();
+			}
+			else { // If token is not expired, set the timer to check for expiry
+				let interval = setInterval( function(){
+					if (localStorage.getItem("isAuthenticated") === "true") {
+						if (checkForTokenExpiry()) {
+							clearKeycloakStorage();
+							browserHistory.push("/");
+						}
 					}
-				}
-				else {
-					clearInterval(interval);
-					browserHistory.push("/");
-				}
-			}, 15000);
-		}
-	}
-
-	handleTokenExpiry(){
-		if (checkForTokenExpiry()) {
-			clearKeycloakStorage();
-			browserHistory.push("/");
+					else { // clear timer once isAuthenticated is set to false in storage
+						clearInterval(interval);
+						// browserHistory.push("/");
+					}
+				}, 15000);
+			}
 		}
 	}
 
