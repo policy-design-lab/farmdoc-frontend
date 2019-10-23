@@ -61,7 +61,7 @@ export const forecastYearsToolTip = "Crop years covered by the farm bill; note t
 	"October 1 st of the year following the crop year";
 
 export const loginMessage = "Please login with your account to access the payment calculator. " +
-	"Use the 'REGISTER' button to create an account, if you don't have an account yet.";
+	"If you don't have an account yet, use the 'REGISTER' button to create one.";
 export const sessionExpired = "Your session has expired. Please login again to access the payment calculator";
 
 export const termDefinitions = [
