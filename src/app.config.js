@@ -13,7 +13,7 @@ const mpForecasts = [
 		"description": "This is the  forecast model that forecasts market prices for the next five years",
 		"prices": {
 			"corn": [3.56, 3.58, 3.59, 3.59, 3.60],
-			"soybeans": [8.50, 8.50, 8.50, 8.50, 8.50],
+			"soybeans": [9.20, 9.20, 9.20, 9.20, 9.20],
 			"wheat": [5.11, 5.10, 5.10, 5.10, 5.10],
 		}
 	},
