@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
- ## [1.0.0-beta.0] - 2019-10-18
+ ## [1.0.0-beta.0] - 2019-10-31
 
 ### Added
 - Added keycloak for user authentication and used it's token for all API calls
@@ -13,8 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Removed existing Login and Register pages that were using Datawolf
-- Removed 'Try it Out' button for alpha users
+- Removed 'Try it Out' button for alpha users and added text on home page to register for an account
 - Updated workflow ids to work with the new model that gets inputs from postgres database
+- Index page's title and meta tags are updated with the tool specific content.
 
  ## [1.0.0-alpha.0] - 2019-08-06
 

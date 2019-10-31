@@ -40,8 +40,7 @@ export const plcPayYieldToolTip = "The PLC Payment Yield is the payment yield fo
 	"average yields and available from the Farm Service Agency (FSA). The 2018 Farm Bill provided a one-time " +
 	"opportunity for the landlord to elect to update the payment yield for the FSA farm";
 export const practiceTypeToolTip = "Practice type can be irrigated or non-irrigated when applicable";
-export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA farm as provided by FSA; default is " +
-	"the county average payment yield for PLC";
+export const plcPayYieldInputToolTip = "Enter the PLC program yield for your FSA farm as provided by FSA";
 export const stateCountySelectToolTip = "Select the state and county for the FSA farm’s location";
 export const cropSelectToolTip = "Select the crop for program payment estimate";
 export const expectedPayoutTooltip = "This is the average expected payments including those cases that are $0 and those that are larger";
