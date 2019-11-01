@@ -41,11 +41,11 @@ const mpForecasts = [
 		"id": "cbo",
 		"name": "CBO",
 		"description": "The CBO price scenario uses the Marketing Year Average prices as forecast by the " +
-			"Congressional Budget Office (CBO) in its January 2019 Baseline estimates, available from CBO",
+			"Congressional Budget Office (CBO) in its May 2019 Baseline estimates, available from CBO",
 		"prices": {
-			"corn": [3.53, 3.66, 3.76, 3.72, 3.72],
-			"soybeans": [9.67, 9.81, 9.67, 9.69, 9.7],
-			"wheat": [5.11, 5.11, 5.11, 5.11, 5.11],
+			"corn": [3.65, 3.86, 3.73, 3.72, 3.75],
+			"soybeans": [8.63, 9.04, 9.12, 9.17, 9.22],
+			"wheat": [5.05, 5.08, 5.09, 5.09, 5.08],
 		}
 	}
 ];

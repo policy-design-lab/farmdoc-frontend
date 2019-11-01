@@ -150,6 +150,6 @@ export const termDefinitions = [
 			"to select the CBO price forecasts as an alternative scenario for estimating ARC-CO and PLC payments and their likelihood.  The CBO forecast" +
 			" of MYA prices are used for the 1,000 model runs of the tool in each of the crop years 2019 through 2023 as if those forecasts were the MYA price" +
 			" for the crop year.  CBO updates its price forecasts each year and the tool will incorporate the latest CBO price forecasts in the scenario.",
-		"links": [{"name": "January 2019 Estimates", "href": "https://www.cbo.gov/system/files?file=2019-01/51317-2019-01-usda.pdf"}]
+		"links": [{"name": "May 2019 Estimates", "href": "https://www.cbo.gov/system/files/2019-05/51317-2019-05-usda_0.pdf"}]
 	},
 ];
