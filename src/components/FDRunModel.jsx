@@ -199,7 +199,8 @@ class FDRunModel extends Component {
 		showError: false,
 		errorMsg: dataNotAvailable,
 		disablePraccode: true,
-		hidePraccode: true
+		hidePraccode: true,
+		cropYields: []
 	};
 
 	constructor(props) {
@@ -240,12 +241,22 @@ class FDRunModel extends Component {
 			showError: false,
 			errorMsg: dataNotAvailable,
 			disablePraccode: true,
-			hidePraccode: true
+			hidePraccode: true,
+			cropYields: []
 		};
 	}
 
 	handlePracCodeChange = event => {
-		this.setState({pracCode: event.target.value});
+		let selPrac = event.target.value;
+		this.setState({pracCode: selPrac});
+
+		let intSelPrac = parseInt(selPrac);
+
+		this.state.cropYields.forEach((item) => {
+			if (item.pracCode === intSelPrac) {
+				this.setState({arcYield: item.arcYield});
+			}
+		});
 	};
 
 	handleForecastOpen = () => {
@@ -547,6 +558,7 @@ class FDRunModel extends Component {
 			});
 
 			if (cropParams.length > 0) {
+				this.setState({cropYields: cropParams});
 				if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
 					if (cropParams[0]["pracCode"] === 3) {
 						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
@@ -562,7 +574,6 @@ class FDRunModel extends Component {
 					this.setState({pracCode: cropParams[0]["pracCode"].toString()});
 				}
 				else { //more than one pracCode Present
-
 					let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
 					cropParams.forEach((item) => {
 						if (item.pracCode === 2) {
@@ -578,6 +589,7 @@ class FDRunModel extends Component {
 				this.setState({showError: false});
 			}
 			else { // No crop data is available
+				this.setState({cropYields: []});
 				this.setState({arcYield: ""});
 				this.setState({pracCode: ""});
 				this.setState({hidePraccode: true});
