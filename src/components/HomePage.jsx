@@ -19,11 +19,11 @@ class HomePage extends Component {
 	};
 
 	handleIEPopupOpen = () => {
-		this.setState({PreReleasePopup: true});
+		this.setState({IEPopup: true});
 	};
 
 	handleIEPopupClose = () => {
-		this.setState({PreReleasePopup: false});
+		this.setState({IEPopup: false});
 	};
 
 	handlePrereleasePopupOpen = () => {
@@ -48,7 +48,7 @@ class HomePage extends Component {
 		}
 
 	}
-	
+
 	render(){
 
 		let notificationDiv = null;
