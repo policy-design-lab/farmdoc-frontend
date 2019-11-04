@@ -11,6 +11,7 @@ import ProgramParams from "./ProgramParams";
 import "../styles/main.css";
 import Documentation from "./Documentation";
 import Login from "./Login";
+import InsDashboard from "./InsDasboard";
 
 global.__base = `${__dirname}/`;
 
@@ -41,6 +42,7 @@ class App extends Component {
 						<Route path="/charts" component={Results}/>
 						<Route path="/params" component={ProgramParams}/>
 						<Route path="/docs" component={Documentation}/>
+						<Route path="/ins" component={InsDashboard}/>
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
 				</MuiThemeProvider>
