@@ -59,8 +59,9 @@ export const paymentAcresToolTip = "Both ARC and PLC pay on 85% of the base acre
 export const forecastYearsToolTip = "Crop years covered by the farm bill; note that payments will be made after " +
 	"October 1 st of the year following the crop year";
 
-export const loginMessage = "Please login with your account to access the payment calculator. " +
-	"If you don't have an account yet, use the 'REGISTER' button to create one.";
+export const loginMessage = "Please login with your account to access the payment calculator. If you don't have" +
+	" an account yet, use the 'REGISTER' button to create one. If you are having trouble receiving the verification" +
+	" email in your inbox, please check your spam/junk folder.";
 export const sessionExpired = "Your session has expired. Please login again to access the payment calculator";
 
 export const termDefinitions = [

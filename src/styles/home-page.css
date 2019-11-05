@@ -126,7 +126,7 @@
 
 .isa_info, .isa_success, .isa_warning, .isa_error {
 	margin: 0 0;
-	padding:4px 12px;
+	padding:4px 6px;
 	font-size: 15px;
 	border-radius: 7px;
 }
@@ -140,6 +140,8 @@
 	background-color: #DFF2BF;
 }
 .isa_warning {
+	max-width: 860px;
+	display: inline-block;
 	color: #9F6000;
 	background-color: #FEEFB3;
 }
