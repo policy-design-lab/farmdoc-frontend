@@ -9,8 +9,6 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
 	getOutputFileJson,
-	getMarketPricesForForecastModel,
-	getBinSizeForCrop,
 	getStates,
 	getCounties,
 	getCropParams
@@ -22,14 +20,8 @@ import {
 	steps,
 } from "../datawolf.config";
 import {
-	changeCommodity,
-	changeForecastType,
-	changeCounty,
-	changePaymentYield,
-	changeArcYield,
-	changeRefPrice,
-	handleResults,
-} from "../actions/model";
+	handlePremiumResults
+} from "../actions/insPremiums";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
 import {
@@ -40,22 +32,6 @@ import {
 	stateCountySelectToolTip
 } from "../app.messages";
 import ReactSelect from "react-select";
-import IconButton from "@material-ui/core/IconButton";
-import HelpOutline from "@material-ui/icons/HelpOutline";
-import CloseIcon from "@material-ui/icons/Close";
-import Info from "@material-ui/icons/Info";
-import ForecastModels from "./ForecastModels";
-import ToolTip from "@material-ui/core/Tooltip";
-import ProgramParams from "./ProgramParams";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import {roundResults} from "../public/utils.js";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
@@ -76,7 +52,7 @@ const styles = theme => ({
 	textField: {
 		// marginTop: "8px",
 		// marginRight: "8px",
-		width: 200,
+		width: 160,
 	},
 	menu: {
 		width: 150,
@@ -102,7 +78,18 @@ const styles = theme => ({
 		marginTop: 15,
 		marginLeft: 20,
 		marginRight: 20,
+		textAlign: "left"
 	},
+
+	formControlHorizontalTextBox: {
+		margin: theme.spacing.unit,
+		minWidth: 150,
+		marginTop: 15,
+		marginLeft: 20,
+		marginRight: 20,
+		textAlign: "left"
+	},
+
 	helpIcon: {
 		fontSize: 24
 	},
@@ -123,7 +110,7 @@ const styles = theme => ({
 const ReactSelectStyles = {
 	option: (provided) => ({
 		...provided,
-		fontSize: 16
+		fontSize: 16,
 	}),
 	control: (provided) => ({
 		...provided,
@@ -161,19 +148,6 @@ function Control(props) {
 	);
 }
 
-function getModalStyle() {
-	const top = 50; //+ rand();
-	const left = 50;// + rand();
-
-	return {
-		top: `${top}%`,
-		left: `${left}%`,
-		transform: `translate(-${top}%, -${left}%)`,
-		display: "inline-block",
-		borderRadius: 12
-	};
-}
-
 const components = {
 	Control
 };
@@ -190,7 +164,7 @@ class PremiumCalculator extends Component {
 		units: config.defaultsJson.units,
 
 	  runStatus: "",
-		modelResult: null,
+		premResults: null,
 		countySelValue: null,
 
 		aphYield: "160",
@@ -206,10 +180,10 @@ class PremiumCalculator extends Component {
 
 	constructor(props) {
 		super(props);
-		this.runModel = this.runModel.bind(this);
+		this.calcPremiums = this.calcPremiums.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
-		this.handleResultsChange = this.handleResultsChange.bind(this);
+		this.handlePremiumResults = this.handlePremiumResults.bind(this);
 
 
 		this.state = {
@@ -222,7 +196,7 @@ class PremiumCalculator extends Component {
 			units: config.defaultsJson.units,
 
 			runStatus: "",
-			modelResult: null,
+			premResults: null,
 			countySelValue: null,
 
 			aphYield: "160",
@@ -248,7 +222,6 @@ class PremiumCalculator extends Component {
 		switch (name) {
 			case "county":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
-				this.props.handleCountyChange(event.value);
 				break;
 
 			case "stateSel":
@@ -259,7 +232,6 @@ class PremiumCalculator extends Component {
 				}
 				break;
 			case "commodity":
-				this.props.handleCommodityChange(event.value);
 				if (event.value !== "") {
 					this.populateRefPriceAndUnits(event.value);
 				}
@@ -279,25 +251,7 @@ class PremiumCalculator extends Component {
 		});
 	};
 
-
-	validateMaxValue = value => event => {
-		if (event.target.value !== "") {
-			if (isNaN(event.target.value)) {
-				event.target.value = event.target.value.toString().slice(0, -1);
-			}
-			else {
-				if (event.target.value <= 0) {
-					event.target.value = 1;
-				}
-				else if (event.target.value > value) {
-					event.target.value = value;
-				}
-			}
-		}
-	};
-
-
-	async runModel() {
+	async calcPremiums() {
 		//let status = "STARTED";
 		let personId = localStorage.getItem("dwPersonId");
 		this.setState({
@@ -326,11 +280,27 @@ class PremiumCalculator extends Component {
 
 		let countyFips, crop, aphYield, useTaAdj, taYield, rateYield, riskClass, farmAcres,
 			grainType, practiceType, preventePlanting;
+		let premiumsResult = "";
 
+		const premiumsResponse = await fetch("http://localhost:5000/api/compute/premiums", {
+			method: "GET",
+			//headers: kcHeaders,
+		});
+
+		if (premiumsResponse instanceof Response) {
+			try {
+				premiumsResult = await premiumsResponse.json();
+				this.handlePremiumResults(JSON.stringify(premiumsResult));
+				//this.setState({runStatus: premiumResult.stepState[steps.Farm_Model]});
+			}
+			catch (error) {
+				console.log("error getting the response from flask api");
+			}
+		}
 	}
 
-	handleResultsChange(results) {
-		this.props.handleResultsChange(results);
+	handlePremiumResults(results) {
+		this.props.handlePremiumResults(results);
 	}
 
 	componentDidMount() {
@@ -490,13 +460,32 @@ class PremiumCalculator extends Component {
 				</div>
 				<br/>
 				<div style={{
-					maxWidth: "1000px",
+					maxWidth: "1050px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
 					marginLeft: "50px", marginRight: "5px", marginTop: "15px", marginBottom: "15px",
 					paddingBottom: "12px",
 					display: "inline-block"
 				}}>
-					<FormControl className={classes.formControlHorizontal}>
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
+							id="farmAcres"
+							label="Acres"
+							value={this.state.farmAcres}
+							margin="normal"
+							onChange={this.handleMuiChange("farmAcres")}
+							className={classes.textField}
+							required
+							InputLabelProps={{shrink: true}}
+							InputProps={{
+								//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+								inputProps: textFieldInputStyle
+							}}
+							inputProps={{padding: 10}}
+							// onInput={this.validateMaxValue(300)}
+						/>
+					</FormControl>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
 							id="aphYield"
 							label="APH Yield"
@@ -525,7 +514,7 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FormControl className={classes.formControlHorizontal}>
+					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
 							id="taYield"
 							label="TA Yield"
@@ -544,7 +533,7 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FormControl className={classes.formControlHorizontal}>
+					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
 							id="rateYield"
 							label="Rate Yield"
@@ -564,25 +553,6 @@ class PremiumCalculator extends Component {
 					</FormControl>
 
 					<br/>
-
-					<FormControl className={classes.formControlHorizontal}>
-						<TextField
-							id="farmAcres"
-							label="Acres"
-							value={this.state.farmAcres}
-							margin="normal"
-							onChange={this.handleMuiChange("farmAcres")}
-							className={classes.textField}
-							required
-							InputLabelProps={{shrink: true}}
-							InputProps={{
-								//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-								inputProps: textFieldInputStyle
-							}}
-							inputProps={{padding: 10}}
-							// onInput={this.validateMaxValue(300)}
-						/>
-					</FormControl>
 
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="riskId">
@@ -628,7 +598,7 @@ class PremiumCalculator extends Component {
 					<br/> <br/>
 
 					<div style={{textAlign: "center"}}>
-						<Button variant="contained" color="primary" onClick={this.runModel}
+						<Button variant="contained" color="primary" onClick={this.calcPremiums}
 										disabled={!this.validateInputs()}
 										style={{fontSize: "large", backgroundColor: "#455A64"}}>
 							<Icon className={classes.leftIcon}> send </Icon>
@@ -648,26 +618,12 @@ class PremiumCalculator extends Component {
 }
 
 const mapStateToProps = state => ({
-	county: state.county,
-	commodity: state.commodity,
-	forecastType: state.forecastType,
-	refPrice: state.refPrice,
-	arcYield: state.arcYield,
-	paymentYield: state.paymentYield,
-	coverage: state.coverage,
-	range: state.range,
-	acres: state.acres,
-	countyResults: state.modelResult
+	premResults: state.premResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handleCountyChange: county => dispatch(changeCounty(county)),
-	handleCommodityChange: commodity => dispatch(changeCommodity(commodity)),
-	handleForecastTypeChange: forecastType => dispatch(changeForecastType(forecastType)),
-	handleRefPriceChange: refPrice => dispatch(changeRefPrice(refPrice)),
-	handlePaymentYieldChange: paymentYield => dispatch(changePaymentYield(paymentYield)),
-	handleArcYieldChange: arcYield => dispatch(changeArcYield(arcYield)),
-	handleResultsChange: results => dispatch(handleResults(results))
+
+	handlePremiumResults: premResults => dispatch(handlePremiumResults(premResults))
 });
 
 
