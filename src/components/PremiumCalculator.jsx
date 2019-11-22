@@ -20,7 +20,8 @@ import {
 	steps,
 } from "../datawolf.config";
 import {
-	handlePremiumResults
+	handlePremiumResults,
+	handleCountyProductsResults
 } from "../actions/insPremiums";
 import Spinner from "../components/Spinner";
 import config from "../app.config";
@@ -184,6 +185,7 @@ class PremiumCalculator extends Component {
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handlePremiumResults = this.handlePremiumResults.bind(this);
+		this.handleCountyProductsResults = this.handleCountyProductsResults.bind(this);
 
 
 		this.state = {
@@ -281,6 +283,7 @@ class PremiumCalculator extends Component {
 		let countyFips, crop, aphYield, useTaAdj, taYield, rateYield, riskClass, farmAcres,
 			grainType, practiceType, preventePlanting;
 		let premiumsResult = "";
+		let countyProductsResult = "";
 
 		const premiumsResponse = await fetch("http://localhost:5000/api/compute/premiums", {
 			method: "GET",
@@ -297,10 +300,32 @@ class PremiumCalculator extends Component {
 				console.log("error getting the response from flask api");
 			}
 		}
+
+		const countyProductsResponse = await fetch("http://localhost:5000/api/compute/premGrip", {
+			method: "GET",
+			//headers: kcHeaders,
+		});
+
+		if (countyProductsResponse instanceof Response) {
+			try {
+				countyProductsResult = await countyProductsResponse.json();
+				console.log(countyProductsResult);
+				this.handleCountyProductsResults(JSON.stringify(countyProductsResult));
+			}
+			catch (error) {
+				console.log(error);
+				console.log("error getting the response from flask api");
+			}
+		}
+
 	}
 
 	handlePremiumResults(results) {
 		this.props.handlePremiumResults(results);
+	}
+
+	handleCountyProductsResults(results) {
+		this.props.handleCountyProductsResults(results);
 	}
 
 	componentDidMount() {
@@ -618,12 +643,14 @@ class PremiumCalculator extends Component {
 }
 
 const mapStateToProps = state => ({
-	premResults: state.premResults
+	premResults: state.premResults,
+	countyProductsResults: state.countyProductsResults
 });
 
 const mapDispatchToProps = dispatch => ({
 
-	handlePremiumResults: premResults => dispatch(handlePremiumResults(premResults))
+	handlePremiumResults: premResults => dispatch(handlePremiumResults(premResults)),
+	handleCountyProductsResults: countyProductsResults => dispatch(handleCountyProductsResults(countyProductsResults))
 });
 
 
