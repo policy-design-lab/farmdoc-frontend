@@ -154,19 +154,9 @@ class PremiumResults extends Component {
 
 	render() {
 		const {classes} = this.props;
-		console.log(this.props);
-
-		let years = [];
-		let prices = [];
-		let yields = [];
-		let arc = [];
-		let plc = [];
-		let probArc = [];
-		let probPlc = [];
-		let yieldUnits = "";
 		//TODO: Fetch from config
 		// let coverageLevels = ["50", "55", "60", "65", "70", "75", "80", "85"];
-		let premiumRows = [];
+
 		let policyJsonData = null;
 		let countyJsonData = null;
 
