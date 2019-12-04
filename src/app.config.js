@@ -8,7 +8,7 @@ const crops = [
 
 const mpForecasts = [
 	{
-	  "id": "forecast",
+		"id": "forecast",
 		"name": "Forecast",
 		"description": "This is the  forecast model that forecasts market prices for the next five years",
 		"prices": {
@@ -18,7 +18,7 @@ const mpForecasts = [
 		}
 	},
 	{
-	  "id": "high",
+		"id": "high",
 		"name": "High",
 		"description": "This is the USDA High forecast model that forecasts market prices for the next five years",
 		"prices": {
@@ -67,6 +67,7 @@ const tooltipTouchDelay = 50; //milli seconds
 
 const demoUser = "farmdoc";
 const demoUserPw = "farmdoc1234";
+const faqUrl = "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions";
 
 const devConfig = {
 	basePath: "/",
@@ -80,7 +81,8 @@ const devConfig = {
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json")
+	keycloak: Keycloak("keycloak.json"),
+	faqUrl: faqUrl
 };
 
 const prodConfig = {
@@ -95,7 +97,8 @@ const prodConfig = {
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json")
+	keycloak: Keycloak("keycloak.json"),
+	faqUrl: faqUrl
 };
 
 const config = getConfig();
