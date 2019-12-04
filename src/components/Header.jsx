@@ -40,7 +40,6 @@ class Header extends Component {
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleRegister = this.handleRegister.bind(this);
-		this.handleSupport = this.handleSupport.bind(this);
 	}
 
 	componentDidMount(): void {
@@ -69,10 +68,6 @@ class Header extends Component {
 
 	handleLogin(){
 		browserHistory.push("/login");
-	}
-
-	handleSupport(){
-
 	}
 
 	handleRegister(){
@@ -130,7 +125,7 @@ class Header extends Component {
 										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
 
 										<Tooltip title="Troubleshooting steps and FAQs">
-											<Button onClick={this.handleSupport} style={{height: "40px"}}>
+											<Button style={{height: "40px"}}>
 												<Link to={config.faqUrl} target="_blank" onlyActiveOnIndex>Need Help?</Link>
 											</Button>
 										</Tooltip>
