@@ -11,6 +11,7 @@ import {
 	getOutputFileJson,
 	getStates,
 	getCounties,
+	getParams,
 	getCropParams
 } from "../public/utils";
 import {
@@ -161,7 +162,7 @@ class PremiumCalculator extends Component {
 		counties: [],
 		county: "",
 		program: "both",
-		commodity: config.defaultsJson.commodity,
+		cropId: config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
 	  runStatus: "",
@@ -171,11 +172,11 @@ class PremiumCalculator extends Component {
 		aphYield: "160",
 		taYield: "160",
 		rateYield: "160",
-		useTaAdj: "yes", //TODO: Change to true/false
+		useTaAdj: true, //TODO: Change to true/false
 		riskClass: "none",
 		farmAcres: "100",
 		grainType: "grain",
-		practiceType: "3",
+		practiceType: 3,
 		preventedPlanting: "0"
 	};
 
@@ -194,7 +195,7 @@ class PremiumCalculator extends Component {
 			counties: [],
 			county: "",
 			program: "both",
-			commodity: config.defaultsJson.commodity,
+			cropId: config.defaultsJson.cropId,
 			units: config.defaultsJson.units,
 
 			runStatus: "",
@@ -204,19 +205,22 @@ class PremiumCalculator extends Component {
 			aphYield: "160",
 			taYield: "160",
 			rateYield: "160",
-			useTaAdj: "yes", //TODO: Change to true/false
-			riskClass: "none",
+			useTaAdj: true,
 			farmAcres: "100",
+
+			riskClass: "none",
 			grainType: "grain",
-			practiceType: "3",
-			preventedPlanting: "0"
+			practiceType: 3,
+			preventedPlanting: "0",
+
+			practiceTypes: []
 		};
 	}
 
 	handleReactSelectChange = name => event => {
 		this.setState({
 			[name]: event.value}, function(){
-			if (this.state.commodity !== "" && this.state.county !== ""){
+			if (this.state.cropId !== "" && this.state.county !== ""){
 				//TODO: Remove if not needed. Use to get params from flask endpoints
 			}
 		});
@@ -233,9 +237,10 @@ class PremiumCalculator extends Component {
 					this.populateCounties(event.value);
 				}
 				break;
-			case "commodity":
+			case "cropId":
 				if (event.value !== "") {
-					this.populateRefPriceAndUnits(event.value);
+					this.populateCropUnits(event.value);
+					this.setParams();
 				}
 				break;
 		}
@@ -252,6 +257,32 @@ class PremiumCalculator extends Component {
 			[name]: event.target.value,
 		});
 	};
+
+
+	setParams() {
+		getParams().then(function(response) {
+			if (response.status === 200) {
+				return response.json();
+			}
+			else {
+				console.log(
+					"Flask Service API call failed. Most likely the token expired");
+			// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			//console.log(data);
+			this.setState({aphYield: data.aphYield});
+			this.setState({taYield: data.TAYield});
+			this.setState({rateYield: data.rateYield});
+			this.setState({useTaAdj: data.useTaAdjustment});
+			this.setState({farmAcres: data.acres});
+			this.setState({practiceTypes: data.grpPractices});
+			// 		riskClass: "none",
+			// 		grainType: "grain",
+			// 		preventedPlanting: "0"
+		});
+	}
+
 
 	async calcPremiums() {
 		//let status = "STARTED";
@@ -370,9 +401,9 @@ class PremiumCalculator extends Component {
 		});
 	}
 
-	populateRefPriceAndUnits(commodity) {
+	populateCropUnits(cropId) {
 		config.commodities.forEach((item) => {
-			if (item.id === commodity) {
+			if (item.cropId === cropId) {
 				this.setState({
 
 					units: item.units,
@@ -382,7 +413,7 @@ class PremiumCalculator extends Component {
 	}
 
 	validateInputs() {
-		return this.state.county > 0 && this.state.commodity !== "";
+		return this.state.county > 0 && this.state.cropId !== "";
 	}
 
 	render() {
@@ -410,8 +441,25 @@ class PremiumCalculator extends Component {
 
 		let cropOptions = [];
 		config.commodities.forEach((item) => {
-			cropOptions.push({value: item.id, label: item.name});
+			cropOptions.push({value: item.cropId, label: item.name});
 		});
+
+		let cropCode = null;
+		if (this.state.county !== "") {
+			cropCode = `${this.state.county}${this.state.cropId}`;
+		}
+
+		let practiceTypeOptions = [];
+
+		if (this.state.practiceTypes != null) {
+
+			this.state.practiceTypes.forEach((item) => {
+				practiceTypeOptions.push(<MenuItem
+						value={item.practiceCode}>{item.practiceLabel}</MenuItem>);
+			});
+		}
+
+
 		return (
 			<div style={{textAlign: "center"}}>
 
@@ -474,8 +522,9 @@ class PremiumCalculator extends Component {
 												 }}
 												 components={components}
 												 placeholder="Select"
+												 //value={this.state.cropId}
 												 options={cropOptions}
-												 onChange={this.handleReactSelectChange("commodity")}
+												 onChange={this.handleReactSelectChange("cropId")}
 												 inputProps={{
 													 name: "crop",
 													 id: "crop-simple",
@@ -534,8 +583,8 @@ class PremiumCalculator extends Component {
 							Use TA Adjustment
 						</InputLabel>
 						<Select id="useTaAdj" labelId="taId" value={this.state.useTaAdj} onChange={this.handleMuiSelectChange("useTaAdj")}>
-							<MenuItem value="yes">Yes</MenuItem>
-							<MenuItem value="no">No</MenuItem>
+							<MenuItem value={true}>Yes</MenuItem>
+							<MenuItem value={false}>No</MenuItem>
 						</Select>
 					</FormControl>
 
@@ -604,8 +653,7 @@ class PremiumCalculator extends Component {
 							Practice
 						</InputLabel>
 						<Select id="practiceType" labelId="practiceTypeId" value={this.state.practiceType} onChange={this.handleMuiSelectChange("practiceType")}>
-							<MenuItem value="3">Non-Irrigated</MenuItem>
-							<MenuItem value="2">Irrigated</MenuItem>
+							{practiceTypeOptions}
 						</Select>
 					</FormControl>
 

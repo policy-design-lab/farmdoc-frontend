@@ -1,9 +1,9 @@
 import Keycloak from "keycloak-js";
 
 const crops = [
-	{"id": "corn", "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
-	{"id": "soybeans", "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
-	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
+	{"id": "corn", "cropId": 41, "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
+	{"id": "soybeans", "cropId": 81, "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
+	{"id": "wheat", "cropId": 999, "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
 ];
 
 const mpForecasts = [
@@ -52,6 +52,7 @@ const mpForecasts = [
 
 const defaultsJson = {
 	commodity: "",
+	cropId: 41, //corn for premium calculator
 	forecastType: "forecast",
 	forecastName: "Forecast",
 	paymentYield: "",

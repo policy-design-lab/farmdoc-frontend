@@ -80,6 +80,18 @@ export function getStates(){
 	});
 }
 
+export function getParams(){
+
+	return fetch("http://localhost:5000/api/compute/params/1701341/0/0", {
+		method: "GET",
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getParams Flask api call. Most likely due to network or service being down");
+	});
+}
+
 export function getCounties(stateId){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
