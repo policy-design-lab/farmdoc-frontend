@@ -162,22 +162,27 @@ class PremiumCalculator extends Component {
 		counties: [],
 		county: "",
 		program: "both",
-		cropId: config.defaultsJson.cropId,
+		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
 	  runStatus: "",
 		premResults: null,
 		countySelValue: null,
+		cropCode: null,
 
-		aphYield: "160",
-		taYield: "160",
-		rateYield: "160",
-		useTaAdj: true, //TODO: Change to true/false
-		riskClass: "none",
-		farmAcres: "100",
-		grainType: "grain",
-		practiceType: 3,
-		preventedPlanting: "0"
+		aphYield: null,
+		taYield: null,
+		rateYield: null,
+		useTaAdj: true,
+		riskClass: 0, //TODO: should this be null instead?
+		farmAcres: null,
+		grainType: 16, //TODO: should this be null instead?
+		practiceType: 3, // TODO: Also, use the other types such as organic etc.?
+		preventedPlanting: "0",
+
+		practiceTypes: [],
+		riskClasses: [],
+		grainTypes: []
 	};
 
 	constructor(props) {
@@ -195,25 +200,28 @@ class PremiumCalculator extends Component {
 			counties: [],
 			county: "",
 			program: "both",
-			cropId: config.defaultsJson.cropId,
+			cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 			units: config.defaultsJson.units,
 
 			runStatus: "",
 			premResults: null,
 			countySelValue: null,
+			cropCode: null,
 
-			aphYield: "160",
-			taYield: "160",
-			rateYield: "160",
+			aphYield: null,
+			taYield: null,
+			rateYield: null,
 			useTaAdj: true,
-			farmAcres: "100",
+			farmAcres: null,
 
-			riskClass: "none",
-			grainType: "grain",
+			riskClass: 0,
+			grainType: 16,
 			practiceType: 3,
 			preventedPlanting: "0",
 
-			practiceTypes: []
+			practiceTypes: [],
+			riskClasses: [],
+			grainTypes: []
 		};
 	}
 
@@ -228,6 +236,11 @@ class PremiumCalculator extends Component {
 		switch (name) {
 			case "county":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
+				if (this.state.cropId !== null){
+					let cropCode = `${event.value }${ this.state.cropId}`;
+					this.setState({cropCode: cropCode});
+					this.setParams(cropCode);
+				}
 				break;
 
 			case "stateSel":
@@ -240,7 +253,10 @@ class PremiumCalculator extends Component {
 			case "cropId":
 				if (event.value !== "") {
 					this.populateCropUnits(event.value);
-					this.setParams();
+
+					let cropCode = `${this.state.county }${ event.value}`;
+					this.setState({cropCode: cropCode});
+					this.setParams(cropCode);
 				}
 				break;
 		}
@@ -259,8 +275,8 @@ class PremiumCalculator extends Component {
 	};
 
 
-	setParams() {
-		getParams().then(function(response) {
+	setParams(cropCode) {
+		getParams(cropCode).then(function(response) {
 			if (response.status === 200) {
 				return response.json();
 			}
@@ -276,7 +292,10 @@ class PremiumCalculator extends Component {
 			this.setState({rateYield: data.rateYield});
 			this.setState({useTaAdj: data.useTaAdjustment});
 			this.setState({farmAcres: data.acres});
-			this.setState({practiceTypes: data.grpPractices});
+			this.setState({practiceTypes: data.practices});
+			this.setState({riskClasses: data.riskClasses});
+			this.setState({grainTypes: data.types});
+			// this.setState({riskClasses: data.riskClasses});
 			// 		riskClass: "none",
 			// 		grainType: "grain",
 			// 		preventedPlanting: "0"
@@ -444,11 +463,6 @@ class PremiumCalculator extends Component {
 			cropOptions.push({value: item.cropId, label: item.name});
 		});
 
-		let cropCode = null;
-		if (this.state.county !== "") {
-			cropCode = `${this.state.county}${this.state.cropId}`;
-		}
-
 		let practiceTypeOptions = [];
 
 		if (this.state.practiceTypes != null) {
@@ -456,6 +470,26 @@ class PremiumCalculator extends Component {
 			this.state.practiceTypes.forEach((item) => {
 				practiceTypeOptions.push(<MenuItem
 						value={item.practiceCode}>{item.practiceLabel}</MenuItem>);
+			});
+		}
+
+		let riskClassOptions = [];
+
+		if (this.state.riskClasses != null) {
+
+			this.state.riskClasses.forEach((item) => {
+				riskClassOptions.push(<MenuItem
+						value={item.riskCode}>{item.riskRate}</MenuItem>);
+			});
+		}
+
+		let grainTypeOptions = [];
+
+		if (this.state.grainTypes != null) {
+
+			this.state.grainTypes.forEach((item) => {
+				grainTypeOptions.push(<MenuItem
+						value={item.typeCode}>{item.typeLabel}</MenuItem>);
 			});
 		}
 
@@ -633,8 +667,7 @@ class PremiumCalculator extends Component {
 							Risk Class
 						</InputLabel>
 						<Select id="riskClass" labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
-							<MenuItem value="none">None</MenuItem>
-							<MenuItem value="na">NA</MenuItem>
+							{riskClassOptions}
 						</Select>
 					</FormControl>
 
@@ -643,8 +676,7 @@ class PremiumCalculator extends Component {
 							Type
 						</InputLabel>
 						<Select id="grainType" labelId="grainTypeId" value={this.state.grainType} onChange={this.handleMuiSelectChange("grainType")}>
-							<MenuItem value="grain">Grain</MenuItem>
-							<MenuItem value="na">NA</MenuItem>
+							{grainTypeOptions}
 						</Select>
 					</FormControl>
 

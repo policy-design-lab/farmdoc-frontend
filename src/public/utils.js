@@ -80,9 +80,8 @@ export function getStates(){
 	});
 }
 
-export function getParams(){
-
-	return fetch("http://localhost:5000/api/compute/params/1701341/0/0", {
+export function getParams(cropCode){
+	return fetch(`http://localhost:5000/api/compute/params/${cropCode}/0/0`, {
 		method: "GET",
 	}).then(function(response){
 		return response;
