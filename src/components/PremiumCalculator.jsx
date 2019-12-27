@@ -179,6 +179,8 @@ class PremiumCalculator extends Component {
 		grainType: 16, //TODO: should this be null instead?
 		practiceType: 3, // TODO: Also, use the other types such as organic etc.?
 		preventedPlanting: "0",
+		projectedPrice: null,
+		volFactor: null,
 
 		practiceTypes: [],
 		riskClasses: [],
@@ -218,6 +220,8 @@ class PremiumCalculator extends Component {
 			grainType: 16,
 			practiceType: 3,
 			preventedPlanting: "0",
+			projectedPrice: null,
+			volFactor: null,
 
 			practiceTypes: [],
 			riskClasses: [],
@@ -295,10 +299,8 @@ class PremiumCalculator extends Component {
 			this.setState({practiceTypes: data.practices});
 			this.setState({riskClasses: data.riskClasses});
 			this.setState({grainTypes: data.types});
-			// this.setState({riskClasses: data.riskClasses});
-			// 		riskClass: "none",
-			// 		grainType: "grain",
-			// 		preventedPlanting: "0"
+			this.setState({projectedPrice: data.comboProjPrice});
+			this.setState({volFactor: data.comboVol});
 		});
 	}
 
@@ -698,6 +700,43 @@ class PremiumCalculator extends Component {
 							<MenuItem value="1">Plus 5%</MenuItem>
 							<MenuItem value="2">Plus 10%</MenuItem>
 						</Select>
+					</FormControl>
+					<br/>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
+								id="projectedPrice"
+								label="Projected Price"
+								value={this.state.projectedPrice}
+								margin="normal"
+								onChange={this.handleMuiChange("projectedPrice")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
+						/>
+					</FormControl>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
+								id="volFactor"
+								label="Volatility Factor"
+								value={this.state.volFactor}
+								margin="normal"
+								onChange={this.handleMuiChange("volFactor")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
+						/>
 					</FormControl>
 
 					<br/> <br/>
