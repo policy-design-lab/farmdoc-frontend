@@ -18,6 +18,8 @@ import config from "../app.config";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const styles = theme => ({
 	root: {
@@ -46,6 +48,12 @@ const styles = theme => ({
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing.unit * 4,
 		outline: "none"
+	},
+	textField: {
+		marginLeft: theme.spacing.unit * 1,
+		marginRight: theme.spacing.unit * 1,
+		// border: 1,
+		width: 140,
 	}
 });
 
@@ -141,12 +149,23 @@ const BottomMostTableCell = withStyles({
 const coloredBg = {backgroundColor: "WhiteSmoke"};
 
 class PremiumResults extends Component {
-
+	state = {
+		countyCoverage: 95
+	};
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			countyCoverage: 95
+		};
 	}
 
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+	};
 
 	componentWillUnmount() {
 		this.props.handlePremiumResults(null);
@@ -178,6 +197,11 @@ class PremiumResults extends Component {
 
 		let farmPolicyRows = [];
 		let countyProductsRows = [];
+
+		let customCoverage = 0;
+		if(this.state.countyCoverage !== null){
+			customCoverage = this.state.countyCoverage;
+		}
 
 		if (policyJsonData !== null && countyJsonData !== null) {
 			let farmPolicyObjData = JSON.parse(policyJsonData);
@@ -258,17 +282,17 @@ class PremiumResults extends Component {
 								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{premiums[cov]["rp"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (95 / 120), 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
 								<CommonTableCell>{premiums[cov]["rphpe"]}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (95 / 120), 2)}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</CommonTableCell>
 								<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{premiums[cov]["yp"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (95 / 120), 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</CommonTableCell>
 								<RightMostTableCell style={coloredBg}>{guarantees[cov]["yp"]}</RightMostTableCell>
 							</TableRow>
@@ -280,17 +304,17 @@ class PremiumResults extends Component {
 								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (95 / 120), 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
 								<BottomMostTableCell>{premiums[cov]["rphpe"]}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (95 / 120), 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{premiums[cov]["yp"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (95 / 120), 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
 									{guarantees[cov]["yp"]}</BottomMostTableCell>
@@ -346,6 +370,21 @@ class PremiumResults extends Component {
 					<Divider/>
 
 					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products </h2></div>
+
+
+					{/*TODO: Set max and min allowable values? Border/Outline not working, try to fix */}
+					<TextField
+							id="countyCoverage"
+							label="Custom Coverage"
+							className={classes.textField}
+							value={this.state.countyCoverage}
+							onChange={this.handleChange("countyCoverage")}
+							InputProps={{
+								endAdornment: <InputAdornment position="end">%</InputAdornment>,
+							}}
+							margin="normal"
+							variant="outlined"
+					/>
 					<Table className={classes.table}>
 						<TableBody>
 							<TableRow style={{height: "64px"}}>
@@ -369,15 +408,15 @@ class PremiumResults extends Component {
 
 							<TableRow style={{height: "48px"}}>
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>95%</TableCellHeader>
+								<TableCellHeader className="table-header-tooltip" style={coloredBg}>{customCoverage}%</TableCellHeader>
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>80%</TableCellHeader>
 
 								<TableCellHeader className="table-header-tooltip">120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">95%</TableCellHeader>
+								<TableCellHeader className="table-header-tooltip">{customCoverage}%</TableCellHeader>
 								<TableCellHeader className="table-header-tooltip">80%</TableCellHeader>
 
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>95%</TableCellHeader>
+								<TableCellHeader className="table-header-tooltip" style={coloredBg}>{customCoverage}%</TableCellHeader>
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>80%</TableCellHeader>
 							</TableRow>
 
