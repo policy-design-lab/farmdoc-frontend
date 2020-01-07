@@ -167,9 +167,26 @@ class PremiumResults extends Component {
 		});
 	};
 
+	validateMaxValue = value => event => {
+		if (event.target.value !== "") {
+			if (isNaN(event.target.value)) {
+				event.target.value = event.target.value.toString().slice(0, -1);
+			}
+			else {
+				if (event.target.value <= 0) {
+					event.target.value = 1;
+				}
+				else if (event.target.value > value) {
+					event.target.value = value;
+				}
+			}
+		}
+	};
+
 	componentWillUnmount() {
 		this.props.handlePremiumResults(null);
 	}
+
 
 	render() {
 		const {classes} = this.props;
@@ -372,7 +389,7 @@ class PremiumResults extends Component {
 					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products </h2></div>
 
 
-					{/*TODO: Set max and min allowable values? Border/Outline not working, try to fix */}
+					{/*TODO: Border/Outline not working, try to fix */}
 					<TextField
 							id="countyCoverage"
 							label="Custom Coverage"
@@ -384,6 +401,7 @@ class PremiumResults extends Component {
 							}}
 							margin="normal"
 							variant="outlined"
+							onInput={this.validateMaxValue(120)}
 					/>
 					<Table className={classes.table}>
 						<TableBody>
