@@ -258,6 +258,16 @@ class PremiumCalculator extends Component {
 				if (event.value !== "") {
 					this.populateCropUnits(event.value);
 
+					//TODO: Confirm with PIs if these defaults will be good for all counties
+					if (event.value === 41){
+						this.setState({practiceType: 3});
+						this.setState({grainType: 16});
+					}
+					else if (event.value === 81){
+						this.setState({practiceType: 43});
+						this.setState({grainType: 997});
+					}
+
 					let cropCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCode: cropCode});
 					this.setParams(cropCode);
