@@ -77,7 +77,7 @@ const styles = theme => ({
 	formControlHorizontal: {
 		margin: theme.spacing.unit,
 		minWidth: 200,
-		marginTop: 15,
+		// marginTop: 15,
 		marginLeft: 20,
 		marginRight: 20,
 		textAlign: "left"
@@ -86,7 +86,7 @@ const styles = theme => ({
 	formControlHorizontalTextBox: {
 		margin: theme.spacing.unit,
 		minWidth: 150,
-		marginTop: 15,
+		// marginTop: 15,
 		marginLeft: 20,
 		marginRight: 20,
 		textAlign: "left"
@@ -749,8 +749,7 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<br/> <br/>
-
+					<br/>
 					<div style={{textAlign: "center"}}>
 						<Button variant="contained" color="primary" onClick={this.calcPremiums}
 										disabled={!this.validateInputs()}
