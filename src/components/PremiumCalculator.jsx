@@ -12,7 +12,8 @@ import {
 	getStates,
 	getCounties,
 	getParams,
-	getCropParams
+	getCropParams,
+	roundResults
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -264,7 +265,7 @@ class PremiumCalculator extends Component {
 						this.setState({grainType: 16});
 					}
 					else if (event.value === 81){
-						this.setState({practiceType: 43});
+						this.setState({practiceType: 53});
 						this.setState({grainType: 997});
 					}
 
@@ -300,17 +301,17 @@ class PremiumCalculator extends Component {
 			// TODO: how to handle? Force logout?
 			}
 		}).then(data => {
-			//console.log(data);
-			this.setState({aphYield: data.aphYield});
-			this.setState({taYield: data.TAYield});
-			this.setState({rateYield: data.rateYield});
+			console.log(data);
+			this.setState({aphYield: roundResults(data.aphYield)});
+			this.setState({taYield: roundResults(data.TAYield)});
+			this.setState({rateYield: roundResults(data.rateYield)});
 			this.setState({useTaAdj: data.useTaAdjustment});
 			this.setState({farmAcres: data.acres});
 			this.setState({practiceTypes: data.practices});
 			this.setState({riskClasses: data.riskClasses});
 			this.setState({grainTypes: data.types});
-			this.setState({projectedPrice: data.comboProjPrice});
-			this.setState({volFactor: data.comboVol});
+			this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
+			this.setState({volFactor: roundResults(data.comboVol, 2)});
 		});
 	}
 
@@ -586,71 +587,15 @@ class PremiumCalculator extends Component {
 					paddingBottom: "12px",
 					display: "inline-block"
 				}}>
-					<FormControl className={classes.formControlHorizontalTextBox}>
-						<TextField
-							id="farmAcres"
-							label="Acres"
-							value={this.state.farmAcres}
-							margin="normal"
-							onChange={this.handleMuiChange("farmAcres")}
-							className={classes.textField}
-							required
-							InputLabelProps={{shrink: true}}
-							InputProps={{
-								//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-								inputProps: textFieldInputStyle
-							}}
-							inputProps={{padding: 10}}
-							// onInput={this.validateMaxValue(300)}
-						/>
-					</FormControl>
-
-					<FormControl className={classes.formControlHorizontalTextBox}>
-						<TextField
-							id="aphYield"
-							label="APH Yield"
-							value={this.state.aphYield}
-							margin="normal"
-							onChange={this.handleMuiChange("aphYield")}
-							className={classes.textField}
-							required
-							InputLabelProps={{shrink: true}}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-								inputProps: textFieldInputStyle
-							}}
-							inputProps={{padding: 10}}
-							// onInput={this.validateMaxValue(300)}
-						/>
-					</FormControl>
 
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="taId">
-							Use TA Adjustment
+							Use TA/YE Adjustment
 						</InputLabel>
 						<Select id="useTaAdj" labelId="taId" value={this.state.useTaAdj} onChange={this.handleMuiSelectChange("useTaAdj")}>
 							<MenuItem value={true}>Yes</MenuItem>
 							<MenuItem value={false}>No</MenuItem>
 						</Select>
-					</FormControl>
-
-					<FormControl className={classes.formControlHorizontalTextBox}>
-						<TextField
-							id="taYield"
-							label="TA Yield"
-							value={this.state.taYield}
-							margin="normal"
-							onChange={this.handleMuiChange("taYield")}
-							className={classes.textField}
-							required
-							InputLabelProps={{shrink: true}}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-								inputProps: textFieldInputStyle
-							}}
-							inputProps={{padding: 10}}
-							// onInput={this.validateMaxValue(300)}
-						/>
 					</FormControl>
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
@@ -668,20 +613,46 @@ class PremiumCalculator extends Component {
 								inputProps: textFieldInputStyle
 							}}
 							inputProps={{padding: 10}}
-							// onInput={this.validateMaxValue(300)}
+						/>
+					</FormControl>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
+								id="taYield"
+								label="TA Yield"
+								value={this.state.taYield}
+								margin="normal"
+								onChange={this.handleMuiChange("taYield")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
+						/>
+					</FormControl>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
+								id="aphYield"
+								label="APH Yield"
+								value={this.state.aphYield}
+								margin="normal"
+								onChange={this.handleMuiChange("aphYield")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
 						/>
 					</FormControl>
 
 					<br/>
-
-					<FormControl required className={classes.formControlHorizontal}>
-						<InputLabel id="riskId">
-							Risk Class
-						</InputLabel>
-						<Select id="riskClass" labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
-							{riskClassOptions}
-						</Select>
-					</FormControl>
 
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="grainTypeId">
@@ -702,6 +673,15 @@ class PremiumCalculator extends Component {
 					</FormControl>
 
 					<FormControl required className={classes.formControlHorizontal}>
+						<InputLabel id="riskId">
+							Risk Class
+						</InputLabel>
+						<Select id="riskClass" labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
+							{riskClassOptions}
+						</Select>
+					</FormControl>
+
+					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="preventedPlantingId">
 							Prevented Planting
 						</InputLabel>
@@ -715,6 +695,23 @@ class PremiumCalculator extends Component {
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
+								id="farmAcres"
+								label="Acres"
+								value={this.state.farmAcres}
+								margin="normal"
+								onChange={this.handleMuiChange("farmAcres")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
+						/>
+					</FormControl>
+
+					<FormControl className={classes.formControlHorizontalTextBox}>
+						<TextField
 								id="projectedPrice"
 								label="Projected Price"
 								value={this.state.projectedPrice}
@@ -724,8 +721,8 @@ class PremiumCalculator extends Component {
 								required
 								InputLabelProps={{shrink: true}}
 								InputProps={{
-									//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-									inputProps: textFieldInputStyle
+									inputProps: textFieldInputStyle,
+									startAdornment: <InputAdornment position="start">$</InputAdornment>,
 								}}
 								inputProps={{padding: 10}}
 						/>

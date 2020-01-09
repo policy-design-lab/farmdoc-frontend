@@ -193,6 +193,8 @@ class PremiumResults extends Component {
 		//TODO: Fetch from config
 		// let coverageLevels = ["50", "55", "60", "65", "70", "75", "80", "85"];
 
+		let units = "bu/acre"; //TODO: Get from crop input of api
+
 		let policyJsonData = null;
 		let countyJsonData = null;
 
@@ -239,20 +241,20 @@ class PremiumResults extends Component {
 							<TableRow key={`childRowArc-${i}`}>
 								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-enterprise"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-basic"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-opt"]}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell>{premiums[cov]["rp-enterprise"]}</CommonTableCell>
-								<CommonTableCell>{premiums[cov]["rp-basic"]}</CommonTableCell>
-								<CommonTableCell>{premiums[cov]["rp-opt"]}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
 								<CommonTableCell>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-enterprise"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-basic"]}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp-opt"]}</CommonTableCell>
-								<RightMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</RightMostTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</CommonTableCell>
+								<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
 							</TableRow>
 						);
 					}
@@ -261,28 +263,26 @@ class PremiumResults extends Component {
 							<TableRow key={`childRowArc-${i}`}>
 								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-enterprise"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-basic"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-opt"]}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell>{premiums[cov]["rp-enterprise"]}</BottomMostTableCell>
-								<BottomMostTableCell>{premiums[cov]["rp-basic"]}</BottomMostTableCell>
-								<BottomMostTableCell>{premiums[cov]["rp-opt"]}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-enterprise"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-basic"]}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp-opt"]}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
-									{guarantees[cov]["rp"]}</BottomMostTableCell>
+									{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
 							</TableRow>
 						);
 					}
 					i++;
 				});
-
-				// console.log(farmPolicyObjData.premiums["50"]["rp-opt"]);
 			}
 
 			if (countyProductObjData.premiums !== null && countyProductObjData.guarantees !== null) {
@@ -300,20 +300,20 @@ class PremiumResults extends Component {
 							<TableRow key={`childRowArc-${i}`}>
 								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{premiums[cov]["rp"]}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell>{premiums[cov]["rphpe"]}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</CommonTableCell>
 								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</CommonTableCell>
 								<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{premiums[cov]["yp"]}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</CommonTableCell>
-								<RightMostTableCell style={coloredBg}>{guarantees[cov]["yp"]}</RightMostTableCell>
+								<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
 							</TableRow>
 						);
 					}
@@ -322,21 +322,21 @@ class PremiumResults extends Component {
 							<TableRow key={`childRowArc-${i}`}>
 								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["rp"]}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell>{premiums[cov]["rphpe"]}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{premiums[cov]["yp"]}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
-									{guarantees[cov]["yp"]}</BottomMostTableCell>
+									{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
 							</TableRow>
 						);
 					}
@@ -373,7 +373,7 @@ class PremiumResults extends Component {
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Enterprise</TableCellHeader>
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Basic</TableCellHeader>
 								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Optional</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke"}}>Yield Guarantee</TableCellHeader>
+								<TableCellHeader className="table-header-tooltip" style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke"}}>Yield Guarantee ({units})</TableCellHeader>
 							</TableRow>
 
 							{farmPolicyRows}
@@ -407,7 +407,7 @@ class PremiumResults extends Component {
 								<TableCellHeader className="table-header-tooltip" rowSpan={2}>Revenue Guarantee</TableCellHeader>
 
 								<TableCellHeader className="table-header-tooltip" style={coloredBg} colSpan={3}> Price Protection </TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg} rowSpan={2}>Yield Guarantee</TableCellHeader>
+								<TableCellHeader className="table-header-tooltip" style={Object.assign({}, coloredBg, {borderRightWidth: 0})} rowSpan={2}>Yield Guarantee ({units})</TableCellHeader>
 							</TableRow>
 
 
@@ -449,7 +449,7 @@ class PremiumResults extends Component {
 						/>
 
 
-						<span style={{fontWeight: "bold", marginLeft: "200px",}}>Expected Yield: </span> <span>{expectedYield}</span>
+						<span style={{fontWeight: "bold", marginLeft: "200px"}}>Expected Yield: </span> <span>{`${roundResults(expectedYield) } ${ units}`}</span>
 					</div>
 
 					<Divider/>
