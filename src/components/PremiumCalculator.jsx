@@ -445,7 +445,9 @@ class PremiumCalculator extends Component {
 	}
 
 	validateInputs() {
-		return this.state.county > 0 && this.state.cropId !== "";
+		return this.state.county > 0 && this.state.cropId !== "" && this.state.aphYield > 0
+				&& this.state.rateYield > 0 && this.state.taYield > 0 && this.state.volFactor > 0
+				&& this.state.projectedPrice > 0 && this.state.farmAcres >= 1;
 	}
 
 	render() {
