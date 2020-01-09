@@ -81,7 +81,7 @@ export function getStates(){
 }
 
 export function getParams(cropCode){
-	return fetch(`http://localhost:5000/api/compute/params/${cropCode}/0/0`, {
+	return fetch( `${config.apiUrl}/compute/params/${cropCode}/0/0`, {
 		method: "GET",
 	}).then(function(response){
 		return response;

@@ -346,7 +346,7 @@ class PremiumCalculator extends Component {
 		let premiumsResult = "";
 		let countyProductsResult = "";
 
-		const premiumsResponse = await fetch("http://localhost:5000/api/compute/premiums", {
+		const premiumsResponse = await fetch(`${config.apiUrl }/compute/premiums`, {
 			method: "GET",
 			//headers: kcHeaders,
 		});
@@ -362,7 +362,7 @@ class PremiumCalculator extends Component {
 			}
 		}
 
-		const countyProductsResponse = await fetch("http://localhost:5000/api/compute/premGrip", {
+		const countyProductsResponse = await fetch(`${config.apiUrl }/compute/premGrip`, {
 			method: "GET",
 			//headers: kcHeaders,
 		});
