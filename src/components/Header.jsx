@@ -117,7 +117,7 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 300}} >
+						<ToolbarSection align="end" style={{maxWidth: 320}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>
