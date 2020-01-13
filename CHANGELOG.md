@@ -1,8 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) 
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
+
+ ## [1.0.0] - 2020-01-15
+
+### Added
+- "Need Help?" section with FAQs
+- Text on Landing page to check Spam folder for emails
+- Show average yield in tooltip for the selected county
+
+### Changed
+- Updated Forecast model prices for all crops as of Jan 2020 data
 
  ## [1.0.0-beta.0] - 2019-10-31
 
@@ -57,7 +67,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Display 5 years of data instead of 10, reformatted charts and table so they are side by side
 
 ### Fixed
-- Fixed the issue seen on slower connections by handling 'Queued' status of DataWolf 
+- Fixed the issue seen on slower connections by handling 'Queued' status of DataWolf
 - Resolved issue where home page sections were overlapping on smaller screens
 
 ## [0.1.0] - 2018-09-14
