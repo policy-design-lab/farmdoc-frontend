@@ -2,7 +2,13 @@ import React, {Component} from "react";
 import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import {HorizontalBar} from "react-chartjs-2";
-import {Modal, Table, TableBody, TableCell, TableRow} from "@material-ui/core";
+import {
+	Modal,
+	Table,
+	TableBody,
+	TableCell,
+	TableRow,
+} from "@material-ui/core";
 import {handleResults} from "../actions/model";
 import {changeYearRow} from "../actions/results";
 import BinnedGraphs from "./BinnedGraphs";
@@ -19,6 +25,7 @@ import "../styles/main.css";
 import config from "../app.config";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+
 
 const styles = theme => ({
 	root: {
@@ -363,6 +370,7 @@ class Results extends Component {
 
 						</TableBody>
 					</Table>
+					<div style={{padding: 5, textAlign: "center"}}> Model data last updated: {config.modelDataUpdateDate} </div>
 
 				</div>
 			);

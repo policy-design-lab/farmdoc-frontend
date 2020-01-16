@@ -6,6 +6,8 @@ const crops = [
 	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
 ];
 
+const modelDataUpdateDate = "01/10/2020";
+
 const mpForecasts = [
 	{
 		"id": "forecast",
@@ -82,7 +84,8 @@ const devConfig = {
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
 	keycloak: Keycloak("keycloak.json"),
-	faqUrl: faqUrl
+	faqUrl: faqUrl,
+	modelDataUpdateDate: modelDataUpdateDate
 };
 
 const prodConfig = {
@@ -98,7 +101,8 @@ const prodConfig = {
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
 	keycloak: Keycloak("keycloak.json"),
-	faqUrl: faqUrl
+	faqUrl: faqUrl,
+	modelDataUpdateDate: modelDataUpdateDate
 };
 
 const config = getConfig();
