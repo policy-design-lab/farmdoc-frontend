@@ -6,7 +6,7 @@ const crops = [
 	{"id": "wheat", "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
 ];
 
-const modelDataUpdateDate = "01/10/2020";
+const modelDataUpdateDate = "January 12, 2020";
 
 const mpForecasts = [
 	{
