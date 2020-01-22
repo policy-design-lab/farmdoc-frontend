@@ -167,7 +167,7 @@ class PremiumCalculator extends Component {
 	  runStatus: "",
 		premResults: null,
 		countySelValue: null,
-		cropCode: null,
+		cropCountyCode: null,
 
 		aphYield: null,
 		taYield: null,
@@ -207,7 +207,7 @@ class PremiumCalculator extends Component {
 			runStatus: "",
 			premResults: null,
 			countySelValue: null,
-			cropCode: null,
+			cropCountyCode: null,
 
 			aphYield: null,
 			taYield: null,
@@ -240,9 +240,9 @@ class PremiumCalculator extends Component {
 			case "county":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
 				if (this.state.cropId !== null){
-					let cropCode = `${event.value }${ this.state.cropId}`;
-					this.setState({cropCode: cropCode});
-					this.setParams(cropCode);
+					let cropCountyCode = `${event.value }${ this.state.cropId}`;
+					this.setState({cropCountyCode: cropCountyCode});
+					this.setParams(cropCountyCode);
 				}
 				break;
 
@@ -267,9 +267,9 @@ class PremiumCalculator extends Component {
 						this.setState({grainType: 997});
 					}
 
-					let cropCode = `${this.state.county }${ event.value}`;
-					this.setState({cropCode: cropCode});
-					this.setParams(cropCode);
+					let cropCountyCode = `${this.state.county }${ event.value}`;
+					this.setState({cropCountyCode: cropCountyCode});
+					this.setParams(cropCountyCode);
 				}
 				break;
 		}
@@ -288,8 +288,8 @@ class PremiumCalculator extends Component {
 	};
 
 
-	setParams(cropCode) {
-		getParams(cropCode).then(function(response) {
+	setParams(cropCountyCode) {
+		getParams(cropCountyCode).then(function(response) {
 			if (response.status === 200) {
 				return response.json();
 			}
@@ -346,7 +346,26 @@ class PremiumCalculator extends Component {
 		let premiumsResult = "";
 		let countyProductsResult = "";
 
-		const premiumsResponse = await fetch(`${config.apiUrl }/compute/premiums`, {
+		let cropFullCode = `${ this.state.cropCountyCode.toString() }${this.state.grainType.toString().padStart(3, "0") }${this.state.practiceType.toString().padStart(3, "0")}`;
+
+		let premiumsApiUrl = new URL(`${config.apiUrl }/compute/premiums`);
+
+		let premiumParams = [
+			["code", cropFullCode],
+			["aphYield", this.state.aphYield],
+			["TAYield", this.state.taYield],
+			["rateYield", this.state.rateYield],
+			["useTaAdjustment", this.state.useTaAdj ? "1" : "0"],
+			["acres", this.state.farmAcres],
+			["riskVal", this.state.riskClass],
+			["preventedPlanting", this.state.preventedPlanting],
+			["projPrice", this.state.projectedPrice],
+			["volFactor", this.state.volFactor]
+		];
+
+		premiumsApiUrl.search = new URLSearchParams(premiumParams).toString();
+
+		const premiumsResponse = await fetch(premiumsApiUrl, {
 			method: "GET",
 			//headers: kcHeaders,
 		});
@@ -362,7 +381,16 @@ class PremiumCalculator extends Component {
 			}
 		}
 
-		const countyProductsResponse = await fetch(`${config.apiUrl }/compute/premGrip`, {
+		let countyProductsUrl = new URL(`${config.apiUrl }/compute/premGrip`);
+		let countyProductsParams = [
+			["code", cropFullCode],
+			["projPrice", this.state.projectedPrice],
+			["volFactor", this.state.volFactor]
+		];
+
+		countyProductsUrl.search = new URLSearchParams(countyProductsParams).toString();
+
+		const countyProductsResponse = await fetch(countyProductsUrl, {
 			method: "GET",
 			//headers: kcHeaders,
 		});
