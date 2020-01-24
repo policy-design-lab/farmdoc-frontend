@@ -184,7 +184,7 @@ class PremiumResults extends Component {
 	};
 
 	componentWillUnmount() {
-		this.props.handlePremiumResults(null);
+		// this.props.handlePremiumResults(null);
 	}
 
 

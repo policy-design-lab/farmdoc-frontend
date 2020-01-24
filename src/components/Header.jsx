@@ -8,11 +8,17 @@ import {connect} from "react-redux";
 import {handleUserLogout} from "../actions/user";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import AppsIcon from "@material-ui/icons/Apps";
+import IconButton from "@material-ui/core/IconButton";
+
 import config from "../app.config";
 import {
 	clearKeycloakStorage,
 	checkForTokenExpiry
 } from "../public/utils";
+import {Modal} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+
 
 const keycloak = config.keycloak;
 
@@ -28,18 +34,63 @@ const styles = theme => ({
 	},
 	tab: {
 		minWidth: "80px"
+	},
+	paper: {
+		position: "absolute",
+		//width: theme.spacing.unit * 50,
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing.unit * 4,
+		outline: "none"
 	}
 });
+
+function getModalStyle() {
+	const top = 50;
+	const left = 50;
+
+	return {
+		top: `${top}%`,
+		left: `${left}%`,
+		transform: `translate(-${top}%, -${left}%)`,
+		display: "inline-block",
+		borderRadius: 12
+	};
+}
 
 class Header extends Component {
 
 	constructor(props){
 		super(props);
 
+		this.state = {
+			appsPopupOpen: false
+		};
+
 		this.handleLogout = this.handleLogout.bind(this);
 		this.handleLogin = this.handleLogin.bind(this);
 		this.handleRegister = this.handleRegister.bind(this);
 	}
+
+	handleAppsOpen = () => {
+		this.setState({appsPopupOpen: true});
+	};
+
+	handleAppsClose = () => {
+		this.setState({appsPopupOpen: false});
+	};
+
+	handleAppChange = name => event => {
+		switch (name) {
+			case "paymentCalc":
+				browserHistory.push("/about");
+				break;
+
+			case "premiumCalc":
+				browserHistory.push("/ins");
+				break;
+		}
+	};
 
 	componentDidMount(): void {
 		if (localStorage.getItem("isAuthenticated") === "true") {
@@ -83,8 +134,9 @@ class Header extends Component {
 				browserHistory.push("/");
 			});
 		});
-
 	}
+
+
 
 	//TODO: add fixed for Toolbar
 	render(){
@@ -93,9 +145,26 @@ class Header extends Component {
 
 		return (
 			<div className={classes.root}>
+
+				<Modal open={this.state.appsPopupOpen} onClose={this.handleAppsClose}>
+					<div style={getModalStyle()} className={classes.paper}>
+						<IconButton className="closeImg" onClick={this.handleAppsClose}>
+							<CloseIcon />
+						</IconButton>
+						Farmdoc Apps <br/>
+						<Button id="paymentCalc" onClick={this.handleAppChange("paymentCalc")} style={{height: "40px"}}>Payment Calculator</Button>
+						<Button id="premiumCalc" onClick={this.handleAppChange("premiumCalc")} style={{height: "40px"}}>Premium Calculator</Button>
+
+					</div>
+				</Modal>
+
 				<Toolbar>
 					<ToolbarRow className="banner">
 						<ToolbarSection align="start" style={{maxWidth: 225}}>
+							<IconButton onClick={this.handleAppsOpen} >
+								<AppsIcon style={{width: "44px", height: "44px", color: "white"}} />
+							</IconButton>
+
 							<a href="/" className={"farmdoc"}>
 								<img src={require("../images/GAPP-logo.png")}/>
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>

@@ -102,7 +102,7 @@
 .farmdoc img {
 	width: 40px;
 	height: 40px;
-	margin-left: 28px;
+	margin-left: 14px;
 	margin-right: 14px;
 }
 
@@ -192,7 +192,7 @@
 
 .analyzer-tab {
 	margin-left: 24px;
-	align-content: left;
+	align-content: flex-start;
 	width:100px;
 }
 
