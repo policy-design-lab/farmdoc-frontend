@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+ ## [1.0.1] - 2020-01-27
+
+### Changed
+- Removed the beta pre-release popup message that was being displayed for first time visitors.
+
  ## [1.0.0] - 2020-01-15
 
 ### Added

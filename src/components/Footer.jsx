@@ -10,7 +10,7 @@ class Footer extends Component {
 				<Toolbar>
 					<ToolbarRow align="center" className={"footer"}>
 						<ToolbarSection align ="start" className="footerCorners" >
-							v1.0.0
+							v1.0.1
 						</ToolbarSection>
 						<ToolbarSection className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
