@@ -10,9 +10,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Layout from "./Layout";
-import AppsList from "./AppsList";
 
-class HomePage extends Component {
+class About extends Component {
 
 	state = {
 		IEPopup: false,
@@ -51,7 +50,6 @@ class HomePage extends Component {
 	}
 
 	render(){
-		//TODO: Remove the logic to check for IE/firstvisit from App specific About pages
 
 		let notificationDiv = null;
 
@@ -135,15 +133,14 @@ class HomePage extends Component {
 					<div className="home-content"
 					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
 					>
-
-						{/*<Cell col={6}>*/}
-						{/*	{welcome}*/}
-						{/*</Cell>*/}
-						{/*<Cell col={6}>*/}
-						{/*	{howwork}*/}
-						{/*</Cell>*/}
-						<AppsList/>
-
+						<Grid>
+							<Cell col={6}>
+								{welcome}
+							</Cell>
+							<Cell col={6}>
+								{howwork}
+							</Cell>
+						</Grid>
 					</div>
 				</Layout>
 			</div>
@@ -152,4 +149,4 @@ class HomePage extends Component {
 	}
 }
 
-export default HomePage;
+export default About;

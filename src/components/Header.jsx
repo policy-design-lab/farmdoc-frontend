@@ -18,6 +18,7 @@ import {
 } from "../public/utils";
 import {Modal} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import AppsList from "./AppsList";
 
 
 const keycloak = config.keycloak;
@@ -78,18 +79,6 @@ class Header extends Component {
 
 	handleAppsClose = () => {
 		this.setState({appsPopupOpen: false});
-	};
-
-	handleAppChange = name => event => {
-		switch (name) {
-			case "paymentCalc":
-				browserHistory.push("/payment-calculator/");
-				break;
-
-			case "premiumCalc":
-				browserHistory.push("/premium-calculator/");
-				break;
-		}
 	};
 
 	componentDidMount(): void {
@@ -166,9 +155,7 @@ class Header extends Component {
 						<IconButton className="closeImg" onClick={this.handleAppsClose}>
 							<CloseIcon />
 						</IconButton>
-						Farmdoc Apps <br/>
-						<Button id="paymentCalc" onClick={this.handleAppChange("paymentCalc")} style={{height: "40px"}}>Payment Calculator</Button>
-						<Button id="premiumCalc" onClick={this.handleAppChange("premiumCalc")} style={{height: "40px"}}>Premium Calculator</Button>
+						<AppsList/>
 
 					</div>
 				</Modal>
