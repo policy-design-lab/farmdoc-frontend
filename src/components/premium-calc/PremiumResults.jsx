@@ -4,17 +4,16 @@ import {connect} from "react-redux";
 import {HorizontalBar} from "react-chartjs-2";
 import {Table, TableBody, TableCell, TableRow} from "@material-ui/core";
 
-import {roundResults} from "../public/utils.js";
+import {roundResults} from "../../public/utils.js";
 import {
 	expectedPayoutTooltip,
 	likelihoodTableToolTip,
 	simulatedPriceTableToolTip,
 	simulatedYieldTableToolTip,
 	simulationGraphToolTip
-} from "../app.messages";
+} from "../../app.messages";
 import ToolTip from "@material-ui/core/Tooltip";
-import "../styles/main.css";
-import config from "../app.config";
+import "../../styles/main.css";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";

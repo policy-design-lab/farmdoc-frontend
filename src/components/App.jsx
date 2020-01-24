@@ -11,8 +11,8 @@ import ProgramParams from "./ProgramParams";
 import "../styles/main.css";
 import Documentation from "./Documentation";
 import Login from "./Login";
-import PremiumResults from "./PremiumResults";
-import PremiumDashboard from "./PremiumDashboard";
+import PremiumResults from "./premium-calc/PremiumResults";
+import PremiumDashboard from "./premium-calc/PremiumDashboard";
 
 global.__base = `${__dirname}/`;
 
@@ -37,14 +37,16 @@ class App extends Component {
 				<MuiThemeProvider theme={theme}>
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
-						<Route path="/dashboard" component={Dashboard}/>
-						<Route path="/ins" component={PremiumDashboard}/>
-						<Route path="/about" component={HomePage}/>
 						<Route path="/login" component={Login}/>
-						<Route path="/charts" component={Results}/>
-						<Route path="/params" component={ProgramParams}/>
-						<Route path="/docs" component={Documentation}/>
-						<Route path="/insr" component={PremiumResults}/>
+
+						<Route path="/payment-calculator/" component={Dashboard}/>
+						<Route path="/payment-calculator/dashboard" component={Dashboard}/>
+						<Route path="/payment-calculator/about" component={HomePage}/>
+						<Route path="/payment-calculator/docs" component={Documentation}/>
+
+						<Route path="/premium-calculator/" component={PremiumDashboard}/>
+						<Route path="/premium-calculator/dashboard" component={PremiumDashboard}/>
+
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
 				</MuiThemeProvider>

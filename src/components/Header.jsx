@@ -83,16 +83,17 @@ class Header extends Component {
 	handleAppChange = name => event => {
 		switch (name) {
 			case "paymentCalc":
-				browserHistory.push("/about");
+				browserHistory.push("/payment-calculator/");
 				break;
 
 			case "premiumCalc":
-				browserHistory.push("/ins");
+				browserHistory.push("/premium-calculator/");
 				break;
 		}
 	};
 
 	componentDidMount(): void {
+
 		if (localStorage.getItem("isAuthenticated") === "true") {
 			// if authenticated flag is set, re-check for token expiry. Reload page if expired
 			if (checkForTokenExpiry()) {
@@ -104,7 +105,7 @@ class Header extends Component {
 					if (localStorage.getItem("isAuthenticated") === "true") {
 						if (checkForTokenExpiry()) {
 							clearKeycloakStorage();
-							browserHistory.push("/");
+							browserHistory.push("/"); //TODO: Change to apps
 						}
 					}
 					else { // clear timer once isAuthenticated is set to false in storage
@@ -137,11 +138,25 @@ class Header extends Component {
 	}
 
 
-
 	//TODO: add fixed for Toolbar
 	render(){
 
 		const {classes} = this.props;
+
+		//TODO: Improve this logic to get from a config when more apps are defined
+		let currApp = (window.location.pathname).split("/")[1];
+		if (currApp === ""){
+			currApp = "home";
+		}
+
+		let tabHeader = "Calculator";
+
+		if (currApp.indexOf("payment") !== -1){
+			tabHeader = "Payment Calculator";
+		}
+		else if (currApp.indexOf("premium") !== -1){
+			tabHeader = "Premium Calculator";
+		}
 
 		return (
 			<div className={classes.root}>
@@ -176,12 +191,12 @@ class Header extends Component {
 
 								<Tabs value={this.props.selectedTab}
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
-									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
-											 className={classes.tab} component={Link} to="/dashboard"/>
+									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
+											 className={classes.tab} component={Link} to={`/${currApp}/dashboard`}/>
 									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
-											 className={classes.tab} component={Link}	to="/docs"/>
+											 className={classes.tab} component={Link} to={`/${currApp}/docs`}/>
 									<Tab value="about" label={<span className={classes.label}>About</span>}
-											 className={classes.tab} component={Link} to="/about"/>
+											 className={classes.tab} component={Link} to={`/${currApp}/about`}/>
 								</Tabs>
 							}
 						</ToolbarSection>

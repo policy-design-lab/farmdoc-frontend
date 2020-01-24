@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import AuthorizedWarp from "./AuthorizedWrap";
+import AuthorizedWarp from "../AuthorizedWrap";
 import PremiumCalculator from "./PremiumCalculator";
 import PremiumResults from "./PremiumResults";
 
 import {Grid} from "@material-ui/core";
-import Layout from "./Layout";
+import Layout from "../Layout";
 
 class Dashboard extends Component {
 

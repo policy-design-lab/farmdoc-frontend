@@ -69,6 +69,8 @@ const tooltipTouchDelay = 50; //milli seconds
 const demoUser = "farmdoc";
 const demoUserPw = "farmdoc1234";
 
+const prodDomain = "fd-tools.ncsa.illinois.edu";
+
 const devConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
@@ -81,7 +83,7 @@ const devConfig = {
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json")
+	keycloak: Keycloak("http://localhost:3000/keycloak.json")
 };
 
 const prodConfig = {
@@ -89,14 +91,14 @@ const prodConfig = {
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	commodities: crops,
 	forecastTypes: mpForecasts,
-	domain: "fd-tools.ncsa.illinois.edu",
+	domain: prodDomain,
 	defaultsJson: defaultsJson,
 	showCustomForecast: false,
 	browserLog: false,
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json")
+	keycloak: Keycloak(`https://${ prodDomain }/keycloak.json`)
 };
 
 const config = getConfig();

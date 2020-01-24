@@ -78,7 +78,7 @@ class Login extends Component {
 				});
 
 				handleUserLogin(profile["username"], profile["username"], true);
-				browserHistory.push("/dashboard");
+				browserHistory.push("/"); //TODO: change to apps page
 
 			}).error(function() {
 				console.log("Failed to load user profile");

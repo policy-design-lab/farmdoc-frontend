@@ -14,26 +14,14 @@ import {
 	getParams,
 	getCropParams,
 	roundResults
-} from "../public/utils";
-import {
-	datawolfURL,
-	postExecutionRequest,
-	resultDatasetId,
-	steps,
-} from "../datawolf.config";
+} from "../../public/utils";
 import {
 	handlePremiumResults,
 	handleCountyProductsResults
-} from "../actions/insPremiums";
-import Spinner from "../components/Spinner";
-import config from "../app.config";
-import {
-	dataNotAvailable,
-	practiceTypeToolTip,
-	arcTrendYieldToolTip,
-	plcPayYieldInputToolTip,
-	stateCountySelectToolTip
-} from "../app.messages";
+} from "../../actions/insPremiums";
+import Spinner from "../Spinner";
+import config from "../../app.config";
+
 import ReactSelect from "react-select";
 
 import MenuItem from "@material-ui/core/MenuItem";
