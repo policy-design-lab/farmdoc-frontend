@@ -93,10 +93,8 @@ class Login extends Component {
 				Redirecting to keycloak...
 			</div>
 		);
-
 	}
 }
-
 
 const mapStateToProps = (state) => {
 	return {
