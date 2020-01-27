@@ -1,5 +1,22 @@
 import Keycloak from "keycloak-js";
 
+const farmdocApps = {
+	"arcplc-calculator": {
+		appName: "ARC/PLC Calculator",
+		appDesc: "The Gardner Payment Calculator will generate estimated program " +
+				"payments for individual farms from the ARC-CO and the PLC farm programs" +
+				" using county level historical data and modeled price and yield forecasts.",
+		lastUpdated: "Jan 22, 2020"
+	},
+	"insurance-premiums": {
+		appName: "Insurance Premiums",
+		appDesc: "The 2020 iFarm Crop insurance Premium Calculator allows users to develop " +
+				"highly customize estimates of their crop insurance premiums, and compare revenue and" +
+				" yield guarantees across all available crop insurance products and elections for their actual farm case.",
+		lastUpdated: "Jan 22, 2020"
+	},
+};
+
 const crops = [
 	{"id": "corn", "cropId": 41, "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
 	{"id": "soybeans", "cropId": 81, "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
@@ -74,6 +91,7 @@ const prodDomain = "fd-tools.ncsa.illinois.edu";
 const devConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
+	apps: farmdocApps,
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "localhost",
@@ -89,6 +107,7 @@ const devConfig = {
 const prodConfig = {
 	basePath: "/dev/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
+	apps: farmdocApps,
 	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: prodDomain,

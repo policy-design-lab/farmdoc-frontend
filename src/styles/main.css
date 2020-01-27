@@ -369,6 +369,14 @@ h1, h2, h3, h5, h6, p, ul {
 	height: 100%;
 }
 
+
+.appsHeader{
+	text-align: center;
+	padding-left: 20px;
+	font-weight: 900;
+	font-size: 18px;
+}
+
 .appHeader{
 	padding: 6px;
 	color: #FFFFFF;
@@ -381,6 +389,7 @@ h1, h2, h3, h5, h6, p, ul {
 	display: flex;
 	align-items: center;
 	text-align: center;
+	margin: 0;
 }
 
 .appIcon{
@@ -392,16 +401,12 @@ h1, h2, h3, h5, h6, p, ul {
 	margin-left: auto;
 }
 
-.appsHeader{
-	text-align: center;
-	padding-left: 20px;
-	font-weight: 900;
-	font-size: 18px;
-
-}
-
 .appName{
+	margin-left: auto;
 	margin-right: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .appLastUpdated{
 	padding: 6px;

@@ -130,23 +130,20 @@ class Header extends Component {
 
 
 	//TODO: add fixed for Toolbar
-	render(){
+	render() {
 
 		const {classes} = this.props;
 
 		//TODO: Improve this logic to get from a config when more apps are defined
 		let currApp = (window.location.pathname).split("/")[1];
-		if (currApp === ""){
+		if (currApp === "") {
 			currApp = "home";
 		}
 
-		let tabHeader = "Calculator";
+		let tabHeader = "";
 
-		if (currApp.indexOf("payment") !== -1){
-			tabHeader = "Payment Calculator";
-		}
-		else if (currApp.indexOf("premium") !== -1){
-			tabHeader = "Premium Calculator";
+		if (currApp !== "home") {
+			tabHeader = config.apps[currApp].appName;
 		}
 
 		return (

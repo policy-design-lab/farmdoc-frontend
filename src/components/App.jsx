@@ -18,6 +18,8 @@ import DocsPremiumCalc from "./premium-calc/Documentation";
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 
+import config from "../app.config";
+
 global.__base = `${__dirname}/`;
 
 const theme = createMuiTheme();
@@ -36,6 +38,9 @@ class App extends Component {
 			localStorage.setItem("fdFirstVisit", "false");
 		}
 
+		let arcplcPath = "/arcplc-calculator/";
+		let premiumCalcPath = "/insurance-premiums/";
+
 		return (
 			<div>
 				<MuiThemeProvider theme={theme}>
@@ -43,14 +48,14 @@ class App extends Component {
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
 
-						<Route path="/payment-calculator/" component={Dashboard}/>
-						<Route path="/payment-calculator/docs" component={Documentation}/>
-						<Route path="/payment-calculator/about" component={AboutPaymentCalc}/>
+						<Route path={`${arcplcPath}`} component={Dashboard}/>
+						<Route path={`${arcplcPath}docs`} component={Documentation}/>
+						<Route path={`${arcplcPath}about`} component={AboutPaymentCalc}/>
 
 
-						<Route path="/premium-calculator/" component={PremiumDashboard}/>
-						<Route path="/premium-calculator/docs" component={DocsPremiumCalc}/>
-						<Route path="/premium-calculator/about" component={AboutPremiumCalc}/>
+						<Route path={`${premiumCalcPath}`} component={PremiumDashboard}/>
+						<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>
+						<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
