@@ -186,6 +186,7 @@ class FDRunModel extends Component {
 		coverage: config.defaultsJson.coverage,
 		paymentYield: "",
 		arcYield: "",
+		countyYield: "",
 		range: config.defaultsJson.range,
 		runName: "",
 		runStatus: "",
@@ -228,6 +229,7 @@ class FDRunModel extends Component {
 			coverage: config.defaultsJson.coverage,
 			paymentYield: "",
 			arcYield: "",
+			countyYield: "",
 			range: config.defaultsJson.range,
 			runName: "",
 			runStatus: "",
@@ -255,6 +257,7 @@ class FDRunModel extends Component {
 		this.state.cropYields.forEach((item) => {
 			if (item.pracCode === intSelPrac) {
 				this.setState({arcYield: item.arcYield});
+				this.setState({countyYield: item.plcYield});
 			}
 		});
 	};
@@ -562,11 +565,13 @@ class FDRunModel extends Component {
 				if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
 					if (cropParams[0]["pracCode"] === 3) {
 						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+						this.setState({countyYield: roundResults(cropParams[0]["plcYield"], 2)});
 						this.setState({disablePraccode: true});
 						this.setState({hidePraccode: true});
 					}
 					else {
 						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
+						this.setState({countyYield: roundResults(cropParams[0]["plcYield"], 2)});
 						this.setState({hidePraccode: false});
 						this.setState({disablePraccode: true});
 					}
@@ -582,6 +587,7 @@ class FDRunModel extends Component {
 					});
 
 					this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
+					this.setState({countyYield: roundResults(selPrac["plcYield"], 2)});
 					this.setState({pracCode: selPrac["pracCode"].toString()});
 					this.setState({hidePraccode: false});
 					this.setState({disablePraccode: false});
@@ -591,6 +597,7 @@ class FDRunModel extends Component {
 			else { // No crop data is available
 				this.setState({cropYields: []});
 				this.setState({arcYield: ""});
+				this.setState({countyYield: ""});
 				this.setState({pracCode: ""});
 				this.setState({hidePraccode: true});
 				this.setState({disablePraccode: true});
@@ -628,6 +635,11 @@ class FDRunModel extends Component {
 		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let tooltipTouchDelay = config.tooltipTouchDelay;
 		let spinner;
+		let countyYieldTip = "Please select the county and crop to see the average yield of the county here.";
+
+		if(this.state.countyYield !== "") {
+			countyYieldTip = `The average yield of the county is ${this.state.countyYield} ${this.state.units}`;
+		}
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
 			spinner = <Spinner/>;
@@ -888,7 +900,7 @@ class FDRunModel extends Component {
 						onInput={this.validateMaxValue(300)}
 					/>
 
-					<ToolTip title={plcPayYieldInputToolTip} enterTouchDelay={tooltipTouchDelay}>
+					<ToolTip title={`${plcPayYieldInputToolTip }. ${ countyYieldTip}`} enterTouchDelay={tooltipTouchDelay}>
 						<span>
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>

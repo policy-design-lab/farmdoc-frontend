@@ -43,7 +43,7 @@ class HomePage extends Component {
 		}
 
 		if (localStorage.getItem("fdFirstVisit") === "true"){
-			this.handlePrereleasePopupOpen();
+			// this.handlePrereleasePopupOpen();
 			localStorage.setItem("fdFirstVisit", "false");
 		}
 

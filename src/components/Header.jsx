@@ -12,6 +12,7 @@ import AppsIcon from "@material-ui/icons/Apps";
 import IconButton from "@material-ui/core/IconButton";
 
 import config from "../app.config";
+import Tooltip from "@material-ui/core/Tooltip";
 import {
 	clearKeycloakStorage,
 	checkForTokenExpiry
@@ -84,7 +85,6 @@ class Header extends Component {
 	};
 
 	componentDidMount(): void {
-
 		if (localStorage.getItem("isAuthenticated") === "true") {
 			// if authenticated flag is set, re-check for token expiry. Reload page if expired
 			if (checkForTokenExpiry()) {
@@ -124,7 +124,6 @@ class Header extends Component {
 		keycloak.init().success(function(){
 			keycloak.logout({}).success(function(){
 				browserHistory.push("/");
-				window.location.reload();
 			});
 		});
 	}
@@ -192,15 +191,23 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 300}} >
+						<ToolbarSection align="end" style={{maxWidth: 320}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>
 										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
 										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
+
+										<Tooltip title="Troubleshooting steps and FAQs">
+											<Button style={{height: "40px"}}>
+												<Link to={config.faqUrl} target="_blank" onlyActiveOnIndex>Need Help?</Link>
+											</Button>
+										</Tooltip>
+
 									</div>
 									:
-									<div><span>{localStorage.getItem("kcEmail")} </span>
+									<div>
+										<span>{localStorage.getItem("kcEmail")} </span>
 										<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>
 									</div>
 								}
