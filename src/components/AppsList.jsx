@@ -21,7 +21,7 @@ const styles = theme => ({
 		height: 500,
 		display: "table",
 		position: "relative",
-		// minWidth: 360
+		// maxWidth: 360
 		//TODO: Make this responsive
 	},
 });
@@ -56,10 +56,8 @@ class AppsList extends Component {
 						<Grid item xs={4}>
 							<Paper className={classes.paper}>
 								<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
-
 									<span className="appName">
 										<img className="appIcon" src={arcPlcLogo} alt="ARCPLC" style={{backgroundColor: "#CC5200"}}/>
-
 										{config.apps["arcplc-calculator"].appName}
 									</span>
 
@@ -89,10 +87,10 @@ class AppsList extends Component {
 						<Grid item xs={4}>
 							<Paper className={classes.paper}>
 								<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
-									<img className="appIcon" src={premiumsLogo} alt="Premium-Calc" style={{backgroundColor: "#17244B"}}/>
-
-									<span className="appName"> {config.apps["insurance-premiums"].appName} </span>
-
+									<span className="appName">
+										<img className="appIcon" src={premiumsLogo} alt="Premium-Calc" style={{backgroundColor: "#17244B"}}/>
+										{config.apps["insurance-premiums"].appName}
+									</span>
 								</div>
 
 								<div className="appLastUpdated">
