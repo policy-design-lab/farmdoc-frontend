@@ -1,9 +1,6 @@
 import React, {Component} from "react";
 import {browserHistory, Route, Router} from "react-router";
 import {isIE} from "react-device-detect";
-import "material-components-web/dist/material-components-web.min.css";
-import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-
 import "../styles/main.css";
 
 import HomePage from "./HomePage";
@@ -17,6 +14,9 @@ import Documentation from "./payment-calc/Documentation";
 import PremiumDashboard from "./premium-calc/PremiumDashboard";
 import AboutPremiumCalc from "./premium-calc/About";
 import DocsPremiumCalc from "./premium-calc/Documentation";
+
+import "material-components-web/dist/material-components-web.min.css";
+import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 
 global.__base = `${__dirname}/`;
 
