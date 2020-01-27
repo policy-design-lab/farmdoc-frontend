@@ -43,13 +43,11 @@ class App extends Component {
 						<Route path="/login" component={Login}/>
 
 						<Route path="/payment-calculator/" component={Dashboard}/>
-						<Route path="/payment-calculator/dashboard" component={Dashboard}/>
 						<Route path="/payment-calculator/docs" component={Documentation}/>
 						<Route path="/payment-calculator/about" component={About}/>
 
 
 						<Route path="/premium-calculator/" component={PremiumDashboard}/>
-						<Route path="/premium-calculator/dashboard" component={PremiumDashboard}/>
 						<Route path="/premium-calculator/docs" component={DocsPremiumCalc}/>
 						<Route path="/premium-calculator/about" component={AboutPremiumCalc}/>
 

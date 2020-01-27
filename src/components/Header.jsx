@@ -138,6 +138,8 @@ class Header extends Component {
 			currApp = "home";
 		}
 
+		console.log(currApp);
+
 		let tabHeader = "Calculator";
 
 		if (currApp.indexOf("payment") !== -1){
@@ -174,12 +176,13 @@ class Header extends Component {
 						</ToolbarSection>
 						<ToolbarSection>
 							{/*{browserWarningSpan}*/}
-							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null && localStorage.getItem("isAuthenticated") === "true")) ? null :
+							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null &&
+									localStorage.getItem("isAuthenticated") === "true") && (currApp === "home")) ? null :
 
 								<Tabs value={this.props.selectedTab}
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}/dashboard`}/>
+											 className={classes.tab} component={Link} to={`/${currApp}/`}/>
 									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
 											 className={classes.tab} component={Link} to={`/${currApp}/docs`}/>
 									<Tab value="about" label={<span className={classes.label}>About</span>}
