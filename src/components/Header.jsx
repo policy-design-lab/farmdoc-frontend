@@ -75,7 +75,8 @@ class Header extends Component {
 	}
 
 	handleAppsOpen = () => {
-		this.setState({appsPopupOpen: true});
+		browserHistory.push("/");
+		// this.setState({appsPopupOpen: true});
 	};
 
 	handleAppsClose = () => {
@@ -95,7 +96,7 @@ class Header extends Component {
 					if (localStorage.getItem("isAuthenticated") === "true") {
 						if (checkForTokenExpiry()) {
 							clearKeycloakStorage();
-							browserHistory.push("/"); //TODO: Change to apps
+							browserHistory.push("/");
 						}
 					}
 					else { // clear timer once isAuthenticated is set to false in storage
@@ -134,7 +135,6 @@ class Header extends Component {
 
 		const {classes} = this.props;
 
-		//TODO: Improve this logic to get from a config when more apps are defined
 		let currApp = (window.location.pathname).split("/")[1];
 		if (currApp === "") {
 			currApp = "home";

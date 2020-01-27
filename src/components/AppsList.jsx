@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-// import {Button} from "@material-ui/core/Button"; //TODO: Change to material-ui button
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
@@ -39,7 +38,7 @@ class AppsList extends Component {
 				browserHistory.push("/insurance-premiums/");
 				break;
 		}
-		window.location.reload();
+		// window.location.reload();
 	};
 
 	render() {

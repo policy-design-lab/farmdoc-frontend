@@ -50,7 +50,6 @@ class HomePage extends Component {
 	}
 
 	render(){
-		//TODO: Remove the logic to check for IE/firstvisit from App specific About pages
 
 		let notificationDiv = null;
 
