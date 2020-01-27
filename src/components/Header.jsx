@@ -55,7 +55,8 @@ function getModalStyle() {
 		left: `${left}%`,
 		transform: `translate(-${top}%, -${left}%)`,
 		display: "inline-block",
-		borderRadius: 12
+		borderRadius: 12,
+		minWidth: 1100
 	};
 }
 
@@ -122,6 +123,7 @@ class Header extends Component {
 		keycloak.init().success(function(){
 			keycloak.logout({}).success(function(){
 				browserHistory.push("/");
+				window.location.reload();
 			});
 		});
 	}
@@ -137,8 +139,6 @@ class Header extends Component {
 		if (currApp === ""){
 			currApp = "home";
 		}
-
-		console.log(currApp);
 
 		let tabHeader = "Calculator";
 
@@ -165,9 +165,14 @@ class Header extends Component {
 				<Toolbar>
 					<ToolbarRow className="banner">
 						<ToolbarSection align="start" style={{maxWidth: 225}}>
-							<IconButton onClick={this.handleAppsOpen} >
-								<AppsIcon style={{width: "44px", height: "44px", color: "white"}} />
-							</IconButton>
+
+							{(localStorage.getItem("isAuthenticated") !== null &&
+							localStorage.getItem("isAuthenticated") !== "true") ? null :
+
+								<IconButton onClick={this.handleAppsOpen} >
+									<AppsIcon style={{width: "44px", height: "44px", color: "white"}} />
+								</IconButton>
+							}
 
 							<a href="/" className={"farmdoc"}>
 								<img src={require("../images/GAPP-logo.png")}/>

@@ -10,6 +10,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Layout from "./Layout";
+import AuthorizedWrap from "./AuthorizedWrap";
 
 class About extends Component {
 
@@ -51,16 +52,6 @@ class About extends Component {
 
 	render(){
 
-		let notificationDiv = null;
-
-		if (localStorage.getItem("isAuthenticated") !== "true"){
-			notificationDiv = (<div className="notification_div">
-				<span className="isa_warning">
-					{loginMessage}
-				</span>
-			</div>);
-		}
-
 
 		let welcome = (<div>
 			<h2 className="secondary-color">Welcome to the Gardner Program Payment Calculator</h2>
@@ -78,70 +69,70 @@ class About extends Component {
 		return (
 			<div>
 				<Layout selectedTab="about">
+					<AuthorizedWrap>
 
-					<Dialog
+						<Dialog
 						open={this.state.IEPopup}
 						onClose={this.handleIEPopupClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description"
-					>
-						<DialogTitle id="alert-dialog-title" >
-							<span style={{fontWeight: "bolder"}}> Unsupported Browser Detected</span>
-						</DialogTitle>
-						<DialogContent>
-							<DialogContentText id="alert-dialog-description">
-								{browserWarning}
-							</DialogContentText>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={this.handleIEPopupClose} color="primary" autoFocus>
+						>
+							<DialogTitle id="alert-dialog-title" >
+								<span style={{fontWeight: "bolder"}}> Unsupported Browser Detected</span>
+							</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									{browserWarning}
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={this.handleIEPopupClose} color="primary" autoFocus>
 								Continue
-							</Button>
-						</DialogActions>
-					</Dialog>
+								</Button>
+							</DialogActions>
+						</Dialog>
 
-					<Dialog
+						<Dialog
 						open={this.state.PreReleasePopup}
 						onClose={this.handlePrereleasePopupClose}
 						aria-labelledby="alert-dialog-title"
 						aria-describedby="alert-dialog-description"
-					>
-						<DialogTitle id="alert-dialog-title" >
-							<span style={{fontWeight: "bolder"}}> Beta Release Notification</span>
-						</DialogTitle>
-						<DialogContent>
-							<DialogContentText id="alert-dialog-description">
-								{/*{preReleaseMessage}*/}
+						>
+							<DialogTitle id="alert-dialog-title" >
+								<span style={{fontWeight: "bolder"}}> Beta Release Notification</span>
+							</DialogTitle>
+							<DialogContent>
+								<DialogContentText id="alert-dialog-description">
+									{/*{preReleaseMessage}*/}
 								You are using a beta version of this tool which remains under development.
 								The alpha release temporary account is now disabled.
 								If you haven't already done so, you will need to click the
-								<span style={{color: "red"}}><strong> REGISTER</strong></span> link at the top of this page to create an account.
+									<span style={{color: "red"}}><strong> REGISTER</strong></span> link at the top of this page to create an account.
 								You will only need to create an account once, all subsequent releases of the tool will be available using the account you create.
 								After creating and verifying your account, use the LOGIN button at the top of this page to access the payment calculator.
 								The beta release operates as a demonstration of the tool and additional developments and data may be incorporated into the final version.
-							</DialogContentText>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={this.handlePrereleasePopupClose} color="primary" autoFocus>
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={this.handlePrereleasePopupClose} color="primary" autoFocus>
 								Continue
-							</Button>
-						</DialogActions>
-					</Dialog>
+								</Button>
+							</DialogActions>
+						</Dialog>
 
-					{notificationDiv}
-
-					<div className="home-content"
+						<div className="home-content"
 					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
-					>
-						<Grid>
-							<Cell col={6}>
-								{welcome}
-							</Cell>
-							<Cell col={6}>
-								{howwork}
-							</Cell>
-						</Grid>
-					</div>
+						>
+							<Grid>
+								<Cell col={6}>
+									{welcome}
+								</Cell>
+								<Cell col={6}>
+									{howwork}
+								</Cell>
+							</Grid>
+						</div>
+					</AuthorizedWrap>
 				</Layout>
 			</div>
 		);

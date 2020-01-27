@@ -368,3 +368,67 @@ h1, h2, h3, h5, h6, p, ul {
 	background-color: #f8f8f8;
 	height: 100%;
 }
+
+.appHeader{
+	padding: 6px;
+	color: #FFFFFF;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 1.25px;
+	line-height: 16px;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+	display: flex;
+	align-items: center;
+	text-align: center;
+}
+
+.appIcon{
+	width: 52px;
+	height: 40px;
+	border-radius: 2px;
+	padding:8px;
+	margin-right: 8px;
+	margin-left: auto;
+}
+
+.appsHeader{
+	text-align: center;
+	padding-left: 20px;
+	font-weight: 900;
+	font-size: 18px;
+
+}
+
+.appName{
+	margin-right: auto;
+}
+.appLastUpdated{
+	padding: 6px;
+	color: #9B9B9B;
+	font-size: 12px;
+
+}
+
+.appDescription{
+	padding: 6px;
+}
+
+.appScreenshot {
+	margin: 12px;
+	text-align: center;
+	box-sizing: border-box;
+	max-height: 200px;
+	max-width: 300px;
+	border: 1px solid #979797;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+}
+
+.appButton {
+	background-color: #455A64 !important;
+	font-size: large;
+	/*margin-bottom: 10px;*/
+	position: absolute !important;
+	bottom:10px !important;
+	right: 39%;
+}
