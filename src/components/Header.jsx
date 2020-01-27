@@ -9,6 +9,7 @@ import {handleUserLogout} from "../actions/user";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import config from "../app.config";
+import Tooltip from "@material-ui/core/Tooltip";
 import {
 	clearKeycloakStorage,
 	checkForTokenExpiry
@@ -106,7 +107,7 @@ class Header extends Component {
 							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null && localStorage.getItem("isAuthenticated") === "true")) ? null :
 
 								<Tabs value={this.props.selectedTab}
-												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
+											TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>Payment Calculator</span>}
 											 className={classes.tab} component={Link} to="/dashboard"/>
 									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
@@ -116,15 +117,23 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 300}} >
+						<ToolbarSection align="end" style={{maxWidth: 320}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>
 										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
 										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
+
+										<Tooltip title="Troubleshooting steps and FAQs">
+											<Button style={{height: "40px"}}>
+												<Link to={config.faqUrl} target="_blank" onlyActiveOnIndex>Need Help?</Link>
+											</Button>
+										</Tooltip>
+
 									</div>
 									:
-									<div><span>{localStorage.getItem("kcEmail")} </span>
+									<div>
+										<span>{localStorage.getItem("kcEmail")} </span>
 										<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>
 									</div>
 								}
