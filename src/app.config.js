@@ -91,7 +91,7 @@ const prodDomain = "fd-tools.ncsa.illinois.edu";
 
 const devConfig = {
 	basePath: "/",
-	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
+	apiUrl: "http://localhost:5000/api",
 	apps: farmdocApps,
 	commodities: crops,
 	forecastTypes: mpForecasts,
