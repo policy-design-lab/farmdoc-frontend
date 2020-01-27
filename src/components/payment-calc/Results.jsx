@@ -363,7 +363,7 @@ class Results extends Component {
 
 						</TableBody>
 					</Table>
-					<div style={{padding: 5, textAlign: "center"}}> Model data last updated: {config.modelDataUpdateDate} </div>
+					<div style={{padding: 5, textAlign: "center"}}> Model data last updated: {config.apps["arcplc-calculator"].lastUpdated} </div>
 
 				</div>
 			);

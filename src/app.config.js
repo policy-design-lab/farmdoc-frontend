@@ -6,7 +6,7 @@ const farmdocApps = {
 		appDesc: "The Gardner Payment Calculator will generate estimated program " +
 				"payments for individual farms from the ARC-CO and the PLC farm programs" +
 				" using county level historical data and modeled price and yield forecasts.",
-		lastUpdated: "Jan 22, 2020"
+		lastUpdated: "Jan 12, 2020"
 	},
 	"insurance-premiums": {
 		appName: "Insurance Premiums",
@@ -22,8 +22,6 @@ const crops = [
 	{"id": "soybeans", "cropId": 81, "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
 	{"id": "wheat", "cropId": 999, "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
 ];
-
-const modelDataUpdateDate = "January 12, 2020";
 
 const mpForecasts = [
 	{
@@ -93,7 +91,7 @@ const prodDomain = "fd-tools.ncsa.illinois.edu";
 
 const devConfig = {
 	basePath: "/",
-	apiUrl: "http://localhost:5000/api",
+	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	apps: farmdocApps,
 	commodities: crops,
 	forecastTypes: mpForecasts,
@@ -105,8 +103,7 @@ const devConfig = {
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
 	keycloak: Keycloak("http://localhost:3000/keycloak.json"),
-	faqUrl: faqUrl,
-	modelDataUpdateDate: modelDataUpdateDate
+	faqUrl: faqUrl
 };
 
 const prodConfig = {
@@ -123,8 +120,7 @@ const prodConfig = {
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
 	keycloak: Keycloak(`https://${ prodDomain }/keycloak.json`),
-	faqUrl: faqUrl,
-	modelDataUpdateDate: modelDataUpdateDate
+	faqUrl: faqUrl
 };
 
 const config = getConfig();
