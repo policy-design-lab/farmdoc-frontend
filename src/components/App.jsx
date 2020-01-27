@@ -1,21 +1,22 @@
 import React, {Component} from "react";
 import {browserHistory, Route, Router} from "react-router";
-import About from "./About";
-import RouteMismatch from "./RouteMismatch";
+import {isIE} from "react-device-detect";
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
-import Dashboard from "./Dashboard";
-import Results from "./Results";
-import {isIE} from "react-device-detect";
-import ProgramParams from "./ProgramParams";
+
 import "../styles/main.css";
-import Documentation from "./Documentation";
+
+import HomePage from "./HomePage";
 import Login from "./Login";
+import RouteMismatch from "./RouteMismatch";
+
+import Dashboard from "./Dashboard";
+import About from "./About";
+import Documentation from "./Documentation";
+
 import PremiumDashboard from "./premium-calc/PremiumDashboard";
 import AboutPremiumCalc from "./premium-calc/About";
 import DocsPremiumCalc from "./premium-calc/Documentation";
-
-import HomePage from "./HomePage";
 
 global.__base = `${__dirname}/`;
 
