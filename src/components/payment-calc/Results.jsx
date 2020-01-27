@@ -3,20 +3,20 @@ import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import {HorizontalBar} from "react-chartjs-2";
 import {Modal, Table, TableBody, TableCell, TableRow} from "@material-ui/core";
-import {handleResults} from "../actions/model";
-import {changeYearRow} from "../actions/results";
+import {handleResults} from "../../actions/model";
+import {changeYearRow} from "../../actions/results";
 import BinnedGraphs from "./BinnedGraphs";
-import {roundResults} from "../public/utils.js";
+import {roundResults} from "../../public/utils.js";
 import {
 	expectedPayoutTooltip,
 	likelihoodTableToolTip,
 	simulatedPriceTableToolTip,
 	simulatedYieldTableToolTip,
 	simulationGraphToolTip
-} from "../app.messages";
+} from "../../app.messages";
 import ToolTip from "@material-ui/core/Tooltip";
-import "../styles/main.css";
-import config from "../app.config";
+import "../../styles/main.css";
+import config from "../../app.config";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -250,7 +250,7 @@ class Results extends Component {
 						<ArcTableCell>${arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<CommonTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
+							<img src={require("../../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
 								 style={{cursor: "pointer"}}/>
 						</CommonTableCell>
 						<CommonTableCell rowSpan={2}> ${prices[i]} </CommonTableCell>

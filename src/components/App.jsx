@@ -10,9 +10,9 @@ import HomePage from "./HomePage";
 import Login from "./Login";
 import RouteMismatch from "./RouteMismatch";
 
-import Dashboard from "./Dashboard";
-import About from "./About";
-import Documentation from "./Documentation";
+import Dashboard from "./payment-calc/Dashboard";
+import About from "./payment-calc/About";
+import Documentation from "./payment-calc/Documentation";
 
 import PremiumDashboard from "./premium-calc/PremiumDashboard";
 import AboutPremiumCalc from "./premium-calc/About";

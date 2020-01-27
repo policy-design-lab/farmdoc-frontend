@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
-import {Cell, Grid} from "react-mdc-web";
 import {welcometext, browserWarning, preReleaseMessage, loginMessage, sessionExpired} from "../app.messages";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";

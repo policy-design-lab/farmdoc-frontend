@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import config from "../app.config";
+import config from "../../app.config";
 import {Table, TableBody, TableCell, TableRow} from "@material-ui/core";
 import ToolTip from "@material-ui/core/Tooltip";
 import {withStyles} from "@material-ui/core/styles";
-import {arcCoverageRangeToolTip, arcCoverageToolTip, paymentAcresToolTip} from "../app.messages";
+import {arcCoverageRangeToolTip, arcCoverageToolTip, paymentAcresToolTip} from "../../app.messages";
 
 const CustomTableRow = withStyles(() => ({
 	root: {
@@ -39,7 +39,7 @@ const CustomValueCell = withStyles(() => ({
 class ProgramParams extends Component {
 
 	render() {
-		
+
 		return (
 			<div style={{backgroundColor: "#efefef"}}>
 				<Table >

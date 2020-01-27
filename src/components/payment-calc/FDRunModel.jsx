@@ -14,13 +14,13 @@ import {
 	getStates,
 	getCounties,
 	getCropParams
-} from "../public/utils";
+} from "../../public/utils";
 import {
 	datawolfURL,
 	postExecutionRequest,
 	resultDatasetId,
 	steps,
-} from "../datawolf.config";
+} from "../../datawolf.config";
 import {
 	changeCommodity,
 	changeForecastType,
@@ -29,22 +29,22 @@ import {
 	changeArcYield,
 	changeRefPrice,
 	handleResults,
-} from "../actions/model";
-import Spinner from "../components/Spinner";
-import config from "../app.config";
+} from "../../actions/model";
+import Spinner from "../Spinner";
+import config from "../../app.config";
 import {
 	dataNotAvailable,
 	practiceTypeToolTip,
 	arcTrendYieldToolTip,
 	plcPayYieldInputToolTip,
 	stateCountySelectToolTip
-} from "../app.messages";
+} from "../../app.messages";
 import ReactSelect from "react-select";
 import IconButton from "@material-ui/core/IconButton";
 import HelpOutline from "@material-ui/icons/HelpOutline";
 import CloseIcon from "@material-ui/icons/Close";
 import Info from "@material-ui/icons/Info";
-import ForecastModels from "./ForecastModels";
+import ForecastModels from "../ForecastModels";
 import ToolTip from "@material-ui/core/Tooltip";
 import ProgramParams from "./ProgramParams";
 import Dialog from "@material-ui/core/Dialog";
@@ -52,7 +52,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {roundResults} from "../public/utils.js";
+import {roundResults} from "../../public/utils.js";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";

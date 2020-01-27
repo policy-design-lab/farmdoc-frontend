@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import "../../styles/main.css";
 import "../../styles/home-page.css";
-import {welcometext} from "../../app.messages";
-
+import {Cell, Grid} from "react-mdc-web";
+import {welcometext, browserWarning} from "../../app.messages";
 import Layout from "../Layout";
 import AuthorizedWrap from "../AuthorizedWrap";
 
@@ -26,10 +26,20 @@ class About extends Component {
 		return (
 			<div>
 				<Layout selectedTab="about">
-
 					<AuthorizedWrap>
-						<div className="docsHeader"> Coming Soon.. </div>
 
+						<div className="home-content"
+					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
+						>
+							<Grid>
+								<Cell col={6}>
+									{welcome}
+								</Cell>
+								<Cell col={6}>
+									{howwork}
+								</Cell>
+							</Grid>
+						</div>
 					</AuthorizedWrap>
 				</Layout>
 			</div>

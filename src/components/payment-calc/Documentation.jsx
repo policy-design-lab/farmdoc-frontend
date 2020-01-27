@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import Term from "./Term";
-import "../styles/main.css";
-import {termDefinitions} from "../app.messages";
-import Layout from "./Layout";
-import AuthorizedWrap from "./AuthorizedWrap";
+import Term from "../Term";
+import "../../styles/main.css";
+import {termDefinitions} from "../../app.messages";
+import Layout from "../Layout";
+import AuthorizedWrap from "../AuthorizedWrap";
 
 class Documentation extends Component {
 	constructor(props) {
