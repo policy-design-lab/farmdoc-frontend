@@ -8,7 +8,7 @@ import Login from "./Login";
 import RouteMismatch from "./RouteMismatch";
 
 import Dashboard from "./payment-calc/Dashboard";
-import About from "./payment-calc/About";
+import AboutPaymentCalc from "./payment-calc/About";
 import Documentation from "./payment-calc/Documentation";
 
 import PremiumDashboard from "./premium-calc/PremiumDashboard";
@@ -45,7 +45,7 @@ class App extends Component {
 
 						<Route path="/payment-calculator/" component={Dashboard}/>
 						<Route path="/payment-calculator/docs" component={Documentation}/>
-						<Route path="/payment-calculator/about" component={About}/>
+						<Route path="/payment-calculator/about" component={AboutPaymentCalc}/>
 
 
 						<Route path="/premium-calculator/" component={PremiumDashboard}/>
