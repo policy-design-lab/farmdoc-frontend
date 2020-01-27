@@ -26,8 +26,7 @@ class Footer extends Component {
 							</a>
 						</ToolbarSection>
 
-						<ToolbarSection align ="end" className="footerCorners" >
-						</ToolbarSection>
+						<ToolbarSection align ="end" className="footerCorners" />
 
 					</ToolbarRow>
 				</Toolbar>
