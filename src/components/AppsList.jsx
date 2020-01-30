@@ -21,8 +21,7 @@ const styles = theme => ({
 		height: 500,
 		display: "table",
 		position: "relative",
-		// maxWidth: 360
-		//TODO: Make this responsive
+		maxWidth: 420
 	},
 });
 
@@ -53,7 +52,7 @@ class AppsList extends Component {
 								alignItems="center" spacing={24}>
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
-						<Grid item xs={4}>
+						<Grid item>
 							<Paper className={classes.paper}>
 								<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
 									<span className="appName">
@@ -84,7 +83,7 @@ class AppsList extends Component {
 							</Paper>
 						</Grid>
 
-						<Grid item xs={4}>
+						<Grid item>
 							<Paper className={classes.paper}>
 								<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
 									<span className="appName">
