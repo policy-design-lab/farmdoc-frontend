@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
-import {browserHistory} from "react-router";
+import {browserHistory, Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
@@ -27,19 +27,6 @@ const styles = theme => ({
 
 class AppsList extends Component {
 
-	handleAppChange = name => event => {
-		switch (name) {
-			case "paymentCalc":
-				browserHistory.push("/arcplc-calculator/");
-				break;
-
-			case "premiumCalc":
-				browserHistory.push("/insurance-premiums/");
-				break;
-		}
-		// window.location.reload();
-	};
-
 	render() {
 		const {classes} = this.props;
 
@@ -53,65 +40,54 @@ class AppsList extends Component {
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>
-							<Paper className={classes.paper}>
-								<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
-									<span className="appName">
-										<img className="appIcon" src={arcPlcLogo} alt="ARCPLC" style={{backgroundColor: "#CC5200"}}/>
-										{config.apps["arcplc-calculator"].appName}
-									</span>
+							<Link to="/arcplc-calculator/" onlyActiveOnIndex={false}>
 
-								</div>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
+										<span className="appName">
+											<img className="appIcon" src={arcPlcLogo} alt="ARCPLC" style={{backgroundColor: "#CC5200"}}/>
+											{config.apps["arcplc-calculator"].appName}
+										</span>
+									</div>
 
-								<div className="appLastUpdated">
+									<div className="appLastUpdated">
 									Last Updated: {config.apps["arcplc-calculator"].lastUpdated}
-								</div>
+									</div>
 
-								<div className="appDescription">
-									{config.apps["arcplc-calculator"].appDesc}
-								</div>
+									<div className="appDescription">
+										{config.apps["arcplc-calculator"].appDesc}
+									</div>
 
-								<div>
-									<img className="appScreenshot" src="../images/arc-plc-results.png" alt="ARC/PLC Results"/>
-								</div>
-
-								<Button variant="contained" color="primary" onClick={this.handleAppChange("paymentCalc")}
-												className="appButton">
-									<Icon className={classes.leftIcon}> send </Icon>
-									&nbsp; Run
-								</Button>
-
-							</Paper>
+									<div>
+										<img className="appScreenshot" src="../images/arc-plc-results.png" alt="ARC/PLC Results"/>
+									</div>
+								</Paper>
+							</Link>
 						</Grid>
 
 						<Grid item>
-							<Paper className={classes.paper}>
-								<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
-									<span className="appName">
-										<img className="appIcon" src={premiumsLogo} alt="Premium-Calc" style={{backgroundColor: "#17244B"}}/>
-										{config.apps["insurance-premiums"].appName}
-									</span>
-								</div>
+							<Link to="/insurance-premiums/" onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
+										<span className="appName">
+											<img className="appIcon" src={premiumsLogo} alt="Premium-Calc" style={{backgroundColor: "#17244B"}}/>
+											{config.apps["insurance-premiums"].appName}
+										</span>
+									</div>
 
-								<div className="appLastUpdated">
+									<div className="appLastUpdated">
 									Last Updated: {config.apps["insurance-premiums"].lastUpdated}
-								</div>
+									</div>
 
-								<div className="appDescription">
-									{config.apps["insurance-premiums"].appDesc}	</div>
+									<div className="appDescription">
+										{config.apps["insurance-premiums"].appDesc}	</div>
 
-								<div>
-									<img className="appScreenshot" src="../images/premium-calc-screenshot.png" alt="Premium Results"/>
-								</div>
+									<div>
+										<img className="appScreenshot" src="../images/premium-calc-screenshot.png" alt="Premium Results"/>
+									</div>
 
-								<div>
-									<Button variant="contained" color="primary" onClick={this.handleAppChange("premiumCalc")}
-													className="appButton">
-										<Icon className={classes.leftIcon}> send </Icon>
-										&nbsp; Run
-									</Button>
-								</div>
-
-							</Paper>
+								</Paper>
+							</Link>
 						</Grid>
 
 					</Grid>
