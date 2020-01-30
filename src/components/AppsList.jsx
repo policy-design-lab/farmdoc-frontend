@@ -59,7 +59,7 @@ class AppsList extends Component {
 									</div>
 
 									<div>
-										<img className="appScreenshot" src="../images/arc-plc-results.png" alt="ARC/PLC Results"/>
+										<img className="appScreenshot" src={require("../images/arc-plc-results.png")} alt="ARC/PLC Results"/>
 									</div>
 								</Paper>
 							</Link>
@@ -83,7 +83,7 @@ class AppsList extends Component {
 										{config.apps["insurance-premiums"].appDesc}	</div>
 
 									<div>
-										<img className="appScreenshot" src="../images/premium-calc-screenshot.png" alt="Premium Results"/>
+										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
 									</div>
 
 								</Paper>
