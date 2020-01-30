@@ -20,6 +20,7 @@ import {
 import {Modal} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import AppsList from "./AppsList";
+import GAPPLogo from "../images/GAPP-logo.png";
 
 
 const keycloak = config.keycloak;
@@ -171,7 +172,7 @@ class Header extends Component {
 							}
 
 							<a href="/" className={"farmdoc"}>
-								<img src={require("../images/GAPP-logo.png")}/>
+								<img src={GAPPLogo}/>
 								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
 							</a>
 						</ToolbarSection>

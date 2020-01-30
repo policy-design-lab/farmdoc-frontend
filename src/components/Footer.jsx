@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import "../styles/header-footer.css";
 import {Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
+import GAPPLogo from "../images/GAPP-logo.png";
+import FDDLogo from "../images/fdd-logo.png";
+import NCSALogo from "../images/ncsa-logo.png";
 
 class Footer extends Component {
 
@@ -14,15 +17,15 @@ class Footer extends Component {
 						</ToolbarSection>
 						<ToolbarSection className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/GAPP-logo.png")} alt="Farmdoc" title="Farmdoc"/>
+								<img src={GAPPLogo} alt="Farmdoc" title="Farmdoc"/>
 							</a>
 
 							<a href="https://farmdocdaily.illinois.edu/" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/fdd-logo.png")} alt="Farmdoc Daily" title="Farmdoc Daily"/>
+								<img src={FDDLogo} alt="Farmdoc Daily" title="Farmdoc Daily"/>
 							</a>
 
 							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
-								<img src={require("../images/ncsa-logo.png")} alt="NCSA" title="National Center for Supercomputing Applications" />
+								<img src={NCSALogo} alt="NCSA" title="National Center for Supercomputing Applications" />
 							</a>
 						</ToolbarSection>
 
