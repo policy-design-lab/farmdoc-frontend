@@ -18,8 +18,6 @@ import DocsPremiumCalc from "./premium-calc/Documentation";
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 
-import config from "../app.config";
-
 global.__base = `${__dirname}/`;
 
 const theme = createMuiTheme();

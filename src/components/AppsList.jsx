@@ -4,8 +4,8 @@ import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
 import {browserHistory} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
-import arcPlcLogo from "../images/apps/arcplc.svg";
-import premiumsLogo from "../images/apps/premium.svg";
+import arcPlcLogo from "../images/arcplc.svg";
+import premiumsLogo from "../images/premium.svg";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import config from "../app.config";
@@ -72,7 +72,7 @@ class AppsList extends Component {
 								</div>
 
 								<div>
-									<img className="appScreenshot" src="../images/apps/arc-plc-results.png" alt="ARC/PLC Results"/>
+									<img className="appScreenshot" src="../images/arc-plc-results.png" alt="ARC/PLC Results"/>
 								</div>
 
 								<Button variant="contained" color="primary" onClick={this.handleAppChange("paymentCalc")}
@@ -101,7 +101,7 @@ class AppsList extends Component {
 									{config.apps["insurance-premiums"].appDesc}	</div>
 
 								<div>
-									<img className="appScreenshot" src="../images/apps/premium-calc-screenshot.png" alt="Premium Results"/>
+									<img className="appScreenshot" src="../images/premium-calc-screenshot.png" alt="Premium Results"/>
 								</div>
 
 								<div>
