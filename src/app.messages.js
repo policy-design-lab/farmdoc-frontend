@@ -6,7 +6,7 @@ export const userNotActiveMessage = "Registration is successful, but your accoun
 export const invalidLoginCredentials = "We do not recognize your username and/or password. Please try again.";
 export const dataWolfGetTokenCallFailed = "An internal error occurred while logging in. Please try again later.";
 
-export const welcometext = ["The Gardner Program Payment Calculator provides farmers, researchers and policymakers " +
+export const arcplcWelcomeText = ["The Gardner Program Payment Calculator provides farmers, researchers and policymakers " +
 "with a web-based analysis tool for farm program payments. The Payment Calculator will help improve the " +
 "understanding of farm programs authorized by Congress in the Agricultural Improvement Act of 2018 (the farm bill), " +
 "as well assist farmers with program decisions. The initial version of this tool will generate estimated program " +
@@ -64,7 +64,7 @@ export const loginMessage = "Please login with your account to access the paymen
 	" email in your inbox, please check your spam/junk folder.";
 export const sessionExpired = "Your session has expired. Please login again to access the payment calculator";
 
-export const termDefinitions = [
+export const arcplcTermDefinitions = [
 	{
 		"term": "PLC Payment Yield",
 		"definition": "The PLC Payment Yield is the payment yield for your FSA farm based on historic average yields and available " +
@@ -153,4 +153,53 @@ export const termDefinitions = [
 			" for the crop year.  CBO updates its price forecasts each year and the tool will incorporate the latest CBO price forecasts in the scenario.",
 		"links": [{"name": "May 2019 Estimates", "href": "https://www.cbo.gov/system/files/2019-05/51317-2019-05-usda_0.pdf"}]
 	},
+];
+
+
+// ****Insurance Specific Config****
+
+export const insuranceTermDefinitions = [
+	{
+		"term": "Use TA/YE Adjustment",
+		"definition": "Indicate “yes” if yields will be trend adjusted or yield exclusion will be used. If TA or YE are used, the TA Yield input will reflect the TA/YE adjustment and be higher than the APH yield."
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+	{
+		"term": "Rate yield ",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+	},
+];
+
+export const premCalcWelcomeText = ["The insurance premium calculator provides farmer-paid premium for Federally-subsidized crop insurance products." +
+" Users enter all entries required to generate an accurate quote.",
+"  ",
+"Funding for this project has been provided by the Gardner Agriculture Policy Program. It is operated in conjunction with the farmdoc project in the Dept. of" +
+	" Agricultural & Consumer Economics (ACE) and powered by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign."
 ];

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "../styles/main.css";
 import "../styles/home-page.css";
-import {welcometext, browserWarning, preReleaseMessage, loginMessage, sessionExpired} from "../app.messages";
+import {browserWarning, loginMessage} from "../app.messages";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -61,20 +61,6 @@ class HomePage extends Component {
 			</div>);
 		}
 
-
-		let welcome = (<div>
-			<h2 className="secondary-color">Welcome to the Gardner Program Payment Calculator</h2>
-			<br/>
-			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
-		</div>);
-
-		let howwork =
-			(<div style={{textAlign: "center"}}>
-				<h2 className="secondary-color">How does the simulation work?</h2>
-				<br/>
-				<img src={require("../images/farmdoc-rep-image.png")} alt="Payment Calculator Inputs"/>
-			</div>);
-
 		return (
 			<div>
 				<Layout>
@@ -133,13 +119,6 @@ class HomePage extends Component {
 					<div className="home-content"
 					 style={{backgroundSize: "cover", backgroundPosition: "center"}}
 					>
-
-						{/*<Cell col={6}>*/}
-						{/*	{welcome}*/}
-						{/*</Cell>*/}
-						{/*<Cell col={6}>*/}
-						{/*	{howwork}*/}
-						{/*</Cell>*/}
 						<AppsList/>
 
 					</div>

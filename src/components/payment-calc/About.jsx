@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import "../../styles/main.css";
 import "../../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
-import {welcometext, browserWarning} from "../../app.messages";
+import {arcplcWelcomeText} from "../../app.messages";
 import Layout from "../Layout";
 import AuthorizedWrap from "../AuthorizedWrap";
 
@@ -13,7 +13,7 @@ class About extends Component {
 		let welcome = (<div>
 			<h2 className="secondary-color">Welcome to the Gardner Program Payment Calculator</h2>
 			<br/>
-			{welcometext.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
+			{arcplcWelcomeText.map((paragraph, index) => <p key={index} className="secondary-color">{paragraph} <br/></p>)}
 		</div>);
 
 		let howwork =
