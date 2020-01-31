@@ -161,39 +161,51 @@ export const arcplcTermDefinitions = [
 export const insuranceTermDefinitions = [
 	{
 		"term": "Use TA/YE Adjustment",
-		"definition": "Indicate “yes” if yields will be trend adjusted or yield exclusion will be used. If TA or YE are used, the TA Yield input will reflect the TA/YE adjustment and be higher than the APH yield."
+		"definition": "Indicate “yes” if yields will be trend adjusted or yield exclusion will be used. If TA or YE are used," +
+				" the TA Yield input will reflect the TA/YE adjustment and be higher than the APH yield."
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Rate yield",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. " +
+				"Up to ten years enter into the rate yield. "
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "TA yield",
+		"definition": "The Trend Adjusted yield is the yield on which the insurance guarantee is based. It should be adjusted for TA and" +
+				" YE if those options are used (Use TA/YE adjustment is yes). "
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "APH yield",
+		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter " +
+				"into the rate yield. The APH yield is the average of the yields after t-yield are substituted for actual yields are made. " +
+				"If no yield adjustments are included in history, the APH yield will equal the rate yields. "
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Type",
+		"definition": "RMA type of production used in developing the quote."
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Practice",
+		"definition": "RMA practice used in developing the quote."
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Prevented Planting",
+		"definition": "A 5% buy up will increase prevent plant payments when prevent plant payments occur. The buy up increases Insurance premiums. " +
+				"Indicate “none” if the buy up will not be used. Choose “5% buy up” if the buy up will be used."
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Acres",
+		"definition": "The number of acres in the insurance unit"
 	},
 	{
-		"term": "Rate yield ",
-		"definition": "The rate yield is the simple average of the history of yields used in developing the quote. Up to ten years enter into the rate yield. "
+		"term": "Projected Price",
+		"definition": "The projected price is the average of prices during February for corn and soybeans in the Midwest. After February, " +
+				"the actual projected price will be the default. Before the end of February, an estimate of the final projected price will be the default"
+	},
+	{
+		"term": "Volatility Factor",
+		"definition": "The volatility is calculated in the last five days of February for corn and soybeans in the Midwest. After February, " +
+				"the actual volatility will be the default. Before the end of February, an estimate of the final volatility will be the default."
 	},
 ];
 
