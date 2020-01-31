@@ -20,7 +20,7 @@ class About extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the simulation work?</h2>
 				<br/>
-				<img src={require("../../images/farmdoc-rep-image.png")} alt="Payment Calculator Inputs"/>
+				<img src="/images/farmdoc-rep-image.png" alt="Payment Calculator Inputs"/>
 			</div>);
 
 		return (
