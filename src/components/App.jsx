@@ -47,13 +47,13 @@ class App extends Component {
 						<Route path="/login" component={Login}/>
 
 						<Route path={`${arcplcPath}`} component={Dashboard}/>
-						<Route path={`${arcplcPath}docs`} component={Documentation}/>
-						<Route path={`${arcplcPath}about`} component={AboutPaymentCalc}/>
+						<Route path={`${arcplcPath}/docs`} component={Documentation}/>
+						<Route path={`${arcplcPath}/about`} component={AboutPaymentCalc}/>
 
 
 						<Route path={`${premiumCalcPath}`} component={PremiumDashboard}/>
-						<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>
-						<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>
+						<Route path={`${premiumCalcPath}/docs`} component={DocsPremiumCalc}/>
+						<Route path={`${premiumCalcPath}/about`} component={AboutPremiumCalc}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
