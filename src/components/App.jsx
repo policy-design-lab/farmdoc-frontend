@@ -36,8 +36,8 @@ class App extends Component {
 			localStorage.setItem("fdFirstVisit", "false");
 		}
 
-		let arcplcPath = "/arcplc-calculator/";
-		let premiumCalcPath = "/insurance-premiums/";
+		let arcplcPath = "/arcplc-calculator";
+		let premiumCalcPath = "/insurance-premiums";
 
 		return (
 			<div>
