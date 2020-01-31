@@ -245,10 +245,10 @@ class PremiumResults extends Component {
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
-								<CommonTableCell>{guarantees[cov]["rp"]}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</CommonTableCell>
+								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</CommonTableCell>
+								<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</CommonTableCell>
@@ -267,10 +267,10 @@ class PremiumResults extends Component {
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{guarantees[cov]["rp"]}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</BottomMostTableCell>
