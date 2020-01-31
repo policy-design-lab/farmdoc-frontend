@@ -27,10 +27,7 @@ import ReactSelect from "react-select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import ToolTip from "@material-ui/core/Tooltip";
 import {arcTrendYieldToolTip} from "../../app.messages";
-import IconButton from "@material-ui/core/IconButton";
-import Info from "@material-ui/icons/Info";
 import FDTooltip from "../Tooltip";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -167,7 +164,7 @@ class PremiumCalculator extends Component {
 		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
-	  runStatus: "",
+	  runStatus: "INIT",
 		premResults: null,
 		countySelValue: null,
 		cropCountyCode: null,
@@ -207,7 +204,7 @@ class PremiumCalculator extends Component {
 			cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 			units: config.defaultsJson.units,
 
-			runStatus: "",
+			runStatus: "INIT",
 			premResults: null,
 			countySelValue: null,
 			cropCountyCode: null,
@@ -242,15 +239,19 @@ class PremiumCalculator extends Component {
 		switch (name) {
 			case "county":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
+				this.clearParams();
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
 					this.setState({cropCountyCode: cropCountyCode});
+					this.setDefaultTypes(this.state.cropId);
+					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams(cropCountyCode);
 				}
 				break;
 
 			case "stateSel":
 				if (event.value !== "") {
+					this.clearParams();
 					this.setState({countySelValue: null});
 					this.setState({county: ""});
 					this.populateCounties(event.value);
@@ -258,20 +259,15 @@ class PremiumCalculator extends Component {
 				break;
 			case "cropId":
 				if (event.value !== "") {
+					this.clearParams();
 					this.populateCropUnits(event.value);
 
 					//TODO: Confirm with PIs if these defaults will be good for all counties
-					if (event.value === 41){
-						this.setState({practiceType: 3});
-						this.setState({grainType: 16});
-					}
-					else if (event.value === 81){
-						this.setState({practiceType: 53});
-						this.setState({grainType: 997});
-					}
+					this.setDefaultTypes(event.value);
 
 					let cropCountyCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCountyCode: cropCountyCode});
+					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams(cropCountyCode);
 				}
 				break;
@@ -290,6 +286,37 @@ class PremiumCalculator extends Component {
 		});
 	};
 
+	clearParams(){
+		this.setState({
+			aphYield: "",
+			taYield: "",
+			rateYield: "",
+			useTaAdj: true,
+			riskClass: 0,
+			farmAcres: "",
+			grainType: 16,
+			practiceType: 3,
+			preventedPlanting: "0",
+			projectedPrice: "",
+			volFactor: "",
+
+			practiceTypes: [],
+			riskClasses: [],
+			grainTypes: []
+		});
+	}
+
+	setDefaultTypes(value){
+		if (value === 41){
+			this.setState({practiceType: 3});
+			this.setState({grainType: 16});
+		}
+		else if (value === 81){
+			this.setState({practiceType: 53});
+			this.setState({grainType: 997});
+		}
+	}
+
 
 	setParams(cropCountyCode) {
 		getParams(cropCountyCode).then(function(response) {
@@ -302,27 +329,30 @@ class PremiumCalculator extends Component {
 			// TODO: how to handle? Force logout?
 			}
 		}).then(data => {
-			// console.log(data);
-			this.setState({aphYield: roundResults(data.aphYield)});
-			this.setState({taYield: roundResults(data.TAYield)});
-			this.setState({rateYield: roundResults(data.rateYield)});
-			this.setState({useTaAdj: data.useTaAdjustment});
-			this.setState({farmAcres: data.acres});
-			this.setState({practiceTypes: data.practices});
-			this.setState({riskClasses: data.riskClasses});
-			this.setState({grainTypes: data.types});
-			this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
-			this.setState({volFactor: roundResults(data.comboVol, 2)});
+			if (typeof(data) !== "object"){
+				this.clearParams();
+			}
+			else {
+				this.setState({aphYield: roundResults(data.aphYield)});
+				this.setState({taYield: roundResults(data.TAYield)});
+				this.setState({rateYield: roundResults(data.rateYield)});
+				this.setState({useTaAdj: data.useTaAdjustment});
+				this.setState({farmAcres: data.acres});
+				this.setState({practiceTypes: data.practices});
+				this.setState({riskClasses: data.riskClasses});
+				this.setState({grainTypes: data.types});
+				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
+				this.setState({volFactor: roundResults(data.comboVol, 2)});
+			}
+			this.setState({runStatus: "FETCHED_PARAMS"});
 		});
+
 	}
 
 
 	async calcPremiums() {
 		//let status = "STARTED";
 		let personId = localStorage.getItem("dwPersonId");
-		this.setState({
-			runStatus: status
-		});
 
 		let curTime = new Date();
 		curTime = curTime.toUTCString();
@@ -368,6 +398,7 @@ class PremiumCalculator extends Component {
 
 		premiumsApiUrl.search = new URLSearchParams(premiumParams).toString();
 
+		this.setState({runStatus: "FETCHING_RESULTS"});
 		const premiumsResponse = await fetch(premiumsApiUrl, {
 			method: "GET",
 			//headers: kcHeaders,
@@ -376,8 +407,13 @@ class PremiumCalculator extends Component {
 		if (premiumsResponse instanceof Response) {
 			try {
 				premiumsResult = await premiumsResponse.json();
-				this.handlePremiumResults(JSON.stringify(premiumsResult));
-				//this.setState({runStatus: premiumResult.stepState[steps.Farm_Model]});
+				if (typeof(premiumsResult) === "object") {
+					this.handlePremiumResults(JSON.stringify(premiumsResult));
+				}
+				else {
+					this.handlePremiumResults(null);
+				}
+				this.setState({runStatus: "FETCHED_RESULTS"});
 			}
 			catch (error) {
 				console.log("error getting the response from flask api");
@@ -401,8 +437,12 @@ class PremiumCalculator extends Component {
 		if (countyProductsResponse instanceof Response) {
 			try {
 				countyProductsResult = await countyProductsResponse.json();
-				console.log(countyProductsResult);
-				this.handleCountyProductsResults(JSON.stringify(countyProductsResult));
+				if (typeof(countyProductsResult) === "object") {
+					this.handleCountyProductsResults(JSON.stringify(countyProductsResult));
+				}
+				else {
+					this.handleCountyProductsResults(null);
+				}
 			}
 			catch (error) {
 				console.log(error);
@@ -483,10 +523,9 @@ class PremiumCalculator extends Component {
 		const {classes} = this.props;
 
 		let textFieldInputStyle = {style: {paddingLeft: 8}};
-		let tooltipTouchDelay = config.tooltipTouchDelay;
 		let spinner;
 
-		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
+		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
 			spinner = <Spinner/>;
 		}
 
@@ -812,8 +851,6 @@ class PremiumCalculator extends Component {
 					{spinner}
 
 				</div>
-
-				{spinner}
 			</div>
 		);
 	}

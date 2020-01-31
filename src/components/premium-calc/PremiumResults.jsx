@@ -12,10 +12,7 @@ import {
 	simulatedYieldTableToolTip,
 	simulationGraphToolTip
 } from "../../app.messages";
-import ToolTip from "@material-ui/core/Tooltip";
 import "../../styles/main.css";
-import CloseIcon from "@material-ui/icons/Close";
-import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -197,8 +194,7 @@ class PremiumResults extends Component {
 		let policyJsonData = null;
 		let countyJsonData = null;
 
-		if ((this.props.hasOwnProperty("premResults") && this.props["premResults"] !== null) &&
-			(this.props.hasOwnProperty("countyProductsResults") && this.props["countyProductsResults"] !== null)) {
+		if (this.props.hasOwnProperty("premResults") || this.props.hasOwnProperty("countyProductsResults") ) {
 			policyJsonData = this.props["premResults"];
 			countyJsonData = this.props["countyProductsResults"];
 		}
@@ -222,235 +218,308 @@ class PremiumResults extends Component {
 			customCoverage = this.state.countyCoverage;
 		}
 
-		if (policyJsonData !== null && countyJsonData !== null) {
-			let farmPolicyObjData = JSON.parse(policyJsonData);
-			let countyProductObjData = JSON.parse(countyJsonData);
+		if (policyJsonData !== null || countyJsonData !== null) {
+			if (policyJsonData !== null){
+				let farmPolicyObjData = JSON.parse(policyJsonData);
 
-			if (farmPolicyObjData.premiums !== null && farmPolicyObjData.guarantees !== null) {
-				let premiums = farmPolicyObjData.premiums;
-				let guarantees = farmPolicyObjData.guarantees;
+				if (farmPolicyObjData.premiums !== null && farmPolicyObjData.guarantees !== null) {
+					let premiums = farmPolicyObjData.premiums;
+					let guarantees = farmPolicyObjData.guarantees;
 
-				let coverageLevels = Object.keys(farmPolicyObjData.premiums);
+					let coverageLevels = Object.keys(farmPolicyObjData.premiums);
 
-				let i = 1;
-				let len = coverageLevels.length;
-				coverageLevels.forEach(function(cov){
-					if (i < len) {
-						farmPolicyRows.push(
-							<TableRow key={`childRowArc-${i}`}>
-								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
+					let i = 1;
+					let len = coverageLevels.length;
+					coverageLevels.forEach(function(cov){
+						if (i < len) {
+							farmPolicyRows.push(
+								<TableRow key={`childRowArc-${i}`}>
+									<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</CommonTableCell>
-								<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</CommonTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</CommonTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</CommonTableCell>
+									<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</CommonTableCell>
-								<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
-							</TableRow>
-						);
-					}
-					else {
-						farmPolicyRows.push(
-							<TableRow key={`childRowArc-${i}`}>
-								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</CommonTableCell>
+									<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
+								</TableRow>
+							);
+						}
+						else {
+							farmPolicyRows.push(
+								<TableRow key={`childRowArc-${i}`}>
+									<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-enterprise"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-basic"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(premiums[cov]["rp-hpe-opt"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
-									{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
-							</TableRow>
-						);
-					}
-					i++;
-				});
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-opt"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
+										{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
+								</TableRow>
+							);
+						}
+						i++;
+					});
+				}
 			}
 
-			if (countyProductObjData.premiums !== null && countyProductObjData.guarantees !== null) {
-				let premiums = countyProductObjData.premiums;
-				let guarantees = countyProductObjData.guarantees;
-				expectedYield = countyProductObjData.expyield;
+			if (countyJsonData !== null){
+				let countyProductObjData = JSON.parse(countyJsonData);
 
-				let coverageLevels = Object.keys(countyProductObjData.premiums);
+				if (countyProductObjData.premiums !== null && countyProductObjData.guarantees !== null) {
+					let premiums = countyProductObjData.premiums;
+					let guarantees = countyProductObjData.guarantees;
+					expectedYield = countyProductObjData.expyield;
 
-				let i = 1;
-				let len = coverageLevels.length;
-				coverageLevels.forEach(function(cov){
-					if (i < len) {
-						countyProductsRows.push(
-							<TableRow key={`childRowArc-${i}`}>
-								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
+					let coverageLevels = Object.keys(countyProductObjData.premiums);
 
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
+					let i = 1;
+					let len = coverageLevels.length;
+					coverageLevels.forEach(function(cov){
+						if (i < len) {
+							countyProductsRows.push(
+								<TableRow key={`childRowArc-${i}`}>
+									<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
-								<CommonTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</CommonTableCell>
-								<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</CommonTableCell>
-								<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
 
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</CommonTableCell>
-								<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
-							</TableRow>
-						);
-					}
-					else {
-						countyProductsRows.push(
-							<TableRow key={`childRowArc-${i}`}>
-								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</CommonTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</CommonTableCell>
+									<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</CommonTableCell>
+									<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</CommonTableCell>
+									<RightMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["yp"])}</RightMostTableCell>
+								</TableRow>
+							);
+						}
+						else {
+							countyProductsRows.push(
+								<TableRow key={`childRowArc-${i}`}>
+									<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
-								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
 
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
-									{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
-							</TableRow>
-						);
-					}
-					i++;
-				});
+									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
 
-				// console.log(farmPolicyObjData.premiums["50"]["rp-opt"]);
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (80 / 120), 2)}</BottomMostTableCell>
+									<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
+										{roundResults(guarantees[cov]["yp"])}</BottomMostTableCell>
+								</TableRow>
+							);
+						}
+						i++;
+					});
+				}
 			}
+
+
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
 
 					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies </h2></div>
 
-					<Table className={classes.table}>
-						<TableBody>
-							<TableRow style={{height: "64px"}}>
-								<TableCellHeader className="table-header-insurance" colSpan={1} rowSpan={2} style={{width: "150px"}}>Coverage Level</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1} style={coloredBg}>Revenue Protection</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1}>Revenue Protection With Harvest Price Exclusion</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1} style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderTopRightRadius: "15px"}}>
-									Yield Protection</TableCellHeader>
-							</TableRow>
-							<TableRow style={{height: "64px"}}>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Enterprise</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Basic</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Optional</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Min. Revenue Guarantee</TableCellHeader>
+					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
 
-								<TableCellHeader className="table-header-tooltip">Enterprise</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">Basic</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">Optional</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">Revenue Guarantee</TableCellHeader>
+						<Table className={classes.table}>
+							<TableBody>
+								<TableRow style={{height: "64px"}}>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={1} rowSpan={2}
+																		 style={{width: "150px"}}>Coverage
+											Level</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1} style={coloredBg}>Revenue
+											Protection</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1}>Revenue Protection
+											With Harvest Price Exclusion</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1}
+																	 style={{borderRightWidth: 0,
+																		 backgroundColor: "WhiteSmoke", borderTopRightRadius: "15px"}}>
+											Yield Protection</TableCellHeader>
+								</TableRow>
+								<TableRow style={{height: "64px"}}>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Enterprise</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Basic</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Optional</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Min. Revenue
+											Guarantee</TableCellHeader>
 
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Enterprise</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Basic</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Optional</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke"}}>Yield Guarantee ({units})</TableCellHeader>
-							</TableRow>
+									<TableCellHeader
+												className="table-header-tooltip">Enterprise</TableCellHeader>
+									<TableCellHeader
+												className="table-header-tooltip">Basic</TableCellHeader>
+									<TableCellHeader
+												className="table-header-tooltip">Optional</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip">Revenue
+											Guarantee</TableCellHeader>
 
-							{farmPolicyRows}
-						</TableBody>
-					</Table>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Enterprise</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Basic</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Optional</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip" style={{
+										borderRightWidth: 0,
+										backgroundColor: "WhiteSmoke"
+									}}>Yield Guarantee ({units})</TableCellHeader>
+								</TableRow>
+
+								{farmPolicyRows}
+							</TableBody>
+						</Table>
+					}
 
 					<br/>
-					{/*<div style={{textAlign: "left", marginLeft: "200px", padding: "10px"}}>*/}
-					{/*	<span> <span style={{fontWeight: "bold"}}>Projected Price: </span> $4.00 </span>*/}
-					{/*	<span> <span style={{fontWeight: "bold", marginLeft: "200px"}}>Volatility Factor: </span> 0.15 </span>*/}
-					{/*</div>*/}
 
 					<Divider/>
 
 					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products </h2></div>
 
-					<Table className={classes.table}>
-						<TableBody>
-							<TableRow style={{height: "64px"}}>
-								<TableCellHeader className="table-header-insurance" colSpan={1} rowSpan={3} style={{width: "150px"}}>Coverage Level</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1} style={coloredBg}>Area Revenue Protection</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1}>Area Revenue Protection With Harvest Price Exclusion</TableCellHeader>
-								<TableCellHeader className="table-header-insurance" colSpan={4} rowSpan={1} style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderTopRightRadius: "15px"}}>
-									Area Yield Protection</TableCellHeader>
-							</TableRow>
-							<TableRow style={{height: "32px"}}>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg} colSpan={3}> Price Protection </TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg} rowSpan={2}>Min. Revenue Guarantee</TableCellHeader>
+					{countyProductsRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
 
-								<TableCellHeader className="table-header-tooltip" colSpan={3}> Price Protection </TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" rowSpan={2}>Revenue Guarantee</TableCellHeader>
+						<Table className={classes.table}>
+							<TableBody>
+								<TableRow style={{height: "64px"}}>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={1} rowSpan={3}
+																		 style={{width: "150px"}}>Coverage
+											Level</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1} style={coloredBg}>Area
+											Revenue Protection</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1}>Area Revenue
+											Protection With Harvest Price Exclusion</TableCellHeader>
+									<TableCellHeader className="table-header-insurance"
+																		 colSpan={4} rowSpan={1}
+																	 style={{borderRightWidth: 0,	backgroundColor: "WhiteSmoke",
+																		 borderTopRightRadius: "15px"
+																		 }}>
+											Area Yield Protection</TableCellHeader>
+								</TableRow>
+								<TableRow style={{height: "32px"}}>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg} colSpan={3}> Price
+											Protection </TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg} rowSpan={2}>Min. Revenue
+											Guarantee</TableCellHeader>
 
-								<TableCellHeader className="table-header-tooltip" style={coloredBg} colSpan={3}> Price Protection </TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={Object.assign({}, coloredBg, {borderRightWidth: 0})} rowSpan={2}>Yield Guarantee ({units})</TableCellHeader>
-							</TableRow>
+									<TableCellHeader className="table-header-tooltip"
+																		 colSpan={3}> Price
+											Protection </TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 rowSpan={2}>Revenue
+											Guarantee</TableCellHeader>
+
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg} colSpan={3}> Price
+											Protection </TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={Object.assign({}, coloredBg,
+																				 {borderRightWidth: 0})} rowSpan={2}>Yield
+											Guarantee ({units})</TableCellHeader>
+								</TableRow>
 
 
-							<TableRow style={{height: "48px"}}>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Custom <br/>({customCoverage}%)</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>80%</TableCellHeader>
+								<TableRow style={{height: "48px"}}>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>120%</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Custom <br/>({customCoverage}%)</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>80%</TableCellHeader>
 
-								<TableCellHeader className="table-header-tooltip">120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">Custom <br/>({customCoverage}%)</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip">80%</TableCellHeader>
+									<TableCellHeader
+												className="table-header-tooltip">120%</TableCellHeader>
+									<TableCellHeader
+												className="table-header-tooltip">Custom <br/>({customCoverage}%)</TableCellHeader>
+									<TableCellHeader
+												className="table-header-tooltip">80%</TableCellHeader>
 
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>120%</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>Custom <br/>({customCoverage}%)</TableCellHeader>
-								<TableCellHeader className="table-header-tooltip" style={coloredBg}>80%</TableCellHeader>
-							</TableRow>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>120%</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Custom <br/>({customCoverage}%)</TableCellHeader>
+									<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>80%</TableCellHeader>
+								</TableRow>
 
-							{countyProductsRows}
-						</TableBody>
-					</Table>
+								{countyProductsRows}
+							</TableBody>
+						</Table>
+					}
 
-					<div style={{textAlign: "left", marginLeft: "200px", padding: "10px"}}>
+					{countyProductsRows.length === 0 ? null :
 
-						<span style={{fontWeight: "bold"}}>
+						<div style={{
+							textAlign: "left",
+							marginLeft: "200px",
+							padding: "10px"
+						}}>
+
+							<span style={{fontWeight: "bold"}}>
 							Set custom coverage:
-						</span>
-						<TextField
-									id="countyCoverage"
-									// label="Custom Coverage"
-									className={classes.textField}
-									value={this.state.countyCoverage}
-									onChange={this.handleChange("countyCoverage")}
-									InputProps={{
-										endAdornment: <InputAdornment position="end">%</InputAdornment>,
-									}}
-									margin="normal"
-									variant="outlined"
-									onInput={this.validateMaxValue(120)}
-						/>
+							</span>
+							<TextField
+										id="countyCoverage"
+										// label="Custom Coverage"
+										className={classes.textField}
+										value={this.state.countyCoverage}
+										onChange={this.handleChange("countyCoverage")}
+										InputProps={{
+											endAdornment: <InputAdornment
+													position="end">%</InputAdornment>,
+										}}
+										margin="normal"
+										variant="outlined"
+										onInput={this.validateMaxValue(120)}
+							/>
 
 
-						<span style={{fontWeight: "bold", marginLeft: "200px"}}>Expected Yield: </span> <span>{`${roundResults(expectedYield) } ${ units}`}</span>
-					</div>
-
+							<span style={{fontWeight: "bold", marginLeft: "200px"}}>Expected Yield: </span>
+							<span>{`${roundResults(expectedYield)} ${units}`}</span>
+						</div>
+					}
 					<Divider/>
 					<br/>
 				</div>
