@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import "../styles/header-footer.css";
 import {Toolbar, ToolbarRow, ToolbarSection} from "react-mdc-web";
+import GAPPLogo from "../images/GAPP-logo.png";
+import NCSALogo from "../images/ncsa-logo.png";
+import FDDLogo from "../images/fdd-logo.png";
 
 class Footer extends Component {
 
