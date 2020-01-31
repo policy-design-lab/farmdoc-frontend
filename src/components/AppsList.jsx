@@ -40,7 +40,7 @@ class AppsList extends Component {
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>
-							<Link to="/arcplc-calculator/" onlyActiveOnIndex={false}>
+							<Link to="/arcplc-calculator" onlyActiveOnIndex={false}>
 
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
@@ -66,7 +66,7 @@ class AppsList extends Component {
 						</Grid>
 
 						<Grid item>
-							<Link to="/insurance-premiums/" onlyActiveOnIndex={false}>
+							<Link to="/insurance-premiums" onlyActiveOnIndex={false}>
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
 										<span className="appName">
