@@ -27,6 +27,11 @@ import ReactSelect from "react-select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import ToolTip from "@material-ui/core/Tooltip";
+import {arcTrendYieldToolTip} from "../../app.messages";
+import IconButton from "@material-ui/core/IconButton";
+import Info from "@material-ui/icons/Info";
+import FDTooltip from "../Tooltip";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -64,24 +69,34 @@ const styles = theme => ({
 		marginLeft: 0,
 	},
 	formControlHorizontal: {
-		margin: theme.spacing.unit,
-		minWidth: 200,
+		// display: "inline",
+		minWidth: 180,
 		marginLeft: 20,
-		marginRight: 20,
+		marginRight: 4,
+		marginTop: 4,
+		marginBottom: 4,
 		textAlign: "left"
 	},
 
 	formControlHorizontalTextBox: {
-		margin: theme.spacing.unit,
+		// display: "inline",
 		minWidth: 150,
 		marginLeft: 20,
-		marginRight: 20,
+		marginRight: 4,
+		marginTop: 4,
+		marginBottom: 4,
 		textAlign: "left"
 	},
 
 	helpIcon: {
 		fontSize: 24
 	},
+
+	iconButton: {
+		height: 24,
+		width: 24
+	},
+
 	popupButton: {
 		width: 48
 	},
@@ -529,8 +544,7 @@ class PremiumCalculator extends Component {
 				<div style={{
 					maxWidth: "730px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					marginLeft: "50px", marginRight: "5px", marginTop: "15px", marginBottom: "15px",
-					paddingBottom: "12px",
+					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 					display: "inline-block"
 				}}>
 					<FormControl className={classes.formControlHorizontal} required >
@@ -597,10 +611,9 @@ class PremiumCalculator extends Component {
 				</div>
 				<br/>
 				<div style={{
-					maxWidth: "1050px",
+					maxWidth: "1080px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					marginLeft: "50px", marginRight: "5px", marginTop: "15px", marginBottom: "15px",
-					paddingBottom: "12px",
+					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 					display: "inline-block"
 				}}>
 
@@ -613,6 +626,9 @@ class PremiumCalculator extends Component {
 							<MenuItem value={false}>No</MenuItem>
 						</Select>
 					</FormControl>
+
+					<FDTooltip title={arcTrendYieldToolTip} />
+					{/*TODO: Make sure the tooltips are always together with the input fields. Currently on smaller screens they sometimes go to the next line of the input control*/}
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
@@ -632,6 +648,8 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
 								id="taYield"
@@ -649,6 +667,8 @@ class PremiumCalculator extends Component {
 								inputProps={{padding: 10}}
 						/>
 					</FormControl>
+
+					<FDTooltip title={arcTrendYieldToolTip} />
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
@@ -668,6 +688,8 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<br/>
 
 					<FormControl required className={classes.formControlHorizontal}>
@@ -679,6 +701,8 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="practiceTypeId">
 							Practice
@@ -688,6 +712,8 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="riskId">
 							Risk Class
@@ -696,6 +722,8 @@ class PremiumCalculator extends Component {
 							{riskClassOptions}
 						</Select>
 					</FormControl>
+
+					<FDTooltip title={arcTrendYieldToolTip} />
 
 					<FormControl required className={classes.formControlHorizontal}>
 						<InputLabel id="preventedPlantingId">
@@ -707,6 +735,9 @@ class PremiumCalculator extends Component {
 							<MenuItem value="2">Plus 10%</MenuItem>
 						</Select>
 					</FormControl>
+
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<br/>
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
@@ -726,6 +757,8 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
 								id="projectedPrice"
@@ -743,6 +776,8 @@ class PremiumCalculator extends Component {
 								inputProps={{padding: 10}}
 						/>
 					</FormControl>
+
+					<FDTooltip title={arcTrendYieldToolTip} />
 
 					<FormControl className={classes.formControlHorizontalTextBox}>
 						<TextField
@@ -762,8 +797,10 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
+					<FDTooltip title={arcTrendYieldToolTip} />
+
 					<br/>
-					<div style={{textAlign: "center"}}>
+					<div style={{textAlign: "center", paddingTop: "4px"}}>
 						<Button variant="contained" color="primary" onClick={this.calcPremiums}
 										disabled={!this.validateInputs()}
 										style={{fontSize: "large", backgroundColor: "#455A64"}}>

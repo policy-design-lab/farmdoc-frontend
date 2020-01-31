@@ -22,7 +22,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import AppsList from "./AppsList";
 import GAPPLogo from "../images/GAPP-logo.png";
 
-
 const keycloak = config.keycloak;
 
 

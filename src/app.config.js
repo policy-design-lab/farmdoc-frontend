@@ -3,16 +3,16 @@ import Keycloak from "keycloak-js";
 const farmdocApps = {
 	"arcplc-calculator": {
 		appName: "ARC/PLC Calculator",
-		appDesc: "The Gardner Payment Calculator will generate estimated program " +
-				"payments for individual farms from the ARC-CO and the PLC farm programs" +
-				" using county level historical data and modeled price and yield forecasts.",
+		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
+				" PLC making payments in each year from 2019 to 2023. Expected payment " +
+				"levels also are given for user-selected counties and crops.",
 		lastUpdated: "Jan 12, 2020"
 	},
 	"insurance-premiums": {
 		appName: "Insurance Premiums",
-		appDesc: "The 2020 iFarm Crop insurance Premium Calculator allows users to develop " +
-				"highly customize estimates of their crop insurance premiums, and compare revenue and" +
-				" yield guarantees across all available crop insurance products and elections for their actual farm case.",
+		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
+				"will pay for Federally-subsidized crop Insurance products. These per " +
+				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
 		lastUpdated: "Jan 22, 2020"
 	},
 };
