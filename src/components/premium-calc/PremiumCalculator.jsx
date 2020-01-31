@@ -27,7 +27,11 @@ import ReactSelect from "react-select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import {arcTrendYieldToolTip} from "../../app.messages";
+import {
+	taAdjTooltip, rateYieldTooltip, taYieldTooltip, aphYieldTooltip,
+	typeTooltip, practiceTooltip, riskClassTooltip, prevPlantingTooltip,
+	acresTooltip, projPriceTooltip, volFactorTooltip
+} from "../../app.messages";
 import FDTooltip from "../Tooltip";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -65,8 +69,35 @@ const styles = theme => ({
 		minWidth: 200,
 		marginLeft: 0,
 	},
-	formControlHorizontal: {
-		// display: "inline",
+
+	formControlTopPanel: {
+		minWidth: 200,
+		marginLeft: 20,
+		marginRight: 4,
+		marginTop: 4,
+		marginBottom: 4,
+		textAlign: "left"
+	},
+
+	formControlXSmall: {
+		minWidth: 120,
+		marginLeft: 20,
+		marginRight: 4,
+		marginTop: 4,
+		marginBottom: 4,
+		textAlign: "left"
+	},
+
+	formControlSmall: {
+		minWidth: 150,
+		marginLeft: 20,
+		marginRight: 4,
+		marginTop: 4,
+		marginBottom: 4,
+		textAlign: "left"
+	},
+
+	formControlMedium: {
 		minWidth: 180,
 		marginLeft: 20,
 		marginRight: 4,
@@ -75,9 +106,8 @@ const styles = theme => ({
 		textAlign: "left"
 	},
 
-	formControlHorizontalTextBox: {
-		// display: "inline",
-		minWidth: 150,
+	formControlLarge: {
+		minWidth: 220,
 		marginLeft: 20,
 		marginRight: 4,
 		marginTop: 4,
@@ -586,7 +616,7 @@ class PremiumCalculator extends Component {
 					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 					display: "inline-block"
 				}}>
-					<FormControl className={classes.formControlHorizontal} required >
+					<FormControl className={classes.formControlMedium} required >
 						<ReactSelect styles={ReactSelectStyles}
 												 classes={classes}
 												 textFieldProps={{
@@ -606,7 +636,7 @@ class PremiumCalculator extends Component {
 
 					</FormControl>
 
-					<FormControl className={classes.formControlHorizontal} required>
+					<FormControl className={classes.formControlMedium} required>
 						<ReactSelect styles={ReactSelectStyles}
 												 classes={classes}
 												 textFieldProps={{
@@ -627,7 +657,7 @@ class PremiumCalculator extends Component {
 
 					</FormControl>
 
-					<FormControl className={classes.formControlHorizontal} required>
+					<FormControl className={classes.formControlMedium} required>
 						<ReactSelect styles={ReactSelectStyles}
 												 classes={classes}
 												 textFieldProps={{
@@ -656,7 +686,7 @@ class PremiumCalculator extends Component {
 					display: "inline-block"
 				}}>
 
-					<FormControl required className={classes.formControlHorizontal}>
+					<FormControl required className={classes.formControlMedium}>
 						<InputLabel id="taId">
 							Use TA/YE Adjustment
 						</InputLabel>
@@ -666,10 +696,10 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={taAdjTooltip} />
 					{/*TODO: Make sure the tooltips are always together with the input fields. Currently on smaller screens they sometimes go to the next line of the input control*/}
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 							id="rateYield"
 							label="Rate Yield"
@@ -687,9 +717,9 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={rateYieldTooltip} />
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 								id="taYield"
 								label="TA Yield"
@@ -707,9 +737,9 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={taYieldTooltip} />
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 								id="aphYield"
 								label="APH Yield"
@@ -727,11 +757,11 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={aphYieldTooltip} />
 
 					<br/>
 
-					<FormControl required className={classes.formControlHorizontal}>
+					<FormControl required className={classes.formControlSmall}>
 						<InputLabel id="grainTypeId">
 							Type
 						</InputLabel>
@@ -740,9 +770,9 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={typeTooltip} />
 
-					<FormControl required className={classes.formControlHorizontal}>
+					<FormControl required className={classes.formControlLarge}>
 						<InputLabel id="practiceTypeId">
 							Practice
 						</InputLabel>
@@ -751,9 +781,9 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={practiceTooltip} />
 
-					<FormControl required className={classes.formControlHorizontal}>
+					<FormControl required className={classes.formControlSmall}>
 						<InputLabel id="riskId">
 							Risk Class
 						</InputLabel>
@@ -762,9 +792,9 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={riskClassTooltip} />
 
-					<FormControl required className={classes.formControlHorizontal}>
+					<FormControl required className={classes.formControlSmall}>
 						<InputLabel id="preventedPlantingId">
 							Prevented Planting
 						</InputLabel>
@@ -775,11 +805,11 @@ class PremiumCalculator extends Component {
 						</Select>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={prevPlantingTooltip} />
 
 					<br/>
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 								id="farmAcres"
 								label="Acres"
@@ -796,9 +826,9 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={acresTooltip} />
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 								id="projectedPrice"
 								label="Projected Price"
@@ -816,9 +846,9 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={projPriceTooltip} />
 
-					<FormControl className={classes.formControlHorizontalTextBox}>
+					<FormControl className={classes.formControlSmall}>
 						<TextField
 								id="volFactor"
 								label="Volatility Factor"
@@ -836,7 +866,7 @@ class PremiumCalculator extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={arcTrendYieldToolTip} />
+					<FDTooltip title={volFactorTooltip} />
 
 					<br/>
 					<div style={{textAlign: "center", paddingTop: "4px"}}>

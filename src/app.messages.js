@@ -215,3 +215,15 @@ export const premCalcWelcomeText = ["The insurance premium calculator provides f
 "Funding for this project has been provided by the Gardner Agriculture Policy Program. It is operated in conjunction with the farmdoc project in the Dept. of" +
 	" Agricultural & Consumer Economics (ACE) and powered by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign."
 ];
+
+export const taAdjTooltip = "Indicate “yes” if yields will be trend adjusted or yield exclusion will be used";
+export const rateYieldTooltip = "Average yield for up to ten years used in developing the quote";
+export const taYieldTooltip = "Historic yields adjusted for trend and yield exclusion";
+export const aphYieldTooltip = "Average yields for up to ten years with any substitute yields used in the average";
+export const typeTooltip = "RMA type of production that will be used in developing the quote";
+export const practiceTooltip = "RMA practice that will be used in developing the quote";
+export const riskClassTooltip = "Indicate the risk class if high-risk farmland, none if not high risk";
+export const prevPlantingTooltip = "Indicate whether buy up will be used";
+export const acresTooltip = "Acres in the insured unit";
+export const projPriceTooltip = "The projected price used in developing the quote";
+export const volFactorTooltip = "The volatility used in developing the quote";
