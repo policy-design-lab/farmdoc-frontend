@@ -1,17 +1,8 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import {HorizontalBar} from "react-chartjs-2";
 import {Table, TableBody, TableCell, TableRow} from "@material-ui/core";
-
 import {roundResults} from "../../public/utils.js";
-import {
-	expectedPayoutTooltip,
-	likelihoodTableToolTip,
-	simulatedPriceTableToolTip,
-	simulatedYieldTableToolTip,
-	simulationGraphToolTip
-} from "../../app.messages";
 import "../../styles/main.css";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
