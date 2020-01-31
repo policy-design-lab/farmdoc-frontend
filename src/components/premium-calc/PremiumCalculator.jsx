@@ -560,9 +560,13 @@ class PremiumCalculator extends Component {
 		}
 
 		let stateOptions = [];
+		//TODO: Hack - fetch from DB
+		let activeStates = [17, 18, 19, 24, 26, 27, 29, 38, 39, 55];
 
 		this.state.states.forEach((item) => {
-			stateOptions.push({value: item.id, label: item.name});
+			if (activeStates.indexOf(item.id) >= 0) {
+				stateOptions.push({value: item.id, label: item.name});
+			}
 		});
 
 		let countyOptions = [];
@@ -572,8 +576,13 @@ class PremiumCalculator extends Component {
 		});
 
 		let cropOptions = [];
+		//TODO: Hack - fetch from DB
+		let activeCrops = [41, 81];
+
 		config.commodities.forEach((item) => {
-			cropOptions.push({value: item.cropId, label: item.name});
+			if (activeCrops.indexOf(item.cropId) >= 0) {
+				cropOptions.push({value: item.cropId, label: item.name});
+			}
 		});
 
 		let practiceTypeOptions = [];
