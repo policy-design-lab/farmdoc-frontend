@@ -124,7 +124,8 @@ class Header extends Component {
 		this.props.handleUserLogout();
 		keycloak.init().success(function(){
 			keycloak.logout({}).success(function(){
-				browserHistory.push("/");
+				window.location("/");
+				// browserHistory.push("/");
 			});
 		});
 	}
