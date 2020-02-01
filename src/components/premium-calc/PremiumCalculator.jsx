@@ -564,6 +564,11 @@ class PremiumCalculator extends Component {
 		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
+		if (this.state.runStatus === "INIT"){
+			this.handlePremiumResults(null);
+			this.handleCountyProductsResults(null);
+		}
+
 		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
 			spinner = <Spinner/>;
 		}
