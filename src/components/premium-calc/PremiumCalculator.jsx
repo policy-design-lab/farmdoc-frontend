@@ -273,7 +273,6 @@ class PremiumCalculator extends Component {
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
 					this.setState({cropCountyCode: cropCountyCode});
-					this.setDefaultTypes(this.state.cropId);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams(cropCountyCode);
 				}
@@ -291,10 +290,6 @@ class PremiumCalculator extends Component {
 				if (event.value !== "") {
 					this.clearParams();
 					this.populateCropUnits(event.value);
-
-					//TODO: Confirm with PIs if these defaults will be good for all counties
-					this.setDefaultTypes(event.value);
-
 					let cropCountyCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCountyCode: cropCountyCode});
 					this.setState({runStatus: "FETCHING_PARAMS"});
@@ -336,18 +331,6 @@ class PremiumCalculator extends Component {
 		});
 	}
 
-	setDefaultTypes(value){
-		if (value === 41){
-			this.setState({practiceType: 3});
-			this.setState({grainType: 16});
-		}
-		else if (value === 81){
-			this.setState({practiceType: 53});
-			this.setState({grainType: 997});
-		}
-	}
-
-
 	setParams(cropCountyCode) {
 		getParams(cropCountyCode).then(function(response) {
 			if (response.status === 200) {
@@ -373,12 +356,37 @@ class PremiumCalculator extends Component {
 				this.setState({grainTypes: data.types});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
+
+				//TODO: Confirm with PIs if these defaults will be good for all counties
+				if (this.state.cropId === 41){
+					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
+					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
+				}
+				else if (this.state.cropId === 81){
+					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 53)});
+					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
+				}
 			}
 			this.setState({runStatus: "FETCHED_PARAMS"});
 		});
-
 	}
 
+	 getDefaultType(arr, fieldName, fieldVal){
+		if (arr.length === 1){
+			return arr[0][fieldName];
+		}
+
+		for (let i = 0; i < arr.length; i++){
+			let obj = arr[i];
+			console.log(obj);
+
+			if (obj[fieldName] === fieldVal){
+				console.log("true");
+				return fieldVal;
+			}
+		}
+		return 0;
+	}
 
 	async calcPremiums() {
 		//let status = "STARTED";
@@ -546,7 +554,8 @@ class PremiumCalculator extends Component {
 	validateInputs() {
 		return this.state.county > 0 && this.state.cropId !== "" && this.state.aphYield > 0
 				&& this.state.rateYield > 0 && this.state.taYield > 0 && this.state.volFactor > 0
-				&& this.state.projectedPrice > 0 && this.state.farmAcres >= 1;
+				&& this.state.projectedPrice > 0 && this.state.farmAcres >= 1 &&
+				this.state.grainType > 0 && this.state.practiceType > 0;
 	}
 
 	render() {
