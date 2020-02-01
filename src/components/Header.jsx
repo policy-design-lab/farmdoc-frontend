@@ -141,10 +141,10 @@ class Header extends Component {
 
 		console.log(currApp);
 
-		if (currApp.indexOf("arcplc")){
+		if (currApp.indexOf("arcplc") >= 0){
 			currApp = "arcplc";
 		}
-		else if (currApp.indexOf("premium")){
+		else if (currApp.indexOf("premium") >= 0){
 			currApp = "premiums";
 		}
 
@@ -192,7 +192,7 @@ class Header extends Component {
 								<Tabs value={this.props.selectedTab}
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}/`}/>
+											 className={classes.tab} component={Link} to={`/${currApp}`}/>
 									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
 											 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
 									<Tab value="about" label={<span className={classes.label}>About</span>}
