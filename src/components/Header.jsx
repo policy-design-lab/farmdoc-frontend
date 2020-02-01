@@ -139,6 +139,15 @@ class Header extends Component {
 			currApp = "home";
 		}
 
+		console.log(currApp);
+
+		if (currApp.indexOf("arcplc")){
+			currApp = "arcplc";
+		}
+		else if (currApp.indexOf("premium")){
+			currApp = "premiums";
+		}
+
 		let tabHeader = "";
 
 		if (currApp !== "home") {
@@ -185,9 +194,9 @@ class Header extends Component {
 									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
 											 className={classes.tab} component={Link} to={`/${currApp}/`}/>
 									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}/docs`}/>
+											 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
 									<Tab value="about" label={<span className={classes.label}>About</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}/about`}/>
+											 className={classes.tab} component={Link} to={`/${currApp}about`}/>
 								</Tabs>
 							}
 						</ToolbarSection>

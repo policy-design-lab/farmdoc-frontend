@@ -1,14 +1,14 @@
 import Keycloak from "keycloak-js";
 
 const farmdocApps = {
-	"arcplc-calculator": {
+	"arcplc": {
 		appName: "ARC/PLC Calculator",
 		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
 				" PLC making payments in each year from 2019 to 2023. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
 		lastUpdated: "Jan 12, 2020"
 	},
-	"insurance-premiums": {
+	"premiums": {
 		appName: "Insurance Premiums",
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +

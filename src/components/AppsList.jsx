@@ -40,22 +40,22 @@ class AppsList extends Component {
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>
-							<Link to="/arcplc-calculator/" onlyActiveOnIndex={false}>
+							<Link to="/arcplc" onlyActiveOnIndex={false}>
 
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
 										<span className="appName">
 											<img className="appIcon" src={arcPlcLogo} alt="ARCPLC" style={{backgroundColor: "#CC5200"}}/>
-											{config.apps["arcplc-calculator"].appName}
+											{config.apps["arcplc"].appName}
 										</span>
 									</div>
 
 									<div className="appLastUpdated">
-									Last Updated: {config.apps["arcplc-calculator"].lastUpdated}
+									Last Updated: {config.apps["arcplc"].lastUpdated}
 									</div>
 
 									<div className="appDescription">
-										{config.apps["arcplc-calculator"].appDesc}
+										{config.apps["arcplc"].appDesc}
 									</div>
 
 									<div>
@@ -66,21 +66,21 @@ class AppsList extends Component {
 						</Grid>
 
 						<Grid item>
-							<Link to="/insurance-premiums/" onlyActiveOnIndex={false}>
+							<Link to="/premiums" onlyActiveOnIndex={false}>
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
 										<span className="appName">
 											<img className="appIcon" src={premiumsLogo} alt="Premium-Calc" style={{backgroundColor: "#17244B"}}/>
-											{config.apps["insurance-premiums"].appName}
+											{config.apps["premiums"].appName}
 										</span>
 									</div>
 
 									<div className="appLastUpdated">
-									Last Updated: {config.apps["insurance-premiums"].lastUpdated}
+									Last Updated: {config.apps["premiums"].lastUpdated}
 									</div>
 
 									<div className="appDescription">
-										{config.apps["insurance-premiums"].appDesc}	</div>
+										{config.apps["premiums"].appDesc}	</div>
 
 									<div>
 										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
