@@ -196,6 +196,8 @@ class PremiumCalculator extends Component {
 	  runStatus: "INIT",
 		premResults: null,
 		countySelValue: null,
+		stateSelValue: null,
+		cropSelValue: null,
 		cropCountyCode: null,
 
 		aphYield: null,
@@ -236,6 +238,7 @@ class PremiumCalculator extends Component {
 			runStatus: "INIT",
 			premResults: null,
 			countySelValue: null,
+			stateSelValue: null,
 			cropCountyCode: null,
 
 			aphYield: null,
@@ -280,6 +283,7 @@ class PremiumCalculator extends Component {
 			case "stateSel":
 				if (event.value !== "") {
 					this.clearParams();
+					this.setState({stateSelValue: {value: event.value, label: event.label}});
 					this.setState({countySelValue: null});
 					this.setState({county: ""});
 					this.populateCounties(event.value);
@@ -288,6 +292,7 @@ class PremiumCalculator extends Component {
 			case "cropId":
 				if (event.value !== "") {
 					this.clearParams();
+					this.setState({cropSelValue: {value: event.value, label: event.label}});
 					this.populateCropUnits(event.value);
 					let cropCountyCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCountyCode: cropCountyCode});
@@ -377,10 +382,8 @@ class PremiumCalculator extends Component {
 
 		for (let i = 0; i < arr.length; i++){
 			let obj = arr[i];
-			console.log(obj);
 
 			if (obj[fieldName] === fieldVal){
-				console.log("true");
 				return fieldVal;
 			}
 		}
@@ -515,7 +518,26 @@ class PremiumCalculator extends Component {
 			this.setState({
 				states: statesJson,
 			});
+			this.setState({
+				stateSel: 17,
+			});
+			this.setState({stateSelValue: {value: 17, label: "Illinois"}});
+			this.populateCounties(17);
+
+			this.setState({county: 17001});
+			this.setState({countySelValue:  {value: 17001, label: "Adams"}});
+
+			this.setState({cropId: 41});
+			this.setState({cropSelValue:  {value: 41, label: "Corn"}});
+
+			let defaultCropCountyCode = "1700141"
+			this.setState({cropCountyCode: defaultCropCountyCode});
+			this.setState({runStatus: "FETCHING_PARAMS"});
+			this.setParams(defaultCropCountyCode);
+
+
 		});
+
 	}
 
 	populateCounties(stateId) {
@@ -650,6 +672,7 @@ class PremiumCalculator extends Component {
 												 }}
 												 components={components}
 												 options={stateOptions}
+												 value={this.state.stateSelValue}
 												 placeholder = "Select"
 												 onChange={this.handleReactSelectChange("stateSel")}
 												 inputProps={{
@@ -691,7 +714,7 @@ class PremiumCalculator extends Component {
 												 }}
 												 components={components}
 												 placeholder="Select"
-												 //value={this.state.cropId}
+												 value={this.state.cropSelValue}
 												 options={cropOptions}
 												 onChange={this.handleReactSelectChange("cropId")}
 												 inputProps={{
