@@ -896,7 +896,7 @@ class PremiumCalculator extends Component {
 										disabled={!this.validateInputs()}
 										style={{fontSize: "large", backgroundColor: "#455A64"}}>
 							<Icon className={classes.leftIcon}> send </Icon>
-							Run Model
+							Calculate Premiums
 						</Button>
 					</div>
 

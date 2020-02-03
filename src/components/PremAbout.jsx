@@ -18,7 +18,7 @@ class About extends Component {
 
 		let howwork =
 			(<div style={{textAlign: "center"}}>
-				<h2 className="secondary-color">How does the simulation work?</h2>
+				<h2 className="secondary-color">How does the premium calculator work?</h2>
 				<br/>
 				<img src={require("../images/premcalc-rep-image.png")} alt="Payment Calculator Inputs" style={{maxWidth: "600px"}}/>
 			</div>);
