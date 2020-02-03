@@ -551,9 +551,10 @@ class PremiumCalculator extends Component {
 	}
 
 	validateInputs() {
+		//TODO: Add projected price validation back. Disabled as a quick patch to access 2019 data if negative
 		return this.state.county > 0 && this.state.cropId !== "" && this.state.aphYield > 0
 				&& this.state.rateYield > 0 && this.state.taYield > 0 && this.state.volFactor > 0
-				&& this.state.projectedPrice > 0 && this.state.farmAcres >= 1 &&
+				&& this.state.projectedPrice >= -999 && this.state.farmAcres >= 1 &&
 				this.state.grainType > 0 && this.state.practiceType > 0;
 	}
 
