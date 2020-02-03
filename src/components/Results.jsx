@@ -205,7 +205,7 @@ class Results extends Component {
 		// 			"}";
 		// }
 
-		if (jsonData !== null) {
+		if (jsonData) {
 			let objData = JSON.parse(jsonData);
 			if (objData.county_average_arc_and_plc_payments && objData.county_average_arc_and_plc_payments !== null) {
 
