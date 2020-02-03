@@ -117,19 +117,19 @@ const TableCellHeader = withStyles({
 
 const CommonTableCell = withStyles({
 	root: {
-		fontWeight: "bolder"
+		fontSize: "1.15em"
 	}
 })(TableCellDefaultStyles);
 
 const RightMostTableCell = withStyles({
 	root: {
-		fontWeight: "bolder"
+		fontSize: "1.15em"
 	}
 })(TableCellRightMostStyles);
 
 const BottomMostTableCell = withStyles({
 	root: {
-		fontWeight: "bolder"
+		fontSize: "1.15em"
 	}
 })(TableCellBottomMostStyles);
 
