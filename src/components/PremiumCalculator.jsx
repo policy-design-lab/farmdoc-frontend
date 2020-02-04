@@ -335,7 +335,8 @@ class PremiumCalculator extends Component {
 		});
 	}
 
-	setParams(cropCountyCode) {
+	setParams(cropCountyCode, runCalc = false) {
+		let that = this;
 		getParams(cropCountyCode).then(function(response) {
 			if (response.status === 200) {
 				return response.json();
@@ -371,7 +372,11 @@ class PremiumCalculator extends Component {
 					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 997)});
 				}
 			}
-			this.setState({runStatus: "FETCHED_PARAMS"});
+			this.setState({runStatus: "FETCHED_PARAMS"}, function(){
+				if (runCalc){
+					that.calcPremiums();
+				}
+			});
 		});
 	}
 
@@ -525,15 +530,15 @@ class PremiumCalculator extends Component {
 			this.populateCounties(17);
 
 			this.setState({county: 17001});
-			this.setState({countySelValue:  {value: 17001, label: "Adams"}});
+			this.setState({countySelValue: {value: 17001, label: "Adams"}});
 
 			this.setState({cropId: 41});
-			this.setState({cropSelValue:  {value: 41, label: "Corn"}});
+			this.setState({cropSelValue: {value: 41, label: "Corn"}});
 
 			let defaultCropCountyCode = "1700141";
 			this.setState({cropCountyCode: defaultCropCountyCode});
 			this.setState({runStatus: "FETCHING_PARAMS"});
-			this.setParams(defaultCropCountyCode);
+			this.setParams(defaultCropCountyCode, true);
 		});
 
 	}
