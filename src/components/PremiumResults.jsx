@@ -335,11 +335,10 @@ class PremiumResults extends Component {
 				}
 			}
 
-
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
 
-					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies </h2></div>
+					<div style={{padding: "15px"}}> <h2>Premiums Per Acre - Individual Farm Level Policies </h2></div>
 
 					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
 
@@ -403,7 +402,7 @@ class PremiumResults extends Component {
 
 					<Divider/>
 
-					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products </h2></div>
+					<div style={{padding: "20px 15px 15px 15px"}}> <h2>Premiums Per Acre - County Level Products </h2></div>
 
 					{countyProductsRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
 

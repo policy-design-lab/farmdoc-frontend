@@ -353,7 +353,7 @@ class PremiumCalculator extends Component {
 				this.setState({aphYield: roundResults(data.aphYield)});
 				this.setState({taYield: roundResults(data.TAYield)});
 				this.setState({rateYield: roundResults(data.rateYield)});
-				this.setState({useTaAdj: data.useTaAdjustment});
+				// this.setState({useTaAdj: data.useTaAdjustment});
 				this.setState({farmAcres: data.acres});
 				this.setState({practiceTypes: data.practices});
 				this.setState({riskClasses: data.riskClasses});
@@ -745,26 +745,6 @@ class PremiumCalculator extends Component {
 
 					<FormControl className={classes.formControlSmall}>
 						<TextField
-							id="rateYield"
-							label="Rate Yield"
-							value={this.state.rateYield}
-							margin="normal"
-							onChange={this.handleMuiChange("rateYield")}
-							className={classes.textField}
-							required
-							InputLabelProps={{shrink: true}}
-							InputProps={{
-								endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-								inputProps: textFieldInputStyle
-							}}
-							inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={rateYieldTooltip} />
-
-					<FormControl className={classes.formControlSmall}>
-						<TextField
 								id="taYield"
 								label="TA Yield"
 								value={this.state.taYield}
@@ -802,6 +782,26 @@ class PremiumCalculator extends Component {
 					</FormControl>
 
 					<FDTooltip title={aphYieldTooltip} />
+
+					<FormControl className={classes.formControlSmall}>
+						<TextField
+								id="rateYield"
+								label="Rate Yield"
+								value={this.state.rateYield}
+								margin="normal"
+								onChange={this.handleMuiChange("rateYield")}
+								className={classes.textField}
+								required
+								InputLabelProps={{shrink: true}}
+								InputProps={{
+									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
+									inputProps: textFieldInputStyle
+								}}
+								inputProps={{padding: 10}}
+						/>
+					</FormControl>
+
+					<FDTooltip title={rateYieldTooltip} />
 
 					<br/>
 
