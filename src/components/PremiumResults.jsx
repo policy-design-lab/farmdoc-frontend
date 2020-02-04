@@ -340,7 +340,7 @@ class PremiumResults extends Component {
 
 					<div style={{padding: "15px"}}> <h2>Premiums Per Acre - Individual Farm Level Policies </h2></div>
 
-					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
+					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs </div> :
 
 						<Table className={classes.table}>
 							<TableBody>
@@ -404,7 +404,7 @@ class PremiumResults extends Component {
 
 					<div style={{padding: "20px 15px 15px 15px"}}> <h2>Premiums Per Acre - County Level Products </h2></div>
 
-					{countyProductsRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Data not available </div> :
+					{countyProductsRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs </div> :
 
 						<Table className={classes.table}>
 							<TableBody>
