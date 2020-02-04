@@ -230,12 +230,12 @@ class PremiumResults extends Component {
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</CommonTableCell>
-									<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(guarantees[cov]["rp"])}</CommonTableCell>
 
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe-enterprise"], 2)}</CommonTableCell>
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe-basic"], 2)}</CommonTableCell>
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe-opt"], 2)}</CommonTableCell>
-									<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
+									<CommonTableCell>{roundResults(guarantees[cov]["rphpe"])}</CommonTableCell>
 
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</CommonTableCell>
@@ -252,12 +252,12 @@ class PremiumResults extends Component {
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-enterprise"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-basic"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp-opt"], 2)}</BottomMostTableCell>
-									<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["rp"])}</BottomMostTableCell>
 
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe-enterprise"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe-basic"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe-opt"], 2)}</BottomMostTableCell>
-									<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(guarantees[cov]["rphpe"])}</BottomMostTableCell>
 
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-enterprise"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp-basic"], 2)}</BottomMostTableCell>
@@ -293,12 +293,12 @@ class PremiumResults extends Component {
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</CommonTableCell>
-									<CommonTableCell style={coloredBg}>{guarantees[cov]["rp"]}</CommonTableCell>
+									<CommonTableCell style={coloredBg}>{roundResults(guarantees[cov]["rp"])}</CommonTableCell>
 
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</CommonTableCell>
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</CommonTableCell>
 									<CommonTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</CommonTableCell>
-									<CommonTableCell>{guarantees[cov]["rphpe"]}</CommonTableCell>
+									<CommonTableCell>{roundResults(guarantees[cov]["rphpe"])}</CommonTableCell>
 
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</CommonTableCell>
 									<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</CommonTableCell>
@@ -315,12 +315,12 @@ class PremiumResults extends Component {
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"] * (80 / 120), 2)}</BottomMostTableCell>
-									<BottomMostTableCell style={coloredBg}>{guarantees[cov]["rp"]}</BottomMostTableCell>
+									<BottomMostTableCell style={coloredBg}>{roundResults(guarantees[cov]["rp"])}</BottomMostTableCell>
 
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (customCoverage / 120), 2)}</BottomMostTableCell>
 									<BottomMostTableCell>{roundResults(premiums[cov]["rphpe"] * (80 / 120), 2)}</BottomMostTableCell>
-									<BottomMostTableCell>{guarantees[cov]["rphpe"]}</BottomMostTableCell>
+									<BottomMostTableCell>{roundResults(guarantees[cov]["rphpe"])}</BottomMostTableCell>
 
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"], 2)}</BottomMostTableCell>
 									<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"] * (customCoverage / 120), 2)}</BottomMostTableCell>
