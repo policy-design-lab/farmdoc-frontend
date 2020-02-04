@@ -376,6 +376,10 @@ class PremiumCalculator extends Component {
 				if (runCalc){
 					that.calcPremiums();
 				}
+				else {
+					that.handleCountyProductsResults(null);
+					that.handlePremiumResults(null);
+				}
 			});
 		});
 	}
