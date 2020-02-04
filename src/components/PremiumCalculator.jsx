@@ -357,18 +357,18 @@ class PremiumCalculator extends Component {
 				this.setState({farmAcres: data.acres});
 				this.setState({practiceTypes: data.practices});
 				this.setState({riskClasses: data.riskClasses});
-				this.setState({grainTypes: data.types});
+				this.setState({grainTypes: data.grpTypes});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
 				if (this.state.cropId === 41){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
-					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
+					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 16)});
 				}
 				else if (this.state.cropId === 81){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 53)});
-					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
+					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 997)});
 				}
 			}
 			this.setState({runStatus: "FETCHED_PARAMS"});
@@ -530,12 +530,10 @@ class PremiumCalculator extends Component {
 			this.setState({cropId: 41});
 			this.setState({cropSelValue:  {value: 41, label: "Corn"}});
 
-			let defaultCropCountyCode = "1700141"
+			let defaultCropCountyCode = "1700141";
 			this.setState({cropCountyCode: defaultCropCountyCode});
 			this.setState({runStatus: "FETCHING_PARAMS"});
 			this.setParams(defaultCropCountyCode);
-
-
 		});
 
 	}
