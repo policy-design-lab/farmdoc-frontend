@@ -352,7 +352,6 @@ class PremiumCalculator extends Component {
 			}
 			else {
 				this.setState({aphYield: roundResults(data.aphYield)});
-				this.setState({taYield: roundResults(data.TAYield)});
 				this.setState({rateYield: roundResults(data.rateYield)});
 				// this.setState({useTaAdj: data.useTaAdjustment});
 				this.setState({farmAcres: data.acres});
@@ -366,10 +365,12 @@ class PremiumCalculator extends Component {
 				if (this.state.cropId === 41){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
 					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 16)});
+					this.setState({taYield: roundResults(data.rateYield + 9)});
 				}
 				else if (this.state.cropId === 81){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 53)});
 					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 997)});
+					this.setState({taYield: roundResults(data.rateYield + 2.5)});
 				}
 			}
 			this.setState({runStatus: "FETCHED_PARAMS"}, function(){
