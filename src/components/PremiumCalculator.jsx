@@ -470,7 +470,7 @@ class PremiumCalculator extends Component {
 					this.handlePremiumResults(JSON.stringify(premiumsResult));
 				}
 				else {
-					this.handlePremiumResults(null);
+					this.handlePremiumResults("");
 				}
 				this.setState({runStatus: "FETCHED_RESULTS"});
 			}
@@ -501,7 +501,7 @@ class PremiumCalculator extends Component {
 					this.handleCountyProductsResults(JSON.stringify(countyProductsResult));
 				}
 				else {
-					this.handleCountyProductsResults(null);
+					this.handleCountyProductsResults("");
 				}
 			}
 			catch (error) {

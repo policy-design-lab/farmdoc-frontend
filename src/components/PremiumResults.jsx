@@ -210,7 +210,7 @@ class PremiumResults extends Component {
 		}
 
 		if (policyJsonData !== null || countyJsonData !== null) {
-			if (policyJsonData !== null){
+			if (policyJsonData !== null && policyJsonData !== ""){
 				let farmPolicyObjData = JSON.parse(policyJsonData);
 
 				if (farmPolicyObjData.premiums !== null && farmPolicyObjData.guarantees !== null) {
@@ -272,7 +272,7 @@ class PremiumResults extends Component {
 				}
 			}
 
-			if (countyJsonData !== null){
+			if (countyJsonData !== null && countyJsonData !== ""){
 				let countyProductObjData = JSON.parse(countyJsonData);
 
 				if (countyProductObjData.premiums !== null && countyProductObjData.guarantees !== null) {
