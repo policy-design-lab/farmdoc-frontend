@@ -139,8 +139,6 @@ class Header extends Component {
 			currApp = "home";
 		}
 
-		console.log(currApp);
-
 		if (currApp.indexOf("arcplc") >= 0){
 			currApp = "arcplc";
 		}
