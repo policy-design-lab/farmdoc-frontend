@@ -673,12 +673,18 @@ class PremiumCalculator extends Component {
 		return (
 			<div style={{textAlign: "center"}}>
 
+				<div style={{marginTop: "12px", fontSize: "1.125em", fontWeight: 600}}>
+					Enter your farm information to generate crop insurance quotes for 2020
+				</div>
+
 				<div style={{
 					maxWidth: "730px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
+					marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
+					paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 					display: "inline-block"
 				}}>
+
 					<FormControl className={classes.formControlMedium} required >
 						<ReactSelect styles={ReactSelectStyles}
 												 classes={classes}
