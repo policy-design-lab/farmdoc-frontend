@@ -408,6 +408,12 @@ class PremiumCalculator extends Component {
 		curTime = curTime.toUTCString();
 		let title = `Run at ${curTime}`;
 
+		let token = localStorage.getItem("kcToken");
+		let token_header = `Bearer ${token}`;
+
+		let kcHeaders = {
+			"Authorization": token_header
+		};
 
 		// let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield,
 		// 	arcYield, program, sequesterPrice, pracCode;
@@ -451,7 +457,7 @@ class PremiumCalculator extends Component {
 		this.setState({runStatus: "FETCHING_RESULTS"});
 		const premiumsResponse = await fetch(premiumsApiUrl, {
 			method: "GET",
-			//headers: kcHeaders,
+			headers: kcHeaders,
 		});
 
 		if (premiumsResponse instanceof Response) {
@@ -481,7 +487,7 @@ class PremiumCalculator extends Component {
 
 		const countyProductsResponse = await fetch(countyProductsUrl, {
 			method: "GET",
-			//headers: kcHeaders,
+			headers: kcHeaders,
 		});
 
 		if (countyProductsResponse instanceof Response) {

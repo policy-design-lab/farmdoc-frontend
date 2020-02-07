@@ -81,8 +81,13 @@ export function getStates(){
 }
 
 export function getParams(cropCode){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
 	return fetch( `${config.apiUrl}/compute/params/${cropCode}/0/0`, {
 		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
 	}).then(function(response){
 		return response;
 	}).catch(error => {
