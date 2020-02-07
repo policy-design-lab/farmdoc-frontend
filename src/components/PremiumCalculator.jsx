@@ -344,6 +344,7 @@ class PremiumCalculator extends Component {
 			else {
 				console.log(
 					"Flask Service API call failed. Most likely the token expired");
+				this.setState({runStatus: "ERROR_PARAMS"});
 			// TODO: how to handle? Force logout?
 			}
 		}).then(data => {
@@ -382,6 +383,8 @@ class PremiumCalculator extends Component {
 					that.handlePremiumResults(null);
 				}
 			});
+		}, function(){
+			that.setState({runStatus: "ERROR_PARAMS"});
 		});
 	}
 
@@ -472,6 +475,7 @@ class PremiumCalculator extends Component {
 				this.setState({runStatus: "FETCHED_RESULTS"});
 			}
 			catch (error) {
+				this.setState({runStatus: "ERROR_RESULTS"});
 				console.log("error getting the response from flask api");
 			}
 		}
@@ -501,7 +505,7 @@ class PremiumCalculator extends Component {
 				}
 			}
 			catch (error) {
-				console.log(error);
+				this.setState({runStatus: "ERROR_RESULTS"});
 				console.log("error getting the response from flask api");
 			}
 		}
