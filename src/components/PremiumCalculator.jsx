@@ -358,21 +358,38 @@ class PremiumCalculator extends Component {
 				this.setState({farmAcres: data.acres});
 				this.setState({practiceTypes: data.practices});
 				this.setState({riskClasses: data.riskClasses});
-				this.setState({grainTypes: data.grpTypes});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
 				if (this.state.cropId === 41){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
+
+					if (this.doesArrContain(data.grpTypes, "typeCode", 16) <= 0){
+						data.grpTypes.push({typeCode: 16, typeLabel: "Grain"});
+					}
+					this.setState({grainTypes: data.grpTypes});
 					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 16)});
+
 					this.setState({taYield: roundResults(data.rateYield + 9)});
 				}
 				else if (this.state.cropId === 81){
-					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 53)});
+					//Use Nfac as default, if not available use non-irrigated
+					let soyPracDefault = this.getDefaultType(data.practices, "practiceCode", 53);
+					if (soyPracDefault <= 0){
+						soyPracDefault = this.getDefaultType(data.practices, "practiceCode", 3);
+					}
+					this.setState({practiceType: soyPracDefault});
+
+					if (this.doesArrContain(data.grpTypes, "typeCode", 91) <= 0){
+						data.grpTypes.push({typeCode: 91, typeLabel: "Commodity"});
+					}
+					this.setState({grainTypes: data.grpTypes});
 					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 997)});
+
 					this.setState({taYield: roundResults(data.rateYield + 2.5)});
 				}
+
 			}
 			this.setState({runStatus: "FETCHED_PARAMS"}, function(){
 				if (runCalc){
@@ -393,6 +410,17 @@ class PremiumCalculator extends Component {
 			return arr[0][fieldName];
 		}
 
+		for (let i = 0; i < arr.length; i++){
+			let obj = arr[i];
+
+			if (obj[fieldName] === fieldVal){
+				return fieldVal;
+			}
+		}
+		return 0;
+	}
+
+	doesArrContain(arr, fieldName, fieldVal){
 		for (let i = 0; i < arr.length; i++){
 			let obj = arr[i];
 
@@ -615,7 +643,7 @@ class PremiumCalculator extends Component {
 
 		let stateOptions = [];
 		//TODO: Hack - fetch from DB
-		let activeStates = [17, 18, 19, 24, 26, 27, 29, 38, 39, 55];
+		let activeStates = [17, 18, 19, 24, 26, 27, 29, 38, 39, 46, 55];
 
 		this.state.states.forEach((item) => {
 			if (activeStates.indexOf(item.id) >= 0) {

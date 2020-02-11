@@ -340,7 +340,8 @@ class PremiumResults extends Component {
 
 					<div style={{padding: "15px"}}> <h2>Premiums Per Acre - Individual Farm Level Policies </h2></div>
 
-					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs </div> :
+					{farmPolicyRows.length === 0 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs.
+								Please make sure the selected "Type" and "Practice" are applicable for your farm </div> :
 
 						<Table className={classes.table}>
 							<TableBody>
