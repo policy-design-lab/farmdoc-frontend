@@ -26,6 +26,8 @@ import ReactSelect from "react-select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
+import Grid from "@material-ui/core/Grid";
+
 import {
 	taAdjTooltip, rateYieldTooltip, taYieldTooltip, aphYieldTooltip,
 	typeTooltip, practiceTooltip, riskClassTooltip, prevPlantingTooltip,
@@ -211,6 +213,7 @@ class PremiumCalculator extends Component {
 		preventedPlanting: "0",
 		projectedPrice: null,
 		volFactor: null,
+		futuresUpdated: "",
 
 		practiceTypes: [],
 		riskClasses: [],
@@ -253,6 +256,7 @@ class PremiumCalculator extends Component {
 			preventedPlanting: "0",
 			projectedPrice: null,
 			volFactor: null,
+			futuresUpdated: "",
 
 			practiceTypes: [],
 			riskClasses: [],
@@ -360,6 +364,7 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
+				this.setState({futuresUpdated: ` Projected Price & Volatility as of ${ data.dateUpdated}`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
 				if (this.state.cropId === 41){
@@ -967,14 +972,22 @@ class PremiumCalculator extends Component {
 					<FDTooltip title={volFactorTooltip} />
 
 					<br/>
-					<div style={{textAlign: "center", paddingTop: "4px"}}>
-						<Button variant="contained" color="primary" onClick={this.calcPremiums}
-										disabled={!this.validateInputs()}
-										style={{fontSize: "large", backgroundColor: "#455A64"}}>
-							<Icon className={classes.leftIcon}> send </Icon>
+					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
+						<Grid item xs> </Grid>
+						<Grid item xs={4} >
+							<Button variant="contained" color="primary" onClick={this.calcPremiums}
+																				 disabled={!this.validateInputs()}
+																				 style={{fontSize: "large", backgroundColor: "#455A64"}}>
+								<Icon className={classes.leftIcon}> send </Icon>
 							Calculate Premiums
-						</Button>
-					</div>
+							</Button>
+						</Grid>
+						<Grid item xs >
+							<div style={{textAlign: "right", fontSize: "0.875em"}}>
+								{this.state.futuresUpdated}
+							</div>
+						</Grid>
+					</Grid>
 
 					{spinner}
 
