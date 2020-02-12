@@ -365,11 +365,11 @@ class PremiumCalculator extends Component {
 				if (this.state.cropId === 41){
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
 
-					if (this.doesArrContain(data.grpTypes, "typeCode", 16) <= 0){
-						data.grpTypes.push({typeCode: 16, typeLabel: "Grain"});
-					}
-					this.setState({grainTypes: data.grpTypes});
-					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 16)});
+					// if (this.doesArrContain(data.types, "typeCode", 16) <= 0){
+					// 	data.types.push({typeCode: 16, typeLabel: "Grain"});
+					// }
+					this.setState({grainTypes: data.types});
+					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
 
 					this.setState({taYield: roundResults(data.rateYield + 9)});
 				}
@@ -381,11 +381,11 @@ class PremiumCalculator extends Component {
 					}
 					this.setState({practiceType: soyPracDefault});
 
-					if (this.doesArrContain(data.grpTypes, "typeCode", 91) <= 0){
-						data.grpTypes.push({typeCode: 91, typeLabel: "Commodity"});
-					}
-					this.setState({grainTypes: data.grpTypes});
-					this.setState({grainType: this.getDefaultType(data.grpTypes, "typeCode", 997)});
+					// if (this.doesArrContain(data.types, "typeCode", 91) <= 0){
+					// 	data.types.push({typeCode: 91, typeLabel: "Commodity"});
+					// }
+					this.setState({grainTypes: data.types});
+					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
 
 					this.setState({taYield: roundResults(data.rateYield + 2.5)});
 				}
