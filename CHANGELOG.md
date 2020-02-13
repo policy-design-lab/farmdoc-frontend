@@ -4,13 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.1] - 2020-02-10
+## [1.1.0] - 2020-02-13
 
 ### Added
 - New tool that calculates crop insurance premiums along with related 'Docs' and 'About' pages
 
 ### Changed
 - Landing Page to show cards to switch between applications
+- Updated text and images to indicate that the application now have two tools instead of just "payment calculator"
 
 
  ## [1.0.1] - 2020-01-27
