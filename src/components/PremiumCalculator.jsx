@@ -358,6 +358,7 @@ class PremiumCalculator extends Component {
 			else {
 				this.setState({aphYield: roundResults(data.aphYield)});
 				this.setState({rateYield: roundResults(data.rateYield)});
+				this.setState({taYield: roundResults(data.TAYield)});
 				// this.setState({useTaAdj: data.useTaAdjustment});
 				this.setState({farmAcres: data.acres});
 				this.setState({practiceTypes: data.practices});
@@ -375,8 +376,6 @@ class PremiumCalculator extends Component {
 					// }
 					this.setState({grainTypes: data.types});
 					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
-
-					this.setState({taYield: roundResults(data.rateYield + 9)});
 				}
 				else if (this.state.cropId === 81){
 					//Use Nfac as default, if not available use non-irrigated
@@ -391,8 +390,6 @@ class PremiumCalculator extends Component {
 					// }
 					this.setState({grainTypes: data.types});
 					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
-
-					this.setState({taYield: roundResults(data.rateYield + 2.5)});
 				}
 
 			}
