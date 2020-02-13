@@ -439,11 +439,7 @@ class PremiumCalculator extends Component {
 	async calcPremiums() {
 		//let status = "STARTED";
 		let personId = localStorage.getItem("dwPersonId");
-
-		let curTime = new Date();
-		curTime = curTime.toUTCString();
-		let title = `Run at ${curTime}`;
-
+		let email = localStorage.getItem("kcEmail");
 		let token = localStorage.getItem("kcToken");
 		let token_header = `Bearer ${token}`;
 
@@ -485,7 +481,8 @@ class PremiumCalculator extends Component {
 			["riskVal", this.state.riskClass],
 			["preventedPlanting", this.state.preventedPlanting],
 			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor]
+			["volFactor", this.state.volFactor],
+			["email", email]
 		];
 
 		premiumsApiUrl.search = new URLSearchParams(premiumParams).toString();
@@ -517,7 +514,8 @@ class PremiumCalculator extends Component {
 		let countyProductsParams = [
 			["code", cropFullCode],
 			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor]
+			["volFactor", this.state.volFactor],
+			["email", email]
 		];
 
 		countyProductsUrl.search = new URLSearchParams(countyProductsParams).toString();
@@ -973,7 +971,7 @@ class PremiumCalculator extends Component {
 
 					<br/>
 					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
-						<Grid item xs> </Grid>
+						<Grid item xs />
 						<Grid item xs={4} >
 							<Button variant="contained" color="primary" onClick={this.calcPremiums}
 																				 disabled={!this.validateInputs()}
