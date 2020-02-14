@@ -23,6 +23,8 @@ import PremiumDashboard from "./PremiumDashboard";
 import AboutPremiumCalc from "./PremAbout";
 import DocsPremiumCalc from "./PremDocumentation";
 
+import EvaluatorDashboard from "./EvaluatorDashboard";
+
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 
@@ -74,6 +76,8 @@ class App extends Component {
 						<Route path={`${premiumCalcPath}`} component={PremiumDashboard}/>
 						<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>
 						<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>
+
+						<Route path="eval" component={EvaluatorDashboard}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>

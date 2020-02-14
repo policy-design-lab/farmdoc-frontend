@@ -145,6 +145,9 @@ class Header extends Component {
 		else if (currApp.indexOf("premium") >= 0){
 			currApp = "premiums";
 		}
+		else if (currApp.indexOf("eval") >= 0){
+			currApp = "premiums";
+		}
 
 		let tabHeader = "";
 
