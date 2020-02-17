@@ -50,7 +50,7 @@ const styles = theme => ({
 	textField: {
 		// marginTop: "8px",
 		// marginRight: "8px",
-		width: 160,
+		width: 120,
 	},
 	menu: {
 		width: 150,
@@ -202,22 +202,13 @@ class EvaluatorInputs extends Component {
 		cropSelValue: null,
 		cropCountyCode: null,
 
-		aphYield: null,
-		taYield: null,
-		rateYield: null,
-		useTaAdj: true,
-		riskClass: 0, //TODO: should this be null instead?
 		farmAcres: null,
-		grainType: 16, //TODO: should this be null instead?
-		practiceType: 3, // TODO: Also, use the other types such as organic etc.?
-		preventedPlanting: "0",
+
 		projectedPrice: null,
 		volFactor: null,
 		futuresUpdated: "",
 
-		practiceTypes: [],
-		riskClasses: [],
-		grainTypes: []
+
 	};
 
 	constructor(props) {
@@ -244,23 +235,11 @@ class EvaluatorInputs extends Component {
 			stateSelValue: null,
 			cropCountyCode: null,
 
-			aphYield: null,
-			taYield: null,
-			rateYield: null,
-			useTaAdj: true,
-			farmAcres: null,
 
-			riskClass: 0,
-			grainType: 16,
-			practiceType: 3,
-			preventedPlanting: "0",
+			farmAcres: null,
 			projectedPrice: null,
 			volFactor: null,
 			futuresUpdated: "",
-
-			practiceTypes: [],
-			riskClasses: [],
-			grainTypes: []
 		};
 	}
 
@@ -461,51 +440,12 @@ class EvaluatorInputs extends Component {
 
 		// let countyFips, crop, aphYield, useTaAdj, taYield, rateYield, riskClass, farmAcres,
 		// 	grainType, practiceType, preventePlanting;
-		let premiumsResult = "";
-		let countyProductsResult = "";
+
+		let evaluatorResult = "";
 
 		let cropFullCode = `${ this.state.cropCountyCode.toString() }${this.state.grainType.toString().padStart(3, "0") }${this.state.practiceType.toString().padStart(3, "0")}`;
 
-		let premiumsApiUrl = new URL(`${config.apiUrl }/compute/premiums`);
-
-		let premiumParams = [
-			["code", cropFullCode],
-			["aphYield", this.state.aphYield],
-			["TAYield", this.state.taYield],
-			["rateYield", this.state.rateYield],
-			["useTaAdjustment", this.state.useTaAdj ? "1" : "0"],
-			["acres", this.state.farmAcres],
-			["riskVal", this.state.riskClass],
-			["preventedPlanting", this.state.preventedPlanting],
-			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor],
-			["email", email]
-		];
-
-		premiumsApiUrl.search = new URLSearchParams(premiumParams).toString();
-
 		this.setState({runStatus: "FETCHING_RESULTS"});
-		const premiumsResponse = await fetch(premiumsApiUrl, {
-			method: "GET",
-			headers: kcHeaders,
-		});
-
-		if (premiumsResponse instanceof Response) {
-			try {
-				premiumsResult = await premiumsResponse.json();
-				if (typeof(premiumsResult) === "object") {
-					this.handlePremiumResults(JSON.stringify(premiumsResult));
-				}
-				else {
-					this.handlePremiumResults("");
-				}
-				this.setState({runStatus: "FETCHED_RESULTS"});
-			}
-			catch (error) {
-				this.setState({runStatus: "ERROR_RESULTS"});
-				console.log("error getting the response from flask api");
-			}
-		}
 
 		let countyProductsUrl = new URL(`${config.apiUrl }/compute/premGrip`);
 		let countyProductsParams = [
@@ -522,11 +462,14 @@ class EvaluatorInputs extends Component {
 			headers: kcHeaders,
 		});
 
+		//TODO: Use a different prop for evaluator
 		if (countyProductsResponse instanceof Response) {
 			try {
-				countyProductsResult = await countyProductsResponse.json();
-				if (typeof(countyProductsResult) === "object") {
-					this.handleCountyProductsResults(JSON.stringify(countyProductsResult));
+				evaluatorResult = await countyProductsResponse.json();
+				if (typeof(evaluatorResult) === "object") {
+					console.log(evaluatorResult);
+					this.handleCountyProductsResults(JSON.stringify(evaluatorResult));
+					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
 					this.handleCountyProductsResults("");
@@ -581,7 +524,7 @@ class EvaluatorInputs extends Component {
 			let defaultCropCountyCode = "1700141";
 			this.setState({cropCountyCode: defaultCropCountyCode});
 			this.setState({runStatus: "FETCHING_PARAMS"});
-			this.setParams(defaultCropCountyCode, true);
+			this.setParams(defaultCropCountyCode, false);
 		});
 
 	}
@@ -706,7 +649,7 @@ class EvaluatorInputs extends Component {
 				</div>
 
 				<div style={{
-					maxWidth: "730px",
+					maxWidth: "1080px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
 					marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
 					paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
@@ -775,139 +718,7 @@ class EvaluatorInputs extends Component {
 												 }}/>
 					</FormControl>
 
-				</div>
-				<br/>
-				<div style={{
-					maxWidth: "1080px",
-					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
-					display: "inline-block"
-				}}>
-
-					<FormControl required className={classes.formControlMedium}>
-						<InputLabel id="taId">
-							Use TA/YE Adjustment
-						</InputLabel>
-						<Select id="useTaAdj" labelId="taId" value={this.state.useTaAdj} onChange={this.handleMuiSelectChange("useTaAdj")}>
-							<MenuItem value={true}>Yes</MenuItem>
-							<MenuItem value={false}>No</MenuItem>
-						</Select>
-					</FormControl>
-
-					<FDTooltip title={taAdjTooltip} />
-					{/*TODO: Make sure the tooltips are always together with the input fields. Currently on smaller screens they sometimes go to the next line of the input control*/}
-
-					<FormControl className={classes.formControlSmall}>
-						<TextField
-								id="taYield"
-								label="TA Yield"
-								value={this.state.taYield}
-								margin="normal"
-								onChange={this.handleMuiChange("taYield")}
-								className={classes.textField}
-								required
-								InputLabelProps={{shrink: true}}
-								InputProps={{
-									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-									inputProps: textFieldInputStyle
-								}}
-								inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={taYieldTooltip} />
-
-					<FormControl className={classes.formControlSmall}>
-						<TextField
-								id="aphYield"
-								label="APH Yield"
-								value={this.state.aphYield}
-								margin="normal"
-								onChange={this.handleMuiChange("aphYield")}
-								className={classes.textField}
-								required
-								InputLabelProps={{shrink: true}}
-								InputProps={{
-									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-									inputProps: textFieldInputStyle
-								}}
-								inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={aphYieldTooltip} />
-
-					<FormControl className={classes.formControlSmall}>
-						<TextField
-								id="rateYield"
-								label="Rate Yield"
-								value={this.state.rateYield}
-								margin="normal"
-								onChange={this.handleMuiChange("rateYield")}
-								className={classes.textField}
-								required
-								InputLabelProps={{shrink: true}}
-								InputProps={{
-									endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-									inputProps: textFieldInputStyle
-								}}
-								inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={rateYieldTooltip} />
-
-					<br/>
-
-					<FormControl required className={classes.formControlSmall}>
-						<InputLabel id="grainTypeId">
-							Type
-						</InputLabel>
-						<Select id="grainType" labelId="grainTypeId" value={this.state.grainType} onChange={this.handleMuiSelectChange("grainType")}>
-							{grainTypeOptions}
-						</Select>
-					</FormControl>
-
-					<FDTooltip title={typeTooltip} />
-
-					<FormControl required className={classes.formControlLarge}>
-						<InputLabel id="practiceTypeId">
-							Practice
-						</InputLabel>
-						<Select id="practiceType" labelId="practiceTypeId" value={this.state.practiceType} onChange={this.handleMuiSelectChange("practiceType")}>
-							{practiceTypeOptions}
-						</Select>
-					</FormControl>
-
-					<FDTooltip title={practiceTooltip} />
-
-					<FormControl required className={classes.formControlSmall}>
-						<InputLabel id="riskId">
-							Risk Class
-						</InputLabel>
-						<Select id="riskClass" labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
-							{riskClassOptions}
-						</Select>
-					</FormControl>
-
-					<FDTooltip title={riskClassTooltip} />
-
-					<FormControl required className={classes.formControlSmall}>
-						<InputLabel id="preventedPlantingId">
-							Prevented Planting
-						</InputLabel>
-						<Select id="preventedPlanting" labelId="preventedPlantingId" value={this.state.preventedPlanting} onChange={this.handleMuiSelectChange("preventedPlanting")}>
-							<MenuItem value="0">None</MenuItem>
-							<MenuItem value="1">Plus 5%</MenuItem>
-							<MenuItem value="2">Plus 10%</MenuItem>
-						</Select>
-					</FormControl>
-
-					<FDTooltip title={prevPlantingTooltip} />
-
-					<br/>
-
-					<FormControl className={classes.formControlSmall}>
+					<FormControl className={classes.formControlXSmall}>
 						<TextField
 								id="farmAcres"
 								label="Acres"
@@ -924,57 +735,34 @@ class EvaluatorInputs extends Component {
 						/>
 					</FormControl>
 
-					<FDTooltip title={acresTooltip} />
+					{/*<FormControl className={classes.formControlXSmall}>*/}
+					{/*	<TextField*/}
+					{/*			id="farmAcres"*/}
+					{/*			label="Gross Revenue"*/}
+					{/*			value={548.17}*/}
+					{/*			margin="normal"*/}
+					{/*			onChange={this.handleMuiChange("farmAcres")}*/}
+					{/*			className={classes.textField}*/}
+					{/*			required*/}
+					{/*			InputLabelProps={{shrink: true}}*/}
+					{/*			InputProps={{*/}
+					{/*				inputProps: textFieldInputStyle*/}
+					{/*			}}*/}
+					{/*			inputProps={{padding: 10}}*/}
+					{/*	/>*/}
+					{/*</FormControl>*/}
 
-					<FormControl className={classes.formControlSmall}>
-						<TextField
-								id="projectedPrice"
-								label="Projected Price"
-								value={this.state.projectedPrice}
-								margin="normal"
-								onChange={this.handleMuiChange("projectedPrice")}
-								className={classes.textField}
-								required
-								InputLabelProps={{shrink: true}}
-								InputProps={{
-									inputProps: textFieldInputStyle,
-									startAdornment: <InputAdornment position="start">$</InputAdornment>,
-								}}
-								inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={projPriceTooltip} />
-
-					<FormControl className={classes.formControlSmall}>
-						<TextField
-								id="volFactor"
-								label="Volatility Factor"
-								value={this.state.volFactor}
-								margin="normal"
-								onChange={this.handleMuiChange("volFactor")}
-								className={classes.textField}
-								required
-								InputLabelProps={{shrink: true}}
-								InputProps={{
-									//endAdornment: <InputAdornment position="end">{this.state.units}</InputAdornment>,
-									inputProps: textFieldInputStyle
-								}}
-								inputProps={{padding: 10}}
-						/>
-					</FormControl>
-
-					<FDTooltip title={volFactorTooltip} />
+					<FDTooltip title="Change Gross Target and run a new simulation" />
 
 					<br/>
 					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
 						<Grid item xs />
 						<Grid item xs={4} >
 							<Button variant="contained" color="primary" onClick={this.calcPremiums}
-																				 disabled={!this.validateInputs()}
-																				 style={{fontSize: "large", backgroundColor: "#455A64"}}>
+											disabled={!this.validateInputs()}
+											style={{fontSize: "large", backgroundColor: "#455A64"}}>
 								<Icon className={classes.leftIcon}> send </Icon>
-							Calculate Premiums
+								Calculate Premiums
 							</Button>
 						</Grid>
 						<Grid item xs >
@@ -987,6 +775,8 @@ class EvaluatorInputs extends Component {
 					{spinner}
 
 				</div>
+				<br/>
+
 			</div>
 		);
 	}
@@ -999,7 +789,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
 	handlePremiumResults: premResults => dispatch(handlePremiumResults(premResults)),
 	handleCountyProductsResults: countyProductsResults => dispatch(handleCountyProductsResults(countyProductsResults))
 });
