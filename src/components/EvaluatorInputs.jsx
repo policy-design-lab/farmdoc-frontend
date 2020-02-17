@@ -219,7 +219,7 @@ class EvaluatorInputs extends Component {
 		this.handlePremiumResults = this.handlePremiumResults.bind(this);
 		this.handleCountyProductsResults = this.handleCountyProductsResults.bind(this);
 
-
+		//TODO: Cleanup states that are not needed
 		this.state = {
 			states: [],
 			stateSel: "",
@@ -299,6 +299,7 @@ class EvaluatorInputs extends Component {
 	};
 
 	clearParams(){
+		//TODO: Cleanup states that are not needed
 		this.setState({
 			aphYield: "",
 			taYield: "",
