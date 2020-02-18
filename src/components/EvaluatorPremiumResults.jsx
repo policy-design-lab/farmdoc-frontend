@@ -366,13 +366,13 @@ class EvaluatorPremiumResults extends Component {
 																		 style={{width: "120px"}}>Coverage
 											Level</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1} style={coloredBg}>Revenue
+																		 colSpan={5} rowSpan={1} style={coloredBg}>Revenue
 											Protection</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1}>Revenue Protection
+																		 colSpan={5} rowSpan={1}>Revenue Protection
 											With Harvest Price Exclusion</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1}
+																		 colSpan={5} rowSpan={1}
 																	 style={{borderRightWidth: 0,
 																		 backgroundColor: "WhiteSmoke", borderTopRightRadius: "15px"}}>
 											Yield Protection</TableCellHeader>
@@ -436,13 +436,13 @@ class EvaluatorPremiumResults extends Component {
 																		 style={{width: "150px"}}>Coverage
 											Level</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1} style={coloredBg}>Area
+																		 colSpan={5} rowSpan={1} style={coloredBg}>Area
 											Revenue Protection</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1}>Area Revenue
+																		 colSpan={5} rowSpan={1}>Area Revenue
 											Protection With Harvest Price Exclusion</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
-																		 colSpan={6} rowSpan={1}
+																		 colSpan={5} rowSpan={1}
 																	 style={{borderRightWidth: 0,	backgroundColor: "WhiteSmoke",
 																		 borderTopRightRadius: "15px"
 																		 }}>
