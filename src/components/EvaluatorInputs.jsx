@@ -50,7 +50,7 @@ const styles = theme => ({
 	textField: {
 		// marginTop: "8px",
 		// marginRight: "8px",
-		width: 120,
+		width: 160,
 	},
 	menu: {
 		width: 150,
@@ -753,7 +753,7 @@ class EvaluatorInputs extends Component {
 					{/*	/>*/}
 					{/*</FormControl>*/}
 
-					<FDTooltip title="Change Gross Target and run a new simulation" />
+					{/*<FDTooltip title="Change Gross Target and run a new simulation" />*/}
 
 					<br/>
 					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
