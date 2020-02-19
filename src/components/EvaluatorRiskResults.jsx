@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {withStyles} from "@material-ui/core/styles";
-import {connect} from "react-redux";
 import {
 	FormControl,
 	Table,
@@ -46,6 +45,8 @@ const styles = theme => ({
 		outline: "none"
 	},
 	textField: {
+		marginTop: 4,
+		marginBottom: 4,
 		marginLeft: theme.spacing.unit * 1,
 		marginRight: theme.spacing.unit * 1,
 		// border: 1,
@@ -147,7 +148,8 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 
 class EvaluatorRiskResults extends Component {
 	state = {
-		unit: "Basic"
+		unit: "Basic",
+		grossTarget: this.props.evalJson.policies["gross-target"]
 	};
 
 	constructor(props) {
@@ -155,7 +157,7 @@ class EvaluatorRiskResults extends Component {
 
 		this.state = {
 			unit: "Basic",
-			grossRev: 547.16
+			grossTarget: props.evalJson.policies["gross-target"]
 		};
 	}
 
@@ -184,7 +186,6 @@ class EvaluatorRiskResults extends Component {
 	componentWillUnmount() {
 		// this.props.handlePremiumResults(null);
 	}
-
 
 	render() {
 		const {classes} = this.props;
@@ -396,6 +397,37 @@ class EvaluatorRiskResults extends Component {
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
 
+					{/*<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}> Gross Target Used for Current Simulation: $536.56 / acre*/}
+					{/*</div>*/}
+
+					<div>
+						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target($) To Run Again: </span>
+						<FormControl >
+							<TextField
+									id="grossTarget"
+									value={this.state.grossTarget}
+									margin="normal"
+									onChange={this.handleChange("grossTarget")}
+									className={classes.textField}
+									required
+									InputLabelProps={{shrink: true}}
+									// InputProps={{
+									// 	inputProps: textFieldInputStyle
+									// }}
+									inputProps={{padding: 10}}
+							/>
+						</FormControl> /acre
+					</div>
+					{console.log(evalResultJson)}
+					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
+						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance: {evalResultJson.policies["no-ins-prob"]} </div>
+						<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance: {evalResultJson.policies["no-ins-var-1"]} </div>
+						<div style={{paddingBottom: "8px"}}>5% Value at risk with no insurance: {evalResultJson.policies["no-ins-var-5"]} </div>
+						<div style={{paddingBottom: "8px"}}>10% Value at risk with no insurance: {evalResultJson.policies["no-ins-var-10"]} </div>
+						<div style={{paddingBottom: "8px"}}>25% Value at risk with no insurance: {evalResultJson.policies["no-ins-var-25"]} </div>
+
+					</div>
+
 					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies - Risk </h2></div>
 
 					{farmPolicyRows.length === -1 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs.
@@ -408,24 +440,6 @@ class EvaluatorRiskResults extends Component {
 									<MenuItem value="Basic">Basic</MenuItem>
 									<MenuItem value="Enterprise">Enterprise</MenuItem>
 								</Select>
-							</FormControl>
-
-
-							<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Gross Revenue: </span>
-							<FormControl style={{marginBottom: "8px"}}>
-								<TextField
-										id="grossRev"
-										value={this.state.grossRev}
-										margin="normal"
-										onChange={this.handleChange("grossRev")}
-										className={classes.textField}
-										required
-										InputLabelProps={{shrink: true}}
-										// InputProps={{
-										// 	inputProps: textFieldInputStyle
-										// }}
-										inputProps={{padding: 10}}
-								/>
 							</FormControl>
 							<br/>
 
@@ -451,21 +465,21 @@ class EvaluatorRiskResults extends Component {
 
 									<TableRow style={{height: "32px"}}>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={1} rowSpan={2}> Target Prob </TableCellHeader>
+																		 style={coloredBg} colSpan={1} rowSpan={2}> Target Prob (%) </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}} colSpan={1} rowSpan={2}> Target Prob </TableCellHeader>
+																		 style={{}} colSpan={1} rowSpan={2}> Target Prob (%) </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={{}} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={{}} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={1} rowSpan={2}> Target Prob </TableCellHeader>
+																		 style={coloredBg} colSpan={1} rowSpan={2}> Target Prob (%) </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
@@ -661,11 +675,4 @@ class EvaluatorRiskResults extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		premResults: state.insPremiums.premResults,
-		countyProductsResults: state.insPremiums.countyProductsResults
-	};
-};
-
-export default connect(mapStateToProps, null)(withStyles(styles)(EvaluatorRiskResults));
+export default (withStyles(styles)(EvaluatorRiskResults));
