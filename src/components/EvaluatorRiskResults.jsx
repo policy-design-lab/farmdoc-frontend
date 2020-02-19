@@ -418,7 +418,7 @@ class EvaluatorRiskResults extends Component {
 							/>
 						</FormControl> /acre
 					</div>
-					{console.log(evalResultJson)}
+
 					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
 						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance: {evalResultJson.policies["no-ins-prob"]} </div>
 						<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance: {evalResultJson.policies["no-ins-var-1"]} </div>
