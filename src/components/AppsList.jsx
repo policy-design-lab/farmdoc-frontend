@@ -109,7 +109,7 @@ class AppsList extends Component {
 										{config.apps["eval"].appDesc}	</div>
 
 									<div>
-										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
+										<img className="appScreenshot" src={require("../images/payment-evaluator-screenshot.png")} alt="Payment Results"/>
 									</div>
 
 								</Paper>
