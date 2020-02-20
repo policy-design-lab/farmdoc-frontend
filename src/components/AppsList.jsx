@@ -6,6 +6,7 @@ import {browserHistory, Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
+import evaluatorLogo from "../images/payment-evaluator.svg";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import config from "../app.config";
@@ -81,6 +82,31 @@ class AppsList extends Component {
 
 									<div className="appDescription">
 										{config.apps["premiums"].appDesc}	</div>
+
+									<div>
+										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
+									</div>
+
+								</Paper>
+							</Link>
+						</Grid>
+
+						<Grid item>
+							<Link to="/eval" onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#756B53"}}>
+										<span className="appName">
+											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#979797"}}/>
+											{config.apps["eval"].appName}
+										</span>
+									</div>
+
+									<div className="appLastUpdated">
+										Last Updated: {config.apps["eval"].lastUpdated}
+									</div>
+
+									<div className="appDescription">
+										{config.apps["eval"].appDesc}	</div>
 
 									<div>
 										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>

@@ -216,6 +216,13 @@ export const premCalcWelcomeText = ["The insurance premium calculator provides f
 	" Agricultural & Consumer Economics (ACE) and powered by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign."
 ];
 
+export const premEvalWelcomeText = ["The insurance payment evaluator provides helpful information to producers " +
+"comparing costs and risk reductions across their available crop insurance alternatives.",
+"  ",
+"Funding for this project has been provided by the Gardner Agriculture Policy Program. It is operated in conjunction with the farmdoc project in the Dept. of" +
+	" Agricultural & Consumer Economics (ACE) and powered by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign."
+];
+
 export const taAdjTooltip = "Indicate “yes” if yields will be trend adjusted or yield exclusion will be used";
 export const rateYieldTooltip = "Average yield for up to ten years used in developing the quote";
 export const taYieldTooltip = "Historic yields adjusted for trend and yield exclusion";
