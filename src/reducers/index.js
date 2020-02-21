@@ -4,13 +4,15 @@ import user from "./user";
 import model from "./model";
 import results from "./results";
 import insPremiums from "./insPremiums";
+import insEvaluator from "./insEvaluator";
 
 const rootReducer = combineReducers({
 	routing: routerReducer,
 	model,
 	results,
 	user,
-	insPremiums
+	insPremiums,
+	insEvaluator
 });
 
 export default rootReducer;

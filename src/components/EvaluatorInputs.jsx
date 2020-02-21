@@ -15,9 +15,8 @@ import {
 	roundResults
 } from "../public/utils";
 import {
-	handlePremiumResults,
-	handleCountyProductsResults
-} from "../actions/insPremiums";
+	handleEvaluatorResults
+} from "../actions/insEvaluator";
 import Spinner from "./Spinner";
 import config from "../app.config";
 
@@ -216,8 +215,7 @@ class EvaluatorInputs extends Component {
 		this.calcPremiums = this.calcPremiums.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
-		this.handlePremiumResults = this.handlePremiumResults.bind(this);
-		this.handleCountyProductsResults = this.handleCountyProductsResults.bind(this);
+		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
 
 		//TODO: Cleanup states that are not needed
 		this.state = {
@@ -378,8 +376,7 @@ class EvaluatorInputs extends Component {
 					that.calcPremiums();
 				}
 				else {
-					that.handleCountyProductsResults(null);
-					that.handlePremiumResults(null);
+					that.handleEvaluatorResults(null);
 				}
 			});
 		}, function(){
@@ -468,12 +465,11 @@ class EvaluatorInputs extends Component {
 			try {
 				evaluatorResult = await countyProductsResponse.json();
 				if (typeof(evaluatorResult) === "object") {
-					console.log(evaluatorResult);
-					this.handleCountyProductsResults(JSON.stringify(evaluatorResult));
+					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
-					this.handleCountyProductsResults("");
+					this.handleEvaluatorResults("");
 				}
 			}
 			catch (error) {
@@ -484,12 +480,8 @@ class EvaluatorInputs extends Component {
 
 	}
 
-	handlePremiumResults(results) {
-		this.props.handlePremiumResults(results);
-	}
-
-	handleCountyProductsResults(results) {
-		this.props.handleCountyProductsResults(results);
+	handleEvaluatorResults(results) {
+		this.props.handleEvaluatorResults(results);
 	}
 
 	componentDidMount() {
@@ -577,8 +569,7 @@ class EvaluatorInputs extends Component {
 		let spinner;
 
 		if (this.state.runStatus === "INIT"){
-			this.handlePremiumResults(null);
-			this.handleCountyProductsResults(null);
+			this.handleEvaluatorResults(null);
 		}
 
 		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
@@ -785,13 +776,11 @@ class EvaluatorInputs extends Component {
 }
 
 const mapStateToProps = state => ({
-	premResults: state.premResults,
-	countyProductsResults: state.countyProductsResults
+	evaluatorResults: state.evaluatorResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handlePremiumResults: premResults => dispatch(handlePremiumResults(premResults)),
-	handleCountyProductsResults: countyProductsResults => dispatch(handleCountyProductsResults(countyProductsResults))
+	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults))
 });
 
 
