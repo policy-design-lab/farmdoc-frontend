@@ -15,7 +15,9 @@ import {
 	roundResults
 } from "../public/utils";
 import {
-	handleEvaluatorResults
+	handleEvaluatorResults,
+	changeAcres,
+	changeCropCode
 } from "../actions/insEvaluator";
 import Spinner from "./Spinner";
 import config from "../app.config";
@@ -216,6 +218,8 @@ class EvaluatorInputs extends Component {
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
+		this.changeAcres = this.changeAcres.bind(this);
+		this.changeCropCode = this.changeCropCode.bind(this);
 
 		//TODO: Cleanup states that are not needed
 		this.state = {
@@ -256,6 +260,7 @@ class EvaluatorInputs extends Component {
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
 					this.setState({cropCountyCode: cropCountyCode});
+					this.changeCropCode(cropCountyCode);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams(cropCountyCode);
 				}
@@ -277,6 +282,7 @@ class EvaluatorInputs extends Component {
 					this.populateCropUnits(event.value);
 					let cropCountyCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCountyCode: cropCountyCode});
+					this.changeCropCode(cropCountyCode);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams(cropCountyCode);
 				}
@@ -288,6 +294,9 @@ class EvaluatorInputs extends Component {
 		this.setState({
 			[name]: event.target.value,
 		});
+		if (name === "farmAcres"){
+			this.changeAcres(event.target.value);
+		}
 	};
 
 	handleMuiSelectChange = name => event => {
@@ -484,6 +493,14 @@ class EvaluatorInputs extends Component {
 		this.props.handleEvaluatorResults(results);
 	}
 
+	changeAcres(acres){
+		this.props.changeAcres(acres);
+	}
+
+	changeCropCode(cropCode){
+		this.props.changeCropCode(cropCode);
+	}
+
 	componentDidMount() {
 		let statesJson = [];
 
@@ -516,6 +533,7 @@ class EvaluatorInputs extends Component {
 
 			let defaultCropCountyCode = "1700141";
 			this.setState({cropCountyCode: defaultCropCountyCode});
+			this.changeCropCode(defaultCropCountyCode);
 			this.setState({runStatus: "FETCHING_PARAMS"});
 			this.setParams(defaultCropCountyCode, false);
 		});
@@ -780,7 +798,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults))
+	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults)),
+	changeAcres: acres => dispatch(changeAcres(acres)),
+	changeCropCode: cropCode => dispatch(changeCropCode(cropCode))
 });
 
 

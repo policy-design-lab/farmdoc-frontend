@@ -15,6 +15,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {changeInsUnit} from "../actions/insEvaluator";
+import {connect} from "react-redux";
 
 const styles = theme => ({
 	root: {
@@ -148,24 +150,19 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 
 class EvaluatorRiskResults extends Component {
 	state = {
-		unit: "Basic",
+		insUnit: this.props["insUnit"],
 		grossTarget: this.props.evalJson.policies["gross-target"]
 	};
 
 	constructor(props) {
 		super(props);
+		this.changeInsUnit = this.changeInsUnit.bind(this);
 
 		this.state = {
-			unit: "Basic",
+			insUnit: this.props["insUnit"],
 			grossTarget: props.evalJson.policies["gross-target"]
 		};
 	}
-
-	handleChange = name => event => {
-		this.setState({
-			[name]: event.target.value,
-		});
-	};
 
 	validateMaxValue = value => event => {
 		if (event.target.value !== "") {
@@ -182,6 +179,19 @@ class EvaluatorRiskResults extends Component {
 			}
 		}
 	};
+
+	handleChange = name => event => {
+		this.setState({
+			[name]: event.target.value,
+		});
+		if (name === "insUnit"){
+			this.changeInsUnit(event.target.value);
+		}
+	};
+
+	changeInsUnit(insUnit){
+		this.props.changeInsUnit(insUnit);
+	}
 
 	componentWillUnmount() {
 		// this.props.handlePremiumResults(null);
@@ -200,7 +210,7 @@ class EvaluatorRiskResults extends Component {
 			evalResult = this.props["evalJson"];
 		}
 
-		let unit = this.state.unit.toLowerCase();
+		let unit = this.state.insUnit.toLowerCase();
 
 		let farmPolicyRows = [];
 		let countyProductsRows = [];
@@ -438,9 +448,9 @@ class EvaluatorRiskResults extends Component {
 						<div>
 							<span style={{fontSize: "1.10em", padding: "8px"}}> Unit: </span>
 							<FormControl style={{marginBottom: "8px"}}>
-								<Select id="useTaAdj" labelId="taId" value={this.state.unit} onChange={this.handleChange("unit")}>
-									<MenuItem value="Basic">Basic</MenuItem>
-									<MenuItem value="Enterprise">Enterprise</MenuItem>
+								<Select id="useTaAdj" labelId="taId" value={this.state.insUnit} onChange={this.handleChange("insUnit")}>
+									<MenuItem value="basic">Basic</MenuItem>
+									<MenuItem value="enterprise">Enterprise</MenuItem>
 								</Select>
 							</FormControl>
 							<br/>
@@ -677,4 +687,14 @@ class EvaluatorRiskResults extends Component {
 	}
 }
 
-export default (withStyles(styles)(EvaluatorRiskResults));
+const mapStateToProps = (state) => {
+	return {
+		insUnit: state.insEvaluator.insUnit
+	};
+};
+
+const mapDispatchToProps = dispatch => ({
+	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EvaluatorRiskResults));

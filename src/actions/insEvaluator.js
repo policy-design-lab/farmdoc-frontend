@@ -8,3 +8,12 @@ export const changeCropCode = (cropCode) => ({
 	cropCode
 });
 
+export const changeAcres = (acres) => ({
+	type: "CHANGE_ACRES",
+	acres
+});
+
+export const changeInsUnit = (insUnit) => ({
+	type: "CHANGE_INS_UNIT",
+	insUnit
+});

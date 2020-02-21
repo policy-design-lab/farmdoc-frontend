@@ -16,6 +16,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {
+	changeInsUnit
+} from "../actions/insEvaluator";
 
 const styles = theme => ({
 	root: {
@@ -147,14 +150,15 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 
 class EvaluatorPremiumResults extends Component {
 	state = {
-		unit: "Basic"
+		insUnit: this.props["insUnit"]
 	};
 
 	constructor(props) {
 		super(props);
+		this.changeInsUnit = this.changeInsUnit.bind(this);
 
 		this.state = {
-			unit: "Basic"
+			insUnit: this.props["insUnit"]
 		};
 	}
 
@@ -162,6 +166,9 @@ class EvaluatorPremiumResults extends Component {
 		this.setState({
 			[name]: event.target.value,
 		});
+		if (name === "insUnit"){
+			this.changeInsUnit(event.target.value);
+		}
 	};
 
 	validateMaxValue = value => event => {
@@ -180,6 +187,10 @@ class EvaluatorPremiumResults extends Component {
 		}
 	};
 
+	changeInsUnit(insUnit){
+		this.props.changeInsUnit(insUnit);
+	}
+
 	componentWillUnmount() {
 		// this.props.handlePremiumResults(null);
 	}
@@ -191,7 +202,7 @@ class EvaluatorPremiumResults extends Component {
 		// let coverageLevels = ["50", "55", "60", "65", "70", "75", "80", "85"];
 
 		let units = "bu/acre"; //TODO: Get from crop input of api
-		let unit = this.state.unit.toLowerCase();
+		let unit = this.state.insUnit.toLowerCase();
 
 		let evalResult = null;
 
@@ -352,9 +363,9 @@ class EvaluatorPremiumResults extends Component {
 						<div>
 							<span style={{fontSize: "1.10em", padding: "8px"}}> Unit: </span>
 							<FormControl style={{marginBottom: "8px"}}>
-								<Select id="useTaAdj" labelId="taId" value={this.state.unit} onChange={this.handleChange("unit")}>
-									<MenuItem value="Basic">Basic</MenuItem>
-									<MenuItem value="Enterprise">Enterprise</MenuItem>
+								<Select id="useTaAdj" labelId="taId" value={this.state.insUnit} onChange={this.handleChange("insUnit")}>
+									<MenuItem value="basic">Basic</MenuItem>
+									<MenuItem value="enterprise">Enterprise</MenuItem>
 								</Select>
 							</FormControl>
 							<br/>
@@ -509,9 +520,12 @@ class EvaluatorPremiumResults extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		premResults: state.insPremiums.premResults,
-		countyProductsResults: state.insPremiums.countyProductsResults
+		insUnit: state.insEvaluator.insUnit
 	};
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles)(EvaluatorPremiumResults));
+const mapDispatchToProps = dispatch => ({
+	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(EvaluatorPremiumResults));
