@@ -20,6 +20,7 @@ import {changeInsUnit, handleEvaluatorResults} from "../actions/insEvaluator";
 
 import FDTooltip from "./Tooltip";
 import config from "../app.config";
+import Spinner from "./Spinner";
 
 const styles = theme => ({
 	root: {
@@ -154,7 +155,8 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 class EvaluatorRiskResults extends Component {
 	state = {
 		insUnit: this.props["insUnit"],
-		grossTarget: this.props.evalJson.policies["gross-target"]
+		grossTarget: this.props.evalJson.policies["gross-target"],
+		runStatus: "INIT"
 	};
 
 	constructor(props) {
@@ -165,7 +167,8 @@ class EvaluatorRiskResults extends Component {
 
 		this.state = {
 			insUnit: this.props["insUnit"],
-			grossTarget: props.evalJson.policies["gross-target"]
+			grossTarget: props.evalJson.policies["gross-target"],
+			runStatus: "INIT"
 		};
 	}
 
@@ -200,6 +203,7 @@ class EvaluatorRiskResults extends Component {
 
 	keyPress(e) {
 		if (e.keyCode === 13){
+			this.setState({runStatus: "FETCHING_RESULTS"});
 			this.runEvaluator();
 		}
 	}
@@ -273,6 +277,15 @@ class EvaluatorRiskResults extends Component {
 		let units = "bu/acre"; //TODO: Get from crop input of api
 
 		let evalResult = null;
+
+		let spinner;
+
+		if (this.state.runStatus === "FETCHING_RESULTS") {
+			spinner = <Spinner/>;
+		}
+		else {
+			spinner = null;
+		}
 
 		if (this.props.hasOwnProperty("evalJson") && this.props.hasOwnProperty("evalJson") !== null) {
 			evalResult = this.props["evalJson"];
@@ -748,7 +761,9 @@ class EvaluatorRiskResults extends Component {
 
 					<Divider/>
 					<br/>
+					{spinner}
 				</div>
+
 			);
 		}
 		else {
