@@ -337,6 +337,7 @@ class EvaluatorInputs extends Component {
 			["code", this.state.cropCountyCode],
 			["acres", this.state.farmAcres],
 			["grossTarget", 536]
+		//		TODO: Remove grossTarget here when api is fixed to make this param optional
 		];
 
 		evaluatorUrl.search = new URLSearchParams(evaluatorParams).toString();
