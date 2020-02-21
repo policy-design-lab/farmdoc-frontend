@@ -203,7 +203,7 @@ class EvaluatorInputs extends Component {
 		cropSelValue: null,
 		cropCountyCode: null,
 
-		farmAcres: null,
+		farmAcres: 100,
 
 		projectedPrice: null,
 		volFactor: null,
@@ -214,7 +214,7 @@ class EvaluatorInputs extends Component {
 
 	constructor(props) {
 		super(props);
-		this.calcPremiums = this.calcPremiums.bind(this);
+		this.runEvaluator = this.runEvaluator.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
@@ -238,7 +238,7 @@ class EvaluatorInputs extends Component {
 			cropCountyCode: null,
 
 
-			farmAcres: null,
+			farmAcres: 100,
 			projectedPrice: null,
 			volFactor: null,
 			futuresUpdated: "",
@@ -256,35 +256,35 @@ class EvaluatorInputs extends Component {
 		switch (name) {
 			case "county":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
-				this.clearParams();
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
 					this.setState({runStatus: "FETCHING_PARAMS"});
-					this.setParams(cropCountyCode);
+					this.setParams();
 				}
 				break;
 
 			case "stateSel":
 				if (event.value !== "") {
-					this.clearParams();
 					this.setState({stateSelValue: {value: event.value, label: event.label}});
 					this.setState({countySelValue: null});
 					this.setState({county: ""});
+					this.setState({cropCountyCode: ""});
 					this.populateCounties(event.value);
+					this.setState({runStatus: "FETCHING_PARAMS"});
+					this.setParams();
 				}
 				break;
 			case "cropId":
 				if (event.value !== "") {
-					this.clearParams();
 					this.setState({cropSelValue: {value: event.value, label: event.label}});
 					this.populateCropUnits(event.value);
 					let cropCountyCode = `${this.state.county }${ event.value}`;
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
 					this.setState({runStatus: "FETCHING_PARAMS"});
-					this.setParams(cropCountyCode);
+					this.setParams();
 				}
 				break;
 		}
@@ -305,121 +305,19 @@ class EvaluatorInputs extends Component {
 		});
 	};
 
-	clearParams(){
-		//TODO: Cleanup states that are not needed
-		this.setState({
-			aphYield: "",
-			taYield: "",
-			rateYield: "",
-			useTaAdj: true,
-			riskClass: 0,
-			farmAcres: "",
-			grainType: 16,
-			practiceType: 3,
-			preventedPlanting: "0",
-			projectedPrice: "",
-			volFactor: "",
-
-			practiceTypes: [],
-			riskClasses: [],
-			grainTypes: []
-		});
-	}
-
-	setParams(cropCountyCode, runCalc = false) {
+	setParams(runCalc = false) {
 		let that = this;
-		getParams(cropCountyCode).then(function(response) {
-			if (response.status === 200) {
-				return response.json();
+		this.setState({runStatus: "FETCHED_PARAMS"}, function(){
+			if (runCalc){
+				that.runEvaluator();
 			}
 			else {
-				console.log(
-					"Flask Service API call failed. Most likely the token expired");
-				this.setState({runStatus: "ERROR_PARAMS"});
-			// TODO: how to handle? Force logout?
+				that.handleEvaluatorResults(null);
 			}
-		}).then(data => {
-			if (typeof(data) !== "object"){
-				this.clearParams();
-			}
-			else {
-				this.setState({aphYield: roundResults(data.aphYield)});
-				this.setState({rateYield: roundResults(data.rateYield)});
-				this.setState({taYield: roundResults(data.TAYield)});
-				// this.setState({useTaAdj: data.useTaAdjustment});
-				this.setState({farmAcres: data.acres});
-				this.setState({practiceTypes: data.practices});
-				this.setState({riskClasses: data.riskClasses});
-				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
-				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: ` Projected Price & Volatility as of ${ data.dateUpdated}`});
-
-				//TODO: Confirm with PIs if these defaults will be good for all counties
-				if (this.state.cropId === 41){
-					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
-
-					// if (this.doesArrContain(data.types, "typeCode", 16) <= 0){
-					// 	data.types.push({typeCode: 16, typeLabel: "Grain"});
-					// }
-					this.setState({grainTypes: data.types});
-					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
-				}
-				else if (this.state.cropId === 81){
-					//Use Nfac as default, if not available use non-irrigated
-					let soyPracDefault = this.getDefaultType(data.practices, "practiceCode", 53);
-					if (soyPracDefault <= 0){
-						soyPracDefault = this.getDefaultType(data.practices, "practiceCode", 3);
-					}
-					this.setState({practiceType: soyPracDefault});
-
-					// if (this.doesArrContain(data.types, "typeCode", 91) <= 0){
-					// 	data.types.push({typeCode: 91, typeLabel: "Commodity"});
-					// }
-					this.setState({grainTypes: data.types});
-					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
-				}
-
-			}
-			this.setState({runStatus: "FETCHED_PARAMS"}, function(){
-				if (runCalc){
-					that.calcPremiums();
-				}
-				else {
-					that.handleEvaluatorResults(null);
-				}
-			});
-		}, function(){
-			that.setState({runStatus: "ERROR_PARAMS"});
 		});
 	}
 
-	 getDefaultType(arr, fieldName, fieldVal){
-		if (arr.length === 1){
-			return arr[0][fieldName];
-		}
-
-		for (let i = 0; i < arr.length; i++){
-			let obj = arr[i];
-
-			if (obj[fieldName] === fieldVal){
-				return fieldVal;
-			}
-		}
-		return 0;
-	}
-
-	doesArrContain(arr, fieldName, fieldVal){
-		for (let i = 0; i < arr.length; i++){
-			let obj = arr[i];
-
-			if (obj[fieldName] === fieldVal){
-				return fieldVal;
-			}
-		}
-		return 0;
-	}
-
-	async calcPremiums() {
+	async runEvaluator() {
 		//let status = "STARTED";
 		// let personId = localStorage.getItem("dwPersonId");
 		let email = localStorage.getItem("kcEmail");
@@ -430,51 +328,30 @@ class EvaluatorInputs extends Component {
 			"Authorization": token_header
 		};
 
-		// let countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange, plcYield,
-		// 	arcYield, program, sequesterPrice, pracCode;
-		// countyId = this.state.county;
-		// startYear = config.defaultsJson.startYear;
-		// commodity = this.state.commodity.toLowerCase();
-		// refPrice = this.state.refPrice;
-		// paymentAcres = this.state.acres;
-		// arcCoverage = this.state.coverage;
-		// arcRange = this.state.range;
-		// arcYield = this.state.arcYield;
-		// plcYield = this.state.paymentYield;
-		// program = "ARC";
-		// sequesterPrice = this.state.seqprice;
-		// pracCode = this.state.pracCode;
-
-		// let countyFips, crop, aphYield, useTaAdj, taYield, rateYield, riskClass, farmAcres,
-		// 	grainType, practiceType, preventePlanting;
-
 		let evaluatorResult = "";
-
-		let cropFullCode = `${ this.state.cropCountyCode.toString() }${this.state.grainType.toString().padStart(3, "0") }${this.state.practiceType.toString().padStart(3, "0")}`;
 
 		this.setState({runStatus: "FETCHING_RESULTS"});
 
-		let countyProductsUrl = new URL(`${config.apiUrl }/compute/premGrip`);
-		let countyProductsParams = [
-			["code", cropFullCode],
-			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor],
-			["email", email]
+		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
+		let evaluatorParams = [
+			["code", this.state.cropCountyCode],
+			["acres", this.state.farmAcres],
+			["grossTarget", 536]
 		];
 
-		countyProductsUrl.search = new URLSearchParams(countyProductsParams).toString();
+		evaluatorUrl.search = new URLSearchParams(evaluatorParams).toString();
 
-		const countyProductsResponse = await fetch(countyProductsUrl, {
+		const evaluatorResponse = await fetch(evaluatorUrl, {
 			method: "GET",
 			headers: kcHeaders,
 		});
 
-		//TODO: Use a different prop for evaluator
-		if (countyProductsResponse instanceof Response) {
+		if (evaluatorResponse instanceof Response) {
 			try {
-				evaluatorResult = await countyProductsResponse.json();
+				evaluatorResult = await evaluatorResponse.json();
 				if (typeof(evaluatorResult) === "object") {
 					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
+					// this.handleEvaluatorResults(null);
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
@@ -486,7 +363,6 @@ class EvaluatorInputs extends Component {
 				console.log("error getting the response from flask api");
 			}
 		}
-
 	}
 
 	handleEvaluatorResults(results) {
@@ -535,7 +411,7 @@ class EvaluatorInputs extends Component {
 			this.setState({cropCountyCode: defaultCropCountyCode});
 			this.changeCropCode(defaultCropCountyCode);
 			this.setState({runStatus: "FETCHING_PARAMS"});
-			this.setParams(defaultCropCountyCode, false);
+			this.setParams(true);
 		});
 
 	}
@@ -574,10 +450,7 @@ class EvaluatorInputs extends Component {
 
 	validateInputs() {
 		//TODO: Add projected price validation back. Disabled as a quick patch to access 2019 data if negative
-		return this.state.county > 0 && this.state.cropId !== "" && this.state.aphYield > 0
-				&& this.state.rateYield > 0 && this.state.taYield > 0 && this.state.volFactor > 0
-				&& this.state.projectedPrice >= -999 && this.state.farmAcres >= 1 &&
-				this.state.grainType > 0 && this.state.practiceType > 0;
+		return this.state.farmAcres >= 1 && this.state.cropCountyCode >= 1;
 	}
 
 	render() {
@@ -592,6 +465,9 @@ class EvaluatorInputs extends Component {
 
 		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
 			spinner = <Spinner/>;
+		}
+		else {
+			spinner = null;
 		}
 
 		let stateOptions = [];
@@ -745,34 +621,15 @@ class EvaluatorInputs extends Component {
 						/>
 					</FormControl>
 
-					{/*<FormControl className={classes.formControlXSmall}>*/}
-					{/*	<TextField*/}
-					{/*			id="farmAcres"*/}
-					{/*			label="Gross Revenue"*/}
-					{/*			value={548.17}*/}
-					{/*			margin="normal"*/}
-					{/*			onChange={this.handleMuiChange("farmAcres")}*/}
-					{/*			className={classes.textField}*/}
-					{/*			required*/}
-					{/*			InputLabelProps={{shrink: true}}*/}
-					{/*			InputProps={{*/}
-					{/*				inputProps: textFieldInputStyle*/}
-					{/*			}}*/}
-					{/*			inputProps={{padding: 10}}*/}
-					{/*	/>*/}
-					{/*</FormControl>*/}
-
-					{/*<FDTooltip title="Change Gross Target and run a new simulation" />*/}
-
 					<br/>
 					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
 						<Grid item xs />
 						<Grid item xs={4} >
-							<Button variant="contained" color="primary" onClick={this.calcPremiums}
+							<Button variant="contained" color="primary" onClick={this.runEvaluator}
 											disabled={!this.validateInputs()}
 											style={{fontSize: "large", backgroundColor: "#455A64"}}>
 								<Icon className={classes.leftIcon}> send </Icon>
-								Calculate Premiums
+								Run Simulation
 							</Button>
 						</Grid>
 						<Grid item xs >

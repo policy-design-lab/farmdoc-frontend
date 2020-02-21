@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles";
 import {
 	FormControl,
@@ -16,7 +17,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {changeInsUnit} from "../actions/insEvaluator";
-import {connect} from "react-redux";
+
+import FDTooltip from "./Tooltip";
 
 const styles = theme => ({
 	root: {
@@ -429,7 +431,9 @@ class EvaluatorRiskResults extends Component {
 									inputProps={{padding: 10}}
 							/>
 						</FormControl> /acre
+						<FDTooltip title="Click calculate premiums above to run the simulation again "/>
 					</div>
+
 
 					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
 						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance: {evalResultJson.policies["no-ins-prob"]} </div>
@@ -689,7 +693,9 @@ class EvaluatorRiskResults extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		insUnit: state.insEvaluator.insUnit
+		insUnit: state.insEvaluator.insUnit,
+		cropCode: state.insEvaluator.cropCode,
+		acres: state.insEvaluator.acres
 	};
 };
 
