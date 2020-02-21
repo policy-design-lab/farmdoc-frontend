@@ -24,6 +24,8 @@ import AboutPremiumCalc from "./PremAbout";
 import DocsPremiumCalc from "./PremDocumentation";
 
 import EvaluatorDashboard from "./EvaluatorDashboard";
+import AboutPaymentEval from "./EvalAbout";
+import DocsPaymentEval from "./EvalDocumentation";
 
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
@@ -51,6 +53,7 @@ class App extends Component {
 
 		let arcplcPath = "/arcplc";
 		let premiumCalcPath = "/premiums";
+		let premiumEvalPath = "/evaluator";
 
 		return (
 			<div>
@@ -77,7 +80,10 @@ class App extends Component {
 						<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>
 						<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>
 
-						<Route path="eval" component={EvaluatorDashboard}/>
+						<Route path={`${premiumEvalPath}`} component={EvaluatorDashboard}/>
+						<Route path={`${premiumEvalPath}docs`} component={DocsPaymentEval}/>
+						<Route path={`${premiumEvalPath}about`} component={AboutPaymentEval}/>
+						{/*<Route path="eval" component={EvaluatorDashboard}/>*/}
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>

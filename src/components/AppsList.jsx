@@ -6,6 +6,7 @@ import {browserHistory, Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
+import evaluatorLogo from "../images/payment-evaluator.svg";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import config from "../app.config";
@@ -84,6 +85,31 @@ class AppsList extends Component {
 
 									<div>
 										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
+									</div>
+
+								</Paper>
+							</Link>
+						</Grid>
+
+						<Grid item>
+							<Link to="/evaluator" onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#756B53"}}>
+										<span className="appName">
+											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#544D3B"}}/>
+											{config.apps["evaluator"].appName}
+										</span>
+									</div>
+
+									<div className="appLastUpdated">
+										Last Updated: {config.apps["evaluator"].lastUpdated}
+									</div>
+
+									<div className="appDescription">
+										{config.apps["evaluator"].appDesc}	</div>
+
+									<div>
+										<img className="appScreenshot" src={require("../images/payment-evaluator-screenshot.png")} alt="Payment Results"/>
 									</div>
 
 								</Paper>
