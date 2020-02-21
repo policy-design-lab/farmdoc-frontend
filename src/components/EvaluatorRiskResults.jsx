@@ -16,9 +16,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import {changeInsUnit} from "../actions/insEvaluator";
+import {changeInsUnit, handleEvaluatorResults} from "../actions/insEvaluator";
 
 import FDTooltip from "./Tooltip";
+import config from "../app.config";
 
 const styles = theme => ({
 	root: {
@@ -159,6 +160,8 @@ class EvaluatorRiskResults extends Component {
 	constructor(props) {
 		super(props);
 		this.changeInsUnit = this.changeInsUnit.bind(this);
+		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
+		this.keyPress = this.keyPress.bind(this);
 
 		this.state = {
 			insUnit: this.props["insUnit"],
@@ -189,7 +192,21 @@ class EvaluatorRiskResults extends Component {
 		if (name === "insUnit"){
 			this.changeInsUnit(event.target.value);
 		}
+
+		if (name === "grossTarget"){
+			// this.runEvaluator();
+		}
 	};
+
+	keyPress(e) {
+		if (e.keyCode === 13){
+			this.runEvaluator();
+		}
+	}
+
+	handleEvaluatorResults(results) {
+		this.props.handleEvaluatorResults(results);
+	}
 
 	changeInsUnit(insUnit){
 		this.props.changeInsUnit(insUnit);
@@ -197,6 +214,55 @@ class EvaluatorRiskResults extends Component {
 
 	componentWillUnmount() {
 		// this.props.handlePremiumResults(null);
+	}
+
+	async runEvaluator() {
+		//let status = "STARTED";
+		// let personId = localStorage.getItem("dwPersonId");
+		let email = localStorage.getItem("kcEmail");
+		let token = localStorage.getItem("kcToken");
+		let token_header = `Bearer ${token}`;
+
+		let kcHeaders = {
+			"Authorization": token_header
+		};
+
+		let evaluatorResult = "";
+
+		this.setState({runStatus: "FETCHING_RESULTS"});
+
+		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
+		let evaluatorParams = [
+			["code", this.props["cropCode"]],
+			["acres", this.props["cropCode"]],
+			["grossTarget", this.state.grossTarget]
+		];
+
+		evaluatorUrl.search = new URLSearchParams(evaluatorParams).toString();
+
+		const evaluatorResponse = await fetch(evaluatorUrl, {
+			method: "GET",
+			headers: kcHeaders,
+		});
+
+		if (evaluatorResponse instanceof Response) {
+			try {
+				evaluatorResult = await evaluatorResponse.json();
+				if (typeof(evaluatorResult) === "object") {
+					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
+					// this.handleEvaluatorResults(null);
+					this.setState({runStatus: "FETCHED_RESULTS"});
+				}
+				else {
+					this.handleEvaluatorResults("");
+				}
+			}
+			catch (error) {
+				console.log(error);
+				this.setState({runStatus: "ERROR_RESULTS"});
+				console.log("error getting the response from flask api");
+			}
+		}
 	}
 
 	render() {
@@ -422,6 +488,7 @@ class EvaluatorRiskResults extends Component {
 									value={this.state.grossTarget}
 									margin="normal"
 									onChange={this.handleChange("grossTarget")}
+									onKeyDown={this.keyPress}
 									className={classes.textField}
 									required
 									InputLabelProps={{shrink: true}}
@@ -431,7 +498,8 @@ class EvaluatorRiskResults extends Component {
 									inputProps={{padding: 10}}
 							/>
 						</FormControl> /acre
-						<FDTooltip title="Click calculate premiums above to run the simulation again "/>
+						{/*TODO: Enter key might not work on mobiles */}
+						<FDTooltip title="Click ENTER key to run the simulation again"/>
 					</div>
 
 
@@ -700,6 +768,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
+	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults)),
 	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit))
 });
 
