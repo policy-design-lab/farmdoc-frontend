@@ -258,11 +258,11 @@ class EvaluatorRiskResults extends Component {
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
-					this.handleEvaluatorResults("");
+					this.handleEvaluatorResults(null);
+					this.setState({runStatus: "ERROR_RESULTS"});
 				}
 			}
 			catch (error) {
-				console.log(error);
 				this.setState({runStatus: "ERROR_RESULTS"});
 				console.log("error getting the response from flask api");
 			}

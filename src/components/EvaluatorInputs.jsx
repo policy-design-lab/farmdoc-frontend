@@ -356,7 +356,8 @@ class EvaluatorInputs extends Component {
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
-					this.handleEvaluatorResults("");
+					this.handleEvaluatorResults(null);
+					this.setState({runStatus: "ERROR_RESULTS"});
 				}
 			}
 			catch (error) {
