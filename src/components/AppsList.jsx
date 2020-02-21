@@ -92,21 +92,21 @@ class AppsList extends Component {
 						</Grid>
 
 						<Grid item>
-							<Link to="/eval" onlyActiveOnIndex={false}>
+							<Link to="/evaluator" onlyActiveOnIndex={false}>
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#756B53"}}>
 										<span className="appName">
-											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#979797"}}/>
-											{config.apps["eval"].appName}
+											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#544D3B"}}/>
+											{config.apps["evaluator"].appName}
 										</span>
 									</div>
 
 									<div className="appLastUpdated">
-										Last Updated: {config.apps["eval"].lastUpdated}
+										Last Updated: {config.apps["evaluator"].lastUpdated}
 									</div>
 
 									<div className="appDescription">
-										{config.apps["eval"].appDesc}	</div>
+										{config.apps["evaluator"].appDesc}	</div>
 
 									<div>
 										<img className="appScreenshot" src={require("../images/payment-evaluator-screenshot.png")} alt="Payment Results"/>

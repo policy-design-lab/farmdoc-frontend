@@ -53,7 +53,7 @@ class App extends Component {
 
 		let arcplcPath = "/arcplc";
 		let premiumCalcPath = "/premiums";
-		let premiumEvalPath = "/eval";
+		let premiumEvalPath = "/evaluator";
 
 		return (
 			<div>

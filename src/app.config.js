@@ -15,8 +15,8 @@ const farmdocApps = {
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
 		lastUpdated: "Jan 22, 2020"
 	},
-	"eval": {
-		appName: "Payment Evaluator",
+	"evaluator": {
+		appName: "Insurance Evaluator",
 		appDesc: "The Insurance Payment Evaluator tool provides helpful information to producers comparing costs and " +
 			"risk reductions across their available crop insurance alternatives. ",
 		lastUpdated: "Feb 20, 2020"
