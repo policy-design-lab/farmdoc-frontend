@@ -505,6 +505,7 @@ class EvaluatorRiskResults extends Component {
 									className={classes.textField}
 									required
 									InputLabelProps={{shrink: true}}
+									onInput={this.validateMaxValue(10000)}
 									// InputProps={{
 									// 	inputProps: textFieldInputStyle
 									// }}
