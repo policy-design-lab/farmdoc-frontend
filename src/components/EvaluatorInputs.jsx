@@ -329,7 +329,7 @@ class EvaluatorInputs extends Component {
 		};
 
 		let evaluatorResult = "";
-
+		this.handleEvaluatorResults(null);
 		this.setState({runStatus: "FETCHING_RESULTS"});
 
 		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
@@ -352,7 +352,6 @@ class EvaluatorInputs extends Component {
 				evaluatorResult = await evaluatorResponse.json();
 				if (typeof(evaluatorResult) === "object") {
 					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
-					// this.handleEvaluatorResults(null);
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {

@@ -230,19 +230,19 @@ class EvaluatorPremiumResults extends Component {
 
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"] * 100, 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</CommonTableCell>
 
 							<CommonTableCell style={{}} >{roundResults(premiums[cov][`rphpe-${unit}`]["est-premium"], 2)}</CommonTableCell>
 							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"] * 100, 2)}</CommonTableCell>
 							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["net-cost"], 2)}</CommonTableCell>
 							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-gross-rev"], 2)}</CommonTableCell>
 
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["est-premium"], 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"] * 100, 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["net-cost"], 2)}</CommonTableCell>
 							<RightMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-gross-rev"], 2)}</RightMostTableCell>
 
@@ -257,19 +257,19 @@ class EvaluatorPremiumResults extends Component {
 
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
 							<BottomMostTableCell style={{}} >{roundResults(premiums[cov][`rphpe-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
 								{roundResults(premiums[cov][`yp-${unit}`]["avg-gross-rev"], 2)}
@@ -300,19 +300,19 @@ class EvaluatorPremiumResults extends Component {
 
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["est-premium"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["avg-payment"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["freq-payment"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["freq-payment"] * 100, 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["net-cost"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["avg-gross-rev"], 2)}</CommonTableCell>
 
 								<CommonTableCell style={{}} >{roundResults(premiums[cov]["rphpe"]["est-premium"], 2)}</CommonTableCell>
 								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["avg-payment"], 2)}</CommonTableCell>
-								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["freq-payment"], 2)}</CommonTableCell>
+								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["freq-payment"] * 100, 2)}</CommonTableCell>
 								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["net-cost"], 2)}</CommonTableCell>
 								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["avg-gross-rev"], 2)}</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["est-premium"], 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["avg-payment"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["freq-payment"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["freq-payment"] * 100, 2)}</CommonTableCell>
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["net-cost"], 2)}</CommonTableCell>
 								<RightMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["avg-gross-rev"], 2)}</RightMostTableCell>
 
@@ -327,19 +327,19 @@ class EvaluatorPremiumResults extends Component {
 
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["est-premium"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["avg-payment"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["freq-payment"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["net-cost"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
 								<BottomMostTableCell style={{}} >{roundResults(premiums[cov]["rphpe"]["est-premium"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["avg-payment"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["freq-payment"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["net-cost"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["est-premium"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["avg-payment"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["freq-payment"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["freq-payment"] * 100, 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["net-cost"], 2)}</BottomMostTableCell>
 								<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
 									{roundResults(premiums[cov]["yp"]["avg-gross-rev"], 2)}
@@ -395,7 +395,7 @@ class EvaluatorPremiumResults extends Component {
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg}>Avg.</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Freq.</TableCellHeader>
+																		 style={coloredBg}>Freq. (%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg}>Net Cost</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
@@ -406,7 +406,7 @@ class EvaluatorPremiumResults extends Component {
 										<TableCellHeader
 												className="table-header-tooltip">Avg.</TableCellHeader>
 										<TableCellHeader
-												className="table-header-tooltip">Freq.</TableCellHeader>
+												className="table-header-tooltip">Freq. (%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip">Net Cost
 										</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip">Avg Gross Rev
@@ -417,7 +417,7 @@ class EvaluatorPremiumResults extends Component {
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg}>Avg.</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Freq.</TableCellHeader>
+																		 style={coloredBg}>Freq. (%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg}>Net Cost</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip" style={{
@@ -467,7 +467,7 @@ class EvaluatorPremiumResults extends Component {
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg}>Avg.</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Freq.</TableCellHeader>
+																	 style={coloredBg}>Freq. (%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg}>Net Cost</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
@@ -478,7 +478,7 @@ class EvaluatorPremiumResults extends Component {
 									<TableCellHeader
 											className="table-header-tooltip">Avg.</TableCellHeader>
 									<TableCellHeader
-											className="table-header-tooltip">Freq.</TableCellHeader>
+											className="table-header-tooltip">Freq. (%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip">Net Cost
 									</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip">Avg Gross Rev
@@ -489,7 +489,7 @@ class EvaluatorPremiumResults extends Component {
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg}>Avg.</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Freq.</TableCellHeader>
+																	 style={coloredBg}>Freq. (%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg}>Net Cost</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip" style={{
