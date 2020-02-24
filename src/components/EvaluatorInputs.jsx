@@ -17,7 +17,7 @@ import {
 import {
 	handleEvaluatorResults,
 	changeAcres,
-	changeCropCode
+	changeCropCode, changeInsUnit,
 } from "../actions/insEvaluator";
 import Spinner from "./Spinner";
 import config from "../app.config";
@@ -220,6 +220,7 @@ class EvaluatorInputs extends Component {
 		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
 		this.changeAcres = this.changeAcres.bind(this);
 		this.changeCropCode = this.changeCropCode.bind(this);
+		this.changeInsUnit = this.changeInsUnit.bind(this);
 
 		//TODO: Cleanup states that are not needed
 		this.state = {
@@ -330,6 +331,7 @@ class EvaluatorInputs extends Component {
 
 		let evaluatorResult = "";
 		this.handleEvaluatorResults(null);
+		this.changeInsUnit("basic");
 		this.setState({runStatus: "FETCHING_RESULTS"});
 
 		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
@@ -376,6 +378,10 @@ class EvaluatorInputs extends Component {
 
 	changeCropCode(cropCode){
 		this.props.changeCropCode(cropCode);
+	}
+
+	changeInsUnit(insUnit){
+		this.props.changeInsUnit(insUnit);
 	}
 
 	componentDidMount() {
@@ -658,7 +664,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults)),
 	changeAcres: acres => dispatch(changeAcres(acres)),
-	changeCropCode: cropCode => dispatch(changeCropCode(cropCode))
+	changeCropCode: cropCode => dispatch(changeCropCode(cropCode)),
+	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit))
 });
 
 
