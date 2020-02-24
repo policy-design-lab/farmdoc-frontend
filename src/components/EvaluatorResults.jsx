@@ -58,14 +58,29 @@ const styles = theme => ({
 });
 
 class EvaluatorResults extends Component {
-
 	state = {
 		tabIndex: 1,
 	};
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			tabIndex: 1
+		};
+	}
+
 	handleChange = (event, value) => {
 		this.setState({tabIndex: value});
 	};
+
+	shouldComponentUpdate(
+		nextProps: Readonly<P>, nextState: Readonly<S>,
+		nextContext: any): boolean {
+		if (this.props["evaluatorResults"] === null){
+			this.setState({tabIndex: 1});
+		}
+		return true;
+	}
 
 	render() {
 		const {classes} = this.props;
