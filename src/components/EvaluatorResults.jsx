@@ -73,10 +73,7 @@ class EvaluatorResults extends Component {
 		this.setState({tabIndex: value});
 	};
 
-	shouldComponentUpdate(
-		// eslint-disable-next-line no-undef
-		nextProps: Readonly<P>, nextState: Readonly<S>,
-		nextContext: any): boolean {
+	shouldComponentUpdate(): boolean {
 		if (this.props["evaluatorResults"] === null){
 			this.setState({tabIndex: 1});
 		}
