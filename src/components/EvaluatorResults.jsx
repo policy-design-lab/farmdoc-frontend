@@ -74,6 +74,7 @@ class EvaluatorResults extends Component {
 	};
 
 	shouldComponentUpdate(
+		// eslint-disable-next-line no-undef
 		nextProps: Readonly<P>, nextState: Readonly<S>,
 		nextContext: any): boolean {
 		if (this.props["evaluatorResults"] === null){
