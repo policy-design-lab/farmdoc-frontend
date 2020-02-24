@@ -238,7 +238,7 @@ class EvaluatorRiskResults extends Component {
 		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
 		let evaluatorParams = [
 			["code", this.props["cropCode"]],
-			["acres", this.props["cropCode"]],
+			["acres", this.props["acres"]],
 			["grossTarget", this.state.grossTarget]
 		];
 
