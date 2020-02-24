@@ -234,17 +234,17 @@ class EvaluatorPremiumResults extends Component {
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</CommonTableCell>
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</CommonTableCell>
 
-							<CommonTableCell style={{}} >{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}} >{roundResults(premiums[cov][`rphpe-${unit}`]["est-premium"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["net-cost"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-gross-rev"], 2)}</CommonTableCell>
 
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</CommonTableCell>
-							<RightMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</RightMostTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["est-premium"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["net-cost"], 2)}</CommonTableCell>
+							<RightMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-gross-rev"], 2)}</RightMostTableCell>
 
 						</TableRow>
 					);
@@ -261,18 +261,18 @@ class EvaluatorPremiumResults extends Component {
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
-							<BottomMostTableCell style={{}} >{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}} >{roundResults(premiums[cov][`rphpe-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["avg-gross-rev"], 2)}</BottomMostTableCell>
 
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["freq-payment"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
-								{roundResults(premiums[cov][`rp-${unit}`]["avg-gross-rev"], 2)}
+								{roundResults(premiums[cov][`yp-${unit}`]["avg-gross-rev"], 2)}
 							</BottomMostTableCell>
 						</TableRow>
 					);
