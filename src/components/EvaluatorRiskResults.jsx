@@ -155,7 +155,7 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 class EvaluatorRiskResults extends Component {
 	state = {
 		insUnit: this.props["insUnit"],
-		grossTarget: this.props.evalJson.policies["gross-target"],
+		grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
 		runStatus: "INIT"
 	};
 
@@ -167,7 +167,7 @@ class EvaluatorRiskResults extends Component {
 
 		this.state = {
 			insUnit: this.props["insUnit"],
-			grossTarget: props.evalJson.policies["gross-target"],
+			grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
 			runStatus: "INIT"
 		};
 	}
