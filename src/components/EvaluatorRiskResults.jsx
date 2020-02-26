@@ -21,6 +21,7 @@ import {changeInsUnit, handleEvaluatorResults} from "../actions/insEvaluator";
 import FDTooltip from "./Tooltip";
 import config from "../app.config";
 import Spinner from "./Spinner";
+import EvaluatorRiskGraph from "./EvaluatorRiskGraph";
 
 const styles = theme => ({
 	root: {
@@ -155,7 +156,7 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 class EvaluatorRiskResults extends Component {
 	state = {
 		insUnit: this.props["insUnit"],
-		grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
+		grossTarget: this.props.evalJson.policies["gross-target"],
 		runStatus: "INIT"
 	};
 
@@ -167,7 +168,7 @@ class EvaluatorRiskResults extends Component {
 
 		this.state = {
 			insUnit: this.props["insUnit"],
-			grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
+			grossTarget: this.props.evalJson.policies["gross-target"],
 			runStatus: "INIT"
 		};
 	}
@@ -494,6 +495,7 @@ class EvaluatorRiskResults extends Component {
 					{/*</div>*/}
 
 					<div>
+
 						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target($) To Run Again: </span>
 						<FormControl >
 							<TextField
@@ -528,8 +530,9 @@ class EvaluatorRiskResults extends Component {
 							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-10"], 2)} </div>
 						<div style={{paddingBottom: "8px"}}>25% Value at risk with no insurance:
 							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-25"], 2)} </div>
-
 					</div>
+
+					<EvaluatorRiskGraph/>
 
 					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies - Risk </h2></div>
 
