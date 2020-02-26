@@ -12,6 +12,7 @@ import ToolTip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import Info from "@material-ui/icons/Info";
 import {forecastYearsToolTip} from "../app.messages";
+import {roundResults} from "../public/utils";
 
 
 const styles = theme => ({
@@ -68,11 +69,11 @@ class ForecastModels extends Component {
 					"id": modelsList[i]["id"],
 					"name": modelsList[i]["name"],
 					"description": modelsList[i]["description"],
-					"year1": modelsList[i]["prices"][commodity][0],
-					"year2": modelsList[i]["prices"][commodity][1],
-					"year3": modelsList[i]["prices"][commodity][2],
-					"year4": modelsList[i]["prices"][commodity][3],
-					"year5": modelsList[i]["prices"][commodity][4],
+					"year1": roundResults(modelsList[i]["prices"][commodity][0], 2),
+					"year2": roundResults(modelsList[i]["prices"][commodity][1], 2),
+					"year3": roundResults(modelsList[i]["prices"][commodity][2], 2),
+					"year4": roundResults(modelsList[i]["prices"][commodity][3], 2),
+					"year5": roundResults(modelsList[i]["prices"][commodity][4], 2),
 				});
 			}
 
