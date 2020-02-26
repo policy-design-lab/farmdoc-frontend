@@ -12,7 +12,8 @@ import {
 	likelihoodTableToolTip,
 	simulatedPriceTableToolTip,
 	simulatedYieldTableToolTip,
-	simulationGraphToolTip
+	simulationGraphToolTip,
+	nassYieldsDisclaimer
 } from "../app.messages";
 import ToolTip from "@material-ui/core/Tooltip";
 import "../styles/main.css";
@@ -364,6 +365,7 @@ class Results extends Component {
 						</TableBody>
 					</Table>
 					<div style={{padding: 5, textAlign: "center"}}> Model data last updated: {config.apps["arcplc"].lastUpdated} </div>
+					<div style={{padding: 5, textAlign: "center"}}> {nassYieldsDisclaimer} </div>
 
 				</div>
 			);
