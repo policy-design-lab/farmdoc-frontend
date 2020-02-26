@@ -6,7 +6,7 @@ const farmdocApps = {
 		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
 				" PLC making payments in each year from 2019 to 2023. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
-		lastUpdated: "Jan 12, 2020"
+		lastUpdated: "Feb 25, 2020"
 	},
 	"premiums": {
 		appName: "Insurance Premiums",
@@ -29,9 +29,9 @@ const mpForecasts = [
 		"name": "Forecast",
 		"description": "This is the  forecast model that forecasts market prices for the next five years",
 		"prices": {
-			"corn": [3.85, 3.71, 3.65, 3.62, 3.60],
-			"soybeans": [9.00, 9.00, 9.00, 9.00, 9.00],
-			"wheat": [4.55, 4.87, 5.00,	5.05, 5.08],
+			"corn": [3.85, 3.60, 3.60, 3.60, 3.60],
+			"soybeans": [8.75, 8.80, 8.80, 8.80, 8.80],
+			"wheat": [4.55, 4.90, 5.00, 5.00, 5.00],
 		}
 	},
 	{
@@ -40,8 +40,8 @@ const mpForecasts = [
 		"description": "This is the USDA High forecast model that forecasts market prices for the next five years",
 		"prices": {
 			"corn": [4.0, 4.0, 4.0, 4.0, 4.0],
-			"soybeans": [9.5, 9.5, 9.5, 9.5, 9.5],
-			"wheat": [5.4, 5.4, 5.4, 5.4, 5.4],
+			"soybeans": [9.0, 9.0, 9.0, 9.0, 9.0],
+			"wheat": [4.8, 5.4, 5.4, 5.4, 5.4],
 		}
 	},
 	{
@@ -51,7 +51,7 @@ const mpForecasts = [
 		"prices": {
 			"corn": [3.4, 3.4, 3.4, 3.4, 3.4],
 			"soybeans": [8.5, 8.5, 8.5, 8.5, 8.5],
-			"wheat": [4.8, 4.8, 4.8, 4.8, 4.8],
+			"wheat": [4.55, 4.55, 4.55, 4.55, 4.55],
 		}
 	},
 	{
