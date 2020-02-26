@@ -63,6 +63,7 @@ export const loginMessage = "Please login with your account to access the farmdo
 	" an account yet, use the 'REGISTER' button to create one. If you are having trouble receiving the verification" +
 	" email in your inbox, please check your spam/junk folder.";
 export const sessionExpired = "Your session has expired. Please login again to access the farmdoc decision tools";
+export const nassYieldsDisclaimer = "2019 corn and soybean expected yields have been updated based on NASS yields, where NASS has provided yields";
 
 export const arcplcTermDefinitions = [
 	{
