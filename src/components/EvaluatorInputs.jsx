@@ -650,11 +650,11 @@ class EvaluatorInputs extends Component {
 
 				</div>
 				<br/>
-				<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
+				<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
 					This tool develops a case farm for most counties in the major corn and soybean production regions,
 					and provides estimates of premiums for all available crop insurance products, along with the expected frequency
 					of payments, average payment per acre, net cost per acre, and risk reductions associated with alternative
-					crop insurance products
+					crop insurance products.
 				</div>
 
 			</div>
