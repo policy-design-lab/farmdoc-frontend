@@ -235,3 +235,43 @@ export const prevPlantingTooltip = "Indicate whether buy up will be used";
 export const acresTooltip = "Acres in the insured unit";
 export const projPriceTooltip = "The projected price used in developing the quote";
 export const volFactorTooltip = "The volatility used in developing the quote";
+
+
+export const estPremTooltip = "Estimated per acre farmer paid premiums for available crop insurance " +
+		"products in this county. Actual per acre costs will depend the farm's own APH, Trend-Adjusted APH," +
+		" and acres. A qualified insurance agent should be consulted for final premiums. " +
+		"Entries of zero/Not Avail. indicate an insurance combination not offered or unable to be calculated.";
+export const avgPaymentTooltip = "Average annual per acre indemnity payments. For example, " +
+		"an entry of $7.50 would indicate that the product would pay $7.50 per acre per year with some " +
+		"years being greater, some years being zero, but averaging $7.50 per acre per year through time.";
+export const freqTooltip = "Frequency of payment by product and election level as a percentage of years" +
+		" with positive payments. For example, an entry of 20% means that the product would pay in 1 out of every 5." +
+		" A higher frequency payment can occur with smaller average payments & vice versa.";
+export const netCostTooltip = "The long run average net costs of insurance by product and election level." +
+		" Net cost is defined as farmer-paid premium less average payment received. " +
+		"A negative value indicates that the product pays back more on average than the farmer-paid premium for the case" +
+		" farm considered, and a positive number indicates that the farmer pays more on average than they receive over time.";
+export const avgGrossRevTooltip = "The average gross revenue per acre with insurance. ";
+
+export const evaluatorTermDefinitions = [
+	{
+		"term": "Est. Premium/Acre ($)",
+		"definition": estPremTooltip
+	},
+	{
+		"term": "Ave. Payment/Acre ($)",
+		"definition": avgPaymentTooltip
+	},
+	{
+		"term": "Payment Frequency (%)",
+		"definition": freqTooltip
+	},
+	{
+		"term": "Net Cost/Acre ($)",
+		"definition": netCostTooltip
+	},
+	{
+		"term": "Avg. Gross Rev ($)",
+		"definition": avgGrossRevTooltip
+	}
+];

@@ -296,8 +296,8 @@ h1, h2, h3, h5, h6, p, ul {
 }
 
 .table-header-insurance{
-	text-decoration-line: underline;
-	text-decoration-style: dotted;
+	/*text-decoration-line: underline;*/
+	/*text-decoration-style: dotted;*/
 	font-weight: 900 !important;
 	font-size: 14px !important;
 }

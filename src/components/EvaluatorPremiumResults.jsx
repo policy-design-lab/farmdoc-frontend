@@ -19,6 +19,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {
 	changeInsUnit
 } from "../actions/insEvaluator";
+import config from "../app.config";
+import {estPremTooltip, avgPaymentTooltip, freqTooltip, netCostTooltip, avgGrossRevTooltip} from "../app.messages";
+import ToolTip from "@material-ui/core/Tooltip";
 
 const styles = theme => ({
 	root: {
@@ -390,40 +393,70 @@ class EvaluatorPremiumResults extends Component {
 											Yield Protection (YP)</TableCellHeader>
 									</TableRow>
 									<TableRow style={{height: "64px"}}>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Est.</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Avg.</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Freq. (%)</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Net Cost</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Avg Gross Rev</TableCellHeader>
+										<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Payment Frequency (%)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Avg. <br/> Gross <br/> Rev ($)</TableCellHeader>
+										</ToolTip>
 
-										<TableCellHeader
-												className="table-header-tooltip">Est.</TableCellHeader>
-										<TableCellHeader
-												className="table-header-tooltip">Avg.</TableCellHeader>
-										<TableCellHeader
-												className="table-header-tooltip">Freq. (%)</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip">Net Cost
-										</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip">Avg Gross Rev
-										</TableCellHeader>
+										<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip">
+												Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip">
+												Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip">
+												Payment Frequency (%)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip">
+												Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip">
+												Avg. <br/> Gross <br/> Rev ($)</TableCellHeader>
+										</ToolTip>
 
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Est.</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Avg.</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Freq. (%)</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>Net Cost</TableCellHeader>
-										<TableCellHeader className="table-header-tooltip" style={{
-											borderRightWidth: 0,
-											backgroundColor: "WhiteSmoke"
-										}}> Avg Gross Rev</TableCellHeader>
+										<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																			 style={coloredBg}>Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																			 style={coloredBg}>Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																			 style={coloredBg}>Payment Frequency (%)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip"
+																			 style={coloredBg}>Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+										</ToolTip>
+										<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+											<TableCellHeader className="table-header-tooltip" style={{
+												borderRightWidth: 0,
+												backgroundColor: "WhiteSmoke"
+											}}> Avg Gross Rev</TableCellHeader>
+										</ToolTip>
 									</TableRow>
 
 									{farmPolicyRows}
@@ -461,42 +494,71 @@ class EvaluatorPremiumResults extends Component {
 											Area Yield Protection (AYP)</TableCellHeader>
 								</TableRow>
 
-								<TableRow style={{height: "48px"}}>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Est.</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Avg.</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Freq. (%)</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Net Cost</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Avg Gross Rev</TableCellHeader>
+								<TableRow style={{height: "64px"}}>
+									<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Payment Frequency (%)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Avg. <br/> Gross <br/> Rev ($)</TableCellHeader>
+									</ToolTip>
 
-									<TableCellHeader
-											className="table-header-tooltip">Est.</TableCellHeader>
-									<TableCellHeader
-											className="table-header-tooltip">Avg.</TableCellHeader>
-									<TableCellHeader
-											className="table-header-tooltip">Freq. (%)</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip">Net Cost
-									</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip">Avg Gross Rev
-									</TableCellHeader>
+									<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip">
+											Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip">
+											Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip">
+											Payment Frequency (%)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip">
+											Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip">
+											Avg. <br/> Gross <br/> Rev ($)</TableCellHeader>
+									</ToolTip>
 
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Est.</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Avg.</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Freq. (%)</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>Net Cost</TableCellHeader>
-									<TableCellHeader className="table-header-tooltip" style={{
-										borderRightWidth: 0,
-										backgroundColor: "WhiteSmoke"
-									}}> Avg Gross Rev</TableCellHeader>
-
+									<ToolTip title={estPremTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Est. <br/>Premium <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgPaymentTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Avg. <br/> Payment <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={freqTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Payment Frequency (%)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={netCostTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip"
+																		 style={coloredBg}>Net <br/> Cost <br/>/Acre ($)</TableCellHeader>
+									</ToolTip>
+									<ToolTip title={avgGrossRevTooltip} enterTouchDelay={config.tooltipTouchDelay}>
+										<TableCellHeader className="table-header-tooltip" style={{
+											borderRightWidth: 0,
+											backgroundColor: "WhiteSmoke"
+										}}> Avg Gross Rev</TableCellHeader>
+									</ToolTip>
 								</TableRow>
 
 								{countyProductsRows}

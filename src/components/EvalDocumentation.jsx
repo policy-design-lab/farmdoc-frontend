@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Term from "./Term";
 import "../styles/main.css";
-import {insuranceTermDefinitions} from "../app.messages";
+import {evaluatorTermDefinitions} from "../app.messages";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
 
@@ -13,7 +13,7 @@ class Documentation extends Component {
 	render(){
 
 		let allTerms = [];
-		insuranceTermDefinitions.forEach((item) => {
+		evaluatorTermDefinitions.forEach((item) => {
 			allTerms.push(<Term key={item.term} term={item.term} definition={item.definition} links={item.links}/>);
 		});
 
