@@ -220,7 +220,7 @@ class EvaluatorRiskGraph extends Component {
 
 			return (
 				<div style={{textAlign: "center", margin: "0 auto", maxWidth: "1085px"}}>
-					<div style={{maxWidth: "700px", margin: "0 auto", padding: "15px"}}>
+					<div style={{maxWidth: "900px", margin: "0 auto", padding: "15px"}}>
 						<Line data={graphData} options={graphOptions}/>
 					</div>
 
