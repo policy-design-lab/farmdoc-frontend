@@ -582,21 +582,21 @@ class EvaluatorRiskResults extends Component {
 
 									<TableRow style={{height: "32px"}}>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={1} rowSpan={2}>Target Prob (%)</TableCellHeader>
+																		 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={Object.assign({}, coloredBg, display)} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}} colSpan={1} rowSpan={2}>Target Prob (%)</TableCellHeader>
+																		 style={{}} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={{}} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={display} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={1} rowSpan={2}>Target Prob (%)</TableCellHeader>
+																		 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
@@ -696,21 +696,21 @@ class EvaluatorRiskResults extends Component {
 
 								<TableRow style={{height: "32px"}}>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg} colSpan={1} rowSpan={2}>Target Prob (%) </TableCellHeader>
+																	 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={Object.assign({}, coloredBg, display)} colSpan={4}>VAR Change</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}} colSpan={1} rowSpan={2}>Target Prob (%) </TableCellHeader>
+																	 style={{}} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={{}} colSpan={4}> VAR </TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={display} colSpan={4}>VAR Change</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg} colSpan={1} rowSpan={2}>Target Prob (%)</TableCellHeader>
+																	 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
