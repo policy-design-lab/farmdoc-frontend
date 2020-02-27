@@ -57,7 +57,7 @@ const styles = theme => ({
 		marginLeft: theme.spacing.unit * 1,
 		marginRight: theme.spacing.unit * 1,
 		// border: 1,
-		width: 70,
+		width: 90,
 	}
 });
 
@@ -320,35 +320,35 @@ class EvaluatorRiskResults extends Component {
 							<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["target-prob"] * 100, 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-10"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-25"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-10"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"], 2)}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-1"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-5"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-10"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-25"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-1"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-5"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-10"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"])}</CommonTableCell>
 
 
 							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["target-prob"] * 100, 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-10"], 2)}</CommonTableCell>
-							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-25"], 2)}</CommonTableCell>
-							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-10"], 2)}</CommonTableCell>
-							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-25"], 2)}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-1"])}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-5"])}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-10"])}</CommonTableCell>
+							<CommonTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-25"])}</CommonTableCell>
+							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-1"])}</CommonTableCell>
+							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-5"])}</CommonTableCell>
+							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-10"])}</CommonTableCell>
+							<CommonTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-25"])}</CommonTableCell>
 
 							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["target-prob"] * 100, 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-10"], 2)}</CommonTableCell>
-							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-25"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-1"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-5"], 2)}</CommonTableCell>
-							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-10"], 2)}</CommonTableCell>
-							<RightMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-25"], 2)}</RightMostTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-1"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-5"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-10"])}</CommonTableCell>
+							<CommonTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-25"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-1"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-5"])}</CommonTableCell>
+							<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-10"])}</CommonTableCell>
+							<RightMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-25"])}</RightMostTableCell>
 
 						</TableRow>
 					);
@@ -360,40 +360,40 @@ class EvaluatorRiskResults extends Component {
 							<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["target-prob"] * 100, 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-1"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-5"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-10"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-25"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-1"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-5"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-10"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`rp-${unit}`]["var-25"])}</BottomMostTableCell>
 							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>
-								{roundResults(premiums[cov][`rp-${unit}`]["var-change-1"], 2)}</BottomMostTableCell>
+								{roundResults(premiums[cov][`rp-${unit}`]["var-change-1"])}</BottomMostTableCell>
 							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>
-								{roundResults(premiums[cov][`rp-${unit}`]["var-change-5"], 2)}</BottomMostTableCell>
+								{roundResults(premiums[cov][`rp-${unit}`]["var-change-5"])}</BottomMostTableCell>
 							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>
-								{roundResults(premiums[cov][`rp-${unit}`]["var-change-10"], 2)}</BottomMostTableCell>
+								{roundResults(premiums[cov][`rp-${unit}`]["var-change-10"])}</BottomMostTableCell>
 							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>
-								{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"], 2)}</BottomMostTableCell>
+								{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"])}</BottomMostTableCell>
 
 
 							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["target-prob"] * 100, 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-1"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-5"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-10"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-25"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-1"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-5"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-10"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-25"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-1"])}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-5"])}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-10"])}</BottomMostTableCell>
+							<BottomMostTableCell style={{}}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-25"])}</BottomMostTableCell>
+							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-1"])}</BottomMostTableCell>
+							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-5"])}</BottomMostTableCell>
+							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-10"])}</BottomMostTableCell>
+							<BottomMostTableCell style={display}>{roundResults(premiums[cov][`rphpe-${unit}`]["var-change-25"])}</BottomMostTableCell>
 
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["target-prob"] * 100, 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-1"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-5"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-10"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-25"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-1"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-5"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-10"], 2)}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-1"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-5"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-10"])}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["var-25"])}</BottomMostTableCell>
+							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-1"])}</BottomMostTableCell>
+							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-5"])}</BottomMostTableCell>
+							<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov][`yp-${unit}`]["var-change-10"])}</BottomMostTableCell>
 							<BottomMostTableCell style={Object.assign({}, {borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}, display)}>
-								{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"], 2)}
+								{roundResults(premiums[cov][`rp-${unit}`]["var-change-25"])}
 							</BottomMostTableCell>
 						</TableRow>
 					);
@@ -420,35 +420,35 @@ class EvaluatorRiskResults extends Component {
 								<CommonTableCell style={{fontWeight: "bold"}}>{cov}%</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["target-prob"] * 100, 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-10"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-25"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-10"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-25"], 2)}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-1"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-5"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-10"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-25"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-1"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-5"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-10"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-25"])}</CommonTableCell>
 
 
 								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["target-prob"] * 100, 2)}</CommonTableCell>
-								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-10"], 2)}</CommonTableCell>
-								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-25"], 2)}</CommonTableCell>
-								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-10"], 2)}</CommonTableCell>
-								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-25"], 2)}</CommonTableCell>
+								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-1"])}</CommonTableCell>
+								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-5"])}</CommonTableCell>
+								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-10"])}</CommonTableCell>
+								<CommonTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-25"])}</CommonTableCell>
+								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-1"])}</CommonTableCell>
+								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-5"])}</CommonTableCell>
+								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-10"])}</CommonTableCell>
+								<CommonTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-25"])}</CommonTableCell>
 
 								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["target-prob"] * 100, 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-10"], 2)}</CommonTableCell>
-								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-25"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-1"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-5"], 2)}</CommonTableCell>
-								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-10"], 2)}</CommonTableCell>
-								<RightMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-25"], 2)}</RightMostTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-1"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-5"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-10"])}</CommonTableCell>
+								<CommonTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-25"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-1"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-5"])}</CommonTableCell>
+								<CommonTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-10"])}</CommonTableCell>
+								<RightMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-25"])}</RightMostTableCell>
 
 							</TableRow>
 						);
@@ -460,36 +460,36 @@ class EvaluatorRiskResults extends Component {
 								<BottomMostTableCell style={{fontWeight: "bold"}}>{cov}%</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["target-prob"] * 100, 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-10"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-25"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-10"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-25"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-10"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["rp"]["var-25"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-10"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["rp"]["var-change-25"])}</BottomMostTableCell>
 
 
 								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["target-prob"] * 100, 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-10"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-25"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-10"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-25"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-10"])}</BottomMostTableCell>
+								<BottomMostTableCell style={{}}>{roundResults(premiums[cov]["rphpe"]["var-25"])}</BottomMostTableCell>
+								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-10"])}</BottomMostTableCell>
+								<BottomMostTableCell style={display}>{roundResults(premiums[cov]["rphpe"]["var-change-25"])}</BottomMostTableCell>
 
 								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["target-prob"] * 100, 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-10"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-25"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-1"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-5"], 2)}</BottomMostTableCell>
-								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-10"], 2)}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-10"])}</BottomMostTableCell>
+								<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov]["yp"]["var-25"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-1"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-5"])}</BottomMostTableCell>
+								<BottomMostTableCell style={Object.assign({}, coloredBg, display)}>{roundResults(premiums[cov]["yp"]["var-change-10"])}</BottomMostTableCell>
 								<BottomMostTableCell style={Object.assign({}, {borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}, display)}>
-									{roundResults(premiums[cov]["yp"]["var-change-25"], 2)}
+									{roundResults(premiums[cov]["yp"]["var-change-25"])}
 								</BottomMostTableCell>
 							</TableRow>
 						);
@@ -507,7 +507,7 @@ class EvaluatorRiskResults extends Component {
 
 					<div>
 
-						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Rev.($) To Run Again: </span>
+						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Revenue To Run Again: </span>
 						<FormControl >
 							<TextField
 									id="grossTarget"
@@ -518,10 +518,10 @@ class EvaluatorRiskResults extends Component {
 									className={classes.textField}
 									required
 									InputLabelProps={{shrink: true}}
-									onInput={this.validateMaxValue(10000)}
-									// InputProps={{
-									// 	inputProps: textFieldInputStyle
-									// }}
+									onInput={this.validateMaxValue(9999)}
+									InputProps={{
+										startAdornment: <InputAdornment position="start">$</InputAdornment>,
+									}}
 									inputProps={{padding: 10}}
 							/>
 						</FormControl> /acre
@@ -534,18 +534,18 @@ class EvaluatorRiskResults extends Component {
 						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance:
 							&nbsp;{`${roundResults(evalResultJson.policies["no-ins-prob"] * 100, 2) }%`} </div>
 						<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance:
-							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-1"], 2)} </div>
+							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-1"])}`} </div>
 						<div style={{paddingBottom: "8px"}}>5% Value at risk with no insurance:
-							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-5"], 2)} </div>
+							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-5"])}`} </div>
 						<div style={{paddingBottom: "8px"}}>10% Value at risk with no insurance:
-							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-10"], 2)} </div>
+							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-10"])}`} </div>
 						<div style={{paddingBottom: "8px"}}>25% Value at risk with no insurance:
-							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-25"], 2)} </div>
+							&nbsp;{ `$${ roundResults(evalResultJson.policies["no-ins-var-25"])}`} </div>
 					</div>
 
 					<EvaluatorRiskGraph graphInfo={graphInfo}/>
 
-					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies - Risk </h2></div>
+					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies</h2></div>
 
 					{farmPolicyRows.length === -1 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs.
 								Please make sure the selected "Type" and "Practice" are applicable for your farm </div> :
@@ -606,57 +606,57 @@ class EvaluatorRiskResults extends Component {
 									</TableRow>
 									<TableRow style={{height: "64px"}}>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>1%</TableCellHeader>
+																		 style={coloredBg}> 1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>5%</TableCellHeader>
+																		 style={coloredBg}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>10%</TableCellHeader>
+																		 style={coloredBg}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>25%</TableCellHeader>
+																		 style={coloredBg}> 25% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>1%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>5%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>10%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>25%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 25% <br/> ($/acre)</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}}>1%</TableCellHeader>
+																		 style={{}}> 1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}}>5%</TableCellHeader>
+																		 style={{}}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}}>10%</TableCellHeader>
+																		 style={{}}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}}>25%</TableCellHeader>
+																		 style={{}}> 25% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={display}>1%</TableCellHeader>
+																		 style={display}> 1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={display}>5%</TableCellHeader>
+																		 style={display}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={display}>10%</TableCellHeader>
+																		 style={display}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={display}>25%</TableCellHeader>
+																		 style={display}> 25% <br/> ($/acre)</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>1%</TableCellHeader>
+																		 style={coloredBg}>1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>5%</TableCellHeader>
+																		 style={coloredBg}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>10%</TableCellHeader>
+																		 style={coloredBg}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg}>25%</TableCellHeader>
+																		 style={coloredBg}> 25% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>1%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 1% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>5%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 5% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={Object.assign({}, coloredBg, display)}>10%</TableCellHeader>
+																		 style={Object.assign({}, coloredBg, display)}> 10% <br/> ($/acre)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip" style={Object.assign({}, {
 											borderRightWidth: 0,
 											backgroundColor: "WhiteSmoke"
-										}, display)}>  25%</TableCellHeader>
+										}, display)}>   25% <br/> ($/acre)</TableCellHeader>
 									</TableRow>
 
 									{farmPolicyRows}
@@ -669,7 +669,7 @@ class EvaluatorRiskResults extends Component {
 
 					<Divider/>
 
-					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products - Risk </h2></div>
+					<div style={{padding: "20px 15px 15px 15px"}}> <h2>County Level Products</h2></div>
 
 					{countyProductsRows.length === -1 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs </div> :
 
@@ -720,57 +720,57 @@ class EvaluatorRiskResults extends Component {
 								</TableRow>
 								<TableRow style={{height: "64px"}}>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>1%</TableCellHeader>
+																	 style={coloredBg}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>5%</TableCellHeader>
+																	 style={coloredBg}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>10%</TableCellHeader>
+																	 style={coloredBg}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>25%</TableCellHeader>
+																	 style={coloredBg}> 25% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>1%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>5%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>10%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>25%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 25% <br/> ($/acre)</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}}>1%</TableCellHeader>
+																	 style={{}}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}}>5%</TableCellHeader>
+																	 style={{}}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}}>10%</TableCellHeader>
+																	 style={{}}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}}>25%</TableCellHeader>
+																	 style={{}}> 25% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={display}>1%</TableCellHeader>
+																	 style={display}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={display}>5%</TableCellHeader>
+																	 style={display}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={display}>10%</TableCellHeader>
+																	 style={display}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={display}>25%</TableCellHeader>
+																	 style={display}> 25% <br/> ($/acre)</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>1%</TableCellHeader>
+																	 style={coloredBg}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>5%</TableCellHeader>
+																	 style={coloredBg}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>10%</TableCellHeader>
+																	 style={coloredBg}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg}>25%</TableCellHeader>
+																	 style={coloredBg}> 25% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>1%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 1% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>5%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 5% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={Object.assign({}, coloredBg, display)}>10%</TableCellHeader>
+																	 style={Object.assign({}, coloredBg, display)}> 10% <br/> ($/acre)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip" style={Object.assign({}, {
 										borderRightWidth: 0,
 										backgroundColor: "WhiteSmoke"
-									}, display)}>  25%</TableCellHeader>
+									}, display)}>   25% <br/> ($/acre)</TableCellHeader>
 								</TableRow>
 
 								{countyProductsRows}
