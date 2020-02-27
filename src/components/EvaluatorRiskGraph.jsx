@@ -108,7 +108,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "blue",
 						backgroundColor: "blue",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -118,7 +118,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "red",
 						backgroundColor: "red",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -128,7 +128,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "orange",
 						backgroundColor: "orange",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -138,7 +138,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "green",
 						backgroundColor: "green",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -148,7 +148,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "purple",
 						backgroundColor: "purple",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -158,7 +158,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "magenta",
 						backgroundColor: "magenta",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					},
@@ -168,7 +168,7 @@ class EvaluatorRiskGraph extends Component {
 						borderColor: "cyan",
 						backgroundColor: "cyan",
 						fill: false,
-						pointRadius: 1,
+						pointRadius: 0,
 						borderRadius: 2,
 						borderWidth: 2
 					}
