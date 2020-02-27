@@ -338,7 +338,7 @@ class EvaluatorInputs extends Component {
 		let evaluatorParams = [
 			["code", this.state.cropCountyCode],
 			["acres", this.state.farmAcres],
-			["grossTarget", 536]
+			["email", email]
 		//		TODO: Remove grossTarget here when api is fixed to make this param optional
 		];
 

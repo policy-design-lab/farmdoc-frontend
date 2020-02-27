@@ -240,7 +240,8 @@ class EvaluatorRiskResults extends Component {
 		let evaluatorParams = [
 			["code", this.props["cropCode"]],
 			["acres", this.props["acres"]],
-			["grossTarget", this.state.grossTarget]
+			["grossTarget", this.state.grossTarget],
+			["email", email]
 		];
 
 		evaluatorUrl.search = new URLSearchParams(evaluatorParams).toString();
