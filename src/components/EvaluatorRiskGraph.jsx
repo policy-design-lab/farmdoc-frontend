@@ -187,6 +187,10 @@ class EvaluatorRiskGraph extends Component {
 						// left: 50,
 					}
 				},
+				hover: {
+					intersect: false,
+					mode: "nearest"
+				},
 				legend: {
 					position: "right",
 					 labels: {
