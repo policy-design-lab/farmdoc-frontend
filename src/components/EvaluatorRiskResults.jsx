@@ -507,7 +507,7 @@ class EvaluatorRiskResults extends Component {
 
 					<div>
 
-						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target($) To Run Again: </span>
+						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Rev.($) To Run Again: </span>
 						<FormControl >
 							<TextField
 									id="grossTarget"
@@ -532,7 +532,7 @@ class EvaluatorRiskResults extends Component {
 
 					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
 						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance:
-							&nbsp;{roundResults(evalResultJson.policies["no-ins-prob"], 2)} </div>
+							&nbsp;{`${roundResults(evalResultJson.policies["no-ins-prob"] * 100, 2) }%`} </div>
 						<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance:
 							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-1"], 2)} </div>
 						<div style={{paddingBottom: "8px"}}>5% Value at risk with no insurance:
@@ -584,21 +584,21 @@ class EvaluatorRiskResults extends Component {
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
+																		 style={coloredBg} colSpan={4}> Value At Risk (VAR) </TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={Object.assign({}, coloredBg, display)} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
 																		 style={{}} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={{}} colSpan={4}> VAR </TableCellHeader>
+																		 style={{}} colSpan={4}> Value At Risk (VAR)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={display} colSpan={4}>VAR Change</TableCellHeader>
 
 										<TableCellHeader className="table-header-tooltip"
 																		 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
-																		 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
+																		 style={coloredBg} colSpan={4}> Value At Risk (VAR)</TableCellHeader>
 										<TableCellHeader className="table-header-tooltip"
 																		 style={Object.assign({}, coloredBg,
 																				 {borderRightWidth: 0}, display)} colSpan={4}>VAR Change</TableCellHeader>
@@ -698,21 +698,21 @@ class EvaluatorRiskResults extends Component {
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
+																	 style={coloredBg} colSpan={4}> Value At Risk (VAR)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={Object.assign({}, coloredBg, display)} colSpan={4}>VAR Change</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
 																	 style={{}} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={{}} colSpan={4}> VAR </TableCellHeader>
+																	 style={{}} colSpan={4}> Value At Risk (VAR)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={display} colSpan={4}>VAR Change</TableCellHeader>
 
 									<TableCellHeader className="table-header-tooltip"
 																	 style={coloredBg} colSpan={1} rowSpan={2}>Prob. of Revenue<br/>(%)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
-																	 style={coloredBg} colSpan={4}> VAR </TableCellHeader>
+																	 style={coloredBg} colSpan={4}> Value At Risk (VAR)</TableCellHeader>
 									<TableCellHeader className="table-header-tooltip"
 																	 style={Object.assign({}, coloredBg,
 																			 {borderRightWidth: 0}, display)} colSpan={4}>VAR Change</TableCellHeader>

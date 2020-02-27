@@ -120,13 +120,13 @@ class EvaluatorResults extends Component {
 							root: classes.tabRoot,
 							selected: classes.tabSelected
 						}}
-									 label="Insurance Evaluation"
+									 label="Insurance Evaluator"
 						/>
 						<Tab disableRipple classes={{
 							root: classes.tabRoot,
 							selected: classes.tabSelected
 						}}
-									 label="Value At Risk Info"
+									 label="Revenue Risk Info"
 						/>
 					</Tabs>
 

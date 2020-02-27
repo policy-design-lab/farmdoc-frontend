@@ -631,12 +631,12 @@ class EvaluatorInputs extends Component {
 					<br/>
 					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
 						<Grid item xs />
-						<Grid item xs={4} >
+						<Grid item xs={6} >
 							<Button variant="contained" color="primary" onClick={this.runEvaluator}
 											disabled={!this.validateInputs()}
 											style={{fontSize: "large", backgroundColor: "#455A64"}}>
 								<Icon className={classes.leftIcon}> send </Icon>
-								Run Simulation
+								Run Insurance Evaluator
 							</Button>
 						</Grid>
 						<Grid item xs >
