@@ -156,7 +156,7 @@ const coloredBg = {backgroundColor: "WhiteSmoke"};
 class EvaluatorRiskResults extends Component {
 	state = {
 		insUnit: this.props["insUnit"],
-		grossTarget: this.props.evalJson.policies["gross-target"],
+		grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
 		runStatus: "INIT"
 	};
 
@@ -168,7 +168,7 @@ class EvaluatorRiskResults extends Component {
 
 		this.state = {
 			insUnit: this.props["insUnit"],
-			grossTarget: this.props.evalJson.policies["gross-target"],
+			grossTarget: roundResults(this.props.evalJson.policies["gross-target"], 2),
 			runStatus: "INIT"
 		};
 	}
@@ -279,6 +279,7 @@ class EvaluatorRiskResults extends Component {
 		let units = "bu/acre"; //TODO: Get from crop input of api
 
 		let evalResult = null;
+		let graphInfo = null;
 
 		let spinner;
 
@@ -291,6 +292,10 @@ class EvaluatorRiskResults extends Component {
 
 		if (this.props.hasOwnProperty("evalJson") && this.props.hasOwnProperty("evalJson") !== null) {
 			evalResult = this.props["evalJson"];
+		}
+
+		if (this.props.hasOwnProperty("graphJson") && this.props.hasOwnProperty("graphJson") !== null) {
+			graphInfo = this.props["graphJson"];
 		}
 
 		let unit = this.state.insUnit.toLowerCase();
@@ -533,7 +538,7 @@ class EvaluatorRiskResults extends Component {
 							&nbsp;{roundResults(evalResultJson.policies["no-ins-var-25"], 2)} </div>
 					</div>
 
-					<EvaluatorRiskGraph/>
+					<EvaluatorRiskGraph graphInfo={graphInfo}/>
 
 					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies - Risk </h2></div>
 

@@ -69,6 +69,10 @@ class EvaluatorRiskGraph extends Component {
 		}
 		];
 
+		if (this.props.graphInfo !== null){
+			graphInfo = this.props.graphInfo;
+		}
+
 		// if (this.props.hasOwnProperty("farmInfo") && this.props.hasOwnProperty("farmInfo") !== null) {
 		// 	farmInfo = this.props["farmInfo"];
 		// }
