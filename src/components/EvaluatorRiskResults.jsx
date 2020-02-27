@@ -520,9 +520,8 @@ class EvaluatorRiskResults extends Component {
 									InputLabelProps={{shrink: true}}
 									onInput={this.validateMaxValue(9999)}
 									InputProps={{
-										startAdornment: <InputAdornment position="start">$</InputAdornment>,
+										startAdornment: <InputAdornment position="start">$</InputAdornment>, padding: 5
 									}}
-									inputProps={{padding: 10}}
 							/>
 						</FormControl> /acre
 						{/*TODO: Enter key might not work on mobiles */}
