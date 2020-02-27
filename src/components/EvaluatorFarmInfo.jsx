@@ -105,8 +105,8 @@ class EvaluatorFarmInfo extends Component {
 								<TableRow>
 									<TableCellLeftName> Average Futures
 											Price </TableCellLeftName>
-									<TableCellLeftValue> {roundResults(
-										farmInfo["avg-futures-price"], 2)}
+									<TableCellLeftValue> { `$${ roundResults(
+										farmInfo["avg-futures-price"], 2)}`}
 									<span style={{fontSize: "0.875em"}}> /bu</span>
 									</TableCellLeftValue>
 								</TableRow>
