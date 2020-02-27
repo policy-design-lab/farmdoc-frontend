@@ -20,7 +20,7 @@ class About extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the payment evaluator work?</h2>
 				<br/>
-				<img src={require("../images/premcalc-rep-image.png")} alt="Payment Evaluator Inputs" style={{maxWidth: "600px"}}/>
+				<img src={require("../images/premeval-rep-image.png")} alt="Payment Evaluator Inputs" style={{maxWidth: "600px"}}/>
 			</div>);
 
 		return (
