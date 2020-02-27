@@ -379,15 +379,15 @@ class EvaluatorPremiumResults extends Component {
 											Level</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1} style={coloredBg}>Revenue
-											Protection</TableCellHeader>
+											Protection (RP)</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1}>Revenue Protection
-											With Harvest Price Exclusion</TableCellHeader>
+											With Harvest Price Exclusion (RP-HPE)</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1}
 																	 style={{borderRightWidth: 0,
 																		 backgroundColor: "WhiteSmoke", borderTopRightRadius: "15px"}}>
-											Yield Protection</TableCellHeader>
+											Yield Protection (YP)</TableCellHeader>
 									</TableRow>
 									<TableRow style={{height: "64px"}}>
 										<TableCellHeader className="table-header-tooltip"
@@ -449,16 +449,16 @@ class EvaluatorPremiumResults extends Component {
 											Level</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1} style={coloredBg}>Area
-											Revenue Protection</TableCellHeader>
+											Revenue Protection (ARP)</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1}>Area Revenue
-											Protection With Harvest Price Exclusion</TableCellHeader>
+											Protection With Harvest Price Exclusion (ARP-HPE)</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1}
 																	 style={{borderRightWidth: 0,	backgroundColor: "WhiteSmoke",
 																		 borderTopRightRadius: "15px"
 																		 }}>
-											Area Yield Protection</TableCellHeader>
+											Area Yield Protection (AYP)</TableCellHeader>
 								</TableRow>
 
 								<TableRow style={{height: "48px"}}>
