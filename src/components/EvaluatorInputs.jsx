@@ -655,8 +655,6 @@ class EvaluatorInputs extends Component {
 					and provides estimates of premiums for all available crop insurance products, along with the expected frequency
 					of payments, average payment per acre, net cost per acre, and risk reductions associated with alternative
 					crop insurance products
-
-					Evaluator - Enter your farm information to evaluate crop insurance options for 2020
 				</div>
 
 			</div>
