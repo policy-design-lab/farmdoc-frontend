@@ -219,8 +219,18 @@ class EvaluatorRiskGraph extends Component {
 			};
 
 			return (
-				<div style={{textAlign: "center", margin: "0 auto", maxWidth: "700px", padding: "15px"}}>
-					<Line data={graphData} options={graphOptions}/>
+				<div style={{textAlign: "center", margin: "0 auto", maxWidth: "1085px"}}>
+					<div style={{maxWidth: "700px", margin: "0 auto", padding: "15px"}}>
+						<Line data={graphData} options={graphOptions}/>
+					</div>
+
+					This graph shows the impact of alternative crop insurance products,
+					associating the likelihood of revenue outcomes with their levels.
+					It is generally better to have a higher likelihood of higher revenue,
+					so lines that are below and to the right are preferable. Often, group products,
+					if offered in a county, will have lower net costs and improve average revenue but
+					do less to mitigate the likelihood for very low outcomes, for example.
+					The "No Ins" line shows the revenues and their associated probabilities with no insurance.
 				</div>
 			);
 		}
