@@ -268,3 +268,7 @@ export function roundResults(val, n){
 	}
 }
 
+export function roundResultsIfNotZero(val, n){
+	return (val === 0) ? "NA" : roundResults(val, n);
+}
+
