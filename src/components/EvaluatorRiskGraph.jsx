@@ -89,7 +89,7 @@ class EvaluatorRiskGraph extends Component {
 			let ayp = [];
 
 			graphInfo.forEach(function(e){
-				revs.push(`$${roundResults(e["revenue"], 2) }`);
+				revs.push(`$${roundResults(e["revenue"])}`);
 				noIns.push(roundResults(e["no-ins"] * 100, 2));
 				rp.push(roundResults(e["rp-85"] * 100, 2));
 				rphpe.push(roundResults(e["rphpe-85"] * 100, 2));
