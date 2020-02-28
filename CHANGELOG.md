@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0] - 2020-02-28
+### Added
+- Insurance Evaluator tool
+
+### Changed
+- Landing Page to show Insurance Evaluator card
+- Minor text and CSS changes to Premium Calculator
+
+
 ## [1.1.1] - 2020-02-26
 ### Added
 - Disclaimer text about 2019 NASS yields
