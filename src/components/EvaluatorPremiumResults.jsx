@@ -272,7 +272,7 @@ class EvaluatorPremiumResults extends Component {
 
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["est-premium"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["avg-payment"], 2)}</BottomMostTableCell>
-							<BottomMostTableCell style={coloredBg}>{`${roundResults(premiums[cov][`yp-${unit}`]["freq-payment"] * 100, 1) }%` + "%"}</BottomMostTableCell>
+							<BottomMostTableCell style={coloredBg}>{`${roundResults(premiums[cov][`yp-${unit}`]["freq-payment"] * 100, 1) }%`}</BottomMostTableCell>
 							<BottomMostTableCell style={coloredBg}>{roundResults(premiums[cov][`yp-${unit}`]["net-cost"], 2)}</BottomMostTableCell>
 							<BottomMostTableCell style={{borderRightWidth: 0, backgroundColor: "WhiteSmoke", borderBottomRightRadius: "15px"}}>
 								{roundResults(premiums[cov][`yp-${unit}`]["avg-gross-rev"])}
