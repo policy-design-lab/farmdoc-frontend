@@ -122,9 +122,7 @@ class Header extends Component {
 		clearKeycloakStorage();
 		this.props.handleUserLogout();
 		keycloak.init().success(function(){
-			keycloak.logout({}).success(function(){
-				browserHistory.push("/");
-			});
+			keycloak.logout({redirectUri: browserHistory.push("/")});
 		});
 	}
 

@@ -6,7 +6,7 @@ class AuthorizedWrap extends Component {
 	render() {
 		return (
 			<div>
-				{ localStorage.getItem("isAuthenticated") === "true" ? this.props.children : browserHistory.push("/")}
+				{ localStorage.getItem("isAuthenticated") === "true" ? this.props.children : browserHistory.push("/login")}
 			</div>
 		);
 	}
