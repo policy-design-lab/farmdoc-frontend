@@ -48,9 +48,9 @@ const styles = theme => ({
 	},
 
 	textField: {
-		// marginTop: "8px",
+		marginTop: "8px !important",
 		// marginRight: "8px",
-		width: 160,
+		width: 140,
 	},
 	menu: {
 		width: 150,
@@ -90,7 +90,7 @@ const styles = theme => ({
 	},
 
 	formControlSmall: {
-		minWidth: 150,
+		minWidth: 140,
 		marginLeft: 20,
 		marginRight: 4,
 		marginTop: 4,
@@ -859,11 +859,11 @@ class PremiumCalculator extends Component {
 
 					<br/>
 
-					<FormControl required className={classes.formControlSmall}>
+					<FormControl required className={classes.formControlXSmall}>
 						<InputLabel id="grainTypeId">
 							Type
 						</InputLabel>
-						<Select id="grainType" labelId="grainTypeId" value={this.state.grainType} onChange={this.handleMuiSelectChange("grainType")}>
+						<Select id="grainType" style={{width: "120px"}} labelId="grainTypeId" value={this.state.grainType} onChange={this.handleMuiSelectChange("grainType")}>
 							{grainTypeOptions}
 						</Select>
 					</FormControl>
@@ -881,11 +881,11 @@ class PremiumCalculator extends Component {
 
 					<FDTooltip title={practiceTooltip} />
 
-					<FormControl required className={classes.formControlSmall}>
+					<FormControl required className={classes.formControlXSmall}>
 						<InputLabel id="riskId">
 							Risk Class
 						</InputLabel>
-						<Select id="riskClass" labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
+						<Select id="riskClass" style={{width: "120px"}} labelId="riskId" value={this.state.riskClass} onChange={this.handleMuiSelectChange("riskClass")}>
 							{riskClassOptions}
 						</Select>
 					</FormControl>
