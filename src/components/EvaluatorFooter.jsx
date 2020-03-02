@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {roundResults} from "../public/utils";
 
 class EvaluatorFooter extends Component {
 
@@ -12,8 +13,7 @@ class EvaluatorFooter extends Component {
 
 		return (
 			<div style={{padding: "4px"}}>
-				Projected Price of ${this.props.projPrice} and Volatility Factor
-				of {this.props.volFactor} have been locked down as of {this.props.lastUpdated} by RMA
+				RMA 2020 Projected Price is ${this.props.projPrice} with Volatility Factor of {this.props.volFactor}. Last Updated on {this.props.lastUpdated}.
 			</div>
 		);
 	}

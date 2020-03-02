@@ -365,8 +365,8 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: `Projected Price of $${ roundResults(data.comboProjPrice, 2)} and Volatility Factor
-				of ${ roundResults(data.comboVol, 2)} have been locked down as of ${ data.dateUpdated} by RMA`});
+				this.setState({futuresUpdated: `RMA 2020 Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
+				 ${ roundResults(data.comboVol, 2)}. Last Updated on ${ data.dateUpdated}.`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
 				if (this.state.cropId === 41){
