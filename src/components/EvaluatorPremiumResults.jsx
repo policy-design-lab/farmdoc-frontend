@@ -586,7 +586,6 @@ class EvaluatorPremiumResults extends Component {
 					<br/>
 
 					<Divider/>
-					<br/>
 				</div>
 			);
 		}

@@ -779,7 +779,6 @@ class EvaluatorRiskResults extends Component {
 					<br/>
 
 					<Divider/>
-					<br/>
 					{spinner}
 				</div>
 

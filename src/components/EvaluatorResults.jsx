@@ -7,6 +7,8 @@ import Tab from "@material-ui/core/Tab";
 import EvaluatorPremiumResults from "./EvaluatorPremiumResults";
 import EvaluatorRiskResults from "./EvaluatorRiskResults";
 import EvaluatorFarmInfo from "./EvaluatorFarmInfo";
+import EvaluatorFooter from "./EvaluatorFooter";
+import {roundResults} from "../public/utils";
 
 
 const styles = theme => ({
@@ -133,6 +135,9 @@ class EvaluatorResults extends Component {
 					{tabIndex === 0 && <EvaluatorFarmInfo farmInfo={farmInfo}/>}
 					{tabIndex === 1 && <EvaluatorPremiumResults evalJson={evalResult}/>}
 					{tabIndex === 2 && <EvaluatorRiskResults evalJson={evalResult} graphJson={graphJson}/>}
+
+					<EvaluatorFooter projPrice={roundResults(farmInfo["proj-price"], 2)}
+													 volFactor={roundResults(farmInfo["volatility-factor"], 2)} lastUpdated={farmInfo["rma-last-updated"]}/>
 				</div>
 			);
 		}

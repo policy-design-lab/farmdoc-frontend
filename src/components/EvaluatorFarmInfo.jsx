@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import {roundResults} from "../public/utils.js";
+import Divider from "@material-ui/core/Divider";
 
 const TableCellDefaultStyles = withStyles({
 	root: {
@@ -68,7 +69,7 @@ class EvaluatorFarmInfo extends Component {
 				<div style={{textAlign: "left"}}>
 					<br/>
 					<Grid container direction="row" justify="center"
-									alignItems="center" spacing={32}>
+									alignItems="center" spacing={32} style={{paddingBottom: "4px"}}>
 						<Grid item>
 							<Table>
 								<TableRow>
@@ -227,6 +228,8 @@ class EvaluatorFarmInfo extends Component {
 							</Grid>
 						</Grid>
 					</Grid>
+
+					<Divider/>
 				</div>
 			);
 		}
