@@ -365,7 +365,8 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: ` Projected Price & Volatility as of ${ data.dateUpdated}`});
+				this.setState({futuresUpdated: `Projected Price of $${ roundResults(data.comboProjPrice, 2)} and Volatility Factor
+				of ${ roundResults(data.comboVol, 2)} have been locked down as of ${ data.dateUpdated} by RMA`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
 				if (this.state.cropId === 41){
@@ -780,7 +781,7 @@ class PremiumCalculator extends Component {
 				<div style={{
 					maxWidth: "1080px",
 					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					margin: "15px",	paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
+					margin: "15px",	paddingBottom: "4px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 					display: "inline-block"
 				}}>
 
@@ -978,11 +979,11 @@ class PremiumCalculator extends Component {
 							</Button>
 						</Grid>
 						<Grid item xs >
-							<div style={{textAlign: "right", fontSize: "0.875em"}}>
-								{this.state.futuresUpdated}
-							</div>
 						</Grid>
 					</Grid>
+					<div style={{textAlign: "center", fontSize: "0.875em", paddingTop: "4px"}}>
+						{this.state.futuresUpdated}
+					</div>
 
 					{spinner}
 
