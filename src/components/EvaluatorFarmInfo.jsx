@@ -129,8 +129,8 @@ class EvaluatorFarmInfo extends Component {
 								<TableRow>
 									<TableCellLeftName> Average Gross Crop
 											Rev </TableCellLeftName>
-									<TableCellLeftValue> {roundResults(
-										farmInfo["avg-gross-crop-rev"], 2)}
+									<TableCellLeftValue> ${roundResults(
+										farmInfo["avg-gross-crop-rev"])}
 									<span style={{fontSize: "0.875em"}}> /acre</span>
 									</TableCellLeftValue>
 								</TableRow>
