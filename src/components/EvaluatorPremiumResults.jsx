@@ -395,9 +395,9 @@ class EvaluatorPremiumResults extends Component {
 								<TableBody>
 									<TableRow style={{height: "64px"}}>
 										<TableCellHeader className="table-header-insurance"
-																		 colSpan={1} rowSpan={2}
-																		 style={{width: "120px"}}>Coverage
-											Level</TableCellHeader>
+																		 colSpan={1} rowSpan={2}>
+											Coverage Level
+										</TableCellHeader>
 										<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1} style={coloredBg}>Revenue
 											Protection (RP)</TableCellHeader>
@@ -495,9 +495,9 @@ class EvaluatorPremiumResults extends Component {
 							<TableBody>
 								<TableRow style={{height: "64px"}}>
 									<TableCellHeader className="table-header-insurance"
-																		 colSpan={1} rowSpan={2}
-																		 style={{width: "150px"}}>Coverage
-											Level</TableCellHeader>
+																		 colSpan={1} rowSpan={2}>
+									Coverage Level
+									</TableCellHeader>
 									<TableCellHeader className="table-header-insurance"
 																		 colSpan={5} rowSpan={1} style={coloredBg}>Area
 											Revenue Protection (ARP)</TableCellHeader>
