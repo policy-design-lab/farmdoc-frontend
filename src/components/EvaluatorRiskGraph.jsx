@@ -187,9 +187,24 @@ class EvaluatorRiskGraph extends Component {
 						// left: 50,
 					}
 				},
-				hover: {
+				tooltips: {
+					mode: "index",
 					intersect: false,
-					mode: "nearest"
+					position: "average",
+					callbacks: {
+						title: function(tooltipItems, data) {
+							return `Target Revenue: ${ tooltipItems[0].xLabel}`;
+						},
+						label: function(item, data) {
+							let datasetLabel = data.datasets[item.datasetIndex].label || "";
+							let dataPoint = item.yLabel;
+							return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
+						}
+					}
+				},
+				hover: {
+					mode: "index",
+					intersect: false
 				},
 				legend: {
 					position: "right",
