@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.1] - 2020-03-03
+### Added
+- RMA price freeze text to all tabs of Evaluator
+
+### Changed
+- Show all risk graphs' values on mouse hover, instead of just one
+- Minor formatting updates to Evaluator tables
+
 ## [1.2.0] - 2020-02-28
 ### Added
 - Insurance Evaluator tool
