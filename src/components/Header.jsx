@@ -22,6 +22,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import AppsList from "./AppsList";
 import GAPPLogo from "../images/GAPP-logo.png";
 
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import Divider from "@material-ui/core/Divider";
+
 const keycloak = config.keycloak;
 
 
@@ -67,7 +74,8 @@ class Header extends Component {
 		super(props);
 
 		this.state = {
-			appsPopupOpen: false
+			appsPopupOpen: false,
+			anchorEl: null
 		};
 
 		this.handleLogout = this.handleLogout.bind(this);
@@ -82,6 +90,20 @@ class Header extends Component {
 
 	handleAppsClose = () => {
 		this.setState({appsPopupOpen: false});
+	};
+
+	showAccountMenu = event => {
+		this.setState({anchorEl: event.currentTarget});
+	};
+
+	handleMenuClose = () => {
+		this.setState({anchorEl: null});
+	};
+
+	loadUserProfile = () => {
+		keycloak.init().success(function(){
+			keycloak.accountManagement();
+		});
 	};
 
 	componentDidMount(): void {
@@ -125,7 +147,6 @@ class Header extends Component {
 			keycloak.logout({redirectUri: browserHistory.push("/")});
 		});
 	}
-
 
 	//TODO: add fixed for Toolbar
 	render() {
@@ -214,9 +235,54 @@ class Header extends Component {
 
 									</div>
 									:
-									<div>
-										<span>{localStorage.getItem("kcEmail")} </span>
-										<Button onClick={this.handleLogout} style={{height: "40px"}}>Logout</Button>
+									<div className="accountSection">
+										<IconButton onClick={this.showAccountMenu} style={{color: "white"}}>
+											<AccountBoxIcon style={{fontSize: 40}} />
+
+											<ArrowDropDownIcon style={{padding: 0, margin: 0}}/>
+										</IconButton>
+										<Menu
+												id="menu-appbar"
+												anchorEl={this.state.anchorEl}
+												getContentAnchorEl={null}
+												anchorOrigin={{
+													vertical: "bottom",
+													horizontal: "center",
+												}}
+												transformOrigin={{
+													vertical: "top",
+													horizontal: "center",
+												}}
+												open={Boolean(this.state.anchorEl)}
+												onClose={this.handleMenuClose}
+												MenuListProps={{disablePadding: true}}
+										>
+											<MenuItem onClick={this.handleMenuClose}
+																style={{fontSize: "12px", fontWeight: 700, maxWidth: "300px", cursor: "default"}}>
+												<span style={{display: "contents", fontSize: "12px", fontWeight: 400}}>
+													Signed in as
+												</span>
+												<br/>
+												{localStorage.getItem("kcEmail")}
+
+											</MenuItem>
+
+											<Divider/>
+											<MenuItem dense={true} onClick={this.loadUserProfile}>
+													Account Settings
+											</MenuItem>
+
+											<MenuItem onClick={this.handleMenuClose} dense={true}>
+												<Link to={config.faqUrl} target="_blank" style={{color: "inherit", width: "100%"}}
+															onlyActiveOnIndex>
+													Help & Support
+												</Link>
+											</MenuItem>
+											<Divider/>
+											<MenuItem onClick={this.handleLogout} >
+												Logout
+											</MenuItem>
+										</Menu>
 									</div>
 								}
 							</div>

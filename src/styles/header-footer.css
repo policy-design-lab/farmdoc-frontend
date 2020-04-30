@@ -61,7 +61,7 @@
 .banner{
 	height: 60px; /*not working*/
 	background-color: #455A64;
-	padding-right: 38px;
+	padding-right: 24px;
 }
 
 .banner .mdc-button:not(:disabled){
@@ -113,6 +113,12 @@
 	vertical-align: middle;
 	margin-top: auto;
 	margin-bottom: auto;
+}
+
+.accountSection {
+	display:flex;
+	justify-content:center;
+	align-items:center;
 }
 
 .farmdoc-analyzer {
