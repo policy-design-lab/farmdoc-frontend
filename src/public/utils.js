@@ -63,11 +63,15 @@ export function createDatawolfUser(email, fname, lname){
 	});
 }
 
-export function getStates(){
+export function getStates(appName = null){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
+	let apiUrl = `${config.apiUrl}/states`;
+	if (appName){
+		apiUrl = `${apiUrl }?tool=${ appName}`;
+	}
 
-	return fetch(`${config.apiUrl}/states`, {
+	return fetch(apiUrl, {
 		method: "GET",
 		headers: {
 			"Authorization": token_header

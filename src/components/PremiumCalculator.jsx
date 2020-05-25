@@ -552,7 +552,7 @@ class PremiumCalculator extends Component {
 	componentDidMount() {
 		let statesJson = [];
 
-		getStates().then(function(response){
+		getStates("insurance").then(function(response){
 			if (response.status === 200){
 				return response.json();
 			}
@@ -643,13 +643,9 @@ class PremiumCalculator extends Component {
 		}
 
 		let stateOptions = [];
-		//TODO: Hack - fetch from DB
-		let activeStates = [17, 18, 19, 24, 26, 27, 29, 38, 39, 46, 55];
 
 		this.state.states.forEach((item) => {
-			if (activeStates.indexOf(item.id) >= 0) {
-				stateOptions.push({value: item.id, label: item.name});
-			}
+			stateOptions.push({value: item.id, label: item.name});
 		});
 
 		let countyOptions = [];
@@ -978,8 +974,7 @@ class PremiumCalculator extends Component {
 							Calculate Premiums
 							</Button>
 						</Grid>
-						<Grid item xs >
-						</Grid>
+						<Grid item xs />
 					</Grid>
 					<div style={{textAlign: "center", fontSize: "0.875em", paddingTop: "4px"}}>
 						{this.state.futuresUpdated}
