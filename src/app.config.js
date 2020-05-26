@@ -23,50 +23,6 @@ const farmdocApps = {
 	},
 };
 
-const mpForecasts = [
-	{
-		"id": "forecast",
-		"name": "Forecast",
-		"description": "This is the  forecast model that forecasts market prices for the next five years",
-		"prices": {
-			"corn": [3.85, 3.60, 3.60, 3.60, 3.60],
-			"soybeans": [8.75, 8.80, 8.80, 8.80, 8.80],
-			"wheat": [4.55, 4.90, 5.00, 5.00, 5.00],
-		}
-	},
-	{
-		"id": "high",
-		"name": "High",
-		"description": "This is the USDA High forecast model that forecasts market prices for the next five years",
-		"prices": {
-			"corn": [4.0, 4.0, 4.0, 4.0, 4.0],
-			"soybeans": [9.0, 9.0, 9.0, 9.0, 9.0],
-			"wheat": [4.8, 5.4, 5.4, 5.4, 5.4],
-		}
-	},
-	{
-		"id": "low",
-		"name": "Low",
-		"description": "This is the USDA Low forecast model that forecasts market prices for the next five years",
-		"prices": {
-			"corn": [3.4, 3.4, 3.4, 3.4, 3.4],
-			"soybeans": [8.5, 8.5, 8.5, 8.5, 8.5],
-			"wheat": [4.55, 4.55, 4.55, 4.55, 4.55],
-		}
-	},
-	{
-		"id": "cbo",
-		"name": "CBO",
-		"description": "The CBO price scenario uses the Marketing Year Average prices as forecast by the " +
-			"Congressional Budget Office (CBO) in its May 2019 Baseline estimates, available from CBO",
-		"prices": {
-			"corn": [3.65, 3.86, 3.73, 3.72, 3.75],
-			"soybeans": [8.63, 9.04, 9.12, 9.17, 9.22],
-			"wheat": [5.05, 5.08, 5.09, 5.09, 5.08],
-		}
-	}
-];
-
 const defaultsJson = {
 	commodity: "",
 	cropId: 41, //corn for premium calculator
@@ -93,7 +49,6 @@ const devConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
 	apps: farmdocApps,
-	forecastTypes: mpForecasts,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
 	showCustomForecast: true,
@@ -109,7 +64,6 @@ const prodConfig = {
 	basePath: "/dev/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	apps: farmdocApps,
-	forecastTypes: mpForecasts,
 	domain: prodDomain,
 	defaultsJson: defaultsJson,
 	showCustomForecast: false,

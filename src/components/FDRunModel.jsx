@@ -9,12 +9,12 @@ import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
 	getOutputFileJson,
-	getMarketPricesForForecastModel,
 	getStates,
 	getCounties,
 	getCropParams,
 	getCrops,
-	covertToLegacyCropFormat
+	covertToLegacyCropFormat,
+	getForecastPrices, getCropDbKeyFromName,
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -177,6 +177,7 @@ class FDRunModel extends Component {
 		county: "",
 		program: "both",
 		crops: [],
+		forecastPrices: [],
 		commodity: config.defaultsJson.commodity,
 		units: config.defaultsJson.units,
 		forecastType: config.defaultsJson.forecastType,
@@ -221,6 +222,7 @@ class FDRunModel extends Component {
 			county: "",
 			program: "both",
 			crops: [],
+			forecastPrices: [],
 			commodity: config.defaultsJson.commodity,
 			units: config.defaultsJson.units,
 			forecastType: config.defaultsJson.forecastType,
@@ -427,7 +429,7 @@ class FDRunModel extends Component {
 
 		let forecastPrices = null;
 		if (this.state.forecastType !== "custom") {
-			forecastPrices = getMarketPricesForForecastModel(this.state.forecastType, this.state.commodity);
+			forecastPrices = this.getMarketPricesForForecastModel(this.state.forecastType, getCropDbKeyFromName(this.state.commodity));
 		}
 		else {
 			forecastPrices = this.state.customforecastPrice;
@@ -540,6 +542,24 @@ class FDRunModel extends Component {
 				crops: cropsJson
 			});
 		});
+
+		let forecastsJson = [];
+		getForecastPrices().then(function(response){
+			if (response.status === 200){
+				return response.json();
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			forecastsJson = data.map((st) => {
+				return st;
+			});
+			this.setState({
+				forecastPrices: forecastsJson
+			});
+		});
 	}
 
 	populateCounties(stateId) {
@@ -572,6 +592,18 @@ class FDRunModel extends Component {
 			}
 		}
 		return binSize;
+	}
+
+	getMarketPricesForForecastModel(modelId, commodity){
+		let modelsList = this.state.forecastPrices;
+		let retstr = "";
+		for (let i = 0 ; i < modelsList.length ; i++) {
+			if (modelsList[i]["id"] === modelId) {
+				return retstr = modelsList[i]["prices"][commodity].join();
+			}
+		}
+
+		return retstr;
 	}
 
 	populateYields(countyFips, commodity){
@@ -703,7 +735,7 @@ class FDRunModel extends Component {
 		});
 
 		let forecastTypeOptions = [];
-		config.forecastTypes.forEach((item) => {
+		this.state.forecastPrices.forEach((item) => {
 			forecastTypeOptions.push({value: item.id, label: item.name});
 		});
 		if (config.showCustomForecast) {
@@ -735,7 +767,7 @@ class FDRunModel extends Component {
 							<IconButton className="closeImg" onClick={this.handleForecastClose}>
 								<CloseIcon />
 							</IconButton>
-							<ForecastModels/>
+							<ForecastModels forecastPrices={this.state.forecastPrices}/>
 						</div>
 					</Modal>
 

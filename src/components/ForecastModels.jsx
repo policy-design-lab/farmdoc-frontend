@@ -12,7 +12,7 @@ import ToolTip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import Info from "@material-ui/icons/Info";
 import {forecastYearsToolTip} from "../app.messages";
-import {roundResults} from "../public/utils";
+import {roundResults, getCropDbKeyFromName} from "../public/utils";
 
 
 const styles = theme => ({
@@ -48,32 +48,33 @@ class ForecastModels extends Component {
 	render() {
 		const {classes} = this.props;
 
-		let jsonData = config.forecastTypes;
-
-		if (jsonData != null) {
+		if (this.props.hasOwnProperty("forecastPrices") && this.props["forecastPrices"] !== null &&
+				this.props["forecastPrices"] !== "") {
 
 			let startYear = config.defaultsJson.startYear;
 
 			let commodity = "corn";
+			let commodityDbKey = 1;
 			if (this.props.hasOwnProperty("commodity") && this.props["commodity"] !== null && this.props["commodity"] !== "") {
 				commodity = this.props["commodity"];
+				commodityDbKey = getCropDbKeyFromName(commodity);
 			}
 			let tableTitle = `Price Scenarios Used in Model for Payment Estimates for ${commodity.charAt(0).toUpperCase()}${commodity.substr(1)}`;
 			let years = [startYear++, startYear++, startYear++, startYear++, startYear++];
 			let headers = ["Model"].concat(years);
+			let modelsList = this.props["forecastPrices"];
 
-			let modelsList = config.forecastTypes;
 			let modelRows = [];
 			for (let i = 0 ; i < modelsList.length ; i++) {
 				modelRows.push({
 					"id": modelsList[i]["id"],
 					"name": modelsList[i]["name"],
 					"description": modelsList[i]["description"],
-					"year1": roundResults(modelsList[i]["prices"][commodity][0], 2),
-					"year2": roundResults(modelsList[i]["prices"][commodity][1], 2),
-					"year3": roundResults(modelsList[i]["prices"][commodity][2], 2),
-					"year4": roundResults(modelsList[i]["prices"][commodity][3], 2),
-					"year5": roundResults(modelsList[i]["prices"][commodity][4], 2),
+					"year1": roundResults(modelsList[i]["prices"][commodityDbKey][0], 2),
+					"year2": roundResults(modelsList[i]["prices"][commodityDbKey][1], 2),
+					"year3": roundResults(modelsList[i]["prices"][commodityDbKey][2], 2),
+					"year4": roundResults(modelsList[i]["prices"][commodityDbKey][3], 2),
+					"year5": roundResults(modelsList[i]["prices"][commodityDbKey][4], 2),
 				});
 			}
 

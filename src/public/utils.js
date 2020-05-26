@@ -119,6 +119,37 @@ export function covertToLegacyCropFormat(cropJson){
 	};
 }
 
+// This is a temporary hack until datawolf is ready to accept crop id instead of crop name
+export function getCropDbKeyFromName(name){
+	if (name === "corn"){
+		return 1;
+	}
+	else if (name === "soybeans"){
+		return 2;
+	}
+	else if (name === "wheat"){
+		return 3;
+	}
+}
+
+export function getForecastPrices(){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
+	let apiUrl = `${config.apiUrl}/forecastprices`;
+
+	return fetch(apiUrl, {
+		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getStates Flask api call. Most likely due to network or service being down");
+	});
+}
+
 export function getParams(cropCode){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
@@ -272,18 +303,6 @@ export function calculateDayOfYear(date: Date) {
 
 export async function wait(ms) {
 	new Promise(resolve => setTimeout(resolve, ms));
-}
-
-export function getMarketPricesForForecastModel(modelId, commodity){
-	let modelsList = config.forecastTypes;
-	let retstr = "";
-	for (let i = 0 ; i < modelsList.length ; i++) {
-		if (modelsList[i]["id"] === modelId) {
-			return retstr = modelsList[i]["prices"][commodity].join();
-		}
-	}
-
-	return retstr;
 }
 
 export function roundResults(val, n){
