@@ -10,10 +10,11 @@ import Icon from "@material-ui/core/Icon";
 import {
 	getOutputFileJson,
 	getMarketPricesForForecastModel,
-	getBinSizeForCrop,
 	getStates,
 	getCounties,
-	getCropParams
+	getCropParams,
+	getCrops,
+	covertToLegacyCropFormat
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -175,6 +176,7 @@ class FDRunModel extends Component {
 		counties: [],
 		county: "",
 		program: "both",
+		crops: [],
 		commodity: config.defaultsJson.commodity,
 		units: config.defaultsJson.units,
 		forecastType: config.defaultsJson.forecastType,
@@ -218,6 +220,7 @@ class FDRunModel extends Component {
 			counties: [],
 			county: "",
 			program: "both",
+			crops: [],
 			commodity: config.defaultsJson.commodity,
 			units: config.defaultsJson.units,
 			forecastType: config.defaultsJson.forecastType,
@@ -430,8 +433,7 @@ class FDRunModel extends Component {
 			forecastPrices = this.state.customforecastPrice;
 		}
 
-		let binSize = getBinSizeForCrop(this.state.commodity);
-
+		let binSize = this.getBinSizeForCrop(this.state.crops, this.state.commodity);
 
 		//TODO: Add arcYield
 		let postRequest = postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice,
@@ -504,7 +506,6 @@ class FDRunModel extends Component {
 
 	componentDidMount() {
 		let statesJson = [];
-
 		getStates().then(function(response){
 			if (response.status === 200){
 				return response.json();
@@ -519,6 +520,24 @@ class FDRunModel extends Component {
 			});
 			this.setState({
 				states: statesJson,
+			});
+		});
+
+		let cropsJson = [];
+		getCrops("arcplc").then(function(response){
+			if (response.status === 200){
+				return response.json();
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			cropsJson = data.map((st) => {
+				return covertToLegacyCropFormat(st);
+			});
+			this.setState({
+				crops: cropsJson
 			});
 		});
 	}
@@ -544,10 +563,31 @@ class FDRunModel extends Component {
 		});
 	}
 
+	getBinSizeForCrop(cropId){
+		let cropsList = this.state.crops;
+		let binSize = 10;
+		for (let i = 0 ; i < cropsList.length ; i++) {
+			if (cropsList[i]["id"] === cropId) {
+				return binSize = cropsList[i]["binSize"];
+			}
+		}
+		return binSize;
+	}
+
 	populateYields(countyFips, commodity){
 		let cropParams = "";
+		let commodityDbId = 0;
 
-		getCropParams(countyFips, commodity).then(function(response){
+		let cropsList = this.state.crops;
+		let binSize = 10;
+		for (let i = 0 ; i < cropsList.length ; i++) {
+			if (cropsList[i]["id"] === commodity) {
+				commodityDbId = cropsList[i]["cropDbKey"];
+			}
+		}
+
+
+		getCropParams(countyFips, commodityDbId).then(function(response){
 			if (response.status === 200){
 				return response.json();
 			}
@@ -562,21 +602,21 @@ class FDRunModel extends Component {
 
 			if (cropParams.length > 0) {
 				this.setState({cropYields: cropParams});
-				if (cropParams.length === 1 && cropParams[0]["pracCode"] != null) {
-					if (cropParams[0]["pracCode"] === 3) {
-						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-						this.setState({countyYield: roundResults(cropParams[0]["plcYield"], 2)});
+				if (cropParams.length === 1 && cropParams[0]["practice_id"] != null) {
+					if (cropParams[0]["practice_id"] === 3) {
+						this.setState({arcYield: roundResults(cropParams[0]["yield_trend"], 2)});
+						this.setState({countyYield: roundResults(cropParams[0]["yield_avg"], 2)});
 						this.setState({disablePraccode: true});
 						this.setState({hidePraccode: true});
 					}
 					else {
-						this.setState({arcYield: roundResults(cropParams[0]["arcYield"], 2)});
-						this.setState({countyYield: roundResults(cropParams[0]["plcYield"], 2)});
+						this.setState({arcYield: roundResults(cropParams[0]["yield_trend"], 2)});
+						this.setState({countyYield: roundResults(cropParams[0]["yield_avg"], 2)});
 						this.setState({hidePraccode: false});
 						this.setState({disablePraccode: true});
 					}
 
-					this.setState({pracCode: cropParams[0]["pracCode"].toString()});
+					this.setState({pracCode: cropParams[0]["practice_id"].toString()});
 				}
 				else { //more than one pracCode Present
 					let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
@@ -586,9 +626,9 @@ class FDRunModel extends Component {
 						}
 					});
 
-					this.setState({arcYield: roundResults(selPrac["arcYield"], 2)});
-					this.setState({countyYield: roundResults(selPrac["plcYield"], 2)});
-					this.setState({pracCode: selPrac["pracCode"].toString()});
+					this.setState({arcYield: roundResults(selPrac["yield_trend"], 2)});
+					this.setState({countyYield: roundResults(selPrac["yield_avg"], 2)});
+					this.setState({pracCode: selPrac["practice_id"].toString()});
 					this.setState({hidePraccode: false});
 					this.setState({disablePraccode: false});
 				}
@@ -610,7 +650,7 @@ class FDRunModel extends Component {
 	}
 
 	populateRefPriceAndUnits(commodity) {
-		config.commodities.forEach((item) => {
+		this.state.crops.forEach((item) => {
 			if (item.id === commodity) {
 				this.setState({
 					refPrice: item.refPrice,
@@ -637,7 +677,7 @@ class FDRunModel extends Component {
 		let spinner;
 		let countyYieldTip = "Please select the county and crop to see the average yield of the county here.";
 
-		if(this.state.countyYield !== "") {
+		if (this.state.countyYield !== "") {
 			countyYieldTip = `The average yield of the county is ${this.state.countyYield} ${this.state.units}`;
 		}
 
@@ -658,7 +698,7 @@ class FDRunModel extends Component {
 		});
 
 		let cropOptions = [];
-		config.commodities.forEach((item) => {
+		this.state.crops.forEach((item) => {
 			cropOptions.push({value: item.id, label: item.name});
 		});
 

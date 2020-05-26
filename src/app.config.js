@@ -23,12 +23,6 @@ const farmdocApps = {
 	},
 };
 
-const crops = [
-	{"id": "corn", "cropId": 41, "name": "Corn", "units": "bushels/acre", "refPrice": 3.7, "binSize": 10},
-	{"id": "soybeans", "cropId": 81, "name": "Soybean", "units": "bushels/acre", "refPrice": 8.4, "binSize": 10},
-	{"id": "wheat", "cropId": 999, "name": "Wheat", "units": "bushels/acre", "refPrice": 5.5, "binSize": 10}
-];
-
 const mpForecasts = [
 	{
 		"id": "forecast",
@@ -99,7 +93,6 @@ const devConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
 	apps: farmdocApps,
-	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
@@ -116,7 +109,6 @@ const prodConfig = {
 	basePath: "/dev/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	apps: farmdocApps,
-	commodities: crops,
 	forecastTypes: mpForecasts,
 	domain: prodDomain,
 	defaultsJson: defaultsJson,

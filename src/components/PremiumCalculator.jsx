@@ -7,12 +7,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
-	getOutputFileJson,
 	getStates,
 	getCounties,
 	getParams,
-	getCropParams,
-	roundResults
+	roundResults, getCrops, covertToLegacyCropFormat,
 } from "../public/utils";
 import {
 	handlePremiumResults,
@@ -192,6 +190,7 @@ class PremiumCalculator extends Component {
 		counties: [],
 		county: "",
 		program: "both",
+		crops: [],
 		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
@@ -235,6 +234,7 @@ class PremiumCalculator extends Component {
 			counties: [],
 			county: "",
 			program: "both",
+			crops: [],
 			cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 			units: config.defaultsJson.units,
 
@@ -585,6 +585,24 @@ class PremiumCalculator extends Component {
 			this.setParams(defaultCropCountyCode, true);
 		});
 
+		let cropsJson = [];
+		getCrops("insurance").then(function(response){
+			if (response.status === 200){
+				return response.json();
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			cropsJson = data.map((st) => {
+				return covertToLegacyCropFormat(st);
+			});
+			this.setState({
+				crops: cropsJson
+			});
+		});
+
 	}
 
 	populateCounties(stateId) {
@@ -609,10 +627,9 @@ class PremiumCalculator extends Component {
 	}
 
 	populateCropUnits(cropId) {
-		config.commodities.forEach((item) => {
+		this.state.crops.forEach((item) => {
 			if (item.cropId === cropId) {
 				this.setState({
-
 					units: item.units,
 				});
 			}
@@ -655,13 +672,10 @@ class PremiumCalculator extends Component {
 		});
 
 		let cropOptions = [];
-		//TODO: Hack - fetch from DB
-		let activeCrops = [41, 81];
 
-		config.commodities.forEach((item) => {
-			if (activeCrops.indexOf(item.cropId) >= 0) {
-				cropOptions.push({value: item.cropId, label: item.name});
-			}
+
+		this.state.crops.forEach((item) => {
+			cropOptions.push({value: item.cropId, label: item.name});
 		});
 
 		let practiceTypeOptions = [];

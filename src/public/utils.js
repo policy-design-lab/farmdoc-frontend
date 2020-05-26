@@ -84,6 +84,41 @@ export function getStates(appName = null){
 	});
 }
 
+export function getCrops(appName = null){
+	let token = localStorage.getItem("kcToken");
+	let token_header = `Bearer ${token}` ;
+	let apiUrl = `${config.apiUrl}/crops`;
+	if (appName){
+		apiUrl = `${apiUrl }?tool=${ appName}`;
+	}
+
+	return fetch(apiUrl, {
+		method: "GET",
+		headers: {
+			"Authorization": token_header
+		}
+	}).then(function(response){
+		return response;
+	}).catch(error => {
+		console.log(error);
+		console.log("Error in making the getStates Flask api call. Most likely due to network or service being down");
+	});
+}
+
+//TODO: This should be deprecated and the format returned from the api should be used directly.
+// This is a temporary hack until datawolf is ready to accept crop id instead of crop name
+export function covertToLegacyCropFormat(cropJson){
+	return {
+		"id": cropJson.name,
+		"cropId": cropJson.crop_code,
+		"cropDbKey": cropJson.id,
+		"name": cropJson.long_name.charAt(0).toUpperCase() + cropJson.long_name.slice(1),
+		"units": cropJson.unit,
+		"refPrice": cropJson.ref_price,
+		"binSize": cropJson.bin_size
+	};
+}
+
 export function getParams(cropCode){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
@@ -121,7 +156,7 @@ export function getCropParams(countyFips, commodity){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
 
-	return fetch(`${config.apiUrl}/commodities/${countyFips}/commodity/${commodity}`, {
+	return fetch(`${config.apiUrl}/cropinfo/${countyFips}/crop/${commodity}`, {
 		method: "GET",
 		headers: {
 			"Authorization": token_header
@@ -249,18 +284,6 @@ export function getMarketPricesForForecastModel(modelId, commodity){
 	}
 
 	return retstr;
-}
-
-export function getBinSizeForCrop(cropId){
-	let cropsList = config.commodities;
-	let binSize = 10;
-	for (let i = 0 ; i < cropsList.length ; i++) {
-		if (cropsList[i]["id"] === cropId) {
-			return binSize = cropsList[i]["binSize"];
-		}
-	}
-
-	return binSize;
 }
 
 export function roundResults(val, n){

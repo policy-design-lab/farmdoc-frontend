@@ -1,18 +1,14 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import TextField from "@material-ui/core/TextField";
-import {FormControl, Modal} from "@material-ui/core";
+import {FormControl} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
-	getOutputFileJson,
 	getStates,
 	getCounties,
-	getParams,
-	getCropParams,
-	roundResults
+	getCrops, covertToLegacyCropFormat
 } from "../public/utils";
 import {
 	handleEvaluatorResults,
@@ -21,20 +17,10 @@ import {
 } from "../actions/insEvaluator";
 import Spinner from "./Spinner";
 import config from "../app.config";
-
 import ReactSelect from "react-select";
 
 import MenuItem from "@material-ui/core/MenuItem";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
 import Grid from "@material-ui/core/Grid";
-
-import {
-	taAdjTooltip, rateYieldTooltip, taYieldTooltip, aphYieldTooltip,
-	typeTooltip, practiceTooltip, riskClassTooltip, prevPlantingTooltip,
-	acresTooltip, projPriceTooltip, volFactorTooltip
-} from "../app.messages";
-import FDTooltip from "./Tooltip";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -193,6 +179,7 @@ class EvaluatorInputs extends Component {
 		counties: [],
 		county: "",
 		program: "both",
+		crops: [],
 		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
@@ -229,6 +216,7 @@ class EvaluatorInputs extends Component {
 			counties: [],
 			county: "",
 			program: "both",
+			crops: [],
 			cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 			units: config.defaultsJson.units,
 
@@ -422,6 +410,24 @@ class EvaluatorInputs extends Component {
 			this.setParams(true);
 		});
 
+		let cropsJson = [];
+		getCrops("insurance").then(function(response){
+			if (response.status === 200){
+				return response.json();
+			}
+			else {
+				console.log("Flask Service API call failed. Most likely the token expired");
+				// TODO: how to handle? Force logout?
+			}
+		}).then(data => {
+			cropsJson = data.map((st) => {
+				return covertToLegacyCropFormat(st);
+			});
+			this.setState({
+				crops: cropsJson
+			});
+		});
+
 	}
 
 	populateCounties(stateId) {
@@ -446,7 +452,7 @@ class EvaluatorInputs extends Component {
 	}
 
 	populateCropUnits(cropId) {
-		config.commodities.forEach((item) => {
+		this.state.crops.forEach((item) => {
 			if (item.cropId === cropId) {
 				this.setState({
 
@@ -491,13 +497,9 @@ class EvaluatorInputs extends Component {
 		});
 
 		let cropOptions = [];
-		//TODO: Hack - fetch from DB
-		let activeCrops = [41, 81];
 
-		config.commodities.forEach((item) => {
-			if (activeCrops.indexOf(item.cropId) >= 0) {
-				cropOptions.push({value: item.cropId, label: item.name});
-			}
+		this.state.crops.forEach((item) => {
+			cropOptions.push({value: item.cropId, label: item.name});
 		});
 
 		let practiceTypeOptions = [];
