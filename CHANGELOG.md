@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Changed
 - Horizontal user details bar in the Header replaced with 'User Account' Icon with dropdown menu [FD-229](https://opensource.ncsa.illinois.edu/jira/browse/FD-229)
+- States, Counties, Crops, Yields and Forecast prices are now fetched from the latest apis that use app specific schemas [FD-271](https://opensource.ncsa.illinois.edu/jira/browse/FD-271)
 
 ## [1.2.1] - 2020-03-03
 ### Added
