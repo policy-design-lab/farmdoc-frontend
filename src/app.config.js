@@ -26,7 +26,7 @@ const farmdocApps = {
 const defaultsJson = {
 	commodity: "",
 	cropId: 41, //corn for premium calculator
-	forecastType: "forecast",
+	forecastType: 1,
 	forecastName: "Forecast",
 	paymentYield: "",
 	arcYield: "",
