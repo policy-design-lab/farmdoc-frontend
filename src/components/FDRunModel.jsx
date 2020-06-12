@@ -180,8 +180,8 @@ class FDRunModel extends Component {
 		forecastPrices: [],
 		commodity: config.defaultsJson.commodity,
 		units: config.defaultsJson.units,
-		forecastType: config.defaultsJson.forecastType,
-		forecastName: config.defaultsJson.forecastName,
+		forecastType: 1,
+		forecastName: "",
 		refPrice: "",
 		pracCode: "",
 		acres: config.defaultsJson.acres,
@@ -225,8 +225,8 @@ class FDRunModel extends Component {
 			forecastPrices: [],
 			commodity: config.defaultsJson.commodity,
 			units: config.defaultsJson.units,
-			forecastType: config.defaultsJson.forecastType,
-			forecastName: config.defaultsJson.forecastName,
+			forecastType: 1,
+			forecastName: "",
 			refPrice: "",
 			pracCode: "",
 			acres: config.defaultsJson.acres,
@@ -559,6 +559,13 @@ class FDRunModel extends Component {
 			this.setState({
 				forecastPrices: forecastsJson
 			});
+
+			if (forecastsJson.length > 0) {
+				this.setState({
+					forecastType: forecastsJson[0].id,
+					forecastName: forecastsJson[0].name,
+				});
+			}
 		});
 	}
 
