@@ -6,7 +6,7 @@ const farmdocApps = {
 		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
 				" PLC making payments in each year from 2019 to 2023. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
-		lastUpdated: "Feb 25, 2020"
+		lastUpdated: "Jun 15, 2020"
 	},
 	"premiums": {
 		appName: "Insurance Premiums",
