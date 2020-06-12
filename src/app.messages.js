@@ -128,22 +128,29 @@ export const arcplcTermDefinitions = [
 			"future, the models used in the tool incorporate MYA crop price forecasts to help farmers in their program decision."
 	},
 	{
-		"term": "\"Forecast\" Price Scenario",
-		"definition": "This is the base price forecast for each of the 2019 through 2023 crop years determined by crop price forecast " +
-			"modeling.  Each year of the price scenario will be used in the program payment estimate model to run 1,000 estimates and average " +
-			"them to estimate the ARC-CO and PLC payments and likelihood of payments under the MYA price forecast for each crop year.  It provides an" +
-			" estimate of the potential payment if MYA prices were at the price forecast level for that crop year."
+		"term": "\"COVID\" Price Scenario",
+		"definition": "Projected prices after the COVID-19 control measures began to be implemented in " +
+				"March 2020. See below Farmdoc Daily link for more details.",
+		"links": [{"name": "Farmdoc Daily - 28 Apr, 2020", "href": "https://farmdocdaily.illinois.edu/2020/04/estimates-of-mya-prices-for-2019-thorough-2021-pre-and-post-covid-19-corn-and-soybeans.html"}]
+
 	},
 	{
-		"term": "\"High\" Price Scenario",
-		"definition": "This scenario increases the MYA price used in the model runs to estimate payments and likelihood of payments if the MYA price in each " +
-			"crop year was at a level higher than the forecast scenario.  This is not a forecast of prices but an increase in forecast prices to provide the" +
-			" farmer with a comparison scenario where prices are above forecast levels and how that would change payments and the likelihood of payments from ARC-CO and PLC."
+		"term": "\"Pre-COVID\" Price Scenario",
+		"definition": "Projected prices made in February 2020 before COVID-19 control measures were being implemented. " +
+				"See below Farmdoc Daily link for more details.",
+		"links": [{"name": "Farmdoc Daily - 28 Apr, 2020", "href": "https://farmdocdaily.illinois.edu/2020/04/estimates-of-mya-prices-for-2019-thorough-2021-pre-and-post-covid-19-corn-and-soybeans.html"}]
 	},
 	{
 		"term": "\"Low\" Price Scenario",
-		"definition": "Similar to the high price scenario, the low price scenario alters the price forecast to account for prices lower than the forecast scenario" +
-			" to give the farmer a comparison of payments and likelihood of payments if MYA prices in each crop year are lower than the forecast."
+		"definition": "A series of low, but realistic, prices that could happen."
+	},
+	{
+		"term": "\"Mid\" Price Scenario",
+		"definition": "A series of moderate prices that could happen."
+	},
+	{
+		"term": "\"High\" Price Scenario",
+		"definition": "A series of high, but realistic, prices that could happen."
 	},
 	{
 		"term": "\"CBO\" Price Scenario",
