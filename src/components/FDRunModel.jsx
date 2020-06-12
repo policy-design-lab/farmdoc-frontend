@@ -716,8 +716,11 @@ class FDRunModel extends Component {
 		let spinner;
 		let countyYieldTip = "Please select the county and crop to see the average yield of the county here.";
 
-		if (this.state.countyYield !== "") {
-			countyYieldTip = `The average yield of the county is ${this.state.countyYield} ${this.state.units}`;
+		if (this.state.countyYield) {
+			countyYieldTip = "";
+			if (this.state.countyYield > 0) {
+				countyYieldTip = `The average yield of the county is ${this.state.countyYield} ${this.state.units}`;
+			}
 		}
 
 		if (this.state.runStatus !== "" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
