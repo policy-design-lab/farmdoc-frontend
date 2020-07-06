@@ -21,6 +21,11 @@ const farmdocApps = {
 			"risk reductions across their available crop insurance alternatives. ",
 		lastUpdated: "Daily"
 	},
+	"pricedistribution": {
+		appName: "Price Distribution",
+		appDesc: "This is the price distribution tool that does ....... ",
+		lastUpdated: "Every 15 mins"
+	},
 };
 
 const defaultsJson = {

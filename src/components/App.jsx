@@ -23,6 +23,10 @@ import PremiumDashboard from "./PremiumDashboard";
 import AboutPremiumCalc from "./PremAbout";
 import DocsPremiumCalc from "./PremDocumentation";
 
+import PriceDistributionDashboard from "./PriceDistributionDashboard";
+import AboutPriceDistribution from "./PriceDistributionAbout";
+import PriceDistributionDocumentation from "./PriceDistributionDocumentation";
+
 import EvaluatorDashboard from "./EvaluatorDashboard";
 import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
@@ -54,6 +58,7 @@ class App extends Component {
 		let arcplcPath = "/arcplc";
 		let premiumCalcPath = "/premiums";
 		let premiumEvalPath = "/evaluator";
+		let priceDistibutionPath = "/pricedistribution";
 
 		return (
 			<div>
@@ -84,6 +89,10 @@ class App extends Component {
 						<Route path={`${premiumEvalPath}docs`} component={DocsPaymentEval}/>
 						<Route path={`${premiumEvalPath}about`} component={AboutPaymentEval}/>
 						{/*<Route path="eval" component={EvaluatorDashboard}/>*/}
+
+						<Route path={`${priceDistibutionPath}`} component={PriceDistributionDashboard}/>
+						<Route path={`${priceDistibutionPath}docs`} component={PriceDistributionDocumentation}/>
+						<Route path={`${priceDistibutionPath}about`} component={AboutPriceDistribution}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
