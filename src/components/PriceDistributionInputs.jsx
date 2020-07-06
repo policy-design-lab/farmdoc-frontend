@@ -428,7 +428,7 @@ class PriceDistributionInputs extends Component {
 			<div style={{textAlign: "center"}}>
 
 				<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
-					Evaluator - Enter your farm information to evaluate crop insurance options for 2020
+					Price Distribution - Enter your farm information to evaluate market prices......
 				</div>
 
 				<div style={{
@@ -529,7 +529,7 @@ class PriceDistributionInputs extends Component {
 											disabled={!this.validateInputs()}
 											style={{fontSize: "large", backgroundColor: "#455A64"}}>
 								<Icon className={classes.leftIcon}> send </Icon>
-								Run Insurance Evaluator
+								Run
 							</Button>
 						</Grid>
 						<Grid item xs />
