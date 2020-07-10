@@ -40,7 +40,7 @@
 		"object-assign": "4.1.1",
 		"ol": "4.6.5",
 		"prop-types": "^15.6.1",
-		"react": "^16.4.0",
+		"react": "^16.13.1",
 		"react-chartjs-2": "2.6.2",
 		"react-device-detect": "1.6.2",
 		"react-dom": "16.13.1",
