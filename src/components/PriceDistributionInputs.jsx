@@ -11,7 +11,11 @@ import {
 import Spinner from "./Spinner";
 import config from "../app.config";
 import ReactSelect from "react-select";
+
+import MenuItem from "@material-ui/core/MenuItem";
 import Grid from "@material-ui/core/Grid";
+
+let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const styles = theme => ({
 	input: {
@@ -135,17 +139,17 @@ function inputComponent({inputRef, ...props}) {
 function Control(props) {
 	return (
 		<TextField
-					fullWidth
-					InputProps={{
-						inputComponent,
-						inputProps: {
-							className: props.selectProps.classes.input,
-							inputRef: props.innerRef,
-							children: props.children,
-							...props.innerProps
-						}
-					}}
-					{...props.selectProps.textFieldProps}
+			fullWidth
+			InputProps={{
+				inputComponent,
+				inputProps: {
+					className: props.selectProps.classes.input,
+					inputRef: props.innerRef,
+					children: props.children,
+					...props.innerProps
+				}
+			}}
+			{...props.selectProps.textFieldProps}
 		/>
 	);
 }
@@ -156,21 +160,8 @@ const components = {
 
 class PriceDistributionInputs extends Component {
 	state = {
-		states: [],
-		stateSel: "",
-		counties: [],
-		county: "",
-		program: "both",
-		crops: [],
-		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
-		units: config.defaultsJson.units,
-
-	  runStatus: "INIT",
+		runStatus: "INIT",
 		premResults: null,
-		countySelValue: null,
-		stateSelValue: null,
-		cropSelValue: null,
-		cropCountyCode: null
 	};
 
 	constructor(props) {
@@ -178,66 +169,19 @@ class PriceDistributionInputs extends Component {
 		this.runPriceDistribution = this.runPriceDistribution.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handlePriceDistributionResults = this.handlePriceDistributionResults.bind(this);
-		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
-
 
 		//TODO: Cleanup states that are not needed
 		this.state = {
-			states: [],
-			stateSel: "",
-			counties: [],
-			county: "",
-			program: "both",
-			crops: [],
-			cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
-			units: config.defaultsJson.units,
-
 			runStatus: "INIT",
 			premResults: null,
-			countySelValue: null,
-			stateSelValue: null,
-			cropCountyCode: null
 		};
 	}
 
 	handleReactSelectChange = name => event => {
 		this.setState({
 			[name]: event.value}, function(){
-			if (this.state.cropId !== "" && this.state.county !== ""){
-				//TODO: Remove if not needed. Use to get params from flask endpoints
-			}
 		});
-
-		switch (name) {
-			case "cropCode":
-				this.setState({countySelValue: {value: event.value, label: event.label}});
-				if (this.state.cropId !== null){
-					let cropCountyCode = `${event.value }${ this.state.cropId}`;
-					this.setState({cropCountyCode: cropCountyCode});
-					this.changeCropCode(cropCountyCode);
-				}
-				break;
-
-			case "monthCode":
-				if (event.value !== "") {
-					this.setState({stateSelValue: {value: event.value, label: event.label}});
-					this.setState({countySelValue: null});
-					this.setState({county: ""});
-					this.setState({cropCountyCode: ""});
-					this.populateCounties(event.value);
-				}
-				break;
-			case "year":
-				if (event.value !== "") {
-					this.setState({cropSelValue: {value: event.value, label: event.label}});
-					let cropCountyCode = `${this.state.county }${ event.value}`;
-					this.setState({cropCountyCode: cropCountyCode});
-					this.changeCropCode(cropCountyCode);
-				}
-				break;
-		}
 	};
-
 
 	async runPriceDistribution() {
 		//let status = "STARTED";
@@ -250,36 +194,32 @@ class PriceDistributionInputs extends Component {
 			"Authorization": token_header
 		};
 
-		let evaluatorResult = "";
-		this.handleEvaluatorResults(null);
+		let pdResult = "";
 		this.handlePriceDistributionResults(null);
-		this.changeInsUnit("basic");
 		this.setState({runStatus: "FETCHING_RESULTS"});
 
-		let evaluatorUrl = new URL(`${config.apiUrl }/compute/simulator`);
-		let evaluatorParams = [
-			["code", this.state.cropCountyCode],
-			["acres", this.state.farmAcres],
+		let priceDistributorUrl = new URL(`${config.apiUrl }/compute/simulator`);
+		let priceDistributorParams = [
 			["email", email]
-		//		TODO: Remove grossTarget here when api is fixed to make this param optional
+			//		TODO: Remove grossTarget here when api is fixed to make this param optional
 		];
 
-		evaluatorUrl.search = new URLSearchParams(evaluatorParams).toString();
+		priceDistributorUrl.search = new URLSearchParams(priceDistributorParams).toString();
 
-		const evaluatorResponse = await fetch(evaluatorUrl, {
+		const priceDistributorResponse = await fetch(priceDistributorUrl, {
 			method: "GET",
 			headers: kcHeaders,
 		});
 
-		if (evaluatorResponse instanceof Response) {
+		if (priceDistributorResponse instanceof Response) {
 			try {
-				evaluatorResult = await evaluatorResponse.json();
-				if (typeof(evaluatorResult) === "object") {
-					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
+				pdResult = await priceDistributorResponse.json();
+				if (typeof(pdResult) === "object") {
+					this.handlePriceDistributionResults(JSON.stringify(pdResult));
 					this.setState({runStatus: "FETCHED_RESULTS"});
 				}
 				else {
-					this.handleEvaluatorResults("");
+					this.handlePriceDistributionResults("");
 					this.setState({runStatus: "ERROR_RESULTS"});
 				}
 			}
@@ -290,21 +230,8 @@ class PriceDistributionInputs extends Component {
 		}
 	}
 
-	handleEvaluatorResults(results) {
-		this.props.handleEvaluatorResults(results);
-	}
-
 	handlePriceDistributionResults(results) {
 		this.props.handlePriceDistributionResults(results);
-	}
-
-	componentDidMount() {
-		let statesJson = [];
-		let cropsJson = [];
-	}
-
-	populateCounties(stateId) {
-		let countiesJson = [];
 	}
 
 	validateInputs() {
@@ -313,54 +240,39 @@ class PriceDistributionInputs extends Component {
 
 	render() {
 		const {classes} = this.props;
+
+		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
 		if (this.state.runStatus === "INIT"){
-			this.handleEvaluatorResults(null);
 			this.handlePriceDistributionResults(null);
 		}
 
-		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
+		if (this.state.runStatus === "FETCHING_RESULTS") {
 			spinner = <Spinner/>;
 		}
 		else {
 			spinner = null;
 		}
 
-		let stateOptions = [];
-
-		this.state.states.forEach((item) => {
-			stateOptions.push({value: item.id, label: item.name});
-		});
-
-		let countyOptions = [];
-
-		this.state.counties.forEach((item) => {
-			countyOptions.push({value: item.id, label: item.name});
-		});
-
-		let cropOptions = [];
-
-		this.state.crops.forEach((item) => {
-			cropOptions.push({value: item.cropId, label: item.name});
-		});
-
 		return (
 			<div style={{textAlign: "center"}}>
-				<br/>
-				<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
-					<Grid item xs />
-					<Grid item xs={6} >
-						<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
-											disabled={!this.validateInputs()}
-											style={{fontSize: "large", backgroundColor: "#455A64"}}>
-							<Icon className={classes.leftIcon}> send </Icon>
-							Run
-						</Button>
+				<div style={{textAlign: "center"}}>
+					<br/>
+					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
+						<Grid item xs />
+						<Grid item xs={6} >
+							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
+									disabled={!this.validateInputs()}
+									style={{fontSize: "large", backgroundColor: "#455A64"}}>
+								<Icon className={classes.leftIcon}> send </Icon>
+								Run
+							</Button>
+						</Grid>
+						<Grid item xs />
 					</Grid>
-					<Grid item xs />
-				</Grid>
-				{spinner}
+					{spinner}
+				</div>
 			</div>
 		);
 	}
@@ -371,7 +283,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	handleEvaluatorResults: priceDistributionResults => dispatch(handlePriceDistributionResults(priceDistributionResults))
+	handlePriceDistributionResults: PriceDistributionResults => dispatch(handlePriceDistributionResults(PriceDistributionResults)),
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionInputs));
