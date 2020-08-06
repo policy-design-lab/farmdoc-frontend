@@ -7,6 +7,7 @@ import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
 import evaluatorLogo from "../images/payment-evaluator.svg";
+import pricedistrLogo from "../images/price-distr.svg";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
 import config from "../app.config";
@@ -115,7 +116,29 @@ class AppsList extends Component {
 								</Paper>
 							</Link>
 						</Grid>
+						<Grid item>
+							<Link to="/pricedistribution" onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#228B22"}}>
+										<span className="appName">
+											<img className="appIcon" src={pricedistrLogo} alt="Price-Distribution" style={{backgroundColor: "#1A7234"}}/>
+											{config.apps["pricedistribution"].appName}
+										</span>
+									</div>
 
+									<div className="appLastUpdated">
+										Last Updated: {config.apps["pricedistribution"].lastUpdated}
+									</div>
+
+									<div className="appDescription">
+										{config.apps["pricedistribution"].appDesc}	</div>
+									<div>
+										<img className="appScreenshot" src={require("../images/price-distr-screenshot.png")} alt="Price distribution results" />
+									</div>
+
+								</Paper>
+							</Link>
+						</Grid>
 					</Grid>
 
 					<br/>

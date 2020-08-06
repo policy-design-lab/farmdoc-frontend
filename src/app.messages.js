@@ -163,9 +163,6 @@ export const arcplcTermDefinitions = [
 	},
 ];
 
-
-// ****Insurance Specific Config****
-
 export const insuranceTermDefinitions = [
 	{
 		"term": "Use TA/YE Adjustment",
@@ -222,6 +219,28 @@ export const premCalcWelcomeText = ["The insurance premium calculator provides f
 "  ",
 "Funding for this project has been provided by the Gardner Agriculture Policy Program. It is operated in conjunction with the farmdoc project in the Dept. of" +
 	" Agricultural & Consumer Economics (ACE) and powered by the National Center for Supercomputing Applications (NCSA) at the University of Illinois at Urbana-Champaign."
+];
+export const pricedistrTermDefinitions = [
+	{
+		"term": "Option market prices",
+		"definition": "Options contracts can be priced using mathematical models.\n An option's price is primarily made up of " +
+			"two distinct parts: its intrinsic value and time value.\n\n Intrinsic value is a measure of an option's profitability " +
+			"based on the strike price versus the stock's price in the market.\n\n Time value is based on the underlying asset's " +
+			"expected volatility and time until the option's expiration."
+	},
+	{
+		"term": "Futures price and date",
+		"definition": "The futures price for a commodity is an offer for a financial transaction that will occur on a later date. " +
+			"The futures price locks in the cost of a future delivery of the commodity."
+	},
+];
+
+export const priceDistrWelcomeText = ["The price distribution tool uses current option market prices to derive estimates of the probability distribution of prices " +
+"at the expiration of an underlying corn and soybean futures contracts.",
+"  ",
+"Tool features a model which uses a process similar to the Black-Scholes model for option prices to identify the best fitting " +
+	"distribution of prices, parameterized as a lognormal distribution. The utility allows the user to identify the probability " +
+	"associated with a given price of interest, and provides the outputs in both graphical and tabular form."
 ];
 
 export const premEvalWelcomeText = ["The insurance payment evaluator provides helpful information to producers " +
