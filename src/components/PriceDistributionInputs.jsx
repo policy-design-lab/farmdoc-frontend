@@ -6,13 +6,8 @@ import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
-	getStates,
-	getCounties,
-	getCrops, covertToLegacyCropFormat
-} from "../public/utils";
-import {
-	handleEvaluatorResults
-} from "../actions/insEvaluator";
+	handlePriceDistributionResults
+} from "../actions/priceDistribution";
 import Spinner from "./Spinner";
 import config from "../app.config";
 import ReactSelect from "react-select";
@@ -160,7 +155,6 @@ const components = {
 };
 
 class PriceDistributionInputs extends Component {
-
 	state = {
 		states: [],
 		stateSel: "",
@@ -181,9 +175,11 @@ class PriceDistributionInputs extends Component {
 
 	constructor(props) {
 		super(props);
-		this.runEvaluator = this.runEvaluator.bind(this);
+		this.runPriceDistribution = this.runPriceDistribution.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
+		this.handlePriceDistributionResults = this.handlePriceDistributionResults.bind(this);
 		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
+
 
 		//TODO: Cleanup states that are not needed
 		this.state = {
@@ -213,7 +209,7 @@ class PriceDistributionInputs extends Component {
 		});
 
 		switch (name) {
-			case "county":
+			case "cropCode":
 				this.setState({countySelValue: {value: event.value, label: event.label}});
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
@@ -222,7 +218,7 @@ class PriceDistributionInputs extends Component {
 				}
 				break;
 
-			case "stateSel":
+			case "monthCode":
 				if (event.value !== "") {
 					this.setState({stateSelValue: {value: event.value, label: event.label}});
 					this.setState({countySelValue: null});
@@ -231,7 +227,7 @@ class PriceDistributionInputs extends Component {
 					this.populateCounties(event.value);
 				}
 				break;
-			case "cropId":
+			case "year":
 				if (event.value !== "") {
 					this.setState({cropSelValue: {value: event.value, label: event.label}});
 					let cropCountyCode = `${this.state.county }${ event.value}`;
@@ -243,7 +239,7 @@ class PriceDistributionInputs extends Component {
 	};
 
 
-	async runEvaluator() {
+	async runPriceDistribution() {
 		//let status = "STARTED";
 		// let personId = localStorage.getItem("dwPersonId");
 		let email = localStorage.getItem("kcEmail");
@@ -256,6 +252,7 @@ class PriceDistributionInputs extends Component {
 
 		let evaluatorResult = "";
 		this.handleEvaluatorResults(null);
+		this.handlePriceDistributionResults(null);
 		this.changeInsUnit("basic");
 		this.setState({runStatus: "FETCHING_RESULTS"});
 
@@ -297,97 +294,21 @@ class PriceDistributionInputs extends Component {
 		this.props.handleEvaluatorResults(results);
 	}
 
+	handlePriceDistributionResults(results) {
+		this.props.handlePriceDistributionResults(results);
+	}
 
 	componentDidMount() {
 		let statesJson = [];
-
-		getStates("insurance").then(function(response){
-
-			if (response.status === 200){
-				return response.json();
-			}
-			else {
-				console.log("Flask Service API call failed. Most likely the token expired");
-				// TODO: how to handle? Force logout?
-			}
-		}).then(data => {
-			statesJson = data.map((st) => {
-				return st;
-			});
-			this.setState({
-				states: statesJson,
-			});
-			this.setState({
-				stateSel: 17,
-			});
-			this.setState({stateSelValue: {value: 17, label: "Illinois"}});
-			this.populateCounties(17);
-
-			this.setState({county: 17001});
-			this.setState({countySelValue: {value: 17001, label: "Adams"}});
-
-			this.setState({cropId: 41});
-			this.setState({cropSelValue: {value: 41, label: "Corn"}});
-
-			let defaultCropCountyCode = "1700141";
-			this.setState({cropCountyCode: defaultCropCountyCode});
-			this.changeCropCode(defaultCropCountyCode);
-		});
-
 		let cropsJson = [];
-		getCrops("insurance").then(function(response){
-			if (response.status === 200){
-				return response.json();
-			}
-			else {
-				console.log("Flask Service API call failed. Most likely the token expired");
-				// TODO: how to handle? Force logout?
-			}
-		}).then(data => {
-			cropsJson = data.map((st) => {
-				return covertToLegacyCropFormat(st);
-			});
-			this.setState({
-				crops: cropsJson
-			});
-		});
-
 	}
 
 	populateCounties(stateId) {
 		let countiesJson = [];
-
-		getCounties(stateId).then(function(response){
-			if (response.status === 200){
-				return response.json();
-			}
-			else {
-				console.log("Flask Service API call failed. Most likely the token expired");
-				// TODO: how to handle? Force logout?
-			}
-		}).then(data => {
-			countiesJson = data.map((st) => {
-				return st;
-			});
-			this.setState({
-				counties: countiesJson,
-			});
-		});
-	}
-
-	populateCropUnits(cropId) {
-		this.state.crops.forEach((item) => {
-			if (item.cropId === cropId) {
-				this.setState({
-
-					units: item.units,
-				});
-			}
-		});
 	}
 
 	validateInputs() {
-		return this.state.cropCountyCode >= 1;
+		return 1;
 	}
 
 	render() {
@@ -396,6 +317,7 @@ class PriceDistributionInputs extends Component {
 
 		if (this.state.runStatus === "INIT"){
 			this.handleEvaluatorResults(null);
+			this.handlePriceDistributionResults(null);
 		}
 
 		if (this.state.runStatus === "FETCHING_RESULTS" || this.state.runStatus === "FETCHING_PARAMS") {
@@ -423,139 +345,33 @@ class PriceDistributionInputs extends Component {
 			cropOptions.push({value: item.cropId, label: item.name});
 		});
 
-
 		return (
 			<div style={{textAlign: "center"}}>
-
-				<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
-					Price Distribution - Enter your farm information to evaluate market prices......
-				</div>
-
-				<div style={{
-					maxWidth: "1080px",
-					borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
-					marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
-					paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
-					display: "inline-block"
-				}}>
-
-					<FormControl className={classes.formControlMedium} required >
-						<ReactSelect styles={ReactSelectStyles}
-												 classes={classes}
-												 textFieldProps={{
-													 label: "State",
-													 InputLabelProps: {
-														 shrink: true
-													 }
-												 }}
-												 components={components}
-												 options={stateOptions}
-												 value={this.state.stateSelValue}
-												 placeholder = "Select"
-												 onChange={this.handleReactSelectChange("stateSel")}
-												 inputProps={{
-													 name: "state",
-													 id: "state-simple",
-												 }}	/>
-
-					</FormControl>
-
-					<FormControl className={classes.formControlMedium} required>
-						<ReactSelect styles={ReactSelectStyles}
-												 classes={classes}
-												 textFieldProps={{
-													 label: "County",
-													 InputLabelProps: {
-														 shrink: true,
-													 },
-												 }}
-												 components={components}
-												 value={this.state.countySelValue}
-												 placeholder="Select"
-												 options={countyOptions}
-												 onChange={this.handleReactSelectChange("county")}
-												 inputProps={{
-													 name: "county",
-													 id: "county-simple",
-												 }}/>
-
-					</FormControl>
-
-					<FormControl className={classes.formControlMedium} required>
-						<ReactSelect styles={ReactSelectStyles}
-												 classes={classes}
-												 textFieldProps={{
-													 label: "Crop",
-													 InputLabelProps: {
-														 shrink: true,
-													 },
-												 }}
-												 components={components}
-												 placeholder="Select"
-												 value={this.state.cropSelValue}
-												 options={cropOptions}
-												 onChange={this.handleReactSelectChange("cropId")}
-												 inputProps={{
-													 name: "crop",
-													 id: "crop-simple",
-												 }}/>
-					</FormControl>
-
-					<FormControl className={classes.formControlXSmall}>
-						<ReactSelect styles={ReactSelectStyles}
-												 classes={classes}
-												 textFieldProps={{
-													 label: "Month",
-													 InputLabelProps: {
-														 shrink: true,
-													 },
-												 }}
-												 components={components}
-												 placeholder="Select"
-												 value={this.state.cropSelValue}
-												 options={cropOptions}
-												 onChange={this.handleReactSelectChange("month")}
-												 inputProps={{
-													 name: "month",
-													 id: "month-simple",
-												 }}/>
-					</FormControl>
-
-					<br/>
-					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
-						<Grid item xs />
-						<Grid item xs={6} >
-							<Button variant="contained" color="primary" onClick={this.runEvaluator}
+				<br/>
+				<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
+					<Grid item xs />
+					<Grid item xs={6} >
+						<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
 											disabled={!this.validateInputs()}
 											style={{fontSize: "large", backgroundColor: "#455A64"}}>
-								<Icon className={classes.leftIcon}> send </Icon>
-								Run
-							</Button>
-						</Grid>
-						<Grid item xs />
+							<Icon className={classes.leftIcon}> send </Icon>
+							Run
+						</Button>
 					</Grid>
-
-					{spinner}
-
-				</div>
-				<br/>
-				<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
-					This tool does ........
-				</div>
-
+					<Grid item xs />
+				</Grid>
+				{spinner}
 			</div>
 		);
 	}
-
 }
 
 const mapStateToProps = state => ({
-	evaluatorResults: state.evaluatorResults
+	priceDistributionResults: state.priceDistributionResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults))
+	handleEvaluatorResults: priceDistributionResults => dispatch(handlePriceDistributionResults(priceDistributionResults))
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionInputs));
