@@ -6,10 +6,22 @@ import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
-	handlePriceDistributionResults
+	getOutputFileJson,
+} from "../public/utils";
+import {
+	datawolfURL,
+	postExecutionPdRequest,
+	resultDatasetPdId,
+	stepsPd,
+} from "../datawolf.config";
+import {
+	handlePDResults
 } from "../actions/priceDistribution";
 import Spinner from "./Spinner";
 import config from "../app.config";
+import {
+	dataNotAvailable
+} from "../app.messages";
 import ReactSelect from "react-select";
 
 import MenuItem from "@material-ui/core/MenuItem";
@@ -158,22 +170,33 @@ const components = {
 	Control
 };
 
-class PriceDistributionInputs extends Component {
+class PriceDistributionModel extends Component {
 	state = {
+		cropCode: "",
+		monthCode: "",
+		year: "",
+		runName: "",
 		runStatus: "INIT",
-		premResults: null,
+		pdResults: null,
+		showError: false,
+		errorMsg: dataNotAvailable
 	};
 
 	constructor(props) {
 		super(props);
 		this.runPriceDistribution = this.runPriceDistribution.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
-		this.handlePriceDistributionResults = this.handlePriceDistributionResults.bind(this);
+		this.handlePDResults = this.handlePDResults.bind(this);
 
-		//TODO: Cleanup states that are not needed
 		this.state = {
+			cropCode: "C",
+			monthCode: "Z",
+			year: "2021",
+			runName: "",
 			runStatus: "INIT",
-			premResults: null,
+			pdResults: null,
+			showError: false,
+			errorMsg: dataNotAvailable
 		};
 	}
 
@@ -185,53 +208,100 @@ class PriceDistributionInputs extends Component {
 
 	async runPriceDistribution() {
 		//let status = "STARTED";
-		// let personId = localStorage.getItem("dwPersonId");
-		let email = localStorage.getItem("kcEmail");
-		let token = localStorage.getItem("kcToken");
-		let token_header = `Bearer ${token}`;
-
-		let kcHeaders = {
-			"Authorization": token_header
-		};
-
-		let pdResult = "";
-		this.handlePriceDistributionResults(null);
-		this.setState({runStatus: "FETCHING_RESULTS"});
-
-		let priceDistributorUrl = new URL(`${config.apiUrl }/compute/simulator`);
-		let priceDistributorParams = [
-			["email", email]
-			//		TODO: Remove grossTarget here when api is fixed to make this param optional
-		];
-
-		priceDistributorUrl.search = new URLSearchParams(priceDistributorParams).toString();
-
-		const priceDistributorResponse = await fetch(priceDistributorUrl, {
-			method: "GET",
-			headers: kcHeaders,
+		let personId = localStorage.getItem("dwPersonId");
+		this.setState({
+			runStatus: status
 		});
 
-		if (priceDistributorResponse instanceof Response) {
-			try {
-				pdResult = await priceDistributorResponse.json();
-				if (typeof(pdResult) === "object") {
-					this.handlePriceDistributionResults(JSON.stringify(pdResult));
-					this.setState({runStatus: "FETCHED_RESULTS"});
+		let curTime = new Date();
+		curTime = curTime.toUTCString();
+		let title = `Run at ${curTime}`;
+
+		let token = localStorage.getItem("kcToken");
+		let token_header = `Bearer ${token}`;
+		let kcHeaders = {
+			"Content-Type": "application/json",
+			"Authorization": token_header
+		};
+		let dwUrl = datawolfURL;
+
+		let cropCode, monthCode, year;
+		cropCode = this.state.cropCode;
+		monthCode = this.state.monthCode;
+		year = this.state.year;
+
+		let postRequest = postExecutionPdRequest(personId, title, cropCode, monthCode, year);
+		let body = JSON.stringify(postRequest);
+
+		let pdResponse = await fetch(`${dwUrl}/executions`, {
+			method: "POST",
+			headers: kcHeaders,
+			body: body
+		});
+
+		const pdExecutionGUID = await pdResponse.text();
+		console.log(`With execution id = ${pdExecutionGUID}`);
+
+		let pdResult = null;
+		this.handlePDResults(null);
+
+		const waitingStatus = ["QUEUED", "WAITING", "RUNNING"];
+
+		while (this.state.runStatus === "" || waitingStatus.indexOf(this.state.runStatus) >= 0) {
+			await wait(300);
+			const executionResponse = await fetch(`${dwUrl}/executions/${pdExecutionGUID}`, {
+				method: "GET",
+				headers: kcHeaders,
+			});
+
+			if (executionResponse instanceof Response) {
+				try {
+					pdResult = await executionResponse.json();
+					if (typeof(pdResult) === "object") {
+						this.handlePDResults(JSON.stringify(pdResult));
+						this.setState({runStatus: pdResult.stepState[stepsPd.Price_Distribution]});
+					}
+					else {
+						this.handlePDResults("");
+						this.setState({runStatus: "ERROR_RESULTS"});
+					}
 				}
-				else {
-					this.handlePriceDistributionResults("");
+				catch (error) {
 					this.setState({runStatus: "ERROR_RESULTS"});
+					this.setState({showError: true});
+					this.setState({errorMsg: dataNotAvailable});
+					console.log("error getting the response from api");
 				}
 			}
-			catch (error) {
-				this.setState({runStatus: "ERROR_RESULTS"});
-				console.log("error getting the response from flask api");
+		}
+		// get json from result file
+		if (pdResult) {
+			const resultDatasetGuid = pdResult.datasets[resultDatasetPdId];
+			const outputFilename = "output.json";
+			if ((resultDatasetGuid !== "ERROR" && resultDatasetGuid !== undefined)) {
+				getOutputFileJson(resultDatasetGuid, outputFilename).then(
+					res => {
+						this.handlePDResults(JSON.stringify(res));
+						if (config.browserLog) {
+							//console.log(JSON.stringify(res));
+						}
+						this.setState({showError: false});
+					});
 			}
+			else {
+				this.setState({runStatus: "PARSE_ERROR"});
+				this.setState({showError: true});
+				this.setState({errorMsg: dataNotAvailable});
+			}
+		}
+		else {
+			console.log("no results from api");
+			this.setState({errorMsg: dataNotAvailable});
 		}
 	}
 
-	handlePriceDistributionResults(results) {
-		this.props.handlePriceDistributionResults(results);
+	handlePDResults(results) {
+		this.props.handlePDResults(results);
 	}
 
 	validateInputs() {
@@ -245,7 +315,7 @@ class PriceDistributionInputs extends Component {
 		let spinner;
 
 		if (this.state.runStatus === "INIT"){
-			this.handlePriceDistributionResults(null);
+			this.handlePDResults(null);
 		}
 
 		if (this.state.runStatus === "FETCHING_RESULTS") {
@@ -259,7 +329,7 @@ class PriceDistributionInputs extends Component {
 			<div style={{textAlign: "center"}}>
 				<div style={{textAlign: "center"}}>
 					<br/>
-					<Grid container spacing={3} style={{display: "flex", alignItems: "center"}}>
+					<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
 						<Grid item xs />
 						<Grid item xs={6} >
 							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
@@ -279,12 +349,11 @@ class PriceDistributionInputs extends Component {
 }
 
 const mapStateToProps = state => ({
-	priceDistributionResults: state.priceDistributionResults
+	pdResults: state.pdResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handlePriceDistributionResults: PriceDistributionResults => dispatch(handlePriceDistributionResults(PriceDistributionResults)),
+	handlePDResults: pdResults => dispatch(handlePDResults(pdResults)),
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionInputs));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionModel));

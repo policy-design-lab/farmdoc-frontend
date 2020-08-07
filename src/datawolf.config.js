@@ -1,15 +1,13 @@
-export const datawolfURL = "https://fd-api.ncsa.illinois.edu/datawolf";
+export const datawolfURL = "https://fd-api-dev.ncsa.illinois.edu/datawolf";
 
 const workflowId = "43c512ee-606f-450b-aea4-ecfe8b880bd2";
 
 export const steps = {
 	Farm_Model: "7ebc89d3-d5a6-4df1-b75f-eeed11acf174"
 };
-
 const inputDatasets = {
 	Price_File: "3d21a2f2-2bd0-4f6d-a3bb-563b3599f25a"
 };
-
 export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange,
 																		 plcYield, program, sequesterPrice = 0, forecastPrices, binSize, pracCode ){
 	return {
@@ -34,16 +32,11 @@ export function postExecutionRequest(personId, title, countyId, startYear, commo
 		}
 	};
 }
-
 export const resultDatasetId = "06f553c1-1098-4792-e395-62d26f6164fa";
 
 // Price distribution tool
 const workflowPdId = "b26006d1-c433-423e-921a-8c9e315361a0";
-
-export const stepsPd = {
-	Price_Distribution: "bca95adb-58e2-4054-85ec-f61cbb342e65"
-};
-// creatorId MO f6f7dc55-4337-4ff9-940c-afaa2911b9bb
+// const creatorPdId = "f6f7dc55-4337-4ff9-940c-afaa2911b9bb";
 export function postExecutionPdRequest(personId, title, cropCode, monthCode, year){
 	return {
 		"workflowId": workflowPdId,
@@ -57,5 +50,8 @@ export function postExecutionPdRequest(personId, title, cropCode, monthCode, yea
 		}
 	};
 }
-export const resultDatasetPdId = "cce4132a-6b22-4790-816f-805725a2a090";
+export const stepsPd = {
+	Price_Distribution: "bca95adb-58e2-4054-85ec-f61cbb342e65"
+};
+export const resultDatasetPdId = "8b702a08-0681-4fe4-88eb-89abaf775793";
 
