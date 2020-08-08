@@ -305,7 +305,7 @@ class PriceDistributionModel extends Component {
 	}
 
 	validateInputs() {
-		return 0;
+		return 1;
 	}
 
 	render() {
