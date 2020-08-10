@@ -47,10 +47,11 @@ const demoUserPw = "farmdoc1234";
 const faqUrl = "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions";
 
 const prodDomain = "fd-tools.ncsa.illinois.edu";
+const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 
-const devConfig = {
+const localConfig = {
 	basePath: "/",
-	apiUrl: "http://localhost:5000/api",
+	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	apps: farmdocApps,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
@@ -59,12 +60,27 @@ const devConfig = {
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak("http://localhost:3000/keycloak.json"),
+	keycloak: Keycloak("keycloak.json"),
+	faqUrl: faqUrl
+};
+
+const devConfig = {
+	basePath: "/",
+	apiUrl: "https://fd-api-dev.ncsa.illinois.edu/farmdoc/api",
+	apps: farmdocApps,
+	domain: devDomain,
+	defaultsJson: defaultsJson,
+	showCustomForecast: true,
+	browserLog: true,
+	tooltipTouchDelay: tooltipTouchDelay,
+	demoUser: demoUser,
+	demoUserPw: demoUserPw,
+	keycloak: Keycloak("keycloak.json"),
 	faqUrl: faqUrl
 };
 
 const prodConfig = {
-	basePath: "/dev/",
+	basePath: "/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	apps: farmdocApps,
 	domain: prodDomain,
@@ -74,18 +90,22 @@ const prodConfig = {
 	tooltipTouchDelay: tooltipTouchDelay,
 	demoUser: demoUser,
 	demoUserPw: demoUserPw,
-	keycloak: Keycloak(`https://${ prodDomain }/keycloak.json`),
+	keycloak: Keycloak("keycloak.json"),
 	faqUrl: faqUrl
 };
 
 const config = getConfig();
 
+
 function getConfig() {
-	if (process.env.NODE_ENV === "production") {
+	if (process.env.DEPLOY_ENV === "production") {
 		return prodConfig;
 	}
-	else {
+	else if (process.env.DEPLOY_ENV === "development"){
 		return devConfig;
+	}
+	else {
+		return localConfig;
 	}
 }
 

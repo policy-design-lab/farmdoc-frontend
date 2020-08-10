@@ -24,6 +24,7 @@ export default {
 	plugins: [
 		new webpack.DefinePlugin({
 			"process.env.NODE_ENV": JSON.stringify("development"),
+			"process.env.DEPLOY_ENV": JSON.stringify(process.env.DEPLOY_ENV),
 			__DEV__: true
 		}),
 		new webpack.HotModuleReplacementPlugin(),

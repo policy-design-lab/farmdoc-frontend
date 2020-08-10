@@ -9,8 +9,11 @@ import path from "path";
 
 const GLOBALS = {
 	"process.env.NODE_ENV": JSON.stringify("production"),
+	"process.env.DEPLOY_ENV": JSON.stringify(process.env.DEPLOY_ENV),
 	__DEV__: false
 };
+
+console.log(`the current DEPLOY_ENV environment variable is ${ process.env.DEPLOY_ENV}`);
 
 export default {
 	resolve: {
