@@ -74,7 +74,7 @@
 		"babel-preset-react": "6.22.0",
 		"babel-preset-react-hmre": "1.1.1",
 		"babel-preset-stage-0": "6.22.0",
-		"babel-register": "6.22.0",
+		"babel-register": "6.26.0",
 		"babel-root-import": "4.1.5",
 		"browser-sync": "2.26.12",
 		"chalk": "1.1.3",
