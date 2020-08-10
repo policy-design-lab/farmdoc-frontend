@@ -59,7 +59,7 @@ class PriceDistributionResults extends Component {
 			//pdResult = JSON.parse(pdResult);
 
 			return (
-				<div style={{padding: 4, display: "inline-block", "word-break": "break-all"}} >
+				<div style={{padding: 4, display: "inline-block", "wordBreak": "break-all"}} >
 					<br />
 					<br />
 					<Divider/>
