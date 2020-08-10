@@ -96,7 +96,8 @@ export function normalDistribution(z) {
 	let w = 0;
 	if (z > 0 || z === 0) {
 		w = 1;
-	} else {
+	}
+	else {
 		w = -1;
 	}
 	let y = 1 / (1 + 0.2316419 * w * z);
@@ -136,16 +137,19 @@ export function normsInv(p) {
 	let NormSInv = 0;
 	if (p < 0 || p > 1) {
 		return null;
-	} else if (p < p_low) {
+	}
+	else if (p < p_low) {
 		q = Math.sqrt(-2 * Math.log(p));
 		NormSInv = (((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) *
 			q + d4) * q + 1);
-	} else if (p <= p_high) {
+	}
+	else if (p <= p_high) {
 		q = p - 0.5;
 		r = q * q;
 		NormSInv = (((((a1 * r + a2) * r + a3) * r + a4) * r + a5) * r + a6) * q / (((((b1 * r + b2) *
 			r + b3) * r + b4) * r + b5) * r + 1);
-	} else {
+	}
+	else {
 		q = Math.sqrt(-2 * Math.log(1 - p));
 		NormSInv = -(((((c1 * q + c2) * q + c3) * q + c4) * q + c5) * q + c6) / ((((d1 * q + d2) * q + d3) *
 			q + d4) * q + 1);
