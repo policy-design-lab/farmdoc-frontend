@@ -5,41 +5,26 @@ import "../styles/main.css";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {roundResults} from "../public/utils.js";
+import {Line} from "react-chartjs-2";
 
 const styles = theme => ({
-	root: {
-		width: "auto",
-		marginTop: theme.spacing.unit * 3,
-		overflowX: "auto",
-		borderColor: "black"
+	wrapper: {
+		maxWidth: "1000px",
+		margin: "0px auto",
 	},
-
-	table: {
-		padding: 2,
-		width: "auto",
-		borderRadius: 15,
-		borderStyle: "solid",
-		borderColor: "rgb(144,144,144)",
-		borderWidth: 1,
-		borderCollapse: "separate"
+	tabulator: {
+		paddingLeft: "10px",
+		textAlign: "center",
 	},
-
-	tableCell: {},
-
-	paper: {
-		position: "absolute",
-		paddingTop: "0px",
-		backgroundColor: theme.palette.background.paper,
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
-		outline: "none"
+	tabulatorHeader: {
+		paddingLeft: "10px",
+		textAlign: "center",
 	},
-	textField: {
-		marginLeft: theme.spacing.unit * 1,
-		marginRight: theme.spacing.unit * 1,
-		// border: 1,
-		width: 70,
-	}
+	tabulatorCol: {
+		paddingLeft: "10px",
+		textAlign: "center",
+	},
 });
 
 class PriceDistributionResults extends Component {
@@ -122,6 +107,41 @@ class PriceDistributionResults extends Component {
 			}
 
 			return (
+				<div className="wrapper">
+					<div>
+						<div style="float:left">
+							<canvas id="chart1" width="700" height="400"></canvas>
+						</div>
+						<div style="float:left; margin-top:50px" id="table1" className="tabulator"></div>
+					</div>
+					<div style="clear:both;"></div>
+					<br/>
+					<div>Price: <label htmlFor="poi"></label><input type="text" id="poi"/>
+						<button onClick="setPriceofInterest()">Price to evaluate</button>
+					</div>
+					<br/>
+					<div>
+						<div style="float:left">
+							<canvas id="chart2" width="700" height="400"></canvas>
+						</div>
+						<div style="float:left; margin-top:35px" id="table2" className="tabulator"></div>
+					</div>
+				</div>
+
+				<div style={{textAlign: "center", margin: "0 auto", maxWidth: "1085px"}}>
+					<div style={{maxWidth: "900px", margin: "0 auto", padding: "15px"}}>
+						<Line data={graphData} options={graphOptions}/>
+					</div>
+
+					This graph shows the impact of alternative crop insurance products,
+					associating the likelihood of revenue outcomes with their levels.
+					It is generally better to have a higher likelihood of higher revenue,
+					so lines that are below and to the right are preferable. Often, group products,
+					if offered in a county, will have lower net costs and improve average revenue but
+					do less to mitigate the likelihood for very low outcomes, for example.
+					The "No Ins" line shows the revenues and their associated probabilities with no insurance.
+				</div>
+
 				<div style={{padding: 4, display: "inline-block", "wordBreak": "break-all"}} >
 					<br />
 					<br />
@@ -187,6 +207,11 @@ class PriceDistributionResults extends Component {
 						and solely for informational purposes, not for trading purposes or advice.
 						To see all exchange delays and terms of use, please see disclaimer.</span>
 				</div>
+			);
+		}
+		else if (this.props["pdResults"] === ""){
+			return (
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
 			);
 		}
 		else {

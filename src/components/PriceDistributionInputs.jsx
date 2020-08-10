@@ -333,6 +333,12 @@ class PriceDistributionModel extends Component {
 						<Grid item xs />
 						<Grid item xs={6} >
 							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
+									style={{fontSize: "large", backgroundColor: "#455A64"}}>
+								<Icon className={classes.leftIcon}> send </Icon>
+								Graph
+							</Button>
+							&nbsp;
+							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
 									disabled={!this.validateInputs()}
 									style={{fontSize: "large", backgroundColor: "#455A64"}}>
 								<Icon className={classes.leftIcon}> send </Icon>
