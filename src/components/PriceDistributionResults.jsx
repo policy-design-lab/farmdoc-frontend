@@ -107,7 +107,6 @@ class PriceDistributionResults extends Component {
 			}
 
 			return (
-
 				<div style={{padding: 4, display: "inline-block", "wordBreak": "break-all"}} >
 					<br />
 					<br />
@@ -128,14 +127,14 @@ class PriceDistributionResults extends Component {
 							Enter Price to Evaluate:
 					</span>
 					<TextField
-							id="priceEval"
-							className={classes.textField}
-							InputProps={{
-								startAdornment: <InputAdornment
-										position="start">$</InputAdornment>
-							}}
-							margin="normal"
-							variant="outlined"
+						id="priceEval"
+						className={classes.textField}
+						InputProps={{
+							startAdornment: <InputAdornment
+								position="start">$</InputAdornment>
+						}}
+						margin="normal"
+						variant="outlined"
 					/>
 					<span style={{fontWeight: 500}}>The implied distribution indicates that there is a</span>
 					<TextField
