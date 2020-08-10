@@ -7,10 +7,8 @@ FROM node:14.5.0-alpine AS builder
 WORKDIR /usr/src/app
 
 # env to use from app.config (development or production)
-#ARG DEPLOY_ENV="development"
-#ENV DEPLOY_ENV="development"
-
-ENV NODE_ENV="development"
+ENV DEPLOY_ENV="development"
+#ENV NODE_ENV="development"
 
 COPY package.json package-lock.json /usr/src/app/
 COPY tools ./tools/
@@ -36,5 +34,5 @@ COPY src/keycloak.json /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 #CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
-#COPY --from=builder /opt/web/build /usr/share/nginx/html
+
 
