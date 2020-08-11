@@ -4,29 +4,22 @@ import {connect} from "react-redux";
 import "../styles/main.css";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {generateChartData, generateProbPoints, regeneratePriceTableData} from "../public/pd_data";
 import {Line} from "react-chartjs-2";
 import "react-tabulator/lib/styles.css";
-import "react-tabulator/lib/css/tabulator.css"; // theme
+import "react-tabulator/lib/css/tabulator.css";
 import {ReactTabulator} from "react-tabulator";
 import Grid from "@material-ui/core/Grid";
 import PriceDistributionFooter from "./PriceDistributionFooter";
 import {roundResults} from "../public/utils";
 
 const styles = theme => ({
-	tabulator: {
-		paddingLeft: "0px",
-		textAlign: "center",
-	},
-	tabulatorHeader: {
-		paddingLeft: "0px",
-		textAlign: "center",
-	},
-	tabulatorCol: {
-		paddingLeft: "0px",
-		textAlign: "center",
+	root: {
+		width: "auto",
+		marginTop: theme.spacing.unit * 3,
+		overflowX: "auto",
+		borderColor: "black"
 	},
 });
 
@@ -175,14 +168,26 @@ class PriceDistributionResults extends Component {
 		this.state = {poi: null};
 	}
 
+	validateMaxValue = value => event => {
+		if (event.target.value !== "") {
+			if (isNaN(event.target.value)) {
+				event.target.value = 0;
+			}
+			else {
+				if (event.target.value <= 0) {
+					event.target.value = 0;
+				}
+				else if (event.target.value > 4 * value) {
+					event.target.value = value;
+				}
+			}
+		}
+	};
+
 	updateInputValue = (event) => {
 		this.setState({
 			poi: event.target.value
 		});
-	}
-
-	resetInputValue = () => {
-		this.setState({poi: null});
 	}
 
 	render() {
@@ -304,12 +309,12 @@ class PriceDistributionResults extends Component {
 				<Grid container xs={12}>
 					<Grid container xs={12}>
 						<Grid container xs={9}>
-							<div style={{margin: "auto", width: "90%", border: "1px solid red", padding: "0px"}}>
+							<div style={{margin: "auto", width: "90%", padding: "0px"}}>
 								<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
 							</div>
 						</Grid>
 						<Grid container xs={3}>
-							<div style={{width: "90%", border: "1px solid red", marginTop: "70px", padding: "0px"}}>
+							<div style={{width: "90%", marginTop: "70px", padding: "0px"}}>
 								<ReactTabulator
 									data={table1.data} layout={table1.layout} columns={table1.columns}
 									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}/>
@@ -318,26 +323,36 @@ class PriceDistributionResults extends Component {
 					</Grid>
 					<Grid container xs={12}>
 						<Grid container xs={9}>
-							<Divider />
-							<div style={{margin: "auto", width: "50%", border: "1px solid red", padding: "0px"}}>
-								<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: $
-									{/*<input value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>.*/}
-									<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />.
-									<Button onChange={this.resetInputValue}>Reset price</Button>
-								</span>
+							<div style={{margin: "auto", width: "50%", padding: "10px"}}>
+								<span style={{fontWeight: "normal"}}>Enter Price to Evaluate: </span>
+								<TextField
+									defaultValue={price}
+									value={this.state.inputValue}
+									margin="normal"
+									onChange={this.updateInputValue}
+									onKeyDown={this.keyPress}
+									className={classes.textField}
+									required
+									InputLabelProps={{shrink: true}}
+									onInput={this.validateMaxValue(price)}
+									InputProps={{
+										startAdornment:
+											<InputAdornment position="start">$</InputAdornment>, padding: 5
+									}}
+								/>
+								{/*<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />*/}
 							</div>
-							<Divider />
 						</Grid>
 						<Grid container xs={3} />
 					</Grid>
 					<Grid container xs={12}>
 						<Grid container xs={9}>
-							<div style={{margin: "auto", width: "90%", border: "1px solid red", padding: "10px"}}>
+							<div style={{margin: "auto", width: "90%", padding: "10px"}}>
 								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
 							</div>
 						</Grid>
 						<Grid container xs={3}>
-							<div style={{width: "90%", border: "1px solid red", marginTop: "60px", padding: "10px"}}>
+							<div style={{width: "90%", marginTop: "60px", padding: "10px"}}>
 								<ReactTabulator
 									data={table2.data} layout={table2.layout} columns={table2.columns}
 									rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
