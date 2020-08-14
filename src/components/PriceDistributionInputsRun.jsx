@@ -190,7 +190,7 @@ class PriceDistributionInputsRun extends Component {
 		this.state = {
 			cropCode: {value: "C", label: "Corn"},
 			monthCode: {value: "Z", label: "December"},
-			yearCode: {value: "20", label: "2020"},
+			yearCode: {value: "2020", label: "2020"},
 			futuresCode: "ZCZ20",
 			runName: "",
 			runStatus: "INIT",
@@ -258,7 +258,7 @@ class PriceDistributionInputsRun extends Component {
 		let postRequest = postExecutionPdRequest(personId, title,
 			this.state.cropCode.value,
 			this.state.monthCode.value,
-			"20".concat(this.state.yearCode.value));
+			this.state.yearCode.value);
 		let body = JSON.stringify(postRequest);
 
 		let pdResponse = await fetch(`${dwUrl}/executions`, {
