@@ -209,18 +209,14 @@ class PriceDistributionModel extends Component {
 	handleReactSelectChange = name => event => {
 		this.setState({
 			[name]: event.value}, function(){
-			if (this.state.cropCode !== "" && this.state.monthCode !== "" && this.state.yearCode !== ""){
-				console.log(event.value);
-				console.log(this.state.cropCode);
-				//TODO: Remove if not needed.
-			}
+			//TODO: Remove if not needed.
 		});
 		switch (name) {
 			case "cropCode":
 				if (event.value !== "") {
 					this.setState({cropCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value}`;
+					let futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
 					this.setState({futuresCode: futuresCode});
 					console.log(futuresCode);
 				}
@@ -229,7 +225,7 @@ class PriceDistributionModel extends Component {
 				if (event.value !== ""){
 					this.setState({monthCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value}`;
+					let futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value.slice(-2)}`;
 					this.setState({futuresCode: futuresCode});
 					console.log(futuresCode);
 				}
@@ -238,7 +234,7 @@ class PriceDistributionModel extends Component {
 				if (event.value !== ""){
 					this.setState({yearCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value}`;
+					let futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value.slice(-2)}`;
 					this.setState({futuresCode: futuresCode});
 					console.log(futuresCode);
 				}
@@ -247,7 +243,7 @@ class PriceDistributionModel extends Component {
 	};
 
 	async runPriceDistribution() {
-		//let status = "STARTED";
+		let status = "INIT";
 		let personId = localStorage.getItem("dwPersonId");
 		this.setState({
 			runStatus: status
@@ -285,7 +281,7 @@ class PriceDistributionModel extends Component {
 
 		const waitingStatus = ["QUEUED", "WAITING", "RUNNING"];
 
-		while (this.state.runStatus === "" || waitingStatus.indexOf(this.state.runStatus) >= 0) {
+		while (this.state.runStatus === "INIT" || waitingStatus.indexOf(this.state.runStatus) >= 0) {
 			await wait(300);
 			const executionResponse = await fetch(`${dwUrl}/executions/${pdExecutionGUID}`, {
 				method: "GET",
@@ -296,7 +292,6 @@ class PriceDistributionModel extends Component {
 				try {
 					pdResult = await executionResponse.json();
 					if (typeof(pdResult) === "object") {
-						this.handlePDResults(JSON.stringify(pdResult));
 						this.setState({runStatus: pdResult.stepState[stepsPd.Price_Distribution]});
 					}
 					else {
@@ -343,24 +338,21 @@ class PriceDistributionModel extends Component {
 	}
 
 	validateInputs() {
-		return 1;
+		return this.state.cropCode !== "" && this.state.monthCode !== "" &&
+			this.state.yearCode !== "";
 	}
 
 	render() {
 		const {classes} = this.props;
 
-		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
 		if (this.state.runStatus === "INIT"){
 			this.handlePDResults(null);
 		}
 
-		if (this.state.runStatus === "FETCHING_RESULTS") {
+		if (this.state.runStatus !== "INIT" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
 			spinner = <Spinner/>;
-		}
-		else {
-			spinner = null;
 		}
 
 		return (
@@ -384,7 +376,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.cropCode}
-										 //options={getCropCodes()}
+										 options={getCropCodes()}
 										 onChange={this.handleReactSelectChange("cropCode")}
 										 inputProps={{
 											 name: "cropCode",
@@ -401,7 +393,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.monthCode}
-										 //options={getMonthCodes()}
+										 options={getMonthCodes()}
 										 onChange={this.handleReactSelectChange("monthCode")}
 										 inputProps={{
 											 name: "monthCode",
@@ -418,7 +410,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.yearCode}
-										 //options={getYearCodes()}
+										 options={getYearCodes()}
 										 onChange={this.handleReactSelectChange("yearCode")}
 										 inputProps={{
 											 name: "yearCode",
@@ -436,6 +428,7 @@ class PriceDistributionModel extends Component {
 									Run
 								</Button>
 							</Grid>
+							{spinner}
 							<Grid item xs />
 						</Grid>
 					</div>
