@@ -123,6 +123,17 @@ class PriceDistributionResults extends Component {
 	}
 }
 
+// You should declare that a prop is a specific JS type.
+// See https://reactjs.org/docs/typechecking-with-proptypes.html for details
+PriceDistributionResults.propTypes = {
+	//handleFuturesCode: PropTypes.func.isRequired,
+	handlePDResults: PropTypes.func.isRequired,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+};
+
 PriceDistributionResults.propTypes = {
 	pdResults: PropTypes.string
 };
