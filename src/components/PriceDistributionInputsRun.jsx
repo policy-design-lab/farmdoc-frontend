@@ -22,7 +22,6 @@ import {
 	stepsPd,
 } from "../datawolf.config";
 import {
-	//handleFuturesCode,
 	handlePDResults
 } from "../actions/priceDistribution";
 import config from "../app.config";
@@ -185,7 +184,6 @@ class PriceDistributionInputsRun extends Component {
 		this.runPriceDistribution = this.runPriceDistribution.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handlePDResults = this.handlePDResults.bind(this);
-		//this.handleFuturesCode = this.handleFuturesCode.bind(this);
 
 		this.state = {
 			cropCode: {value: "C", label: "Corn"},
@@ -210,33 +208,30 @@ class PriceDistributionInputsRun extends Component {
 				if (event.value !== "") {
 					this.setState({cropCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
-					this.setState({futuresCode: futuresCode});
-					console.log(futuresCode);
-				}
+					const futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
+					this.setState({futuresCode: futuresCode});				}
 				break;
 			case "monthCode":
 				if (event.value !== ""){
 					this.setState({monthCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value.slice(-2)}`;
+					const futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value.slice(-2)}`;
 					this.setState({futuresCode: futuresCode});
-					console.log(futuresCode);
 				}
 				break;
 			case "yearCode":
 				if (event.value !== ""){
 					this.setState({yearCode: {value: event.value, label: event.label}});
 
-					let futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value.slice(-2)}`;
+					const futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value.slice(-2)}`;
 					this.setState({futuresCode: futuresCode});
-					console.log(futuresCode);
 				}
 				break;
 		}
 	};
 
 	async runPriceDistribution() {
+
 		let status = "INIT";
 		let personId = localStorage.getItem("dwPersonId");
 		this.setState({
@@ -272,7 +267,6 @@ class PriceDistributionInputsRun extends Component {
 
 		let pdResult = null;
 		this.handlePDResults(null);
-		// this.handleFuturesCode(this.state.futuresCode);
 
 		const waitingStatus = ["QUEUED", "WAITING", "RUNNING"];
 
@@ -334,10 +328,6 @@ class PriceDistributionInputsRun extends Component {
 	handlePDResults(results) {
 		this.props.handlePDResults(results);
 	}
-
-	// handleFuturesCode(futurescode) {
-	// 	this.props.handleFuturesCode(futurescode);
-	// }
 
 	validateInputs() {
 		return this.state.cropCode !== "" && this.state.monthCode !== "" &&
@@ -448,7 +438,6 @@ class PriceDistributionInputsRun extends Component {
 // You should declare that a prop is a specific JS type.
 // See https://reactjs.org/docs/typechecking-with-proptypes.html for details
 PriceDistributionInputsRun.propTypes = {
-	//handleFuturesCode: PropTypes.func.isRequired,
 	handlePDResults: PropTypes.func.isRequired,
 	classes: PropTypes.oneOfType([
 		PropTypes.func,
@@ -488,12 +477,10 @@ Control.propTypes = {
 };
 
 const mapStateToProps = state => ({
-	//futuresCode: state.futuresCode,
 	pdResults: state.pdResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	//handleFuturesCode: futuresCode => dispatch(handleFuturesCode(futuresCode)),
 	handlePDResults: pdResults => dispatch(handlePDResults(pdResults))
 });
 

@@ -7,7 +7,9 @@ import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import "../styles/main.css";
-import {handlePDResults} from "../actions/priceDistribution";
+import {
+	handlePDResults
+} from "../actions/priceDistribution";
 
 const styles = theme => ({
 	root: {
@@ -49,19 +51,13 @@ class PriceDistributionResults extends Component {
 	constructor(props) {
 		super(props);
 
-		this.handlePDResults = this.handlePDResults.bind(this);
-	}
-
-	handlePDResults(results) {
-		this.props.handlePDResults(results);
+		this.handlePDResults = handlePDResults;
 	}
 
 	render() {
 		const {classes} = this.props;
 
 		let futuresCode = "";
-		//let futuresCode = handleFuturesCode();
-		//console.log(futuresCode);
 		let resultData = null;
 		let pdResultsObj = null;
 		let results = null;
@@ -126,7 +122,6 @@ class PriceDistributionResults extends Component {
 // You should declare that a prop is a specific JS type.
 // See https://reactjs.org/docs/typechecking-with-proptypes.html for details
 PriceDistributionResults.propTypes = {
-	//handleFuturesCode: PropTypes.func.isRequired,
 	handlePDResults: PropTypes.func.isRequired,
 	classes: PropTypes.oneOfType([
 		PropTypes.func,
@@ -144,8 +139,4 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = dispatch => ({
-	handlePDResults: pdResults => dispatch(handlePDResults(pdResults)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionResults));
+export default connect(mapStateToProps)(withStyles(styles)(PriceDistributionResults));
