@@ -220,8 +220,8 @@ export function getMonthCodes() {
 
 export function getYearCodes(){
 	return [
-		{value: "20", label: "2020"},
-		{value: "21", label: "2021"}];
+		{value: "2020", label: "2020"},
+		{value: "2021", label: "2021"}];
 }
 
 export function groupBy(list, keyGetter) {
