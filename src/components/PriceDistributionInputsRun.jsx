@@ -209,7 +209,8 @@ class PriceDistributionInputsRun extends Component {
 					this.setState({cropCode: {value: event.value, label: event.label}});
 
 					const futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
-					this.setState({futuresCode: futuresCode});				}
+					this.setState({futuresCode: futuresCode});
+				}
 				break;
 			case "monthCode":
 				if (event.value !== ""){
@@ -337,6 +338,7 @@ class PriceDistributionInputsRun extends Component {
 	render() {
 		const {classes} = this.props;
 
+		let textFieldInputStyle = {style: {paddingLeft: 8}};
 		let spinner;
 
 		if (this.state.runStatus === "INIT"){

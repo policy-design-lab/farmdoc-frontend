@@ -1,12 +1,19 @@
 import React, {Component} from "react";
+import ReactSelect from "react-select";
 import {connect} from "react-redux";
-import TextField from "@material-ui/core/TextField";
-import {FormControl} from "@material-ui/core";
+import PropTypes from "prop-types";
 import {withStyles} from "@material-ui/core/styles";
+import {FormControl} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import Spinner from "./Spinner";
 import {
-	getOutputFileJson,
+	getCropCodes,
+	getMonthCodes,
+	getYearCodes,
+	getOutputFileJson
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -17,15 +24,11 @@ import {
 import {
 	handlePDResults
 } from "../actions/priceDistribution";
-import Spinner from "./Spinner";
 import config from "../app.config";
 import {
-	dataNotAvailable
+	apiresult
 } from "../app.messages";
-import ReactSelect from "react-select";
-
-import MenuItem from "@material-ui/core/MenuItem";
-import Grid from "@material-ui/core/Grid";
+import FormLabel from "@material-ui/core/FormLabel";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -62,7 +65,6 @@ const styles = theme => ({
 		minWidth: 200,
 		marginLeft: 0,
 	},
-
 	formControlTopPanel: {
 		minWidth: 200,
 		marginLeft: 20,
@@ -71,7 +73,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlXSmall: {
 		minWidth: 120,
 		marginLeft: 20,
@@ -80,7 +81,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlSmall: {
 		minWidth: 150,
 		marginLeft: 20,
@@ -89,7 +89,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlMedium: {
 		minWidth: 180,
 		marginLeft: 20,
@@ -98,7 +97,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlLarge: {
 		minWidth: 220,
 		marginLeft: 20,
@@ -111,15 +109,14 @@ const styles = theme => ({
 	helpIcon: {
 		fontSize: 24
 	},
-
 	iconButton: {
 		height: 24,
 		width: 24
 	},
-
 	popupButton: {
 		width: 48
 	},
+
 	paper: {
 		position: "absolute",
 		//width: theme.spacing.unit * 50,
@@ -128,7 +125,6 @@ const styles = theme => ({
 		padding: theme.spacing.unit * 4,
 		outline: "none"
 	}
-
 });
 
 const ReactSelectStyles = {
@@ -170,16 +166,17 @@ const components = {
 	Control
 };
 
-class PriceDistributionModel extends Component {
+class PriceDistributionInputsRun extends Component {
 	state = {
-		cropCode: "",
-		monthCode: "",
-		year: "",
+		cropCode: null,
+		monthCode: null,
+		yearCode: null,
+		futuresCode: "",
 		runName: "",
 		runStatus: "INIT",
 		pdResults: null,
 		showError: false,
-		errorMsg: dataNotAvailable
+		errorMsg: apiresult
 	};
 
 	constructor(props) {
@@ -189,25 +186,54 @@ class PriceDistributionModel extends Component {
 		this.handlePDResults = this.handlePDResults.bind(this);
 
 		this.state = {
-			cropCode: "C",
-			monthCode: "Z",
-			year: "2021",
+			cropCode: {value: "C", label: "Corn"},
+			monthCode: {value: "Z", label: "December"},
+			yearCode: {value: "2020", label: "2020"},
+			futuresCode: "ZCZ20",
 			runName: "",
 			runStatus: "INIT",
 			pdResults: null,
 			showError: false,
-			errorMsg: dataNotAvailable
+			errorMsg: apiresult
 		};
 	}
 
 	handleReactSelectChange = name => event => {
 		this.setState({
 			[name]: event.value}, function(){
+			//TODO: Remove if not needed.
 		});
+		switch (name) {
+			case "cropCode":
+				if (event.value !== "") {
+					this.setState({cropCode: {value: event.value, label: event.label}});
+
+					const futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
+					this.setState({futuresCode: futuresCode});
+				}
+				break;
+			case "monthCode":
+				if (event.value !== ""){
+					this.setState({monthCode: {value: event.value, label: event.label}});
+
+					const futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value.slice(-2)}`;
+					this.setState({futuresCode: futuresCode});
+				}
+				break;
+			case "yearCode":
+				if (event.value !== ""){
+					this.setState({yearCode: {value: event.value, label: event.label}});
+
+					const futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value.slice(-2)}`;
+					this.setState({futuresCode: futuresCode});
+				}
+				break;
+		}
 	};
 
 	async runPriceDistribution() {
-		//let status = "STARTED";
+
+		let status = "INIT";
 		let personId = localStorage.getItem("dwPersonId");
 		this.setState({
 			runStatus: status
@@ -225,12 +251,10 @@ class PriceDistributionModel extends Component {
 		};
 		let dwUrl = datawolfURL;
 
-		let cropCode, monthCode, year;
-		cropCode = this.state.cropCode;
-		monthCode = this.state.monthCode;
-		year = this.state.year;
-
-		let postRequest = postExecutionPdRequest(personId, title, cropCode, monthCode, year);
+		let postRequest = postExecutionPdRequest(personId, title,
+			this.state.cropCode.value,
+			this.state.monthCode.value,
+			this.state.yearCode.value);
 		let body = JSON.stringify(postRequest);
 
 		let pdResponse = await fetch(`${dwUrl}/executions`, {
@@ -247,7 +271,7 @@ class PriceDistributionModel extends Component {
 
 		const waitingStatus = ["QUEUED", "WAITING", "RUNNING"];
 
-		while (this.state.runStatus === "" || waitingStatus.indexOf(this.state.runStatus) >= 0) {
+		while (this.state.runStatus === "INIT" || waitingStatus.indexOf(this.state.runStatus) >= 0) {
 			await wait(300);
 			const executionResponse = await fetch(`${dwUrl}/executions/${pdExecutionGUID}`, {
 				method: "GET",
@@ -258,18 +282,19 @@ class PriceDistributionModel extends Component {
 				try {
 					pdResult = await executionResponse.json();
 					if (typeof(pdResult) === "object") {
-						this.handlePDResults(JSON.stringify(pdResult));
 						this.setState({runStatus: pdResult.stepState[stepsPd.Price_Distribution]});
 					}
 					else {
 						this.handlePDResults("");
 						this.setState({runStatus: "ERROR_RESULTS"});
+						this.setState({showError: true});
+						this.setState({errorMsg: apiresult});
 					}
 				}
 				catch (error) {
 					this.setState({runStatus: "ERROR_RESULTS"});
 					this.setState({showError: true});
-					this.setState({errorMsg: dataNotAvailable});
+					this.setState({errorMsg: apiresult});
 					console.log("error getting the response from api");
 				}
 			}
@@ -291,12 +316,13 @@ class PriceDistributionModel extends Component {
 			else {
 				this.setState({runStatus: "PARSE_ERROR"});
 				this.setState({showError: true});
-				this.setState({errorMsg: dataNotAvailable});
+				this.setState({errorMsg: apiresult});
 			}
 		}
 		else {
+			this.setState({runStatus: "API_ERROR"});
 			console.log("no results from api");
-			this.setState({errorMsg: dataNotAvailable});
+			this.setState({errorMsg: apiresult});
 		}
 	}
 
@@ -305,7 +331,8 @@ class PriceDistributionModel extends Component {
 	}
 
 	validateInputs() {
-		return 0;
+		return this.state.cropCode !== "" && this.state.monthCode !== "" &&
+			this.state.yearCode !== "";
 	}
 
 	render() {
@@ -318,42 +345,145 @@ class PriceDistributionModel extends Component {
 			this.handlePDResults(null);
 		}
 
-		if (this.state.runStatus === "FETCHING_RESULTS") {
+		if (this.state.runStatus !== "INIT" && this.state.runStatus !== "FINISHED"
+			&& this.state.runStatus !== "PARSE_ERROR" && this.state.runStatus !== "API_ERROR"
+			&& this.state.runStatus !== "ERROR_RESULTS") {
 			spinner = <Spinner/>;
-		}
-		else {
-			spinner = null;
 		}
 
 		return (
 			<div style={{textAlign: "center"}}>
 				<div style={{textAlign: "center"}}>
-					<br/>
-					<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
-						<Grid item xs />
-						<Grid item xs={6} >
-							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
-									disabled={!this.validateInputs()}
-									style={{fontSize: "large", backgroundColor: "#455A64"}}>
-								<Icon className={classes.leftIcon}> send </Icon>
-								Run
-							</Button>
+					<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
+						Select crop, month and year of futures date.
+					</div>
+					<div style={{maxWidth: "1080px",
+						borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
+						marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
+						paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
+						display: "inline-block"}}>
+						<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4, textAlign: "center"}}>
+							<FormLabel component="legend" error={true}> {this.state.errorMsg}</FormLabel>
+						</div>
+						<FormControl className={classes.formControlXSmall} required>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Crop",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.cropCode}
+										 options={getCropCodes()}
+										 onChange={this.handleReactSelectChange("cropCode")}
+										 inputProps={{
+											 name: "cropCode",
+											 id: "crop-simple",
+										 }}/>
+						</FormControl>
+						<FormControl className={classes.formControlSmall}>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Month",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.monthCode}
+										 options={getMonthCodes()}
+										 onChange={this.handleReactSelectChange("monthCode")}
+										 inputProps={{
+											 name: "monthCode",
+											 id: "month-simple",
+										 }}/>
+						</FormControl>
+						<FormControl className={classes.formControlXSmall}>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Year",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.yearCode}
+										 options={getYearCodes()}
+										 onChange={this.handleReactSelectChange("yearCode")}
+										 inputProps={{
+											 name: "yearCode",
+											 id: "year-simple",
+										 }}/>
+						</FormControl>
+						<br/>
+						<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
+							<Grid item xs />
+							<Grid item xs={6} >
+								<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
+										disabled={!this.validateInputs()}
+										style={{fontSize: "large", backgroundColor: "#455A64"}}>
+									<Icon className={classes.leftIcon}> send </Icon>
+									Run
+								</Button>
+							</Grid>
+							{spinner}
+							<Grid item xs />
 						</Grid>
-						<Grid item xs />
-					</Grid>
-					{spinner}
+					</div>
 				</div>
 			</div>
 		);
 	}
 }
 
+// You should declare that a prop is a specific JS type.
+// See https://reactjs.org/docs/typechecking-with-proptypes.html for details
+PriceDistributionInputsRun.propTypes = {
+	handlePDResults: PropTypes.func.isRequired,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+};
+
+inputComponent.propTypes = {
+	inputRef: PropTypes.oneOfType([
+		// Either a function
+		PropTypes.func,
+		// Or the instance of a DOM native element
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+};
+
+Control.propTypes = {
+	inputRef: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+	innerRef: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+	children: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.array
+	]),
+	innerProps: PropTypes.object,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+	textFieldProps: PropTypes.object,
+	selectProps: PropTypes.object
+};
+
 const mapStateToProps = state => ({
 	pdResults: state.pdResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handlePDResults: pdResults => dispatch(handlePDResults(pdResults)),
+	handlePDResults: pdResults => dispatch(handlePDResults(pdResults))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionModel));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionInputsRun));
