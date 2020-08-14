@@ -19,6 +19,7 @@ import {
 	stepsPd,
 } from "../datawolf.config";
 import {
+	//handleFuturesCode,
 	handlePDResults
 } from "../actions/priceDistribution";
 import Spinner from "./Spinner";
@@ -192,11 +193,12 @@ class PriceDistributionModel extends Component {
 		this.runPriceDistribution = this.runPriceDistribution.bind(this);
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handlePDResults = this.handlePDResults.bind(this);
+		//this.handleFuturesCode = this.handleFuturesCode.bind(this);
 
 		this.state = {
 			cropCode: {value: "C", label: "Corn"},
 			monthCode: {value: "Z", label: "December"},
-			yearCode: {value: "2020", label: "2020"},
+			yearCode: {value: "20", label: "2020"},
 			futuresCode: "ZCZ20",
 			runName: "",
 			runStatus: "INIT",
@@ -268,7 +270,7 @@ class PriceDistributionModel extends Component {
 		let postRequest = postExecutionPdRequest(personId, title,
 			this.state.cropCode.value,
 			this.state.monthCode.value,
-			this.state.yearCode.value);
+			"20".concat(this.state.yearCode.value));
 		let body = JSON.stringify(postRequest);
 
 		let pdResponse = await fetch(`${dwUrl}/executions`, {
@@ -282,6 +284,7 @@ class PriceDistributionModel extends Component {
 
 		let pdResult = null;
 		this.handlePDResults(null);
+		// this.handleFuturesCode(this.state.futuresCode);
 
 		const waitingStatus = ["QUEUED", "WAITING", "RUNNING"];
 
@@ -342,6 +345,10 @@ class PriceDistributionModel extends Component {
 		this.props.handlePDResults(results);
 	}
 
+	// handleFuturesCode(futurescode) {
+	// 	this.props.handleFuturesCode(futurescode);
+	// }
+
 	validateInputs() {
 		return 1;
 	}
@@ -384,7 +391,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.cropCode}
-										 //options={getCropCodes()}
+										 options={getCropCodes()}
 										 onChange={this.handleReactSelectChange("cropCode")}
 										 inputProps={{
 											 name: "cropCode",
@@ -401,7 +408,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.monthCode}
-										 //options={getMonthCodes()}
+										 options={getMonthCodes()}
 										 onChange={this.handleReactSelectChange("monthCode")}
 										 inputProps={{
 											 name: "monthCode",
@@ -418,7 +425,7 @@ class PriceDistributionModel extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.yearCode}
-										 //options={getYearCodes()}
+										 options={getYearCodes()}
 										 onChange={this.handleReactSelectChange("yearCode")}
 										 inputProps={{
 											 name: "yearCode",
@@ -445,12 +452,19 @@ class PriceDistributionModel extends Component {
 	}
 }
 
+PriceDistributionModel.propTypes = {
+	//handleFuturesCode: PropTypes.func.isRequired,
+	handlePDResults: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => ({
+	//futuresCode: state.futuresCode,
 	pdResults: state.pdResults
 });
 
 const mapDispatchToProps = dispatch => ({
-	handlePDResults: pdResults => dispatch(handlePDResults(pdResults)),
+	//handleFuturesCode: futuresCode => dispatch(handleFuturesCode(futuresCode)),
+	handlePDResults: pdResults => dispatch(handlePDResults(pdResults))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionModel));

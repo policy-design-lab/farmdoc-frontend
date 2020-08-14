@@ -201,15 +201,27 @@ export function getCropParams(countyFips, commodity){
 }
 
 export function getCropCodes(){
-	return {};
+	return [
+		{value: "C", label: "Corn"},
+		{value: "S", label: "Soybeans"}];
 }
 
-export function getMonthCodes(){
-	return {};
+export function getMonthCodes() {
+	return [
+		{value: "F", label: "January"},
+		{value: "H", label: "March"},
+		{value: "K", label: "May"},
+		{value: "N", label: "July"},
+		{value: "Q", label: "August"},
+		{value: "U", label: "September"},
+		{value: "X", label: "November"},
+		{value: "Z", label: "December"}];
 }
 
 export function getYearCodes(){
-	return {};
+	return [
+		{value: "20", label: "2020"},
+		{value: "21", label: "2021"}];
 }
 
 export function groupBy(list, keyGetter) {
