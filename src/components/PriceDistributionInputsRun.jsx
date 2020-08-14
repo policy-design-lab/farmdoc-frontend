@@ -1,11 +1,14 @@
 import React, {Component} from "react";
+import ReactSelect from "react-select";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import TextField from "@material-ui/core/TextField";
-import {FormControl} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
+import {FormControl} from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import Spinner from "./Spinner";
 import {
 	getCropCodes,
 	getMonthCodes,
@@ -22,15 +25,11 @@ import {
 	//handleFuturesCode,
 	handlePDResults
 } from "../actions/priceDistribution";
-import Spinner from "./Spinner";
 import config from "../app.config";
 import {
-	dataNotAvailable
+	apiresult
 } from "../app.messages";
-import ReactSelect from "react-select";
-
-import MenuItem from "@material-ui/core/MenuItem";
-import Grid from "@material-ui/core/Grid";
+import FormLabel from "@material-ui/core/FormLabel";
 
 let wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -67,7 +66,6 @@ const styles = theme => ({
 		minWidth: 200,
 		marginLeft: 0,
 	},
-
 	formControlTopPanel: {
 		minWidth: 200,
 		marginLeft: 20,
@@ -76,7 +74,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlXSmall: {
 		minWidth: 120,
 		marginLeft: 20,
@@ -85,7 +82,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlSmall: {
 		minWidth: 150,
 		marginLeft: 20,
@@ -94,7 +90,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlMedium: {
 		minWidth: 180,
 		marginLeft: 20,
@@ -103,7 +98,6 @@ const styles = theme => ({
 		marginBottom: 4,
 		textAlign: "left"
 	},
-
 	formControlLarge: {
 		minWidth: 220,
 		marginLeft: 20,
@@ -116,15 +110,14 @@ const styles = theme => ({
 	helpIcon: {
 		fontSize: 24
 	},
-
 	iconButton: {
 		height: 24,
 		width: 24
 	},
-
 	popupButton: {
 		width: 48
 	},
+
 	paper: {
 		position: "absolute",
 		//width: theme.spacing.unit * 50,
@@ -133,7 +126,6 @@ const styles = theme => ({
 		padding: theme.spacing.unit * 4,
 		outline: "none"
 	}
-
 });
 
 const ReactSelectStyles = {
@@ -175,7 +167,7 @@ const components = {
 	Control
 };
 
-class PriceDistributionModel extends Component {
+class PriceDistributionInputsRun extends Component {
 	state = {
 		cropCode: null,
 		monthCode: null,
@@ -185,7 +177,7 @@ class PriceDistributionModel extends Component {
 		runStatus: "INIT",
 		pdResults: null,
 		showError: false,
-		errorMsg: dataNotAvailable
+		errorMsg: apiresult
 	};
 
 	constructor(props) {
@@ -204,7 +196,7 @@ class PriceDistributionModel extends Component {
 			runStatus: "INIT",
 			pdResults: null,
 			showError: false,
-			errorMsg: dataNotAvailable
+			errorMsg: apiresult
 		};
 	}
 
@@ -300,12 +292,14 @@ class PriceDistributionModel extends Component {
 					else {
 						this.handlePDResults("");
 						this.setState({runStatus: "ERROR_RESULTS"});
+						this.setState({showError: true});
+						this.setState({errorMsg: apiresult});
 					}
 				}
 				catch (error) {
 					this.setState({runStatus: "ERROR_RESULTS"});
 					this.setState({showError: true});
-					this.setState({errorMsg: dataNotAvailable});
+					this.setState({errorMsg: apiresult});
 					console.log("error getting the response from api");
 				}
 			}
@@ -327,12 +321,13 @@ class PriceDistributionModel extends Component {
 			else {
 				this.setState({runStatus: "PARSE_ERROR"});
 				this.setState({showError: true});
-				this.setState({errorMsg: dataNotAvailable});
+				this.setState({errorMsg: apiresult});
 			}
 		}
 		else {
+			this.setState({runStatus: "API_ERROR"});
 			console.log("no results from api");
-			this.setState({errorMsg: dataNotAvailable});
+			this.setState({errorMsg: apiresult});
 		}
 	}
 
@@ -358,7 +353,9 @@ class PriceDistributionModel extends Component {
 			this.handlePDResults(null);
 		}
 
-		if (this.state.runStatus !== "INIT" && this.state.runStatus !== "FINISHED" && this.state.runStatus !== "PARSE_ERROR") {
+		if (this.state.runStatus !== "INIT" && this.state.runStatus !== "FINISHED"
+			&& this.state.runStatus !== "PARSE_ERROR" && this.state.runStatus !== "API_ERROR"
+			&& this.state.runStatus !== "ERROR_RESULTS") {
 			spinner = <Spinner/>;
 		}
 
@@ -373,6 +370,9 @@ class PriceDistributionModel extends Component {
 						marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
 						paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
 						display: "inline-block"}}>
+						<div style={{display: this.state.showError ? "block" : "none", paddingTop: 4, textAlign: "center"}}>
+							<FormLabel component="legend" error={true}> {this.state.errorMsg}</FormLabel>
+						</div>
 						<FormControl className={classes.formControlXSmall} required>
 							<ReactSelect styles={ReactSelectStyles}
 										 classes={classes}
@@ -445,9 +445,46 @@ class PriceDistributionModel extends Component {
 	}
 }
 
-PriceDistributionModel.propTypes = {
+// You should declare that a prop is a specific JS type.
+// See https://reactjs.org/docs/typechecking-with-proptypes.html for details
+PriceDistributionInputsRun.propTypes = {
 	//handleFuturesCode: PropTypes.func.isRequired,
-	handlePDResults: PropTypes.func.isRequired
+	handlePDResults: PropTypes.func.isRequired,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+};
+
+inputComponent.propTypes = {
+	inputRef: PropTypes.oneOfType([
+		// Either a function
+		PropTypes.func,
+		// Or the instance of a DOM native element
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+};
+
+Control.propTypes = {
+	inputRef: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+	innerRef: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.shape({current: PropTypes.instanceOf(Element)})
+	]),
+	children: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.array
+	]),
+	innerProps: PropTypes.object,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+	textFieldProps: PropTypes.object,
+	selectProps: PropTypes.object
 };
 
 const mapStateToProps = state => ({
@@ -460,4 +497,4 @@ const mapDispatchToProps = dispatch => ({
 	handlePDResults: pdResults => dispatch(handlePDResults(pdResults))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionModel));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PriceDistributionInputsRun));

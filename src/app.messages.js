@@ -5,6 +5,7 @@ export const userNotActiveMessage = "Registration is successful, but your accoun
 	"Please contact an administrator.";
 export const invalidLoginCredentials = "We do not recognize your username and/or password. Please try again.";
 export const dataWolfGetTokenCallFailed = "An internal error occurred while logging in. Please try again later.";
+export const apiresult = ["Data not available from the server."];
 
 export const arcplcWelcomeText = ["The Gardner Program Payment Calculator provides farmers, researchers and policymakers " +
 "with a web-based analysis tool for farm program payments. The Payment Calculator will help improve the " +

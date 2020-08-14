@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import AuthorizedWarp from "./AuthorizedWrap";
-import PriceDistributionInputs from "./PriceDistributionInputs";
+import PriceDistributionInputs from "./PriceDistributionInputsRun";
 import PriceDistributionResults from "./PriceDistributionResults";
 import Layout from "./Layout";
 

@@ -1,15 +1,13 @@
 import React, {Component} from "react";
-import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import "../styles/main.css";
+import PropTypes from "prop-types";
+import {withStyles} from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import PropTypes from "prop-types";
+import "../styles/main.css";
 import {handlePDResults} from "../actions/priceDistribution";
-import Grid from "@material-ui/core/Grid";
-import {handleResults} from "../actions/model";
-import {changeYearRow} from "../actions/results";
 
 const styles = theme => ({
 	root: {
@@ -88,7 +86,7 @@ class PriceDistributionResults extends Component {
 					//The current property is not a direct property of pdResultsObj, filter prop metadata
 					continue;
 				}
-				futuresCode = prop
+				futuresCode = prop;
 				// console.log(prop);
 				results = pdResultsObj[futuresCode]["results"];
 
