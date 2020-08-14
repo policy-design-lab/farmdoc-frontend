@@ -200,6 +200,18 @@ export function getCropParams(countyFips, commodity){
 	});
 }
 
+export function getCropCodes(){
+	return {};
+}
+
+export function getMonthCodes(){
+	return {};
+}
+
+export function getYearCodes(){
+	return {};
+}
+
 export function groupBy(list, keyGetter) {
 	const map = new Map(String, String);
 	list.forEach((item) => {

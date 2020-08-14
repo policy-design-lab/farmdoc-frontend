@@ -1,12 +1,16 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import {FormControl} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import {
-	getOutputFileJson,
+	getCropCodes,
+	getMonthCodes,
+	getYearCodes,
+	getOutputFileJson
 } from "../public/utils";
 import {
 	datawolfURL,
@@ -172,9 +176,10 @@ const components = {
 
 class PriceDistributionModel extends Component {
 	state = {
-		cropCode: "",
-		monthCode: "",
-		year: "",
+		cropCode: null,
+		monthCode: null,
+		yearCode: null,
+		futuresCode: "",
 		runName: "",
 		runStatus: "INIT",
 		pdResults: null,
@@ -189,9 +194,10 @@ class PriceDistributionModel extends Component {
 		this.handlePDResults = this.handlePDResults.bind(this);
 
 		this.state = {
-			cropCode: "C",
-			monthCode: "Z",
-			year: "2021",
+			cropCode: {value: "C", label: "Corn"},
+			monthCode: {value: "Z", label: "December"},
+			yearCode: {value: "2020", label: "2020"},
+			futuresCode: "ZCZ20",
 			runName: "",
 			runStatus: "INIT",
 			pdResults: null,
@@ -203,7 +209,41 @@ class PriceDistributionModel extends Component {
 	handleReactSelectChange = name => event => {
 		this.setState({
 			[name]: event.value}, function(){
+			if (this.state.cropCode !== "" && this.state.monthCode !== "" && this.state.yearCode !== ""){
+				console.log(event.value);
+				console.log(this.state.cropCode);
+				//TODO: Remove if not needed.
+			}
 		});
+		switch (name) {
+			case "cropCode":
+				if (event.value !== "") {
+					this.setState({cropCode: {value: event.value, label: event.label}});
+
+					let futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value}`;
+					this.setState({futuresCode: futuresCode});
+					console.log(futuresCode);
+				}
+				break;
+			case "monthCode":
+				if (event.value !== ""){
+					this.setState({monthCode: {value: event.value, label: event.label}});
+
+					let futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value}`;
+					this.setState({futuresCode: futuresCode});
+					console.log(futuresCode);
+				}
+				break;
+			case "yearCode":
+				if (event.value !== ""){
+					this.setState({yearCode: {value: event.value, label: event.label}});
+
+					let futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value}`;
+					this.setState({futuresCode: futuresCode});
+					console.log(futuresCode);
+				}
+				break;
+		}
 	};
 
 	async runPriceDistribution() {
@@ -225,12 +265,10 @@ class PriceDistributionModel extends Component {
 		};
 		let dwUrl = datawolfURL;
 
-		let cropCode, monthCode, year;
-		cropCode = this.state.cropCode;
-		monthCode = this.state.monthCode;
-		year = this.state.year;
-
-		let postRequest = postExecutionPdRequest(personId, title, cropCode, monthCode, year);
+		let postRequest = postExecutionPdRequest(personId, title,
+			this.state.cropCode.value,
+			this.state.monthCode.value,
+			this.state.yearCode.value);
 		let body = JSON.stringify(postRequest);
 
 		let pdResponse = await fetch(`${dwUrl}/executions`, {
@@ -328,20 +366,79 @@ class PriceDistributionModel extends Component {
 		return (
 			<div style={{textAlign: "center"}}>
 				<div style={{textAlign: "center"}}>
-					<br/>
-					<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
-						<Grid item xs />
-						<Grid item xs={6} >
-							<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
-									disabled={!this.validateInputs()}
-									style={{fontSize: "large", backgroundColor: "#455A64"}}>
-								<Icon className={classes.leftIcon}> send </Icon>
-								Run
-							</Button>
+					<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
+						Select crop, month and year of futures date.
+					</div>
+					<div style={{maxWidth: "1080px",
+						borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
+						marginTop: "10px", marginRight: "15px", marginBottom: "15px", marginLeft: "15px",
+						paddingBottom: "8px", paddingRight: "20px", paddingTop: "2px", paddingLeft: "10px",
+						display: "inline-block"}}>
+						<FormControl className={classes.formControlXSmall} required>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Crop",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.cropCode}
+										 //options={getCropCodes()}
+										 onChange={this.handleReactSelectChange("cropCode")}
+										 inputProps={{
+											 name: "cropCode",
+											 id: "crop-simple",
+										 }}/>
+						</FormControl>
+						<FormControl className={classes.formControlSmall}>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Month",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.monthCode}
+										 //options={getMonthCodes()}
+										 onChange={this.handleReactSelectChange("monthCode")}
+										 inputProps={{
+											 name: "monthCode",
+											 id: "month-simple",
+										 }}/>
+						</FormControl>
+						<FormControl className={classes.formControlXSmall}>
+							<ReactSelect styles={ReactSelectStyles}
+										 classes={classes}
+										 textFieldProps={{
+											 label: "Year",
+											 InputLabelProps: {shrink: true},
+										 }}
+										 components={components}
+										 placeholder="Select"
+										 value={this.state.yearCode}
+										 //options={getYearCodes()}
+										 onChange={this.handleReactSelectChange("yearCode")}
+										 inputProps={{
+											 name: "yearCode",
+											 id: "year-simple",
+										 }}/>
+						</FormControl>
+						<br/>
+						<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
+							<Grid item xs />
+							<Grid item xs={6} >
+								<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
+										disabled={!this.validateInputs()}
+										style={{fontSize: "large", backgroundColor: "#455A64"}}>
+									<Icon className={classes.leftIcon}> send </Icon>
+									Run
+								</Button>
+							</Grid>
+							<Grid item xs />
 						</Grid>
-						<Grid item xs />
-					</Grid>
-					{spinner}
+					</div>
 				</div>
 			</div>
 		);
