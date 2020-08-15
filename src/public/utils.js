@@ -207,15 +207,36 @@ export function getCropCodes(){
 }
 
 export function getMonthCodes() {
-	return [
-		{value: "F", label: "January"},
-		{value: "H", label: "March"},
-		{value: "K", label: "May"},
-		{value: "N", label: "July"},
-		{value: "Q", label: "August"},
-		{value: "U", label: "September"},
-		{value: "X", label: "November"},
-		{value: "Z", label: "December"}];
+	let cropCode = "";
+	if (cropCode === "C") {
+		return [
+			{value: "H", label: "March"},
+			{value: "K", label: "May"},
+			{value: "N", label: "July"},
+			{value: "U", label: "September"},
+			{value: "Z", label: "December"}];
+	}
+	else if (cropCode === "S") {
+		return [
+			{value: "F", label: "January"},
+			{value: "H", label: "March"},
+			{value: "K", label: "May"},
+			{value: "N", label: "July"},
+			{value: "Q", label: "August"},
+			{value: "U", label: "September"},
+			{value: "X", label: "November"}];
+	}
+	else {
+		return [
+			{value: "F", label: "January"},
+			{value: "H", label: "March"},
+			{value: "K", label: "May"},
+			{value: "N", label: "July"},
+			{value: "Q", label: "August"},
+			{value: "U", label: "September"},
+			{value: "X", label: "November"},
+			{value: "Z", label: "December"}];
+	}
 }
 
 export function getYearCodes(){
