@@ -292,8 +292,12 @@ function getMonthYearCode(crop_code) {
 		i += 1;
 		mi += 1;
 	}
-	// console.log(Object.keys(month_menu));
-	// return JSON.stringify(month_menu);
+	const keys = Object.keys(month_menu);
+	// remove last year if empty
+	const last = month_menu[keys[keys.length - 1]];
+	if (!last.length) {
+		delete month_menu[keys[keys.length - 1]];
+	}
 	return month_menu;
 }
 
