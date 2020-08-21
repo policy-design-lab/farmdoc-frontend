@@ -233,6 +233,12 @@ class PriceDistributionInputsRun extends Component {
 		}
 	};
 
+	componentDidMount() {
+		// Runs after the first render() lifecycle
+		console.log("Price Distribution tool componenet has mounted");
+		this.runPriceDistribution();
+	}
+
 	async runPriceDistribution() {
 
 		let status = "INIT";
@@ -253,6 +259,7 @@ class PriceDistributionInputsRun extends Component {
 		};
 		let dwUrl = datawolfURL;
 
+		console.log(this.state.cropCode.value, this.state.monthCode.value, this.state.yearCode.value);
 		let postRequest = postExecutionPdRequest(personId, title,
 			this.state.cropCode.value,
 			this.state.monthCode.value,
@@ -333,8 +340,8 @@ class PriceDistributionInputsRun extends Component {
 	}
 
 	validateInputs() {
-		return this.state.cropCode !== "" && this.state.monthCode !== "" &&
-			this.state.yearCode !== "";
+		return this.state.cropCode.value !== "" && this.state.monthCode.value !== "" &&
+			this.state.yearCode.value !== "";
 	}
 
 	render() {
