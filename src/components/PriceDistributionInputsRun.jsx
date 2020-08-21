@@ -171,7 +171,6 @@ class PriceDistributionInputsRun extends Component {
 		cropCode: null,
 		monthCode: null,
 		yearCode: null,
-		futuresCode: "",
 		runName: "",
 		runStatus: "INIT",
 		pdResults: null,
@@ -185,11 +184,14 @@ class PriceDistributionInputsRun extends Component {
 		this.handleReactSelectChange = this.handleReactSelectChange.bind(this);
 		this.handlePDResults = this.handlePDResults.bind(this);
 
+		const crop_year = getYearCodes("C")[0];
+		const crop_month = getMonthCodes("C")[crop_year.value];
 		this.state = {
 			cropCode: {value: "C", label: "Corn"},
-			monthCode: {value: "Z", label: "December"},
-			yearCode: {value: "2020", label: "2020"},
-			futuresCode: "ZCZ20",
+			monthCode: crop_month[crop_month.length - 1],
+			//monthCode: {value: "Z", label: "December"},
+			//yearCode: {value: 2020, label: "2020"},
+			yearCode: crop_year,
 			runName: "",
 			runStatus: "INIT",
 			pdResults: null,
@@ -206,26 +208,26 @@ class PriceDistributionInputsRun extends Component {
 		switch (name) {
 			case "cropCode":
 				if (event.value !== "") {
+					console.log(event.value);
 					this.setState({cropCode: {value: event.value, label: event.label}});
 
-					const futuresCode = "Z" + `${event.value}${this.state.monthCode.value}${this.state.yearCode.value.slice(-2)}`;
-					this.setState({futuresCode: futuresCode});
+					const crop_year = getYearCodes(event.value)[0];
+					const crop_month = getMonthCodes(event.value)[crop_year.value];
+					this.setState({monthCode: crop_month[crop_month.length - 1]});
+					this.setState({yearCode: crop_year});
 				}
 				break;
 			case "monthCode":
 				if (event.value !== ""){
 					this.setState({monthCode: {value: event.value, label: event.label}});
-
-					const futuresCode = "Z" + `${this.state.cropCode.value}${event.value}${this.state.yearCode.value.slice(-2)}`;
-					this.setState({futuresCode: futuresCode});
 				}
 				break;
 			case "yearCode":
 				if (event.value !== ""){
 					this.setState({yearCode: {value: event.value, label: event.label}});
 
-					const futuresCode = "Z" + `${this.state.cropCode.value}${this.state.monthCode.value}${event.value.slice(-2)}`;
-					this.setState({futuresCode: futuresCode});
+					const crop_month = getMonthCodes(this.state.cropCode.value)[event.value];
+					this.setState({monthCode: crop_month[crop_month.length - 1]});
 				}
 				break;
 		}
@@ -392,7 +394,7 @@ class PriceDistributionInputsRun extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.monthCode}
-										 options={getMonthCodes()}
+										 options={getMonthCodes(this.state.cropCode.value)[this.state.yearCode.value]}
 										 onChange={this.handleReactSelectChange("monthCode")}
 										 inputProps={{
 											 name: "monthCode",
@@ -409,7 +411,7 @@ class PriceDistributionInputsRun extends Component {
 										 components={components}
 										 placeholder="Select"
 										 value={this.state.yearCode}
-										 options={getYearCodes()}
+										 options={getYearCodes(this.state.cropCode.value)}
 										 onChange={this.handleReactSelectChange("yearCode")}
 										 inputProps={{
 											 name: "yearCode",

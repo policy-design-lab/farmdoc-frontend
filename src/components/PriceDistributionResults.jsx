@@ -239,15 +239,12 @@ class PriceDistributionResults extends Component {
 					continue;
 				}
 				futuresCode = prop;
-				// console.log(prop);
 			}
 			if (futuresCode) {
 				results = pdResultsObj[futuresCode]["results"];
 
 				price = results["price"];
-				console.log(price);
 				solution = results["solution"];
-				console.log(solution);
 
 				const chartData = generateChartData(solution.sigma, solution.mu);
 				//console.log(chartData);
