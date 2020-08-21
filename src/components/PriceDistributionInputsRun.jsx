@@ -208,7 +208,6 @@ class PriceDistributionInputsRun extends Component {
 		switch (name) {
 			case "cropCode":
 				if (event.value !== "") {
-					console.log(event.value);
 					this.setState({cropCode: {value: event.value, label: event.label}});
 
 					const crop_year = getYearCodes(event.value)[0];
@@ -235,7 +234,6 @@ class PriceDistributionInputsRun extends Component {
 
 	componentDidMount() {
 		// Runs after the first render() lifecycle
-		console.log("Price Distribution tool componenet has mounted");
 		this.runPriceDistribution();
 	}
 

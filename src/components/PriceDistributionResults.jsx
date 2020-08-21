@@ -247,7 +247,6 @@ class PriceDistributionResults extends Component {
 				solution = results["solution"];
 
 				const chartData = generateChartData(solution.sigma, solution.mu);
-				//console.log(chartData);
 
 				priceOfInterest = price;
 				if (this.state.poi) {
@@ -255,11 +254,10 @@ class PriceDistributionResults extends Component {
 				}
 				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
 				graph2 = prepareProbChart(priceOfInterest, chartData, "Probability of Prices at Expiration", "Relative Probability", "litPyt");
-				// console.log(graph1.data);
 
 				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
 				probTableData = generateProbPoints(solution.sigma, solution.mu);
-				//console.log(probTableData);
+
 				table1 = prepareTable(priceTableData, "Price at", "Expiration ($)", "Below (%)", "price", "probability", "table1");
 				table2 = prepareTable(probTableData, "At expiration", "Below (%)", "Price ($)", "percentile", "price", "table2");
 			}
