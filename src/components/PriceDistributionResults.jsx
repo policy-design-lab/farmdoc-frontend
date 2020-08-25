@@ -50,19 +50,23 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				{
 					label: yAxisLabel,
 					data: graphData,
-					borderWidth: 1,
 					borderColor: "#C2D1F0",
 					// backgroundColor: "#C2D1F0",
-					fill: true
+					fill: true,
+					pointRadius: 0,
+					borderRadius: 2,
+					borderWidth: 2
 				},
 				{
 					label: `${yAxisLabel} of POI`,
 					data: poiLine,
-					borderWidth: 1,
 					// showLine: false,
 					borderColor: "#5b84d7",
 					backgroundColor: "#C2D1F0",
-					fill: true
+					fill: true,
+					pointRadius: 0,
+					borderRadius: 2,
+					borderWidth: 2
 				}
 			]
 		},
@@ -87,8 +91,6 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				display: false
 			},
 			tooltips: {
-				// contentFormatter: function(e) { return ( e.entries[0].dataSeries.name + " " + e.entries[0].dataPoint.y + "" ) ;},
-				// content: "{name}: {y}",
 				mode: "label",
 				callbacks: {
 					label: function (tooltipItem, graphData) {
@@ -101,7 +103,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				yAxes: [{
 					ticks: {
 						callback: function (label, index, labels) {
-							return label.toFixed(2);
+							return `${(label * 100).toFixed(0) }%`;
 						},
 						beginAtZero: true,
 						autoSkip: true,
@@ -125,11 +127,12 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				xAxes: [{
 					ticks: {
 						callback: function (label, index, labels) {
-							return label.toFixed(2);
+							return `$${ label.toFixed(2)}`;
 						},
 						beginAtZero: true,
 						autoSkip: true,
-						maxTicksLimit: 15,
+						precision: 1,
+						maxTicksLimit: 12,
 						fontSize: 12,
 						maxRotation: 0,
 						minRotation: 0
