@@ -21,7 +21,7 @@ import {
 	regeneratePriceTableData
 } from "../public/pd_data";
 
-import {roundResults} from "../public/utils";
+import {isNumeric, roundResults} from "../public/utils";
 
 const styles = theme => ({
 	root: {
@@ -184,7 +184,7 @@ class PriceDistributionResults extends Component {
 	}
 
 	validateMaxValue = value => event => {
-		if (event.target.value !== "") {
+		if (isNumeric(event.target.value)) {
 			if (isNaN(event.target.value)) {
 				event.target.value = 0;
 			}
@@ -196,6 +196,9 @@ class PriceDistributionResults extends Component {
 					event.target.value = value;
 				}
 			}
+		}
+		else {
+			event.target.value = value;
 		}
 	};
 
@@ -246,7 +249,7 @@ class PriceDistributionResults extends Component {
 			if (futuresCode) {
 				results = pdResultsObj[futuresCode]["results"];
 
-				price = results["price"];
+				price = roundResults(results["price"], 2);
 				solution = results["solution"];
 
 				const chartData = generateChartData(solution.sigma, solution.mu);
@@ -270,11 +273,7 @@ class PriceDistributionResults extends Component {
 					<Grid container direction="row">
 						<Grid item xs={1} />
 						<Grid item xs={10}>
-							{/*<div style={{padding: 0, display: "inline-block"}} >*/}
-							{/*	{futuresCode}<br />*/}
-							{/*	{JSON.stringify(solution)}*/}
-							{/*</div>*/}
-							<div style={{textAlign: "left", fontSize: "1.0em", fontWeight: 500, maxWidth: "1085px"}}>
+							<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
 								The charts below show the corn price distribution at expiration in two related forms.
 								The top shows the cumulative probability distribution for expiration prices
 								and can be interpreted by identifying a price of interest and reading the associated
@@ -282,6 +281,7 @@ class PriceDistributionResults extends Component {
 								density form. The associated tables tabulate the information from the charts by price
 								and probability.
 							</div>
+
 						</Grid>
 						<Grid item xs={1} />
 					</Grid>
@@ -304,17 +304,17 @@ class PriceDistributionResults extends Component {
 					</Grid>
 					<Grid container>
 						<div style={{margin: "auto", width: "50%", padding: "0px"}}>
-							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: </span>
+							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
 							<TextField
 								defaultValue={price}
+								style={{width: "90px"}}
 								value={this.state.inputValue}
 								margin="normal"
 								onChange={this.updateInputValue}
 								onKeyDown={this.keyPress}
-								className={classes.textField}
 								required
 								InputLabelProps={{shrink: true}}
-								onInput={this.validateMaxValue(price)}
+								onBlur={this.validateMaxValue(price)}
 								InputProps={{
 									startAdornment:
 										<InputAdornment position="start">$</InputAdornment>, padding: 5

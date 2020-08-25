@@ -436,3 +436,6 @@ export function roundResultsIfNotZero(val, n){
 	return (val === 0) ? "NA" : roundResults(val, n);
 }
 
+export function isNumeric(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
