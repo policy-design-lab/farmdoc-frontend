@@ -156,34 +156,35 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 const prepareTable = (tableData, title, colName1, colName2, field1, field2, elementId) => {
 
 	let formatterParamsFirst, formatterParamsSecond;
+	let headerTooltipFirst, headerTooltipSecond;
 	if (field1 === "price"){
 		formatterParamsFirst = {symbol: "$"};
 		formatterParamsSecond = {symbol: "%", symbolAfter: true};
+		headerTooltipFirst = "Price at Expiration";
+		headerTooltipSecond = "Probability at Expiration";
 	}
 	else {
 		formatterParamsFirst = {symbol: "%", symbolAfter: true, precision: 0};
 		formatterParamsSecond = {symbol: "$"};
+		headerTooltipFirst = "Probability at Expiration";
+		headerTooltipSecond = "Price at Expiration";
 	}
 
 	return {
 		data: tableData,
 		layout: "fitColumns",
-
+		tooltipsHeader: true,
 		columns: [
-			{title: colName1, field: field1, hozAlign: "center", width: 130,
-				formatter: "money", formatterParams: formatterParamsFirst},
-			{title: colName2, field: field2, hozAlign: "center", width: 130,
-				formatter: "money", formatterParams: formatterParamsSecond},
+			{title: colName1, field: field1, hozAlign: "center", width: 130, tooltip: false,
+				headerTooltip: headerTooltipFirst, formatter: "money", formatterParams: formatterParamsFirst},
+			{title: colName2, field: field2, hozAlign: "center", width: 130, tooltip: false,
+				headerTooltip: headerTooltipSecond, formatter: "money", formatterParams: formatterParamsSecond},
 		],
-		// rowClick: function (e, row) {
-		// 	alert(`Row ${row.getData().id} Clicked!!!!`);
-		// },
 		rowFormatter: function (row) {
 			let data = row.getData();
 
 			if (elementId === "table2" && data.id === 6) {
 				row.getElement().style.fontWeight = "bold";
-				//row.getElement().style.backgroundColor = "#FDEDEC"; //apply css change to row element
 			}
 		},
 	};
@@ -278,8 +279,8 @@ class PriceDistributionResults extends Component {
 				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
 				probTableData = generateProbPoints(solution.sigma, solution.mu);
 
-				table1 = prepareTable(priceTableData, "Price at", "Expiration ($)", "Below (%)", "price", "probability", "table1");
-				table2 = prepareTable(probTableData, "At expiration", "Below (%)", "Price ($)", "percentile", "price", "table2");
+				table1 = prepareTable(priceTableData, "Price at", "Price", "Prob Below", "price", "probability", "table1");
+				table2 = prepareTable(probTableData, "At expiration", "Prob Below", "Price", "percentile", "price", "table2");
 			}
 
 			return (
