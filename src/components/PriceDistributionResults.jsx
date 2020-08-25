@@ -154,12 +154,26 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 };
 
 const prepareTable = (tableData, title, colName1, colName2, field1, field2, elementId) => {
+
+	let formatterParamsFirst, formatterParamsSecond;
+	if (field1 === "price"){
+		formatterParamsFirst = {symbol: "$"};
+		formatterParamsSecond = {symbol: "%", symbolAfter: true};
+	}
+	else {
+		formatterParamsFirst = {symbol: "%", symbolAfter: true, precision: 0};
+		formatterParamsSecond = {symbol: "$"};
+	}
+
 	return {
 		data: tableData,
 		layout: "fitColumns",
+
 		columns: [
-			{title: colName1, field: field1, hozAlign: "center", formatter: "textarea"},
-			{title: colName2, field: field2, hozAlign: "center", formatter: "textarea"},
+			{title: colName1, field: field1, hozAlign: "center", width: 130,
+				formatter: "money", formatterParams: formatterParamsFirst},
+			{title: colName2, field: field2, hozAlign: "center", width: 130,
+				formatter: "money", formatterParams: formatterParamsSecond},
 		],
 		// rowClick: function (e, row) {
 		// 	alert(`Row ${row.getData().id} Clicked!!!!`);
@@ -211,7 +225,7 @@ class PriceDistributionResults extends Component {
 	render() {
 		const {classes} = this.props;
 		const tabulator_options = {
-			height: 250,
+			// height: 250,
 		};
 
 		let futuresCode = "";
@@ -285,14 +299,14 @@ class PriceDistributionResults extends Component {
 						</Grid>
 						<Grid item xs={1} />
 					</Grid>
-					<Grid container>
+					<Grid container justify="center" alignItems="center">
 						<Grid item xs={1} />
 						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "300px", padding: "10px"}}>
+							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
 								<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
 							</div>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={3} style={{flexBasis: "0%"}}>
 							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
 								<ReactTabulator
 									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
@@ -323,14 +337,14 @@ class PriceDistributionResults extends Component {
 							{/*<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />*/}
 						</div>
 					</Grid>
-					<Grid container>
+					<Grid container justify="center" alignItems="center">
 						<Grid item xs={1} />
 						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "300px", padding: "10px"}}>
+							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
 								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
 							</div>
 						</Grid>
-						<Grid item xs={3}>
+						<Grid item xs={3} style={{flexBasis: "0%"}}>
 							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
 								<ReactTabulator
 									data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
