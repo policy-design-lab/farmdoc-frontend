@@ -62,7 +62,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					data: poiLine,
 					// showLine: false,
 					borderColor: "#5b84d7",
-					backgroundColor: "#C2D1F0",
+					backgroundColor: "rgba(194,209,240, 0.3)",
 					fill: true,
 					pointRadius: 0,
 					borderRadius: 2,
