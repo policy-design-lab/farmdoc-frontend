@@ -92,10 +92,17 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				display: false
 			},
 			tooltips: {
-				mode: "label",
+				mode: "index",
+				intersect: false,
+				position: "average",
 				callbacks: {
-					label: function (tooltipItem, graphData) {
-						return Number(tooltipItem.yLabel).toFixed(2);
+					title: function(tooltipItems, data) {
+						return `Price: ${ tooltipItems[0].xLabel}`;
+					},
+					label: function(item, data) {
+						let datasetLabel = data.datasets[item.datasetIndex].label || "";
+						let dataPoint = item.yLabel;
+						return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
 					}
 				}
 			},
