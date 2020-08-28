@@ -1,7 +1,5 @@
 import React, {Component} from "react";
-import {roundResults} from "../public/utils";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import PropTypes from "prop-types";
 
 class PriceDistributionFooter extends Component {
 	constructor(props) {
@@ -9,12 +7,14 @@ class PriceDistributionFooter extends Component {
 	}
 	render() {
 		let dateOptions = {year: "numeric", month: "long", day: "numeric"};
+		let timeOptions = {hour: "2-digit", minute: "2-digit"};
 		let date = new Date();
 		let priceDate = date.toLocaleDateString("en-US", dateOptions); // Saturday, September 17, 2016
+		let priceTime = date.toLocaleTimeString("en-US", timeOptions); // Saturday, September 17, 2016
 
 		return (
 			<div style={{textAlign: "left", padding: "4px", marginLeft: "40px", fontWeight: 500}}>
-				<span>Accessed on {priceDate}. The implied distribution indicates that there is a {this.props.probability} %
+				<span>Accessed on {priceDate}, {priceTime}. The implied distribution indicates that there is a {this.props.probability} %
 				probability that the price will be below $ {this.props.expirationPrice} at expiration.</span>
 				<br />
 				<br />
@@ -25,5 +25,11 @@ class PriceDistributionFooter extends Component {
 		);
 	}
 }
+
+PriceDistributionFooter.propTypes = {
+	probability: PropTypes.number,
+	expirationPrice: PropTypes.number,
+};
+
 export default PriceDistributionFooter;
 
