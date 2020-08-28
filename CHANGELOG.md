@@ -4,10 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.4.0] - 2020-08-28
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
-- API call to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
+- Create interface elements [FD-302](https://opensource.ncsa.illinois.edu/jira/browse/FD-302)
+- Populate graphs and tableswith test data [FD-303](https://opensource.ncsa.illinois.edu/jira/browse/FD-303)
+- Implement calls to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
+- Improve grapg format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
+- Improve pull down menus based on the crop months [FD-315](https://opensource.ncsa.illinois.edu/jira/browse/FD-315)
 
 ## [1.3.0] - 2020-06-12
 ### Changed

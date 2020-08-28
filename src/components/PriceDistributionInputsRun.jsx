@@ -431,7 +431,7 @@ class PriceDistributionInputsRun extends Component {
 										disabled={!this.validateInputs()}
 										style={{fontSize: "large", backgroundColor: "#455A64"}}>
 									<Icon className={classes.leftIcon}> send </Icon>
-									Run
+									Get prices
 								</Button>
 							</Grid>
 							{spinner}

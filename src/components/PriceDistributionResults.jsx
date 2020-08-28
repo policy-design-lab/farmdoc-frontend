@@ -243,9 +243,6 @@ class PriceDistributionResults extends Component {
 		let results = null;
 		let price = null;
 		let priceOfInterest = null;
-		let futuresData = null;
-		let dte = null;
-		let optionValuesByStrike = null;
 		let solution = null;
 
 		let priceTableData = null;

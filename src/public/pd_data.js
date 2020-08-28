@@ -1,16 +1,17 @@
 export const generateChartData = (sigma, mu) => {
 	let lowerl = 0.0001;
 	let upperl = 0.999;
+	const points = 1500;
 
 	let abLow = Math.exp(normsInv(lowerl) * sigma + mu);
 	let abHigh = Math.exp(normsInv(upperl) * sigma + mu);
-	let inc = (abHigh - abLow) / 599;
+	let inc = (abHigh - abLow) / (points - 1);
 
 	let prices = [];
 	let bigPyts = [];
 	let litPyts = [];
 	let curPrice = abLow;
-	for (let i = 0; i < 600; i++) {
+	for (let i = 0; i < points; i++) {
 		let bigPyt = normalDistribution((Math.log(curPrice) - mu) / sigma);
 
 		let lpt1 = Math.exp(-0.5 * Math.pow((Math.log(curPrice) - mu) / sigma, 2));
