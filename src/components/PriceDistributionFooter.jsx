@@ -9,8 +9,8 @@ class PriceDistributionFooter extends Component {
 		let dateOptions = {year: "numeric", month: "long", day: "numeric"};
 		let timeOptions = {hour: "2-digit", minute: "2-digit"};
 		let date = new Date();
-		let priceDate = date.toLocaleDateString("en-US", dateOptions); // Saturday, September 17, 2016
-		let priceTime = date.toLocaleTimeString("en-US", timeOptions); // Saturday, September 17, 2016
+		let priceDate = date.toLocaleDateString("en-US", dateOptions); // September 17, 2016
+		let priceTime = date.toLocaleTimeString("en-US", timeOptions); // 12:12 PM
 
 		return (
 			<div style={{textAlign: "left", padding: "4px", marginLeft: "40px", fontWeight: 500}}>
