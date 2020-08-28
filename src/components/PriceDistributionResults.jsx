@@ -142,8 +142,8 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 						precision: 1,
 						maxTicksLimit: 11, // Provide odd number here to show evenly distributed grids
 						fontSize: 12,
-						maxRotation: 0,
-						minRotation: 0
+						maxRotation: 45,
+						minRotation: 45
 					},
 					gridLines: {
 						display: true,
