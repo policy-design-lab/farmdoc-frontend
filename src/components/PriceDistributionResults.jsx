@@ -102,7 +102,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					label: function(item, data) {
 						let datasetLabel = data.datasets[item.datasetIndex].label || "";
 						let dataPoint = item.yLabel;
-						return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
+						return `${datasetLabel }: ${ roundResults(100 * dataPoint, 1) }%`;
 					}
 				}
 			},
@@ -142,8 +142,8 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 						precision: 1,
 						maxTicksLimit: 11, // Provide odd number here to show evenly distributed grids
 						fontSize: 12,
-						maxRotation: 90,
-						minRotation: 90
+						maxRotation: 0,
+						minRotation: 0
 					},
 					gridLines: {
 						display: true,
