@@ -203,31 +203,31 @@ class PriceDistributionResults extends Component {
 		super(props);
 
 		this.handlePDResults = handlePDResults;
+		this.state = {priceCrop: null};
 		this.state = {poi: null};
 	}
 
-	validateMaxValue = value => event => {
+	validateMaxValue = (event, price) => {
 		if (isNumeric(event.target.value)) {
-			if (isNaN(event.target.value)) {
+			if (event.target.value <= 0) {
 				event.target.value = 0;
 			}
-			else {
-				if (event.target.value <= 0) {
-					event.target.value = 0;
-				}
-				else if (event.target.value > 4 * value) {
-					event.target.value = value;
-				}
+			else if (event.target.value > 4 * price) {
+				event.target.value = price;
 			}
 		}
-		else {
-			event.target.value = value;
+		else if (event.target.value !== "") {
+			event.target.value = price;
 		}
 	};
 
-	updateInputValue = (event) => {
+	updateInputValue = (event, price) => {
+		//console.log(event.target.value, price);
 		this.setState({
 			poi: event.target.value
+		});
+		this.setState({
+			priceCrop: price
 		});
 	}
 
@@ -275,7 +275,8 @@ class PriceDistributionResults extends Component {
 				const chartData = generateChartData(solution.sigma, solution.mu);
 
 				priceOfInterest = price;
-				if (this.state.poi) {
+				// console.log(this.state.priceCrop, price, this.state.poi);
+				if (this.state.priceCrop === price) {
 					priceOfInterest = this.state.poi;
 				}
 				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
@@ -326,21 +327,19 @@ class PriceDistributionResults extends Component {
 						<div style={{margin: "auto", width: "50%", padding: "0px"}}>
 							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
 							<TextField
-								defaultValue={price}
+								defaultValue={priceOfInterest}
 								style={{width: "90px"}}
-								value={this.state.inputValue}
 								margin="normal"
-								onChange={this.updateInputValue}
+								onChange={(e) => this.updateInputValue(e, price)}
 								onKeyDown={this.keyPress}
 								required
 								InputLabelProps={{shrink: true}}
-								onBlur={this.validateMaxValue(price)}
+								onInput={(e) => this.validateMaxValue(e, price)}
 								InputProps={{
 									startAdornment:
 										<InputAdornment position="start">$</InputAdornment>, padding: 5
 								}}
 							/>
-							{/*<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />*/}
 						</div>
 					</Grid>
 					<Grid container justify="center" alignItems="center">

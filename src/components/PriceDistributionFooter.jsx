@@ -28,7 +28,7 @@ class PriceDistributionFooter extends Component {
 
 PriceDistributionFooter.propTypes = {
 	probability: PropTypes.number,
-	expirationPrice: PropTypes.number,
+	expirationPrice: PropTypes.string,
 };
 
 export default PriceDistributionFooter;
