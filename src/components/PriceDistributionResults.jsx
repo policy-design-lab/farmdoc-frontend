@@ -317,8 +317,8 @@ class PriceDistributionResults extends Component {
 						<Grid item xs={3} style={{flexBasis: "0%"}}>
 							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
 								<ReactTabulator
-											data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
-											rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
+									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
+									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
 								/>
 							</div>
 						</Grid>
