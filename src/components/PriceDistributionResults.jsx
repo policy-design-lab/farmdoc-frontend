@@ -102,7 +102,9 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					label: function(item, data) {
 						let datasetLabel = data.datasets[item.datasetIndex].label || "";
 						let dataPoint = item.yLabel;
-						return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
+						if (!datasetLabel.toLowerCase().includes("poi")) { //do not include POI graph value in tooltip
+							return `${datasetLabel}: ${roundResults(dataPoint, 1)}%`;
+						}
 					}
 				}
 			},
