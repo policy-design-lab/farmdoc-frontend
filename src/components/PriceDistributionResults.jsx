@@ -102,7 +102,9 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					label: function(item, data) {
 						let datasetLabel = data.datasets[item.datasetIndex].label || "";
 						let dataPoint = item.yLabel;
-						return `${datasetLabel }: ${ roundResults(100 * dataPoint, 1) }%`;
+						if (!datasetLabel.toLowerCase().includes("poi")) { //do not include POI graph value in tooltip
+							return `${datasetLabel}: ${roundResults(dataPoint * 100, 2)}%`;
+						}
 					}
 				}
 			},
@@ -183,9 +185,9 @@ const prepareTable = (tableData, title, colName1, colName2, field1, field2, elem
 		layout: "fitColumns",
 		tooltipsHeader: true,
 		columns: [
-			{title: colName1, field: field1, hozAlign: "center", width: 130, tooltip: false,
+			{title: colName1, field: field1, hozAlign: "center", width: 120, tooltip: false,
 				headerTooltip: headerTooltipFirst, formatter: "money", formatterParams: formatterParamsFirst},
-			{title: colName2, field: field2, hozAlign: "center", width: 130, tooltip: false,
+			{title: colName2, field: field2, hozAlign: "center", width: 120, tooltip: false,
 				headerTooltip: headerTooltipSecond, formatter: "money", formatterParams: formatterParamsSecond},
 		],
 		rowFormatter: function (row) {
@@ -284,8 +286,8 @@ class PriceDistributionResults extends Component {
 				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
 				probTableData = generateProbPoints(solution.sigma, solution.mu);
 
-				table1 = prepareTable(priceTableData, "Price at", "Price", "Prob Below", "price", "probability", "table1");
-				table2 = prepareTable(probTableData, "At expiration", "Prob Below", "Price", "percentile", "price", "table2");
+				table1 = prepareTable(priceTableData, "Price at", "Price at<br/>Expiration", "Probability<br/>Below", "price", "probability", "table1");
+				table2 = prepareTable(probTableData, "At expiration", "Probability<br/>Below", "Price at<br/>Expiration", "percentile", "price", "table2");
 			}
 
 			return (
@@ -315,8 +317,8 @@ class PriceDistributionResults extends Component {
 						<Grid item xs={3} style={{flexBasis: "0%"}}>
 							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
 								<ReactTabulator
-									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
-									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
+											data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
+											rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
 								/>
 							</div>
 						</Grid>
