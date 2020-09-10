@@ -269,7 +269,7 @@ function getMonthYearCode(crop_code) {
 	let month_year_code = [];
 	let month_menu = {};
 	// e.g. 18 month rolling forward
-	const month_roll = 32;
+	const month_roll = 18;
 	let i = 0;
 	let mi = month;
 	while (i <= month_roll) {
