@@ -13,14 +13,12 @@ class PriceDistributionFooter extends Component {
 		let priceTime = date.toLocaleTimeString("en-US", timeOptions); // 12:12 PM
 
 		return (
-			<div style={{textAlign: "left", padding: "4px", marginLeft: "40px", fontWeight: 500}}>
-				<span>Accessed on {priceDate}, {priceTime}. The implied distribution indicates that there is a {this.props.probability} %
-				probability that the price will be below $ {this.props.expirationPrice} at expiration.</span>
+			<div style={{textAlign: "left", padding: "0px", margin: "10px", fontWeight: 500}}>
+				<span>Accessed on {priceDate}, {priceTime}.</span>
 				<br />
-				<br />
-				<span style={{fontSize: "small"}}>Copyright © 2020. Futures: at least 10 minutes delayed. Information is provided 'as is'and solely
-				for informational purposes, not for trading purposes or advice. To see all exchange delays
-				and terms of use, please see disclaimer.</span>
+				<span style={{fontSize: "small"}}>Copyright © 2020. Futures: at least 10 minutes delayed. Information is provided 'as is'
+					and solely for informational purposes, not for trading purposes or advice. To see all exchange delays
+					and terms of use, please see disclaimer.</span>
 			</div>
 		);
 	}

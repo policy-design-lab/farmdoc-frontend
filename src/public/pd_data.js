@@ -43,9 +43,9 @@ export const regeneratePriceTableData = (price, sigma, mu) => {
 	return priceTableData;
 };
 
-function getProbabilityForPrice(price, sigma, mu) {
+export const getProbabilityForPrice = (price, sigma, mu) => {
 	return normalDistribution((Math.log(price) - mu) / sigma);
-}
+};
 
 export const generateProbPoints = (sigma, mu) => {
 	let percentiles = [5, 15, 25, 35, 45, 50, 55, 65, 75, 85, 95];
