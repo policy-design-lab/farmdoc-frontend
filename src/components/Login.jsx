@@ -71,14 +71,23 @@ class Login extends Component {
 							localStorage.setItem("dwPersonId", personId);
 						});
 					}
+
+					handleUserLogin(profile["username"], profile["username"], true);
+					let referer_url = sessionStorage.getItem("referer_url");
+					if (referer_url){
+						sessionStorage.removeItem("referer_url");
+						browserHistory.push(referer_url);
+					}
+					else {
+						browserHistory.push("/");
+					}
+
 				}).catch(error => {
 					localStorage.removeItem("dwPersonId");
 					console.log(error);
 					console.log("Error in making the api call. Most likely due to network or service being down");
 				});
 
-				handleUserLogin(profile["username"], profile["username"], true);
-				browserHistory.push("/");
 
 			}).error(function() {
 				console.log("Failed to load user profile");

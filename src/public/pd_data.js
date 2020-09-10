@@ -1,7 +1,7 @@
 export const generateChartData = (sigma, mu) => {
 	let lowerl = 0.0001;
 	let upperl = 0.999;
-	const points = 2000;
+	const points = 50;
 
 	let abLow = Math.exp(normsInv(lowerl) * sigma + mu);
 	let abHigh = Math.exp(normsInv(upperl) * sigma + mu);

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Implement calls to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
 - Improve grapg format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
 - Improve pull down menus based on the crop months [FD-315](https://opensource.ncsa.illinois.edu/jira/browse/FD-315)
+- Application will redirect to the accessed url after successful login [FD-318](https://opensource.ncsa.illinois.edu/jira/browse/FD-318)
 
 ## [1.3.0] - 2020-06-12
 ### Changed
