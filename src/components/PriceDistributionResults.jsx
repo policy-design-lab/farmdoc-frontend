@@ -245,7 +245,8 @@ class PriceDistributionResults extends Component {
 		let results = null;
 		let price = null;
 		let priceOfInterest = null;
-		let solution = null;
+		let sigma = 0.0;
+		let mu = 0.0;
 
 		let priceTableData = null;
 		let probTableData = null;
@@ -256,6 +257,16 @@ class PriceDistributionResults extends Component {
 
 		if (this.props.hasOwnProperty("pdResults") && this.props["pdResults"] !== null) {
 			resultData = this.props["pdResults"];
+		}
+		else if (this.props["pdResults"] === ""){
+			return (
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
+			);
+		}
+		else {
+			return (
+				<div />
+			);
 		}
 
 		if (resultData) {
@@ -272,9 +283,10 @@ class PriceDistributionResults extends Component {
 				results = pdResultsObj[futuresCode]["results"];
 
 				price = roundResults(results["price"], 2);
-				solution = results["solution"];
+				sigma = results["solution"].sigma;
+				mu = results["solution"].mu;
 
-				const chartData = generateChartData(solution.sigma, solution.mu);
+				const chartData = generateChartData(sigma, mu);
 
 				priceOfInterest = price;
 				// console.log(this.state.priceCrop, price, this.state.poi);
@@ -284,13 +296,14 @@ class PriceDistributionResults extends Component {
 				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
 				graph2 = prepareProbChart(priceOfInterest, chartData, "Probability of Prices at Expiration", "Relative Probability", "litPyt");
 
-				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
-				probTableData = generateProbPoints(solution.sigma, solution.mu);
+				priceTableData = regeneratePriceTableData(price, sigma, mu);
+				probTableData = generateProbPoints(sigma, mu);
 
 				table1 = prepareTable(priceTableData, "Price at", "Price at<br/>Expiration", "Probability<br/>Below", "price", "probability", "table1");
 				table2 = prepareTable(probTableData, "At expiration", "Probability<br/>Below", "Price at<br/>Expiration", "percentile", "price", "table2");
 			}
-
+		}
+		if (price && sigma && mu) {
 			return (
 				<Grid container>
 					<Grid container direction="row">
@@ -377,14 +390,9 @@ class PriceDistributionResults extends Component {
 				</Grid>
 			);
 		}
-		else if (this.props["pdResults"] === ""){
-			return (
-				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
-			);
-		}
 		else {
 			return (
-				<div />
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
 			);
 		}
 	}
