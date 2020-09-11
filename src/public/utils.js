@@ -208,12 +208,12 @@ export function getCropCodes(){
 
 
 export function getMonthCodes(crop_code){
-	return getMonthYearCode(crop_code);
+	return assmbMonthYearCode(crop_code);
 }
 
 
 export function getYearCodes(crop_code){
-	const month_menu = getMonthYearCode(crop_code);
+	const month_menu = assmbMonthYearCode(crop_code);
 	let years = Object.keys(month_menu);
 	let year_codes = [];
 	let i;
@@ -223,9 +223,25 @@ export function getYearCodes(crop_code){
 	return year_codes;
 }
 
-function getMonthYearCode(crop_code) {
+export function getMonthYearCodes(crop_code){
+	const month_menu = assmbMonthYearCode(crop_code);
+	let years = Object.keys(month_menu);
+	let month_year_codes = [];
+	let i;
+	let j;
+	for (i = 0; i < years.length; i++) {
+		for (j = 0; j < month_menu[years[i]].length; j++) {
+			month_year_codes.push({
+				value: `${month_menu[years[i]][j].value}-${years[i]}`,
+				label: `${month_menu[years[i]][j].label} ${years[i].toString()}`});
+		}
+	}
+	return month_year_codes;
+}
+
+function assmbMonthYearCode(crop_code) {
 	//crop month codes
-	const CORN_CODES = [
+	const CORN_CODES_FULL = [
 		{value: "", label: "January"},
 		{value: "", label: "February"},
 		{value: "H", label: "March"},
@@ -239,7 +255,7 @@ function getMonthYearCode(crop_code) {
 		{value: "", label: "November"},
 		{value: "Z", label: "December"}
 	];
-	const SOYBEANS_CODES = [
+	const SOYBEANS_CODES_FULL = [
 		{value: "F", label: "January"},
 		{value: "", label: "February"},
 		{value: "H", label: "March"},
@@ -252,6 +268,34 @@ function getMonthYearCode(crop_code) {
 		{value: "", label: "October"},
 		{value: "X", label: "November"},
 		{value: "", label: "December"}
+	];
+	const CORN_CODES = [
+		{value: "", label: "Jan"},
+		{value: "", label: "Feb"},
+		{value: "H", label: "Mar"},
+		{value: "", label: "Apr"},
+		{value: "K", label: "May"},
+		{value: "", label: "Jun"},
+		{value: "N", label: "Jul"},
+		{value: "", label: "Aug"},
+		{value: "U", label: "Sep"},
+		{value: "", label: "Oct"},
+		{value: "", label: "Nov"},
+		{value: "Z", label: "Dec"}
+	];
+	const SOYBEANS_CODES = [
+		{value: "F", label: "Jan"},
+		{value: "", label: "Feb"},
+		{value: "H", label: "Mar"},
+		{value: "", label: "Apr"},
+		{value: "K", label: "May"},
+		{value: "", label: "Jun"},
+		{value: "N", label: "Jul"},
+		{value: "Q", label: "Aug"},
+		{value: "U", label: "Sep"},
+		{value: "", label: "Oct"},
+		{value: "X", label: "Nov"},
+		{value: "", label: "Dec"}
 	];
 
 	const cdate = new Date();
