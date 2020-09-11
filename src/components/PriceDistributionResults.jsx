@@ -18,7 +18,8 @@ import {
 import {
 	generateChartData,
 	generateProbPoints,
-	regeneratePriceTableData
+	regeneratePriceTableData,
+	getProbabilityForPrice
 } from "../public/pd_data";
 
 import {isNumeric, roundResults} from "../public/utils";
@@ -247,6 +248,7 @@ class PriceDistributionResults extends Component {
 		let priceOfInterest = null;
 		let sigma = 0.0;
 		let mu = 0.0;
+		let priceOfInterestProb = null;
 
 		let priceTableData = null;
 		let probTableData = null;
@@ -293,11 +295,14 @@ class PriceDistributionResults extends Component {
 				if (this.state.priceCrop === price) {
 					priceOfInterest = this.state.poi;
 				}
+				priceOfInterestProb = getProbabilityForPrice(priceOfInterest, sigma, mu);
+
 				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
 				graph2 = prepareProbChart(priceOfInterest, chartData, "Probability of Prices at Expiration", "Relative Probability", "litPyt");
 
 				priceTableData = regeneratePriceTableData(price, sigma, mu);
 				probTableData = generateProbPoints(sigma, mu);
+
 
 				table1 = prepareTable(priceTableData, "Price at", "Price at<br/>Expiration", "Probability<br/>Below", "price", "probability", "table1");
 				table2 = prepareTable(probTableData, "At expiration", "Probability<br/>Below", "Price at<br/>Expiration", "percentile", "price", "table2");
@@ -338,30 +343,32 @@ class PriceDistributionResults extends Component {
 						</Grid>
 						<Grid item xs={1} />
 					</Grid>
-					<Grid container>
-						<div style={{margin: "auto", width: "50%", padding: "0px"}}>
-							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
-							<TextField
-								defaultValue={priceOfInterest}
-								style={{width: "90px"}}
-								margin="normal"
-								onChange={(e) => this.updateInputValue(e, price)}
-								onKeyDown={this.keyPress}
-								required
-								InputLabelProps={{shrink: true}}
-								onInput={(e) => this.validateMaxValue(e, price)}
-								InputProps={{
-									startAdornment:
-										<InputAdornment position="start">$</InputAdornment>, padding: 5
-								}}
-							/>
-						</div>
-					</Grid>
 					<Grid container justify="center" alignItems="center">
 						<Grid item xs={1} />
 						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
+							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
 								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
+							</div>
+							<div style={{margin: "auto", width: "50%", padding: "0px"}}>
+								<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
+								<TextField
+									defaultValue={priceOfInterest}
+									style={{width: "90px"}}
+									margin="normal"
+									onChange={(e) => this.updateInputValue(e, price)}
+									onKeyDown={this.keyPress}
+									required
+									InputLabelProps={{shrink: true}}
+									onInput={(e) => this.validateMaxValue(e, price)}
+									InputProps={{
+										startAdornment:
+											<InputAdornment position="start">$</InputAdornment>, padding: 5
+									}}
+								/>
+							</div>
+							<div style={{margin: "auto", width: "100%", padding: "0px"}}>
+								<span>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %
+								probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
 							</div>
 						</Grid>
 						<Grid item xs={3} style={{flexBasis: "0%"}}>
@@ -379,10 +386,7 @@ class PriceDistributionResults extends Component {
 						<Grid item xs={10}>
 							<div>
 								<Divider/>
-								<PriceDistributionFooter
-									probability={roundResults(probTableData[5].percentile, 0)}
-									expirationPrice={roundResults(probTableData[5].price, 2)}
-								/>
+								<PriceDistributionFooter />
 							</div>
 						</Grid>
 						<Grid item xs={1} />
