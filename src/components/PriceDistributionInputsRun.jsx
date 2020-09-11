@@ -13,6 +13,7 @@ import {
 	getCropCodes,
 	getMonthCodes,
 	getYearCodes,
+	getMonthYearCodes,
 	getOutputFileJson
 } from "../public/utils";
 import {
@@ -163,6 +164,7 @@ function Control(props) {
 }
 
 const components = {
+	IndicatorSeparator: () => null,
 	Control
 };
 
@@ -171,6 +173,7 @@ class PriceDistributionInputsRun extends Component {
 		cropCode: null,
 		monthCode: null,
 		yearCode: null,
+		monthYearCode: null,
 		runName: "",
 		runStatus: "INIT",
 		pdResults: null,
@@ -186,12 +189,13 @@ class PriceDistributionInputsRun extends Component {
 
 		const crop_year = getYearCodes("C")[0];
 		const crop_month = getMonthCodes("C")[crop_year.value];
+		const crop_month_year = getMonthYearCodes("C");
 		this.state = {
 			cropCode: {value: "C", label: "Corn"},
 			monthCode: crop_month[crop_month.length - 1],
-			//monthCode: {value: "Z", label: "December"},
-			//yearCode: {value: 2020, label: "2020"},
 			yearCode: crop_year,
+			//monthYearCode: {value: Z-2020, label: "Dec 2020"},
+			monthYearCode: crop_month_year[crop_month.length - 1],
 			runName: "",
 			runStatus: "INIT",
 			pdResults: null,
@@ -212,13 +216,22 @@ class PriceDistributionInputsRun extends Component {
 
 					const crop_year = getYearCodes(event.value)[0];
 					const crop_month = getMonthCodes(event.value)[crop_year.value];
-					this.setState({monthCode: crop_month[crop_month.length - 1]});
-					this.setState({yearCode: crop_year});
+					const crop_month_year = getMonthYearCodes(event.value);
+					// this.setState({monthCode: crop_month[crop_month.length - 1]});
+					// this.setState({yearCode: crop_year});
+					this.setState({monthYearCode: crop_month_year[crop_month.length - 1]},
+						() => this.runPriceDistribution());
 				}
 				break;
 			case "monthCode":
 				if (event.value !== ""){
 					this.setState({monthCode: {value: event.value, label: event.label}});
+				}
+				break;
+			case "monthYearCode":
+				if (event.value !== ""){
+					this.setState({monthYearCode: {value: event.value, label: event.label}},
+						() => this.runPriceDistribution());
 				}
 				break;
 			case "yearCode":
@@ -257,11 +270,16 @@ class PriceDistributionInputsRun extends Component {
 		};
 		let dwUrl = datawolfURL;
 
-		console.log(this.state.cropCode.value, this.state.monthCode.value, this.state.yearCode.value);
+		console.log(
+			this.state.cropCode.value,
+			this.state.monthYearCode.value.split("-")[0],
+			this.state.monthYearCode.value.split("-")[1]);
 		let postRequest = postExecutionPdRequest(personId, title,
 			this.state.cropCode.value,
-			this.state.monthCode.value,
-			this.state.yearCode.value);
+			// this.state.monthCode.value,
+			// this.state.yearCode.value);
+			this.state.monthYearCode.value.split("-")[0],
+			this.state.monthYearCode.value.split("-")[1]);
 		let body = JSON.stringify(postRequest);
 
 		let pdResponse = await fetch(`${dwUrl}/executions`, {
@@ -389,54 +407,72 @@ class PriceDistributionInputsRun extends Component {
 											 id: "crop-simple",
 										 }}/>
 						</FormControl>
-						<FormControl className={classes.formControlSmall}>
+						<FormControl className={classes.formControlMedium} required>
 							<ReactSelect styles={ReactSelectStyles}
 										 classes={classes}
 										 textFieldProps={{
-											 label: "Month",
+											 label: "Year Month",
 											 InputLabelProps: {shrink: true},
 										 }}
 										 components={components}
 										 placeholder="Select"
-										 value={this.state.monthCode}
-										 options={getMonthCodes(this.state.cropCode.value)[this.state.yearCode.value]}
-										 onChange={this.handleReactSelectChange("monthCode")}
+										 value={this.state.monthYearCode}
+										 options={getMonthYearCodes(this.state.cropCode.value)}
+										 onChange={this.handleReactSelectChange("monthYearCode")}
 										 inputProps={{
-											 name: "monthCode",
-											 id: "month-simple",
+											 name: "monthYearCode",
+											 id: "month-year-simple",
 										 }}/>
 						</FormControl>
-						<FormControl className={classes.formControlXSmall}>
-							<ReactSelect styles={ReactSelectStyles}
-										 classes={classes}
-										 textFieldProps={{
-											 label: "Year",
-											 InputLabelProps: {shrink: true},
-										 }}
-										 components={components}
-										 placeholder="Select"
-										 value={this.state.yearCode}
-										 options={getYearCodes(this.state.cropCode.value)}
-										 onChange={this.handleReactSelectChange("yearCode")}
-										 inputProps={{
-											 name: "yearCode",
-											 id: "year-simple",
-										 }}/>
-						</FormControl>
-						<br/>
-						<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>
-							<Grid item xs />
-							<Grid item xs={6} >
-								<Button variant="contained" color="primary" onClick={this.runPriceDistribution}
-										disabled={!this.validateInputs()}
-										style={{fontSize: "large", backgroundColor: "#455A64"}}>
-									<Icon className={classes.leftIcon}> send </Icon>
-									Get prices
-								</Button>
-							</Grid>
-							{spinner}
-							<Grid item xs />
-						</Grid>
+						{/*<FormControl className={classes.formControlSmall}>*/}
+						{/*	<ReactSelect styles={ReactSelectStyles}*/}
+						{/*				 classes={classes}*/}
+						{/*				 textFieldProps={{*/}
+						{/*					 label: "Month",*/}
+						{/*					 InputLabelProps: {shrink: true},*/}
+						{/*				 }}*/}
+						{/*				 components={components}*/}
+						{/*				 placeholder="Select"*/}
+						{/*				 value={this.state.monthCode}*/}
+						{/*				 options={getMonthCodes(this.state.cropCode.value)[this.state.yearCode.value]}*/}
+						{/*				 onChange={this.handleReactSelectChange("monthCode")}*/}
+						{/*				 inputProps={{*/}
+						{/*					 name: "monthCode",*/}
+						{/*					 id: "month-simple",*/}
+						{/*				 }}/>*/}
+						{/*</FormControl>*/}
+						{/*<FormControl className={classes.formControlXSmall}>*/}
+						{/*	<ReactSelect styles={ReactSelectStyles}*/}
+						{/*				 classes={classes}*/}
+						{/*				 textFieldProps={{*/}
+						{/*					 label: "Year",*/}
+						{/*					 InputLabelProps: {shrink: true},*/}
+						{/*				 }}*/}
+						{/*				 components={components}*/}
+						{/*				 placeholder="Select"*/}
+						{/*				 value={this.state.yearCode}*/}
+						{/*				 options={getYearCodes(this.state.cropCode.value)}*/}
+						{/*				 onChange={this.handleReactSelectChange("yearCode")}*/}
+						{/*				 inputProps={{*/}
+						{/*					 name: "yearCode",*/}
+						{/*					 id: "year-simple",*/}
+						{/*				 }}/>*/}
+						{/*</FormControl>*/}
+						{/*<br/>*/}
+						{/*<Grid container spacing={0} style={{display: "flex", alignItems: "center"}}>*/}
+						{/*	<Grid item xs />*/}
+						{/*	<Grid item xs={6} >*/}
+						{/*		<Button variant="contained" color="primary" onClick={this.runPriceDistribution}*/}
+						{/*				disabled={!this.validateInputs()}*/}
+						{/*				style={{fontSize: "large", backgroundColor: "#455A64"}}>*/}
+						{/*			<Icon className={classes.leftIcon}> send </Icon>*/}
+						{/*			Get prices*/}
+						{/*		</Button>*/}
+						{/*	</Grid>*/}
+						{/*	{spinner}*/}
+						{/*	<Grid item xs />*/}
+						{/*</Grid>*/}
+						{spinner}
 					</div>
 				</div>
 			</div>
