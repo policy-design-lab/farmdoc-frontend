@@ -164,7 +164,6 @@ function Control(props) {
 }
 
 const components = {
-	IndicatorSeparator: () => null,
 	Control
 };
 
