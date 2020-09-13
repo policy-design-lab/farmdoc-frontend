@@ -345,11 +345,11 @@ class PriceDistributionResults extends Component {
 					</Grid>
 					<Grid container justify="center" alignItems="center">
 						<Grid item xs={1} />
-						<Grid item xs={7}>
+						<Grid item xs={7} style={{paddingBottom: "10px"}}>
 							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
 								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
 							</div>
-							<div style={{margin: "auto", width: "50%", padding: "0px"}}>
+							<div style={{margin: "auto", width: "90%", textAlign: "left", padding: "0px"}}>
 								<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
 								<TextField
 									defaultValue={priceOfInterest}
@@ -366,8 +366,8 @@ class PriceDistributionResults extends Component {
 									}}
 								/>
 							</div>
-							<div style={{margin: "auto", width: "100%", padding: "0px"}}>
-								<span>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %
+							<div style={{margin: "auto", width: "90%", textAlign: "left"}}>
+								<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %
 								probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
 							</div>
 						</Grid>
