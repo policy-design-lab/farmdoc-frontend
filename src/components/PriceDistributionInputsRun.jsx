@@ -379,7 +379,7 @@ class PriceDistributionInputsRun extends Component {
 			<div style={{textAlign: "center"}}>
 				<div style={{textAlign: "center"}}>
 					<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
-						Select crop, month and year of futures date.
+						Select crop and month of futures date
 					</div>
 					<div style={{maxWidth: "1080px",
 						borderRadius: "15px", borderStyle: "solid", boxShadow: " 0 2px 4px 0px", borderWidth: "1px",
@@ -410,7 +410,7 @@ class PriceDistributionInputsRun extends Component {
 							<ReactSelect styles={ReactSelectStyles}
 										 classes={classes}
 										 textFieldProps={{
-											 label: "Year Month",
+											 label: "Month",
 											 InputLabelProps: {shrink: true},
 										 }}
 										 components={components}
