@@ -51,9 +51,9 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				{
 					label: yAxisLabel,
 					data: graphData,
-					borderColor: "rgb(133, 163, 225)",
-					backgroundColor: "rgba(235, 240, 250, 0.3)",
-					fill: true,
+					borderColor: "blue",
+					backgroundColor: "blue",
+					fill: false,
 					pointRadius: 0,
 					borderRadius: 2,
 					borderWidth: 2
@@ -124,6 +124,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					gridLines: {
 						display: true,
 						// drawOnChartArea: true,
+						color: "#939799",
 						z: 100,
 						lineWidth: 1,
 						// borderDash: [10],
@@ -150,6 +151,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					},
 					gridLines: {
 						display: true,
+						color: "#939799",
 						z: 100,
 						lineWidth: 1,
 					},
