@@ -236,14 +236,6 @@ export const pricedistrTermDefinitions = [
 	},
 ];
 
-export const priceDistrWelcomeText = ["The price distribution tool uses current option market prices to derive estimates of the probability distribution of prices " +
-"at the expiration of an underlying corn and soybean futures contracts.",
-"  ",
-"Tool features a model which uses a process similar to the Black-Scholes model for option prices to identify the best fitting " +
-	"distribution of prices, parameterized as a lognormal distribution. The utility allows the user to identify the probability " +
-	"associated with a given price of interest, and provides the outputs in both graphical and tabular form."
-];
-
 export const premEvalWelcomeText = ["The insurance payment evaluator provides helpful information to producers " +
 "comparing costs and risk reductions across their available crop insurance alternatives.",
 "  ",
