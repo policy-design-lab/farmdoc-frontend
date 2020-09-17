@@ -398,7 +398,8 @@ class PriceDistributionResults extends Component {
 		}
 		else {
 			return (
-				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected contract.
+					Please select a different option.</div>
 			);
 		}
 	}

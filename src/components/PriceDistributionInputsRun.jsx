@@ -410,7 +410,7 @@ class PriceDistributionInputsRun extends Component {
 							<ReactSelect styles={ReactSelectStyles}
 										 classes={classes}
 										 textFieldProps={{
-											 label: "Month",
+											 label: "Contract Month",
 											 InputLabelProps: {shrink: true},
 										 }}
 										 components={components}
