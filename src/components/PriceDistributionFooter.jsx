@@ -18,7 +18,7 @@ class PriceDistributionFooter extends Component {
 				<br />
 				<span style={{fontSize: "small"}}>Copyright © 2020. Futures: at least 10 minutes delayed. Information is provided 'as is'
 					and solely for informational purposes, not for trading purposes or advice. To see all exchange delays
-					and terms of use, please see <a href="https://www.barchart.com/solutions/disclaimers"
+					and terms of use, please see <a href="https://www.barchartmarketdata.com/terms"
 																					style={{color: "blue", textDecoration: "underline"}}
 																					target="_blank">disclaimer</a>.</span>
 			</div>
