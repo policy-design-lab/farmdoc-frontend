@@ -204,8 +204,7 @@ class Header extends Component {
 							}
 
 							<a href="/" className={"farmdoc"}>
-								<img src={GAPPLogo}/>
-								{/*<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>*/}
+								<img src={GAPPLogo} alt="Farmdoc"/>
 								<img src={FDWhite} alt="Farmdoc" style={{width: "100%"}}/>
 							</a>
 						</ToolbarSection>
