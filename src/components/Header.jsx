@@ -21,6 +21,7 @@ import {Modal} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import AppsList from "./AppsList";
 import GAPPLogo from "../images/GAPP-logo.png";
+import FDWhite from "../images/logo-farmdoc-white.png";
 
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -204,7 +205,8 @@ class Header extends Component {
 
 							<a href="/" className={"farmdoc"}>
 								<img src={GAPPLogo}/>
-								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
+								{/*<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>*/}
+								<img src={FDWhite} alt="Farmdoc" style={{width: "100%"}}/>
 							</a>
 						</ToolbarSection>
 						<ToolbarSection>

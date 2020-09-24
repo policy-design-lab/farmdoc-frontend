@@ -222,7 +222,8 @@
 
 .footer {
 	background-color: #455A64;
-	min-height: 52px !important;
+	min-height: 120px !important;
+
 }
 
 .footerCorners {
@@ -244,8 +245,8 @@
 }
 
 .footerlogo img {
-	width: 40px;
-	height: 40px;
+	/*width: 40px;*/
+	/*height: 40px;*/
 	margin-left: 28px;
 	margin-right: 14px;
 	display:block;
