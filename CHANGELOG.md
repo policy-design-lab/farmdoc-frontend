@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Improve pull down menus based on the crop months [FD-315](https://opensource.ncsa.illinois.edu/jira/browse/FD-315)
 - Application will redirect to the accessed url after successful login [FD-318](https://opensource.ncsa.illinois.edu/jira/browse/FD-318)
 
+### Changed
+- Updated farmdoc & NCSA logos [FD-323](https://opensource.ncsa.illinois.edu/jira/browse/FD-323)
+
 ## [1.3.0] - 2020-06-12
 ### Changed
 - Horizontal user details bar in the Header replaced with 'User Account' Icon with dropdown menu [FD-229](https://opensource.ncsa.illinois.edu/jira/browse/FD-229)
