@@ -25,7 +25,8 @@ class Footer extends Component {
 							</a>
 
 							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
-								<img src={NCSALogo} alt="NCSA" title="National Center for Supercomputing Applications" />
+								<img src={NCSALogo} alt="NCSA" title="National Center for Supercomputing Applications"
+										 style={{width: "140px"}} />
 							</a>
 						</ToolbarSection>
 

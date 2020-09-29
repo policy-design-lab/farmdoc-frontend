@@ -222,7 +222,7 @@
 
 .footer {
 	background-color: #455A64;
-	min-height: 120px !important;
+	min-height: 72px !important;
 
 }
 
@@ -240,14 +240,15 @@
 	vertical-align: middle;
 	margin-top: auto;
 	margin-bottom: auto;
-	padding-left: 40px;
-	padding-right: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 .footerlogo img {
-	/*width: 40px;*/
-	/*height: 40px;*/
+	width: 50px;
+	height: 50px;
 	margin-left: 28px;
 	margin-right: 14px;
 	display:block;
 }
+
