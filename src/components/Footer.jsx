@@ -24,7 +24,7 @@ class Footer extends Component {
 								<img src={FDDLogo} alt="Farmdoc Daily" title="Farmdoc Daily"/>
 							</a>
 
-							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo"}>
+							<a href="http://www.ncsa.illinois.edu" target="_blank" className={"footerlogo2"}>
 								<img src={NCSALogo} alt="NCSA" title="National Center for Supercomputing Applications"
 										 style={{width: "140px"}} />
 							</a>
