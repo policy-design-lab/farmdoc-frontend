@@ -178,6 +178,7 @@ class Header extends Component {
 			tabHeader = config.apps[currApp].appName;
 		}
 
+		let accountMaxWidth = localStorage.getItem("isAuthenticated") !== "true" ? 300 : 200;
 		return (
 			<div className={classes.root}>
 
@@ -224,7 +225,7 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 300}} >
+						<ToolbarSection align="end" style={{maxWidth: accountMaxWidth}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>
