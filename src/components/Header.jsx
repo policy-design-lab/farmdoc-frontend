@@ -193,7 +193,7 @@ class Header extends Component {
 
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start" style={{maxWidth: 225}}>
+						<ToolbarSection align="start" style={{maxWidth: 225, display: "contents"}}>
 
 							{(localStorage.getItem("isAuthenticated") !== null &&
 							localStorage.getItem("isAuthenticated") !== "true") ? null :
@@ -203,12 +203,12 @@ class Header extends Component {
 								</IconButton>
 							}
 
-							<a href="/" className={"farmdoc"}>
-								<img src={GAPPLogo} alt="Farmdoc"/>
-								<img src={FDWhite} alt="Farmdoc" style={{width: "100%"}}/>
+							<a href="/">
+								<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
+								<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "40px", verticalAlign: "sub"}}/>
 							</a>
 						</ToolbarSection>
-						<ToolbarSection>
+						<ToolbarSection style={{marginLeft: "10px"}}>
 							{/*{browserWarningSpan}*/}
 							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null &&
 									localStorage.getItem("isAuthenticated") === "true") && (currApp === "home")) ? null :
@@ -224,7 +224,7 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 320}} >
+						<ToolbarSection align="end" style={{maxWidth: 300}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>
