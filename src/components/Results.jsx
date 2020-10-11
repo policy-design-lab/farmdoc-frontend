@@ -24,7 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 const styles = theme => ({
 	root: {
 		width: "auto",
-		marginTop: theme.spacing.unit * 3,
+		marginTop: theme.spacing(3),
 		overflowX: "auto",
 		borderColor: "black"
 	},
@@ -46,7 +46,7 @@ const styles = theme => ({
 		paddingTop: "0px",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	}
 });
@@ -347,7 +347,7 @@ class Results extends Component {
 
 									<Table>
 										<TableBody>
-											<TableRow style={{height: "64px"}}>
+											<TableRow style={{height: "78px"}}>
 												<ToolTip title={expectedPayoutTooltip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Expected  &nbsp;Payment ($)</TableCellHeader></ToolTip>
 												<ToolTip title={likelihoodTableToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Likelihood of Payment (avg)</TableCellHeader></ToolTip>
 												<ToolTip title={simulationGraphToolTip} enterTouchDelay={config.tooltipTouchDelay}><TableCellHeader className="table-header-tooltip">Payment Distributions</TableCellHeader></ToolTip>

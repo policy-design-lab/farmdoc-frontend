@@ -293,6 +293,8 @@ h1, h2, h3, h5, h6, p, ul {
 	text-decoration-line: underline;
 	text-decoration-style: dotted;
 	font-size: 13px !important;
+	padding-top: 8px !important;
+	padding-bottom: 8px !important;
 }
 
 .table-header-insurance{
@@ -436,4 +438,8 @@ h1, h2, h3, h5, h6, p, ul {
 	position: absolute !important;
 	bottom:10px !important;
 	right: 39%;
+}
+
+.iconSpan{
+	vertical-align: bottom;
 }

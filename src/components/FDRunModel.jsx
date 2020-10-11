@@ -64,6 +64,7 @@ const styles = theme => ({
 	input: {
 		display: "flex",
 		padding: 0,
+		height: 36
 	},
 	container: {
 		display: "flex",
@@ -79,17 +80,17 @@ const styles = theme => ({
 		width: 150,
 	},
 	button: {
-		margin: theme.spacing.unit,
+		margin: theme.spacing(1),
 	},
 	leftIcon: {
-		marginRight: theme.spacing.unit,
+		marginRight: theme.spacing(1),
 	},
 	rightIcon: {
-		marginLeft: theme.spacing.unit,
+		marginLeft: theme.spacing(1),
 	},
 
 	formControl: {
-		margin: theme.spacing.unit,
+		margin: theme.spacing(1),
 		minWidth: 200,
 		marginLeft: 0,
 	},
@@ -104,7 +105,7 @@ const styles = theme => ({
 		//width: theme.spacing.unit * 50,
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	}
 
@@ -842,7 +843,7 @@ class FDRunModel extends Component {
 					</FormControl>
 
 					<ToolTip title={stateCountySelectToolTip} enterTouchDelay={tooltipTouchDelay}>
-						<span>
+						<span className="iconSpan">
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>
 							</IconButton>
@@ -902,7 +903,7 @@ class FDRunModel extends Component {
 						disabled={true}
 						margin="normal"
 						onChange={this.handleMuiChange("refPrice")}
-						style={{width: "115px", marginTop: "8px"}}
+						style={{width: "115px", marginTop: "12px"}}
 						InputProps={{
 							startAdornment: <InputAdornment position="start">$</InputAdornment>,
 						}}
@@ -922,7 +923,7 @@ class FDRunModel extends Component {
 							<FormControlLabel value="1" control={<Radio color="primary"/>} label="Irrigated" />
 							<FormControlLabel value="2" control={<Radio color="primary"/>} label="Non-Irrigated" />
 							<ToolTip title={practiceTypeToolTip} enterTouchDelay={tooltipTouchDelay}>
-								<span>
+								<span className="iconSpan">
 									<IconButton >
 										<Info color="inherit" className={classes.helpIcon}/>
 									</IconButton>
@@ -955,7 +956,7 @@ class FDRunModel extends Component {
 					</FormControl>
 
 					<ToolTip title={forecastToolTip} disableFocusListener={true}>
-						<span>
+						<span className="iconSpan">
 							<IconButton aria-label="Open Forecast Models" className={classes.popupButton} onClick={this.handleForecastOpen}
 							                                disabled={(this.state.commodity === "")}>
 								<HelpOutline color="inherit" className={classes.helpIcon}/>
@@ -983,7 +984,7 @@ class FDRunModel extends Component {
 					/>
 
 					<ToolTip title={`${plcPayYieldInputToolTip }. ${ countyYieldTip}`} enterTouchDelay={tooltipTouchDelay}>
-						<span>
+						<span className="iconSpan">
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>
 							</IconButton>
@@ -1013,7 +1014,7 @@ class FDRunModel extends Component {
 					/>
 
 					<ToolTip title={arcTrendYieldToolTip} enterTouchDelay={tooltipTouchDelay}>
-						<span>
+						<span className="iconSpan">
 							<IconButton >
 								<Info color="inherit" className={classes.helpIcon}/>
 							</IconButton>

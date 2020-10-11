@@ -12,7 +12,7 @@ import ToolTip from "@material-ui/core/Tooltip";
 const styles = theme => ({
 	root: {
 		width: "auto",
-		marginTop: theme.spacing.unit * 3,
+		marginTop: theme.spacing(3),
 		overflowX: "auto",
 		borderColor: "black"
 	},
@@ -31,7 +31,7 @@ const styles = theme => ({
 		//width: theme.spacing.unit * 50,
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 	}
 });
 

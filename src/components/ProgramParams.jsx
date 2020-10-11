@@ -7,7 +7,8 @@ import {arcCoverageRangeToolTip, arcCoverageToolTip, paymentAcresToolTip} from "
 
 const CustomTableRow = withStyles(() => ({
 	root: {
-		height: 24
+		height: 24,
+		paddingTop: 0
 	}
 }))(TableRow);
 
@@ -15,7 +16,9 @@ const CustomTableHeadRow = withStyles(() => ({
 	root: {
 		height: 36,
 		fontWeight: "bold",
-		paddingLeft: 80
+		paddingLeft: 80,
+		paddingTop: 4,
+		paddingBottom: 4,
 
 	}
 }))(TableRow);
@@ -23,6 +26,8 @@ const CustomTableHeadRow = withStyles(() => ({
 const CustomLabelCell = withStyles(() => ({
 	root: {
 		paddingLeft: 60,
+		paddingTop: 4,
+		paddingBottom: 4,
 		paddingRight: 12,
 		width: "60%"
 	}
@@ -31,6 +36,8 @@ const CustomLabelCell = withStyles(() => ({
 const CustomValueCell = withStyles(() => ({
 	root: {
 		paddingRight: 60,
+		paddingTop: 4,
+		paddingBottom: 4,
 		width: "40%"
 	}
 }))(TableCell);

@@ -49,7 +49,7 @@ const styles = theme => ({
 		//width: theme.spacing.unit * 50,
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	}
 });
@@ -106,7 +106,7 @@ class Header extends Component {
 		});
 	};
 
-	componentDidMount(): void {
+	componentDidMount() {
 		if (localStorage.getItem("isAuthenticated") === "true") {
 			// if authenticated flag is set, re-check for token expiry. Reload page if expired
 			if (checkForTokenExpiry()) {

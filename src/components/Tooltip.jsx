@@ -17,7 +17,7 @@ class Tooltip extends Component {
 
 		return (
 			<ToolTip title={this.props.title} enterTouchDelay={tooltipTouchDelay}>
-				<span>
+				<span className="iconSpan">
 					<IconButton>
 						<Info color="inherit" style={{height: "24px", width: "24px"}}/>
 					</IconButton>
