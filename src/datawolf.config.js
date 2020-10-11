@@ -5,11 +5,9 @@ const workflowId = "43c512ee-606f-450b-aea4-ecfe8b880bd2";
 export const steps = {
 	Farm_Model: "7ebc89d3-d5a6-4df1-b75f-eeed11acf174"
 };
-
 const inputDatasets = {
 	Price_File: "3d21a2f2-2bd0-4f6d-a3bb-563b3599f25a"
 };
-
 export function postExecutionRequest(personId, title, countyId, startYear, commodity, refPrice, paymentAcres, arcCoverage, arcRange,
 																		 plcYield, program, sequesterPrice = 0, forecastPrices, binSize, pracCode ){
 	return {
@@ -32,9 +30,28 @@ export function postExecutionRequest(personId, title, countyId, startYear, commo
 			"9603f52b-a88d-4cd3-e965-1dbb7c0c75da": forecastPrices,
 			"7bf5e9f3-336b-4928-94cd-72e60bb5642f": binSize
 		}
-
 	};
 }
-
 export const resultDatasetId = "06f553c1-1098-4792-e395-62d26f6164fa";
+
+// Price distribution tool
+const workflowPdId = "b26006d1-c433-423e-921a-8c9e315361a0";
+// const creatorPdId = "f6f7dc55-4337-4ff9-940c-afaa2911b9bb";
+export function postExecutionPdRequest(personId, title, cropCode, monthCode, year){
+	return {
+		"workflowId": workflowPdId,
+		"creatorId": personId,
+		"title": title,
+		"description": "test",
+		"parameters": {
+			"4f1c7e94-31a6-4093-c544-c6eb1858dfe7": cropCode, // Crop code
+			"ba29e87f-2b82-4650-d4cc-e1650bc02e1e": monthCode, // Month code
+			"b8702c09-d588-4a1e-f111-ea1fa1d5a379": year // Year
+		}
+	};
+}
+export const stepsPd = {
+	Price_Distribution: "bca95adb-58e2-4054-85ec-f61cbb342e65"
+};
+export const resultDatasetPdId = "8b702a08-0681-4fe4-88eb-89abaf775793";
 

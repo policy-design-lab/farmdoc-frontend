@@ -21,6 +21,12 @@ const farmdocApps = {
 			"risk reductions across their available crop insurance alternatives. ",
 		lastUpdated: "Daily"
 	},
+	"pricedistribution": {
+		appName: "Price Distribution",
+		appDesc: "The Price Distribution Tool uses current option market prices to derive estimates of the probability " +
+			"distribution of prices at the expiration of an underlying corn and soybean futures contracts.",
+		lastUpdated: "Every 15 mins"
+	},
 };
 
 const defaultsJson = {
