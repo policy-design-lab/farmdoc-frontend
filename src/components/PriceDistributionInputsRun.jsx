@@ -36,6 +36,7 @@ const styles = theme => ({
 	input: {
 		display: "flex",
 		padding: 0,
+		height: 36
 	},
 	container: {
 		display: "flex",
