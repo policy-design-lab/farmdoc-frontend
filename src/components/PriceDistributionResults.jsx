@@ -248,8 +248,8 @@ class PriceDistributionResults extends Component {
 		let results = null;
 		let price = null;
 		let priceOfInterest = null;
-		let sigma = 0.0;
-		let mu = 0.0;
+		let sigma = null;
+		let mu = null;
 		let priceOfInterestProb = null;
 
 		let priceTableData = null;
@@ -310,98 +310,89 @@ class PriceDistributionResults extends Component {
 				table2 = prepareTable(probTableData, "At expiration", "Probability<br/>Below", "Price at<br/>Expiration", "percentile", "price", "table2");
 			}
 		}
-		if (price && sigma && mu) {
-			return (
-				<Grid container>
-					<Grid container direction="row">
-						<Grid item xs={1} />
-						<Grid item xs={10}>
-							<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
-								The charts below show the corn price distribution at expiration in two related forms.
-								The top shows the cumulative probability distribution for expiration prices
-								and can be interpreted by identifying a price of interest and reading the associated
-								probability on the left axis. The lower chart contains the same information in a probability
-								density form. The associated tables tabulate the information from the charts by price
-								and probability.
-							</div>
+		return (
+			<Grid container>
+				<Grid container direction="row">
+					<Grid item xs={1} />
+					<Grid item xs={10}>
+						<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
+							The charts below show the corn price distribution at expiration in two related forms.
+							The top shows the cumulative probability distribution for expiration prices
+							and can be interpreted by identifying a price of interest and reading the associated
+							probability on the left axis. The lower chart contains the same information in a probability
+							density form. The associated tables tabulate the information from the charts by price
+							and probability.
+						</div>
 
-						</Grid>
-						<Grid item xs={1} />
 					</Grid>
-					<Grid container justify="center" alignItems="center">
-						<Grid item xs={1} />
-						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
-								<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
-							</div>
-						</Grid>
-						<Grid item xs={3} style={{flexBasis: "0%"}}>
-							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
-								<ReactTabulator
-									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
-									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
-								/>
-							</div>
-						</Grid>
-						<Grid item xs={1} />
-					</Grid>
-					<Grid container justify="center" alignItems="center">
-						<Grid item xs={1} />
-						<Grid item xs={7} style={{paddingBottom: "10px"}}>
-							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
-								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
-							</div>
-							<div style={{margin: "auto", width: "90%", textAlign: "center", padding: "0px"}}>
-								<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
-								<TextField
-									defaultValue={priceOfInterest}
-									style={{width: "90px"}}
-									margin="normal"
-									onChange={(e) => this.updateInputValue(e, price)}
-									onKeyDown={this.keyPress}
-									required
-									InputLabelProps={{shrink: true}}
-									onInput={(e) => this.validateMaxValue(e, price)}
-									InputProps={{
-										startAdornment:
-											<InputAdornment position="start">$</InputAdornment>, padding: 5
-									}}
-								/>
-							</div>
-							<div style={{margin: "auto", width: "90%", textAlign: "center"}}>
-								<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %
-								probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
-							</div>
-						</Grid>
-						<Grid item xs={3} style={{flexBasis: "0%"}}>
-							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
-								<ReactTabulator
-									data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
-									rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
-								/>
-							</div>
-						</Grid>
-						<Grid item xs={1} />
-					</Grid>
-					<Grid container>
-						<Grid item xs={1} />
-						<Grid item xs={10}>
-							<div>
-								<Divider/>
-								<PriceDistributionFooter />
-							</div>
-						</Grid>
-						<Grid item xs={1} />
-					</Grid>
+					<Grid item xs={1} />
 				</Grid>
-			);
-		}
-		else {
-			return (
-				<div style={{padding: "15px", color: "red"}}> No data available for the selected contract.
-					Please select a different option.</div>
-			);
-		}
+				<Grid container justify="center" alignItems="center">
+					<Grid item xs={1} />
+					<Grid item xs={7}>
+						<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
+							<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
+						</div>
+					</Grid>
+					<Grid item xs={3} style={{flexBasis: "0%"}}>
+						<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+							<ReactTabulator
+								data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
+								rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
+							/>
+						</div>
+					</Grid>
+					<Grid item xs={1} />
+				</Grid>
+				<Grid container justify="center" alignItems="center">
+					<Grid item xs={1} />
+					<Grid item xs={7} style={{paddingBottom: "10px"}}>
+						<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
+							<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
+						</div>
+						<div style={{margin: "auto", width: "90%", textAlign: "center", padding: "0px"}}>
+							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
+							<TextField
+								defaultValue={priceOfInterest}
+								style={{width: "90px"}}
+								margin="normal"
+								onChange={(e) => this.updateInputValue(e, price)}
+								onKeyDown={this.keyPress}
+								required
+								InputLabelProps={{shrink: true}}
+								onInput={(e) => this.validateMaxValue(e, price)}
+								InputProps={{
+									startAdornment:
+										<InputAdornment position="start">$</InputAdornment>, padding: 5
+								}}
+							/>
+						</div>
+						<div style={{margin: "auto", width: "90%", textAlign: "center"}}>
+							<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
+						</div>
+					</Grid>
+					<Grid item xs={3} style={{flexBasis: "0%"}}>
+						<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+							<ReactTabulator
+								data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
+								rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
+							/>
+						</div>
+					</Grid>
+					<Grid item xs={1} />
+				</Grid>
+				<Grid container>
+					<Grid item xs={1} />
+					<Grid item xs={10}>
+						<div>
+							<Divider/>
+							<PriceDistributionFooter />
+						</div>
+					</Grid>
+					<Grid item xs={1} />
+				</Grid>
+			</Grid>
+		);
 	}
 }
 
