@@ -2,14 +2,12 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
-import {browserHistory, Link} from "react-router";
+import {Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
 import evaluatorLogo from "../images/payment-evaluator.svg";
 import pricedistrLogo from "../images/price-distr.svg";
-import Icon from "@material-ui/core/Icon";
-import Button from "@material-ui/core/Button";
 import config from "../app.config";
 
 const styles = theme => ({
@@ -38,7 +36,7 @@ class AppsList extends Component {
 				<div >
 					<div className="appsHeader">Farmdoc - Decision Support Tools </div> <br/> <br/>
 					<Grid container direction="row" justify="center"
-								alignItems="center" spacing={24}>
+								alignItems="center" spacing={4}>
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>

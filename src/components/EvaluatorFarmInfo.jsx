@@ -69,7 +69,7 @@ class EvaluatorFarmInfo extends Component {
 				<div style={{textAlign: "left"}}>
 					<br/>
 					<Grid container direction="row" justify="center"
-									alignItems="center" spacing={32} style={{paddingBottom: "4px"}}>
+									alignItems="center" spacing={5} style={{paddingBottom: "4px"}}>
 						<Grid item>
 							<Table>
 								<TableRow>
@@ -138,7 +138,7 @@ class EvaluatorFarmInfo extends Component {
 						</Grid>
 						<Grid item>
 							<Grid container direction="column" justify="center"
-											alignItems="center" spacing={24}>
+											alignItems="center">
 								<Grid item>
 									<Table>
 										<TableHead>
