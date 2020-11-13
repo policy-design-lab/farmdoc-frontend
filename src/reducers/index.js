@@ -5,6 +5,7 @@ import model from "./model";
 import results from "./results";
 import insPremiums from "./insPremiums";
 import insEvaluator from "./insEvaluator";
+import priceDistribution from "./priceDistribution";
 
 const rootReducer = combineReducers({
 	routing: routerReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	results,
 	user,
 	insPremiums,
-	insEvaluator
+	insEvaluator,
+	priceDistribution
 });
 
 export default rootReducer;

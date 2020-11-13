@@ -26,7 +26,7 @@ import ToolTip from "@material-ui/core/Tooltip";
 const styles = theme => ({
 	root: {
 		width: "auto",
-		marginTop: theme.spacing.unit * 3,
+		marginTop: theme.spacing(3),
 		overflowX: "auto",
 		borderColor: "black"
 	},
@@ -48,12 +48,12 @@ const styles = theme => ({
 		paddingTop: "0px",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	},
 	textField: {
-		marginLeft: theme.spacing.unit * 1,
-		marginRight: theme.spacing.unit * 1,
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1),
 		// border: 1,
 		width: 70,
 	}
@@ -382,14 +382,19 @@ class EvaluatorPremiumResults extends Component {
 								Please make sure the selected "Type" and "Practice" are applicable for your farm </div> :
 
 						<div>
-							<span style={{fontSize: "1.10em", padding: "8px"}}> Unit: </span>
-							<FormControl style={{marginBottom: "8px"}}>
-								<Select id="useTaAdj" labelId="taId" value={this.state.insUnit} onChange={this.handleChange("insUnit")}>
-									<MenuItem value="basic">Basic</MenuItem>
-									<MenuItem value="enterprise">Enterprise</MenuItem>
-								</Select>
-							</FormControl>
-							<br/>
+
+							<div style={{display: "table", width: "100%"}}>
+								<div style={{display: "inline-flex", alignItems: "center"}}>
+									<span style={{fontSize: "1.10em", padding: "8px"}}> Unit: </span>
+									<FormControl style={{marginBottom: "8px"}}>
+										<Select id="useTaAdj" labelId="taId" value={this.state.insUnit} onChange={this.handleChange("insUnit")}>
+											<MenuItem value="basic">Basic</MenuItem>
+											<MenuItem value="enterprise">Enterprise</MenuItem>
+										</Select>
+									</FormControl>
+								</div>
+							</div>
+
 
 							<Table className={classes.table}>
 								<TableBody>

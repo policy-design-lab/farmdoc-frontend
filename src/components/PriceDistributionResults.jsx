@@ -1,10 +1,27 @@
 import React, {Component} from "react";
-import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
-import "../styles/main.css";
+import PropTypes from "prop-types";
+import {withStyles} from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import {Line} from "react-chartjs-2";
+import "react-tabulator/lib/styles.css";
+import "react-tabulator/lib/css/tabulator.css";
+import {ReactTabulator} from "react-tabulator";
+import "../styles/main.css";
+import PriceDistributionFooter from "./PriceDistributionFooter";
+import {
+	handlePDResults
+} from "../actions/priceDistribution";
+import {
+	generateChartData,
+	generateProbPoints,
+	regeneratePriceTableData
+} from "../public/pd_data";
+
+import {isNumeric, roundResults} from "../public/utils";
 
 const styles = theme => ({
 	root: {
@@ -13,86 +30,358 @@ const styles = theme => ({
 		overflowX: "auto",
 		borderColor: "black"
 	},
-
-	table: {
-		padding: 2,
-		width: "auto",
-		borderRadius: 15,
-		borderStyle: "solid",
-		borderColor: "rgb(144,144,144)",
-		borderWidth: 1,
-		borderCollapse: "separate"
-	},
-
-	tableCell: {},
-
-	paper: {
-		position: "absolute",
-		paddingTop: "0px",
-		backgroundColor: theme.palette.background.paper,
-		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
-		outline: "none"
-	},
-	textField: {
-		marginLeft: theme.spacing.unit * 1,
-		marginRight: theme.spacing.unit * 1,
-		// border: 1,
-		width: 70,
-	}
 });
 
-class PriceDistributionResults extends Component {
+const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
+	// Our labels along the x-axis
+	let prices = chartData["price"];
+	let graphData = chartData[dataColumn];
 
-	constructor(props) {
-		super(props);
+	let poiLine = [...graphData];
+	for (let i = 0; i < prices.length; i++) {
+		if (prices[i] > poi) {
+			poiLine[i] = NaN;
+		}
+	}
+	return {
+		data: {
+			labels: prices,
+			datasets: [
+				{
+					label: yAxisLabel,
+					data: graphData,
+					borderColor: "rgb(133, 163, 225)",
+					backgroundColor: "rgba(235, 240, 250, 0.3)",
+					fill: true,
+					pointRadius: 0,
+					borderRadius: 2,
+					borderWidth: 2
+				},
+				{
+					label: `${yAxisLabel} of POI`,
+					data: poiLine,
+					// showLine: false,
+					borderColor: "rgb(133, 163, 225)",
+					// borderColor: "#5b84d7",
+					backgroundColor: "rgba(153, 178, 230, 0.3)",
+					fill: true,
+					pointRadius: 0,
+					borderRadius: 2,
+					borderWidth: 2
+				}
+			]
+		},
+		legend: {
+			display: false,
+			position: "top",
+			labels: {
+				fontColor: "#323130",
+				fontSize: 14
+			}
+		},
+		options: {
+			title: {
+				display: true,
+				text: title,
+				fontSize: 16
+			},
+			animation: {
+				duration: 0
+			},
+			legend: {
+				display: false
+			},
+			tooltips: {
+				mode: "index",
+				intersect: false,
+				position: "average",
+				callbacks: {
+					title: function(tooltipItems, data) {
+						return `Price: ${ tooltipItems[0].xLabel}`;
+					},
+					label: function(item, data) {
+						let datasetLabel = data.datasets[item.datasetIndex].label || "";
+						let dataPoint = item.yLabel;
+						return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
+					}
+				}
+			},
+			maintainAspectRatio: false,
+			scales: {
+				yAxes: [{
+					ticks: {
+						callback: function (label, index, labels) {
+							return `${(label * 100).toFixed(0) }%`;
+						},
+						beginAtZero: true,
+						autoSkip: true,
+						maxTicksLimit: 6,
+						fontSize: 12,
+					},
+					gridLines: {
+						display: true,
+						// drawOnChartArea: true,
+						z: 100,
+						lineWidth: 1,
+						// borderDash: [10],
+						// borderDashOffset: 3
+					},
+					scaleLabel: {
+						display: true,
+						labelString: yAxisLabel,
+						fontSize: 14,
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						callback: function (label, index, labels) {
+							return `$${ label.toFixed(2)}`;
+						},
+						beginAtZero: true,
+						autoSkip: true,
+						precision: 1,
+						maxTicksLimit: 11, // Provide odd number here to show evenly distributed grids
+						fontSize: 12,
+						maxRotation: 0,
+						minRotation: 0
+					},
+					gridLines: {
+						display: true,
+						z: 100,
+						lineWidth: 1,
+					},
+					scaleLabel: {
+						display: true,
+						labelString: "Price ($/bu)",
+						fontSize: 14,
+					}
+				}]
+			}
+		}
+	};
+};
+
+const prepareTable = (tableData, title, colName1, colName2, field1, field2, elementId) => {
+
+	let formatterParamsFirst, formatterParamsSecond;
+	let headerTooltipFirst, headerTooltipSecond;
+	if (field1 === "price"){
+		formatterParamsFirst = {symbol: "$"};
+		formatterParamsSecond = {symbol: "%", symbolAfter: true};
+		headerTooltipFirst = "Price at Expiration";
+		headerTooltipSecond = "Probability at Expiration";
+	}
+	else {
+		formatterParamsFirst = {symbol: "%", symbolAfter: true, precision: 0};
+		formatterParamsSecond = {symbol: "$"};
+		headerTooltipFirst = "Probability at Expiration";
+		headerTooltipSecond = "Price at Expiration";
 	}
 
+	return {
+		data: tableData,
+		layout: "fitColumns",
+		tooltipsHeader: true,
+		columns: [
+			{title: colName1, field: field1, hozAlign: "center", width: 130, tooltip: false,
+				headerTooltip: headerTooltipFirst, formatter: "money", formatterParams: formatterParamsFirst},
+			{title: colName2, field: field2, hozAlign: "center", width: 130, tooltip: false,
+				headerTooltip: headerTooltipSecond, formatter: "money", formatterParams: formatterParamsSecond},
+		],
+		rowFormatter: function (row) {
+			let data = row.getData();
+
+			if (elementId === "table2" && data.id === 6) {
+				row.getElement().style.fontWeight = "bold";
+			}
+		},
+	};
+};
+
+class PriceDistributionResults extends Component {
+	constructor(props) {
+		super(props);
+
+		this.handlePDResults = handlePDResults;
+		this.state = {poi: null};
+	}
+
+	validateMaxValue = value => event => {
+		if (isNumeric(event.target.value)) {
+			if (isNaN(event.target.value)) {
+				event.target.value = 0;
+			}
+			else {
+				if (event.target.value <= 0) {
+					event.target.value = 0;
+				}
+				else if (event.target.value > 4 * value) {
+					event.target.value = value;
+				}
+			}
+		}
+		else {
+			event.target.value = value;
+		}
+	};
+
+	updateInputValue = (event) => {
+		this.setState({
+			poi: event.target.value
+		});
+	}
 
 	render() {
 		const {classes} = this.props;
+		const tabulator_options = {
+			// height: 250,
+		};
 
-		let policyJsonData, countyJsonData;
+		let futuresCode = "";
+		let resultData = null;
+		let pdResultsObj = null;
+		let results = null;
+		let price = null;
+		let priceOfInterest = null;
+		let futuresData = null;
+		let dte = null;
+		let optionValuesByStrike = null;
+		let solution = null;
 
-		if (this.props["premResults"] || this.props["countyProductsResults"] ) {
-			policyJsonData = this.props["premResults"];
-			countyJsonData = this.props["countyProductsResults"];
+		let priceTableData = null;
+		let probTableData = null;
+		let graph1 = null;
+		let graph2 = null;
+		let table1 = null;
+		let table2 = null;
+
+		if (this.props.hasOwnProperty("pdResults") && this.props["pdResults"] !== null) {
+			resultData = this.props["pdResults"];
 		}
-		else { //Uncomment to test with static response
-			policyJsonData = "{\"premiums\": {\"50\": {\"rp-opt\": 8.7, \"rp-basic\": 2.44, \"rp-enterprise\": 1.48, \"rphpe-opt\": 2.74, \"rphpe-basic\": 1.71, \"rphpe-enterprise\": 1.04, \"yp-opt\": 3.16, \"yp-basic\": 2.06, \"yp-enterprise\": 1.25}, \"55\": {\"rp-opt\": 5.43, \"rp-basic\": 3.66, \"rp-enterprise\": 2.03, \"rphpe-opt\": 3.96, \"rphpe-basic\": 2.52, \"rphpe-enterprise\": 1.4, \"yp-opt\": 4.59, \"yp-basic\": 3.06, \"yp-enterprise\": 1.7}, " +
-				"\"60\": {\"rp-opt\": 7.01, \"rp-basic\": 4.85, \"rp-enterprise\": 2.63, \"rphpe-opt\": 5.01, \"rphpe-basic\": 3.32, \"rphpe-enterprise\": 1.77, \"yp-opt\": 5.9, \"yp-basic\": 4.01, \"yp-enterprise\": 2.23}, \"65\": {\"rp-opt\": 10.36, \"rp-basic\": 7.25, \"rp-enterprise\": 3.4, \"rphpe-opt\": 7.31, \"rphpe-basic\": 4.81, \"rphpe-enterprise\": 2.21, \"yp-opt\": 8.57, \"yp-basic\": 5.91, \"yp-enterprise\": 2.88}, " +
-				"\"70\": {\"rp-opt\": 13.83, \"rp-basic\": 10.04, \"rp-enterprise\": 4.75, \"rphpe-opt\": 9.79, \"rphpe-basic\": 6.6, \"rphpe-enterprise\": 3.08, \"yp-opt\": 11.12, \"yp-basic\": 7.83, \"yp-enterprise\": 3.82}, \"75\": {\"rp-opt\": 19.19, \"rp-basic\": 14.34, \"rp-enterprise\": 7.12, \"rphpe-opt\": 13.67, \"rphpe-basic\": 9.44, \"rphpe-enterprise\": 4.61, \"yp-opt\": 15.2, \"yp-basic\": 10.87, \"yp-enterprise\": 5.55}, " +
-				"\"80\": {\"rp-opt\": 28.81, \"rp-basic\": 22.04, \"rp-enterprise\": 12.63, \"rphpe-opt\": 21.17, \"rphpe-basic\": 14.93, \"rphpe-enterprise\": 8.26, \"yp-opt\": 22.87, \"yp-basic\": 16.62, \"yp-enterprise\": 9.95}, \"85\": {\"rp-opt\": 42.82, \"rp-basic\": 33.72, \"rp-enterprise\": 23.84, \"rphpe-opt\": 31.96, \"rphpe-basic\": 23.34, \"rphpe-enterprise\": 15.98, \"yp-opt\": 33.62, \"yp-basic\": 24.93, \"yp-enterprise\": 18.38}}, " +
-				"\"guarantees\": {\"50\": {\"rp\": 330, \"rphpe\": 330, \"yp\": 82}, \"55\": {\"rp\": 363, \"rphpe\": 363, \"yp\": 91}, \"60\": {\"rp\": 396, \"rphpe\": 396, \"yp\": 99}, \"65\": {\"rp\": 429, \"rphpe\": 429, \"yp\": 107}, \"70\": {\"rp\": 462, \"rphpe\": 462, \"yp\": 115}, \"75\": {\"rp\": 495, \"rphpe\": 495, \"yp\": 124}, \"80\": {\"rp\": 528, \"rphpe\": 528, \"yp\": 132}, \"85\": {\"rp\": 561, \"rphpe\": 561, \"yp\": 140}}}";
 
-			countyJsonData = "{\"premiums\": {\"70\": {\"rp\": 6.91 , \"rphpe\": 4.11 , \"yp\": 5.8},\"75\": {\"rp\": 8.32 , \"rphpe\": 5.82 , \"yp\": 6.82},\"80\": {\"rp\": 9.56 , \"rphpe\": 6.74 , \"yp\": 7.18},\"85\": {\"rp\": 12.31 , \"rphpe\": 9.63 , \"yp\": 12.27},\"90\": {\"rp\": 17.64 , \"rphpe\": 12.12 , \"yp\": 16.6} }," +
-				"\"guarantees\": {\"70\": {\"rp\": 491 , \"rphpe\": 491 , \"yp\": 123},\"75\": {\"rp\": 527 , \"rphpe\": 527 , \"yp\": 132},\"80\": {\"rp\": 564 , \"rphpe\": 564 , \"yp\": 138},\"85\": {\"rp\": 586 , \"rphpe\": 586 , \"yp\": 147},\"90\": {\"rp\": 654 , \"rphpe\": 654 , \"yp\": 155}}}";
-		}
+		if (resultData) {
+			pdResultsObj = JSON.parse(resultData);
+			// get the futuresCode
+			for (let prop in pdResultsObj) {
+				if (!pdResultsObj.hasOwnProperty(prop)) {
+					//The current property is not a direct property of pdResultsObj, filter prop metadata
+					continue;
+				}
+				futuresCode = prop;
+			}
+			if (futuresCode) {
+				results = pdResultsObj[futuresCode]["results"];
 
+				price = roundResults(results["price"], 2);
+				solution = results["solution"];
 
-		if (policyJsonData !== null || countyJsonData !== null) {
+				const chartData = generateChartData(solution.sigma, solution.mu);
+
+				priceOfInterest = price;
+				if (this.state.poi) {
+					priceOfInterest = this.state.poi;
+				}
+				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
+				graph2 = prepareProbChart(priceOfInterest, chartData, "Probability of Prices at Expiration", "Relative Probability", "litPyt");
+
+				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
+				probTableData = generateProbPoints(solution.sigma, solution.mu);
+
+				table1 = prepareTable(priceTableData, "Price at", "Price", "Prob Below", "price", "probability", "table1");
+				table2 = prepareTable(probTableData, "At expiration", "Prob Below", "Price", "percentile", "price", "table2");
+			}
 
 			return (
-				<div style={{padding: 4, display: "inline-block"}} >
+				<Grid container>
+					<Grid container direction="row">
+						<Grid item xs={1} />
+						<Grid item xs={10}>
+							<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
+								The charts below show the corn price distribution at expiration in two related forms.
+								The top shows the cumulative probability distribution for expiration prices
+								and can be interpreted by identifying a price of interest and reading the associated
+								probability on the left axis. The lower chart contains the same information in a probability
+								density form. The associated tables tabulate the information from the charts by price
+								and probability.
+							</div>
 
-					Graph and Table go here
-					<Divider/>
-					Graph and Table go here
-					<Divider/>
-					<span style={{fontWeight: "bold"}}>
-							Enter Price to Evaluate:
-					</span>
-					<TextField
-							id="priceEval"
-							className={classes.textField}
-							InputProps={{
-								startAdornment: <InputAdornment
-										position="start">$</InputAdornment>,
-							}}
-							margin="normal"
-							variant="outlined"
-					/>
-				</div>
+						</Grid>
+						<Grid item xs={1} />
+					</Grid>
+					<Grid container justify="center" alignItems="center">
+						<Grid item xs={1} />
+						<Grid item xs={7}>
+							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
+								<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
+							</div>
+						</Grid>
+						<Grid item xs={3} style={{flexBasis: "0%"}}>
+							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+								<ReactTabulator
+									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
+									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
+								/>
+							</div>
+						</Grid>
+						<Grid item xs={1} />
+					</Grid>
+					<Grid container>
+						<div style={{margin: "auto", width: "50%", padding: "0px"}}>
+							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
+							<TextField
+								defaultValue={price}
+								style={{width: "90px"}}
+								value={this.state.inputValue}
+								margin="normal"
+								onChange={this.updateInputValue}
+								onKeyDown={this.keyPress}
+								required
+								InputLabelProps={{shrink: true}}
+								onBlur={this.validateMaxValue(price)}
+								InputProps={{
+									startAdornment:
+										<InputAdornment position="start">$</InputAdornment>, padding: 5
+								}}
+							/>
+							{/*<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />*/}
+						</div>
+					</Grid>
+					<Grid container justify="center" alignItems="center">
+						<Grid item xs={1} />
+						<Grid item xs={7}>
+							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
+								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
+							</div>
+						</Grid>
+						<Grid item xs={3} style={{flexBasis: "0%"}}>
+							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+								<ReactTabulator
+									data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
+									rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
+								/>
+							</div>
+						</Grid>
+						<Grid item xs={1} />
+					</Grid>
+					<Grid container>
+						<Grid item xs={1} />
+						<Grid item xs={10}>
+							<div>
+								<Divider/>
+								<PriceDistributionFooter
+									probability={roundResults(probTableData[5].percentile, 0)}
+									expirationPrice={roundResults(probTableData[5].price, 2)}
+								/>
+							</div>
+						</Grid>
+						<Grid item xs={1} />
+					</Grid>
+				</Grid>
+			);
+		}
+		else if (this.props["pdResults"] === ""){
+			return (
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
 			);
 		}
 		else {
@@ -103,11 +392,24 @@ class PriceDistributionResults extends Component {
 	}
 }
 
+// You should declare that a prop is a specific JS type.
+// See https://reactjs.org/docs/typechecking-with-proptypes.html for details
+PriceDistributionResults.propTypes = {
+	handlePDResults: PropTypes.func.isRequired,
+	classes: PropTypes.oneOfType([
+		PropTypes.func,
+		PropTypes.object
+	]),
+};
+
+PriceDistributionResults.propTypes = {
+	pdResults: PropTypes.string
+};
+
 const mapStateToProps = (state) => {
 	return {
-		premResults: state.insPremiums.premResults,
-		countyProductsResults: state.insPremiums.countyProductsResults
+		pdResults: state.priceDistribution.pdResults
 	};
 };
 
-export default connect(mapStateToProps, null)(withStyles(styles)(PriceDistributionResults));
+export default connect(mapStateToProps)(withStyles(styles)(PriceDistributionResults));

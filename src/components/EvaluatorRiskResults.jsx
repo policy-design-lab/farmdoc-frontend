@@ -26,7 +26,7 @@ import EvaluatorRiskGraph from "./EvaluatorRiskGraph";
 const styles = theme => ({
 	root: {
 		width: "auto",
-		marginTop: theme.spacing.unit * 3,
+		marginTop: theme.spacing(3),
 		overflowX: "auto",
 		borderColor: "black"
 	},
@@ -48,14 +48,14 @@ const styles = theme => ({
 		paddingTop: "0px",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	},
 	textField: {
 		marginTop: 4,
 		marginBottom: 4,
-		marginLeft: theme.spacing.unit * 1,
-		marginRight: theme.spacing.unit * 1,
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1),
 		// border: 1,
 		width: 90,
 	}
@@ -506,11 +506,13 @@ class EvaluatorRiskResults extends Component {
 					{/*<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}> Gross Target Used for Current Simulation: $536.56 / acre*/}
 					{/*</div>*/}
 
-					<div>
+					<div style={{display: "table", width: "100%", height: "38px"}}>
 
-						<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Revenue To Run Again: </span>
-						<FormControl >
-							<TextField
+						<div style={{display: "inline-flex", alignItems: "center"}}>
+
+							<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Revenue To Run Again: </span>
+							<FormControl >
+								<TextField
 									id="grossTarget"
 									value={this.state.grossTarget}
 									margin="normal"
@@ -523,10 +525,12 @@ class EvaluatorRiskResults extends Component {
 									InputProps={{
 										startAdornment: <InputAdornment position="start">$</InputAdornment>, padding: 5
 									}}
-							/>
-						</FormControl> /acre
-						{/*TODO: Enter key might not work on mobiles */}
-						<FDTooltip title="Click ENTER key to run the simulation again"/>
+								/>
+							</FormControl> /acre
+							{/*TODO: Enter key might not work on mobiles */}
+							<FDTooltip title="Click ENTER key to run the simulation again"/>
+
+						</div>
 					</div>
 
 

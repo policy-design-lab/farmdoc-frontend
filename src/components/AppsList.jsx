@@ -2,13 +2,12 @@ import React, {Component} from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import "../styles/main.css";
-import {browserHistory, Link} from "react-router";
+import {Link} from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import arcPlcLogo from "../images/arcplc.svg";
 import premiumsLogo from "../images/premium.svg";
 import evaluatorLogo from "../images/payment-evaluator.svg";
-import Icon from "@material-ui/core/Icon";
-import Button from "@material-ui/core/Button";
+import pricedistrLogo from "../images/price-distr.svg";
 import config from "../app.config";
 
 const styles = theme => ({
@@ -16,7 +15,7 @@ const styles = theme => ({
 		flexGrow: 1,
 	},
 	paper: {
-		padding: theme.spacing.unit * 2,
+		padding: theme.spacing(2),
 		textAlign: "center",
 		color: theme.palette.text.secondary,
 		height: 500,
@@ -37,7 +36,7 @@ class AppsList extends Component {
 				<div >
 					<div className="appsHeader">Farmdoc - Decision Support Tools </div> <br/> <br/>
 					<Grid container direction="row" justify="center"
-								alignItems="center" spacing={24}>
+								alignItems="center" spacing={4}>
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>
@@ -115,7 +114,29 @@ class AppsList extends Component {
 								</Paper>
 							</Link>
 						</Grid>
+						<Grid item>
+							<Link to="/pricedistribution" onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#228B22"}}>
+										<span className="appName">
+											<img className="appIcon" src={pricedistrLogo} alt="Price-Distribution" style={{backgroundColor: "#1A7234"}}/>
+											{config.apps["pricedistribution"].appName}
+										</span>
+									</div>
 
+									<div className="appLastUpdated">
+										Last Updated: {config.apps["pricedistribution"].lastUpdated}
+									</div>
+
+									<div className="appDescription">
+										{config.apps["pricedistribution"].appDesc}	</div>
+									<div>
+										<img className="appScreenshot" src={require("../images/price-distr-screenshot.png")} alt="Price distribution results" />
+									</div>
+
+								</Paper>
+							</Link>
+						</Grid>
 					</Grid>
 
 					<br/>

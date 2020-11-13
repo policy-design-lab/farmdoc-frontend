@@ -11,7 +11,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 const styles = theme => ({
 	root: {
 		width: "auto",
-		marginTop: theme.spacing.unit * 3,
+		marginTop: theme.spacing(3),
 		overflowX: "auto",
 		borderColor: "black"
 	},
@@ -33,12 +33,12 @@ const styles = theme => ({
 		paddingTop: "0px",
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	},
 	textField: {
-		marginLeft: theme.spacing.unit * 1,
-		marginRight: theme.spacing.unit * 1,
+		marginLeft: theme.spacing(1),
+		marginRight: theme.spacing(1),
 		// border: 1,
 		width: 70,
 	}
@@ -485,27 +485,30 @@ class PremiumResults extends Component {
 						<div style={{
 							textAlign: "left",
 							marginLeft: "200px",
-							padding: "10px"
+							padding: "10px",
+							height: "50px",
+							display: "flex",
+							alignItems: "center"
 						}}>
 
 							<span style={{fontWeight: "bold"}}>
 							Set custom coverage:
 							</span>
-							<TextField
-										id="countyCoverage"
-										// label="Custom Coverage"
-										className={classes.textField}
-										value={this.state.countyCoverage}
-										onChange={this.handleChange("countyCoverage")}
-										InputProps={{
-											endAdornment: <InputAdornment
-													position="end">%</InputAdornment>,
-										}}
-										margin="normal"
-										variant="outlined"
-										onInput={this.validateMaxValue(120)}
-							/>
 
+							<TextField
+									id="countyCoverage"
+									// label="Custom Coverage"
+									className={classes.textField}
+									value={this.state.countyCoverage}
+									onChange={this.handleChange("countyCoverage")}
+									InputProps={{
+										endAdornment: <InputAdornment
+												position="end">%</InputAdornment>,
+									}}
+									margin="none"
+									// variant="outlined"
+									onInput={this.validateMaxValue(120)}
+							/>
 
 							<span style={{fontWeight: "bold", marginLeft: "200px"}}>Expected Yield: </span>
 							<span>{`${roundResults(expectedYield)} ${units}`}</span>

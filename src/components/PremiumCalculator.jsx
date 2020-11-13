@@ -39,6 +39,7 @@ const styles = theme => ({
 	input: {
 		display: "flex",
 		padding: 0,
+		height: 36
 	},
 	container: {
 		display: "flex",
@@ -54,17 +55,17 @@ const styles = theme => ({
 		width: 150,
 	},
 	button: {
-		margin: theme.spacing.unit,
+		margin: theme.spacing(1),
 	},
 	leftIcon: {
-		marginRight: theme.spacing.unit,
+		marginRight: theme.spacing(1),
 	},
 	rightIcon: {
-		marginLeft: theme.spacing.unit,
+		marginLeft: theme.spacing(1),
 	},
 
 	formControl: {
-		margin: theme.spacing.unit,
+		margin: theme.spacing(1),
 		minWidth: 200,
 		marginLeft: 0,
 	},
@@ -131,7 +132,7 @@ const styles = theme => ({
 		//width: theme.spacing.unit * 50,
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing.unit * 4,
+		padding: theme.spacing(4),
 		outline: "none"
 	}
 
@@ -795,7 +796,7 @@ class PremiumCalculator extends Component {
 					display: "inline-block"
 				}}>
 
-					<FormControl required className={classes.formControlMedium}>
+					<FormControl required className={classes.formControlMedium} style={{marginTop: "10px"}}>
 						<InputLabel id="taId">
 							Use TA/YE Adjustment
 						</InputLabel>

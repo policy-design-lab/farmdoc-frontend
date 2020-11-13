@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Term from "./Term";
 import "../styles/main.css";
 import {insuranceTermDefinitions} from "../app.messages";
+import {pricedistrTermDefinitions} from "../app.messages";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
 
@@ -13,7 +14,9 @@ class Documentation extends Component {
 	render(){
 
 		let allTerms = [];
-
+		pricedistrTermDefinitions.forEach((item) => {
+			allTerms.push(<Term key={item.term} term={item.term} definition={item.definition} links={item.links}/>);
+		});
 		return (
 			<div>
 				<Layout selectedTab="docs">

@@ -27,8 +27,7 @@ const styles = theme => ({
 		minWidth: 72,
 		fontSize: "1.125em",
 		fontWeight: "700",
-		// fontWeight: theme.typography.fo,
-		marginRight: theme.spacing.unit * 4,
+		marginRight: theme.spacing(4),
 		fontFamily: [
 			"-apple-system",
 			"BlinkMacSystemFont",
@@ -55,7 +54,7 @@ const styles = theme => ({
 	},
 	tabSelected: {},
 	typography: {
-		padding: theme.spacing.unit * 3,
+		padding: theme.spacing(3),
 	},
 });
 
@@ -75,7 +74,7 @@ class EvaluatorResults extends Component {
 		this.setState({tabIndex: value});
 	};
 
-	shouldComponentUpdate(): boolean {
+	shouldComponentUpdate() {
 		if (this.props["evaluatorResults"] === null){
 			this.setState({tabIndex: 1});
 		}

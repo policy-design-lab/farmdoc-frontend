@@ -200,6 +200,124 @@ export function getCropParams(countyFips, commodity){
 	});
 }
 
+export function getCropCodes(){
+	return [
+		{value: "C", label: "Corn"},
+		{value: "S", label: "Soybeans"}];
+}
+
+
+export function getMonthCodes(crop_code){
+	return getMonthYearCode(crop_code);
+}
+
+
+export function getYearCodes(crop_code){
+	const month_menu = getMonthYearCode(crop_code);
+	let years = Object.keys(month_menu);
+	let year_codes = [];
+	let i;
+	for (i = 0; i < years.length; i++) {
+		year_codes.push({value: years[i], label: years[i].toString()});
+	}
+	return year_codes;
+}
+
+function getMonthYearCode(crop_code) {
+	//crop month codes
+	const CORN_CODES = [
+		{value: "", label: "January"},
+		{value: "", label: "February"},
+		{value: "H", label: "March"},
+		{value: "", label: "April"},
+		{value: "K", label: "May"},
+		{value: "", label: "June"},
+		{value: "N", label: "July"},
+		{value: "", label: "August"},
+		{value: "U", label: "September"},
+		{value: "", label: "October"},
+		{value: "", label: "November"},
+		{value: "Z", label: "December"}
+	];
+	const SOYBEANS_CODES = [
+		{value: "F", label: "January"},
+		{value: "", label: "February"},
+		{value: "H", label: "March"},
+		{value: "", label: "April"},
+		{value: "K", label: "May"},
+		{value: "", label: "June"},
+		{value: "N", label: "July"},
+		{value: "Q", label: "August"},
+		{value: "U", label: "September"},
+		{value: "", label: "October"},
+		{value: "X", label: "November"},
+		{value: "", label: "December"}
+	];
+
+	const cdate = new Date();
+	let year = cdate.getFullYear();
+	let month = cdate.getMonth();
+	const day = cdate.getDate();
+
+	// second Friday of the month, expiration day
+	let friday_full = nthDayOfMonth(5, 2, cdate);
+	if (day > friday_full.getDate()) {
+		month += 1;
+	}
+
+	let month_code = "";
+	let month_year_code = [];
+	let month_menu = {};
+	// e.g. 18 month rolling forward
+	const month_roll = 18;
+	let i = 0;
+	let mi = month;
+	while (i <= month_roll) {
+		month = mi % 12;
+		if ((crop_code === "C") && CORN_CODES[month].value) {
+			month_code = CORN_CODES[month];
+			month_year_code.push(month_code);
+			month_menu[year] = month_year_code;
+		}
+		if ((crop_code === "S") && SOYBEANS_CODES[month].value) {
+			month_code = SOYBEANS_CODES[month];
+			month_year_code.push(month_code);
+			month_menu[year] = month_year_code;
+		}
+		if (month === 11) {
+			year += 1;
+			month_year_code = [];
+			month_menu[year] = month_year_code;
+		}
+		i += 1;
+		mi += 1;
+	}
+	const keys = Object.keys(month_menu);
+	// remove last year if empty
+	const last = month_menu[keys[keys.length - 1]];
+	if (!last.length) {
+		delete month_menu[keys[keys.length - 1]];
+	}
+	return month_menu;
+}
+
+function nthDayOfMonth(day, n, date) {
+	// https://stackoverflow.com/questions/32192982/get-a-given-weekday-in-a-given-month-with-javascript
+
+	let count = 0;
+	let idate = new Date(date);
+	idate.setDate(1);
+
+	while (count < n) {
+		idate.setDate(idate.getDate() + 1);
+		if (idate.getDay() === day) {
+			count++;
+		}
+	}
+
+	return idate;
+}
+
 export function groupBy(list, keyGetter) {
 	const map = new Map(String, String);
 	list.forEach((item) => {
@@ -318,3 +436,6 @@ export function roundResultsIfNotZero(val, n){
 	return (val === 0) ? "NA" : roundResults(val, n);
 }
 
+export function isNumeric(n) {
+	return !isNaN(parseFloat(n)) && isFinite(n);
+}
