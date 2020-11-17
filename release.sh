@@ -9,7 +9,8 @@ export DEBUG=${DEBUG:-""}
 export SERVER=${SERVER:-"hub.ncsa.illinois.edu"}
 
 # Requires jq package
-VERSION=$(cat package.json | jq -r '.version')
+VERSION=$(cat package.json | grep \"version\" | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,",]//g' | tr -d '[[:space:]]')
+
 
 # Find out what branch we are on
 BRANCH=${BRANCH:-"$(git rev-parse --abbrev-ref HEAD)"}
@@ -20,7 +21,7 @@ if [ "$BRANCH" = "master" ]; then
 elif [ "${BRANCH}" = "develop" ]; then
     TAG="develop"
 else
-		# In the future we should allow pushes from branches?
+		# In the future should we allow pushes from branches?
 		echo "Pushing from a branch that is not master or develop is not allowed"
 		exit 0
 fi
