@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
 - API call to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
+- Docker scripts to build and push images of frontend to NCSA docker hub [FD-307](https://opensource.ncsa.illinois.edu/jira/browse/FD-307)
 
 ### Security
 - Updated React & Material-UI to latest versions. Fixed some security vulnerabilities in dependencies. [FD-287](https://opensource.ncsa.illinois.edu/jira/browse/FD-287)
