@@ -8,16 +8,24 @@ export DEBUG=${DEBUG:-""}
 
 export SERVER=${SERVER:-"hub.ncsa.illinois.edu"}
 
-# Requires jq package
-VERSION=$(cat package.json | grep \"version\" | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,",]//g' | tr -d '[[:space:]]')
-
+PKG_VERSION=$(cat package.json | grep \"version\" | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,",]//g' | tr -d '[[:space:]]')
 
 # Find out what branch we are on
 BRANCH=${BRANCH:-"$(git rev-parse --abbrev-ref HEAD)"}
 
 # Use package version as tag for master & develop
 if [ "$BRANCH" = "master" ]; then
-    TAG=$VERSION
+	echo "Detected version ${PKG_VERSION}"
+	VERSIONS=""
+	OLDVERSION=""
+	TMPVERSION=$PKG_VERSION
+	while [ "$OLDVERSION" != "$TMPVERSION" ]; do
+			VERSIONS="${VERSIONS} ${TMPVERSION}"
+			OLDVERSION="${TMPVERSION}"
+			TMPVERSION=$(echo ${OLDVERSION} | sed 's/\.[0-9]*$//')
+	done
+
+	TAG=$VERSIONS
 elif [ "${BRANCH}" = "develop" ]; then
     TAG="develop"
 else
@@ -26,9 +34,10 @@ else
 		exit 0
 fi
 
+
+# Push image to docker hub
 $DEBUG docker login $SERVER
 
-# Push front end image
 for v in ${TAG}; do
 	if [ "$SERVER" != "" ]; then
 		${DEBUG} docker tag farmdoc/frontend ${SERVER}/farmdoc/frontend:${v}
