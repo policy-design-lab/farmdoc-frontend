@@ -6,7 +6,9 @@ FROM node:14.5.0-alpine AS builder
 
 WORKDIR /usr/src/app
 
-ENV DEPLOY_ENV="${DEPLOY_ENV:-}"
+ARG DEPLOY_ENV=""
+ENV DEPLOY_ENV=${DEPLOY_ENV}
+
 
 COPY package.json package-lock.json /usr/src/app/
 COPY tools ./tools/
