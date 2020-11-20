@@ -52,7 +52,7 @@ const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 
 const localConfig = {
 	basePath: "/",
-	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
+	apiUrl: "http://localhost:5000/api",
 	apps: farmdocApps,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
