@@ -53,6 +53,7 @@ const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 const localConfig = {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
+	datawolfUrl: "http://localhost:8888/datawolf",
 	apps: farmdocApps,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
@@ -68,6 +69,7 @@ const localConfig = {
 const devConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-api-dev.ncsa.illinois.edu/farmdoc/api",
+	datawolfUrl: "https://fd-api-dev.ncsa.illinois.edu/datawolf",
 	apps: farmdocApps,
 	domain: devDomain,
 	defaultsJson: defaultsJson,
@@ -83,6 +85,7 @@ const devConfig = {
 const prodConfig = {
 	basePath: "/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
+	datawolfUrl: "https://fd-api.ncsa.illinois.edu/datawolf",
 	apps: farmdocApps,
 	domain: prodDomain,
 	defaultsJson: defaultsJson,

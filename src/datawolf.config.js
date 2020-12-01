@@ -1,4 +1,6 @@
-export const datawolfURL = "https://fd-api.ncsa.illinois.edu/datawolf";
+import config from "./app.config";
+
+export const datawolfURL = config.datawolfUrl;
 
 const workflowId = "43c512ee-606f-450b-aea4-ecfe8b880bd2";
 
