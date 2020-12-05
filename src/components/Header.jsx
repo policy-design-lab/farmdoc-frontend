@@ -205,8 +205,10 @@ class Header extends Component {
 							}
 
 							<a href="/">
-								<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
-								<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "40px", verticalAlign: "sub"}}/>
+								<div style={{display: "inline-flex", flexDirection: "row", alignItems: "center"}}>
+									<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
+									<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "30px", verticalAlign: "sub"}}/>
+								</div>
 							</a>
 						</ToolbarSection>
 						<ToolbarSection style={{marginLeft: "10px"}}>
