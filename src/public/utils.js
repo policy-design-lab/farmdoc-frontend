@@ -208,12 +208,12 @@ export function getCropCodes(){
 
 
 export function getMonthCodes(crop_code){
-	return getMonthYearCode(crop_code);
+	return assmbMonthYearCode(crop_code);
 }
 
 
 export function getYearCodes(crop_code){
-	const month_menu = getMonthYearCode(crop_code);
+	const month_menu = assmbMonthYearCode(crop_code);
 	let years = Object.keys(month_menu);
 	let year_codes = [];
 	let i;
@@ -223,57 +223,78 @@ export function getYearCodes(crop_code){
 	return year_codes;
 }
 
-function getMonthYearCode(crop_code) {
-	//crop month codes
+export function getMonthYearCodes(crop_code){
+	const month_menu = assmbMonthYearCode(crop_code);
+	let years = Object.keys(month_menu);
+	let month_year_codes = [];
+	let i;
+	let j;
+	for (i = 0; i < years.length; i++) {
+		for (j = 0; j < month_menu[years[i]].length; j++) {
+			month_year_codes.push({
+				value: `${month_menu[years[i]][j].value}-${years[i]}`,
+				label: `${month_menu[years[i]][j].label} ${years[i].toString()}`});
+		}
+	}
+	return month_year_codes;
+}
+
+function assmbMonthYearCode(crop_code) {
 	const CORN_CODES = [
-		{value: "", label: "January"},
-		{value: "", label: "February"},
-		{value: "H", label: "March"},
-		{value: "", label: "April"},
+		{value: "", label: "Jan"},
+		{value: "", label: "Feb"},
+		{value: "H", label: "Mar"},
+		{value: "", label: "Apr"},
 		{value: "K", label: "May"},
-		{value: "", label: "June"},
-		{value: "N", label: "July"},
-		{value: "", label: "August"},
-		{value: "U", label: "September"},
-		{value: "", label: "October"},
-		{value: "", label: "November"},
-		{value: "Z", label: "December"}
+		{value: "", label: "Jun"},
+		{value: "N", label: "Jul"},
+		{value: "", label: "Aug"},
+		{value: "U", label: "Sep"},
+		{value: "", label: "Oct"},
+		{value: "", label: "Nov"},
+		{value: "Z", label: "Dec"}
 	];
 	const SOYBEANS_CODES = [
-		{value: "F", label: "January"},
-		{value: "", label: "February"},
-		{value: "H", label: "March"},
-		{value: "", label: "April"},
+		{value: "F", label: "Jan"},
+		{value: "", label: "Feb"},
+		{value: "H", label: "Mar"},
+		{value: "", label: "Apr"},
 		{value: "K", label: "May"},
-		{value: "", label: "June"},
-		{value: "N", label: "July"},
-		{value: "Q", label: "August"},
-		{value: "U", label: "September"},
-		{value: "", label: "October"},
-		{value: "X", label: "November"},
-		{value: "", label: "December"}
+		{value: "", label: "Jun"},
+		{value: "N", label: "Jul"},
+		{value: "Q", label: "Aug"},
+		{value: "U", label: "Sep"},
+		{value: "", label: "Oct"},
+		{value: "X", label: "Nov"},
+		{value: "", label: "Dec"}
 	];
 
-	const cdate = new Date();
-	let year = cdate.getFullYear();
-	let month = cdate.getMonth();
-	const day = cdate.getDate();
-
-	// second Friday of the month, expiration day
+	let cdate = new Date();
+	// cdate = new Date(cdate.getFullYear(), 10, 10);
+	let fdate = new Date(cdate.getFullYear(), cdate.getMonth() + 1, 1);
+	console.log(cdate, fdate);
+	// second Friday of the month, expiration day for the next month futures
 	let friday_full = nthDayOfMonth(5, 2, cdate);
-	if (day > friday_full.getDate()) {
-		month += 1;
+	if (cdate.getDate() > friday_full.getDate()) {
+		fdate.setMonth(fdate.getMonth() + 1);
 	}
+	console.log(cdate, fdate);
 
 	let month_code = "";
 	let month_year_code = [];
 	let month_menu = {};
-	// e.g. 18 month rolling forward
+	let fyear = fdate.getFullYear();
+	// e.g. 18 months rolling forward
 	const month_roll = 18;
 	let i = 0;
-	let mi = month;
 	while (i <= month_roll) {
-		month = mi % 12;
+		let year = fdate.getFullYear();
+		let month = fdate.getMonth();
+		if (year !== fyear) {
+			fyear = year;
+			month_year_code = [];
+			month_menu[year] = month_year_code;
+		}
 		if ((crop_code === "C") && CORN_CODES[month].value) {
 			month_code = CORN_CODES[month];
 			month_year_code.push(month_code);
@@ -284,13 +305,8 @@ function getMonthYearCode(crop_code) {
 			month_year_code.push(month_code);
 			month_menu[year] = month_year_code;
 		}
-		if (month === 11) {
-			year += 1;
-			month_year_code = [];
-			month_menu[year] = month_year_code;
-		}
+		fdate.setMonth(fdate.getMonth() + 1);
 		i += 1;
-		mi += 1;
 	}
 	const keys = Object.keys(month_menu);
 	// remove last year if empty

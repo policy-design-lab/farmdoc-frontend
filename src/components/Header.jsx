@@ -21,6 +21,7 @@ import {Modal} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import AppsList from "./AppsList";
 import GAPPLogo from "../images/GAPP-logo.png";
+import FDWhite from "../images/logo-farmdoc-white.png";
 
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -177,6 +178,7 @@ class Header extends Component {
 			tabHeader = config.apps[currApp].appName;
 		}
 
+		let accountMaxWidth = localStorage.getItem("isAuthenticated") !== "true" ? 300 : 200;
 		return (
 			<div className={classes.root}>
 
@@ -192,7 +194,7 @@ class Header extends Component {
 
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start" style={{maxWidth: 225}}>
+						<ToolbarSection align="start" style={{maxWidth: 225, display: "contents"}}>
 
 							{(localStorage.getItem("isAuthenticated") !== null &&
 							localStorage.getItem("isAuthenticated") !== "true") ? null :
@@ -202,12 +204,14 @@ class Header extends Component {
 								</IconButton>
 							}
 
-							<a href="/" className={"farmdoc"}>
-								<img src={GAPPLogo}/>
-								<span style={{display: "inline", verticalAlign: "middle"}}>FarmDoc</span>
+							<a href="/">
+								<div style={{display: "inline-flex", flexDirection: "row", alignItems: "center"}}>
+									<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
+									<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "30px", verticalAlign: "sub"}}/>
+								</div>
 							</a>
 						</ToolbarSection>
-						<ToolbarSection>
+						<ToolbarSection style={{marginLeft: "10px"}}>
 							{/*{browserWarningSpan}*/}
 							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null &&
 									localStorage.getItem("isAuthenticated") === "true") && (currApp === "home")) ? null :
@@ -223,7 +227,7 @@ class Header extends Component {
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: 320}} >
+						<ToolbarSection align="end" style={{maxWidth: accountMaxWidth}} >
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ?
 									<div>

@@ -1,16 +1,17 @@
 export const generateChartData = (sigma, mu) => {
 	let lowerl = 0.0001;
 	let upperl = 0.999;
+	const points = 50;
 
 	let abLow = Math.exp(normsInv(lowerl) * sigma + mu);
 	let abHigh = Math.exp(normsInv(upperl) * sigma + mu);
-	let inc = (abHigh - abLow) / 599;
+	let inc = (abHigh - abLow) / (points - 1);
 
 	let prices = [];
 	let bigPyts = [];
 	let litPyts = [];
 	let curPrice = abLow;
-	for (let i = 0; i < 600; i++) {
+	for (let i = 0; i < points; i++) {
 		let bigPyt = normalDistribution((Math.log(curPrice) - mu) / sigma);
 
 		let lpt1 = Math.exp(-0.5 * Math.pow((Math.log(curPrice) - mu) / sigma, 2));
@@ -42,9 +43,9 @@ export const regeneratePriceTableData = (price, sigma, mu) => {
 	return priceTableData;
 };
 
-function getProbabilityForPrice(price, sigma, mu) {
+export const getProbabilityForPrice = (price, sigma, mu) => {
 	return normalDistribution((Math.log(price) - mu) / sigma);
-}
+};
 
 export const generateProbPoints = (sigma, mu) => {
 	let percentiles = [5, 15, 25, 35, 45, 50, 55, 65, 75, 85, 95];

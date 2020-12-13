@@ -18,7 +18,8 @@ import {
 import {
 	generateChartData,
 	generateProbPoints,
-	regeneratePriceTableData
+	regeneratePriceTableData,
+	getProbabilityForPrice
 } from "../public/pd_data";
 
 import {isNumeric, roundResults} from "../public/utils";
@@ -50,9 +51,9 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 				{
 					label: yAxisLabel,
 					data: graphData,
-					borderColor: "rgb(133, 163, 225)",
-					backgroundColor: "rgba(235, 240, 250, 0.3)",
-					fill: true,
+					borderColor: "blue",
+					backgroundColor: "blue",
+					fill: false,
 					pointRadius: 0,
 					borderRadius: 2,
 					borderWidth: 2
@@ -102,7 +103,9 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					label: function(item, data) {
 						let datasetLabel = data.datasets[item.datasetIndex].label || "";
 						let dataPoint = item.yLabel;
-						return `${datasetLabel }: ${ roundResults(dataPoint, 1) }%`;
+						if (!datasetLabel.toLowerCase().includes("poi")) { //do not include POI graph value in tooltip
+							return `${datasetLabel}: ${roundResults(dataPoint * 100, 2)}%`;
+						}
 					}
 				}
 			},
@@ -121,6 +124,7 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 					gridLines: {
 						display: true,
 						// drawOnChartArea: true,
+						color: "#939799",
 						z: 100,
 						lineWidth: 1,
 						// borderDash: [10],
@@ -142,17 +146,18 @@ const prepareProbChart = (poi, chartData, title, yAxisLabel, dataColumn) => {
 						precision: 1,
 						maxTicksLimit: 11, // Provide odd number here to show evenly distributed grids
 						fontSize: 12,
-						maxRotation: 0,
-						minRotation: 0
+						maxRotation: 45,
+						minRotation: 45
 					},
 					gridLines: {
 						display: true,
+						color: "#939799",
 						z: 100,
 						lineWidth: 1,
 					},
 					scaleLabel: {
 						display: true,
-						labelString: "Price ($/bu)",
+						// labelString: "Price ($/bu)",
 						fontSize: 14,
 					}
 				}]
@@ -183,9 +188,9 @@ const prepareTable = (tableData, title, colName1, colName2, field1, field2, elem
 		layout: "fitColumns",
 		tooltipsHeader: true,
 		columns: [
-			{title: colName1, field: field1, hozAlign: "center", width: 130, tooltip: false,
+			{title: colName1, field: field1, hozAlign: "center", width: 120, tooltip: false,
 				headerTooltip: headerTooltipFirst, formatter: "money", formatterParams: formatterParamsFirst},
-			{title: colName2, field: field2, hozAlign: "center", width: 130, tooltip: false,
+			{title: colName2, field: field2, hozAlign: "center", width: 120, tooltip: false,
 				headerTooltip: headerTooltipSecond, formatter: "money", formatterParams: formatterParamsSecond},
 		],
 		rowFormatter: function (row) {
@@ -203,31 +208,31 @@ class PriceDistributionResults extends Component {
 		super(props);
 
 		this.handlePDResults = handlePDResults;
+		this.state = {priceCrop: null};
 		this.state = {poi: null};
 	}
 
-	validateMaxValue = value => event => {
+	validateMaxValue = (event, price) => {
 		if (isNumeric(event.target.value)) {
-			if (isNaN(event.target.value)) {
+			if (event.target.value <= 0) {
 				event.target.value = 0;
 			}
-			else {
-				if (event.target.value <= 0) {
-					event.target.value = 0;
-				}
-				else if (event.target.value > 4 * value) {
-					event.target.value = value;
-				}
+			else if (event.target.value > 4 * price) {
+				event.target.value = price;
 			}
 		}
-		else {
-			event.target.value = value;
+		else if (event.target.value !== "") {
+			event.target.value = price;
 		}
 	};
 
-	updateInputValue = (event) => {
+	updateInputValue = (event, price) => {
+		//console.log(event.target.value, price);
 		this.setState({
 			poi: event.target.value
+		});
+		this.setState({
+			priceCrop: price
 		});
 	}
 
@@ -243,10 +248,9 @@ class PriceDistributionResults extends Component {
 		let results = null;
 		let price = null;
 		let priceOfInterest = null;
-		let futuresData = null;
-		let dte = null;
-		let optionValuesByStrike = null;
-		let solution = null;
+		let sigma = null;
+		let mu = null;
+		let priceOfInterestProb = null;
 
 		let priceTableData = null;
 		let probTableData = null;
@@ -257,6 +261,16 @@ class PriceDistributionResults extends Component {
 
 		if (this.props.hasOwnProperty("pdResults") && this.props["pdResults"] !== null) {
 			resultData = this.props["pdResults"];
+		}
+		else if (this.props["pdResults"] === ""){
+			return (
+				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
+			);
+		}
+		else {
+			return (
+				<div />
+			);
 		}
 
 		if (resultData) {
@@ -273,122 +287,112 @@ class PriceDistributionResults extends Component {
 				results = pdResultsObj[futuresCode]["results"];
 
 				price = roundResults(results["price"], 2);
-				solution = results["solution"];
+				sigma = results["solution"].sigma;
+				mu = results["solution"].mu;
 
-				const chartData = generateChartData(solution.sigma, solution.mu);
+				const chartData = generateChartData(sigma, mu);
 
 				priceOfInterest = price;
-				if (this.state.poi) {
+				// console.log(this.state.priceCrop, price, this.state.poi);
+				if (this.state.priceCrop === price) {
 					priceOfInterest = this.state.poi;
 				}
+				priceOfInterestProb = getProbabilityForPrice(priceOfInterest, sigma, mu);
+
 				graph1 = prepareProbChart(priceOfInterest, chartData, "Cumulative Probability of Prices at Expiration", "Probability", "bigPyt");
 				graph2 = prepareProbChart(priceOfInterest, chartData, "Probability of Prices at Expiration", "Relative Probability", "litPyt");
 
-				priceTableData = regeneratePriceTableData(price, solution.sigma, solution.mu);
-				probTableData = generateProbPoints(solution.sigma, solution.mu);
+				priceTableData = regeneratePriceTableData(price, sigma, mu);
+				probTableData = generateProbPoints(sigma, mu);
 
-				table1 = prepareTable(priceTableData, "Price at", "Price", "Prob Below", "price", "probability", "table1");
-				table2 = prepareTable(probTableData, "At expiration", "Prob Below", "Price", "percentile", "price", "table2");
+
+				table1 = prepareTable(priceTableData, "Price at", "Price at<br/>Expiration", "Probability<br/>Below", "price", "probability", "table1");
+				table2 = prepareTable(probTableData, "At expiration", "Probability<br/>Below", "Price at<br/>Expiration", "percentile", "price", "table2");
 			}
+		}
+		return (
+			<Grid container>
+				<Grid container direction="row">
+					<Grid item xs={1} />
+					<Grid item xs={10}>
+						<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
+							The charts below show the corn price distribution at expiration in two related forms.
+							The top shows the cumulative probability distribution for expiration prices
+							and can be interpreted by identifying a price of interest and reading the associated
+							probability on the left axis. The lower chart contains the same information in a probability
+							density form. The associated tables tabulate the information from the charts by price
+							and probability.
+						</div>
 
-			return (
-				<Grid container>
-					<Grid container direction="row">
-						<Grid item xs={1} />
-						<Grid item xs={10}>
-							<div style={{fontSize: "1.0em", fontWeight: 600, maxWidth: "1085px", margin: "0 auto", padding: "6px 0px 0px 0px"}}>
-								The charts below show the corn price distribution at expiration in two related forms.
-								The top shows the cumulative probability distribution for expiration prices
-								and can be interpreted by identifying a price of interest and reading the associated
-								probability on the left axis. The lower chart contains the same information in a probability
-								density form. The associated tables tabulate the information from the charts by price
-								and probability.
-							</div>
-
-						</Grid>
-						<Grid item xs={1} />
 					</Grid>
-					<Grid container justify="center" alignItems="center">
-						<Grid item xs={1} />
-						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
-								<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
-							</div>
-						</Grid>
-						<Grid item xs={3} style={{flexBasis: "0%"}}>
-							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
-								<ReactTabulator
-									data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
-									rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
-								/>
-							</div>
-						</Grid>
-						<Grid item xs={1} />
+					<Grid item xs={1} />
+				</Grid>
+				<Grid container justify="center" alignItems="center">
+					<Grid item xs={1} />
+					<Grid item xs={7}>
+						<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
+							<Line data={graph1.data} legend={graph1.legend} options={graph1.options}/>
+						</div>
 					</Grid>
-					<Grid container>
-						<div style={{margin: "auto", width: "50%", padding: "0px"}}>
+					<Grid item xs={3} style={{flexBasis: "0%"}}>
+						<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+							<ReactTabulator
+								data={table1.data} layout={"fitColumns"} columns={table1.columns} options={tabulator_options}
+								rowClick={table1.rowClick} rowFormatter={table1.rowFormatter} tooltips={true}
+							/>
+						</div>
+					</Grid>
+					<Grid item xs={1} />
+				</Grid>
+				<Grid container justify="center" alignItems="center">
+					<Grid item xs={1} />
+					<Grid item xs={7} style={{paddingBottom: "10px"}}>
+						<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
+							<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
+						</div>
+						<div style={{margin: "auto", width: "90%", textAlign: "center", padding: "0px"}}>
 							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
 							<TextField
-								defaultValue={price}
+								defaultValue={priceOfInterest}
 								style={{width: "90px"}}
-								value={this.state.inputValue}
 								margin="normal"
-								onChange={this.updateInputValue}
+								onChange={(e) => this.updateInputValue(e, price)}
 								onKeyDown={this.keyPress}
 								required
 								InputLabelProps={{shrink: true}}
-								onBlur={this.validateMaxValue(price)}
+								onInput={(e) => this.validateMaxValue(e, price)}
 								InputProps={{
 									startAdornment:
 										<InputAdornment position="start">$</InputAdornment>, padding: 5
 								}}
 							/>
-							{/*<input type="text" defaultValue={price} value={this.state.inputValue} onChange={this.updateInputValue} />*/}
+						</div>
+						<div style={{margin: "auto", width: "90%", textAlign: "center"}}>
+							<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
 						</div>
 					</Grid>
-					<Grid container justify="center" alignItems="center">
-						<Grid item xs={1} />
-						<Grid item xs={7}>
-							<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px"}}>
-								<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
-							</div>
-						</Grid>
-						<Grid item xs={3} style={{flexBasis: "0%"}}>
-							<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
-								<ReactTabulator
-									data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
-									rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
-								/>
-							</div>
-						</Grid>
-						<Grid item xs={1} />
+					<Grid item xs={3} style={{flexBasis: "0%"}}>
+						<div style={{width: "100%", marginTop: "20px", padding: "10px"}}>
+							<ReactTabulator
+								data={table2.data} layout={"fitColumns"} columns={table2.columns} options={tabulator_options}
+								rowClick={table2.rowClick} rowFormatter={table2.rowFormatter} tooltips={true}
+							/>
+						</div>
 					</Grid>
-					<Grid container>
-						<Grid item xs={1} />
-						<Grid item xs={10}>
-							<div>
-								<Divider/>
-								<PriceDistributionFooter
-									probability={roundResults(probTableData[5].percentile, 0)}
-									expirationPrice={roundResults(probTableData[5].price, 2)}
-								/>
-							</div>
-						</Grid>
-						<Grid item xs={1} />
-					</Grid>
+					<Grid item xs={1} />
 				</Grid>
-			);
-		}
-		else if (this.props["pdResults"] === ""){
-			return (
-				<div style={{padding: "15px", color: "red"}}> No data available for the selected crop and date. </div>
-			);
-		}
-		else {
-			return (
-				<div />
-			);
-		}
+				<Grid container>
+					<Grid item xs={1} />
+					<Grid item xs={10}>
+						<div>
+							<Divider/>
+							<PriceDistributionFooter />
+						</div>
+					</Grid>
+					<Grid item xs={1} />
+				</Grid>
+			</Grid>
+		);
 	}
 }
 
