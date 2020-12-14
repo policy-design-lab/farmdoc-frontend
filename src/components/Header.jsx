@@ -178,7 +178,7 @@ class Header extends Component {
 			tabHeader = config.apps[currApp].appName;
 		}
 
-		let accountMaxWidth = localStorage.getItem("isAuthenticated") !== "true" ? 300 : 200;
+		let accountMaxWidth = localStorage.getItem("isAuthenticated") !== "true" ? 310 : 200;
 		return (
 			<div className={classes.root}>
 
@@ -204,7 +204,7 @@ class Header extends Component {
 								</IconButton>
 							}
 
-							<a href="/">
+							<a href="/" style={{lineHeight: "1em"}}>
 								<div style={{display: "inline-flex", flexDirection: "row", alignItems: "center"}}>
 									<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
 									<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "30px", verticalAlign: "sub"}}/>
