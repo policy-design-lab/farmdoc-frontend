@@ -272,13 +272,11 @@ function assmbMonthYearCode(crop_code) {
 	let cdate = new Date();
 	// cdate = new Date(cdate.getFullYear(), 10, 10);
 	let fdate = new Date(cdate.getFullYear(), cdate.getMonth() + 1, 1);
-	console.log(cdate, fdate);
 	// second Friday of the month, expiration day for the next month futures
 	let friday_full = nthDayOfMonth(5, 2, cdate);
 	if (cdate.getDate() > friday_full.getDate()) {
 		fdate.setMonth(fdate.getMonth() + 1);
 	}
-	console.log(cdate, fdate);
 
 	let month_code = "";
 	let month_year_code = [];
