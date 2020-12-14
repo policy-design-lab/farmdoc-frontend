@@ -350,11 +350,14 @@ class PriceDistributionResults extends Component {
 						<div style={{width: "90%", margin: "auto", height: "340px", padding: "10px 10px 0px 10px"}}>
 							<Line data={graph2.data} legend={graph2.legend} options={graph2.options}/>
 						</div>
-						<div style={{margin: "auto", width: "90%", textAlign: "center", padding: "0px"}}>
-							<span style={{fontWeight: "bold"}}>Enter Price to Evaluate: &nbsp;</span>
+
+						<div style={{display: "table", margin: "auto", textAlign: "center", padding: "0px"}}>
+							<span style={{fontWeight: "bold", display: "table-cell", verticalAlign: "middle", textAlign: "right"}}>
+								Enter Price to Evaluate: &nbsp;
+							</span>
 							<TextField
 								defaultValue={priceOfInterest}
-								style={{width: "90px"}}
+								style={{width: "90px", display: "flex", marginTop: "8px"}}
 								margin="normal"
 								onChange={(e) => this.updateInputValue(e, price)}
 								onKeyDown={this.keyPress}
@@ -368,7 +371,7 @@ class PriceDistributionResults extends Component {
 							/>
 						</div>
 						<div style={{margin: "auto", width: "90%", textAlign: "center"}}>
-							<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)} %probability that the price will be below $ {roundResults(priceOfInterest, 2)} at expiration.</span>
+							<span style={{fontWeight: "bold"}}>The implied distribution indicates that there is a {roundResults(priceOfInterestProb * 100, 2)}% probability that the price will be below ${roundResults(priceOfInterest, 2)} at expiration.</span>
 						</div>
 					</Grid>
 					<Grid item xs={3} style={{flexBasis: "0%"}}>
