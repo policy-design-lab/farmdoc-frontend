@@ -129,25 +129,15 @@ export const arcplcTermDefinitions = [
 			"future, the models used in the tool incorporate MYA crop price forecasts to help farmers in their program decision."
 	},
 	{
-		"term": "\"COVID\" Price Scenario",
-		"definition": "Projected prices after the COVID-19 control measures began to be implemented in " +
-				"March 2020. See below Farmdoc Daily link for more details.",
-		"links": [{"name": "Farmdoc Daily - 28 Apr, 2020", "href": "https://farmdocdaily.illinois.edu/2020/04/estimates-of-mya-prices-for-2019-thorough-2021-pre-and-post-covid-19-corn-and-soybeans.html"}]
+		"term": "\"USDA long-run\" Price Scenario",
+		"definition": "USDA Projected Prices.",
+		"links": [{"name": "Farmdoc Daily - USDA’s Long-Run Forecasts",
+			"href": "https://farmdocdaily.illinois.edu/2020/11/usdas-long-run-forecasts-of-corn-soybean-and-wheat-prices.html"}]
 
-	},
-	{
-		"term": "\"Pre-COVID\" Price Scenario",
-		"definition": "Projected prices made in February 2020 before COVID-19 control measures were being implemented. " +
-				"See below Farmdoc Daily link for more details.",
-		"links": [{"name": "Farmdoc Daily - 28 Apr, 2020", "href": "https://farmdocdaily.illinois.edu/2020/04/estimates-of-mya-prices-for-2019-thorough-2021-pre-and-post-covid-19-corn-and-soybeans.html"}]
 	},
 	{
 		"term": "\"Low\" Price Scenario",
 		"definition": "A series of low, but realistic, prices that could happen."
-	},
-	{
-		"term": "\"Mid\" Price Scenario",
-		"definition": "A series of moderate prices that could happen."
 	},
 	{
 		"term": "\"High\" Price Scenario",
