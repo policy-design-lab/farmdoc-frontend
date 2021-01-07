@@ -8,16 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
 - Create interface elements [FD-302](https://opensource.ncsa.illinois.edu/jira/browse/FD-302)
-- Populate graphs and tableswith test data [FD-303](https://opensource.ncsa.illinois.edu/jira/browse/FD-303)
+- Populate graphs and tables with test data [FD-303](https://opensource.ncsa.illinois.edu/jira/browse/FD-303)
 - Implement calls to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
-- Improve grapg format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
+- Improve graph format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
 - Improve pull down menus based on the crop months [FD-315](https://opensource.ncsa.illinois.edu/jira/browse/FD-315)
 - Application will redirect to the accessed url after successful login [FD-318](https://opensource.ncsa.illinois.edu/jira/browse/FD-318)
-- API call to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
+- API call to datawolf for price distribution [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
 - Docker scripts to build and push images of frontend to NCSA docker hub [FD-307](https://opensource.ncsa.illinois.edu/jira/browse/FD-307)
 
 ### Changed
 - Updated farmdoc & NCSA logos [FD-323](https://opensource.ncsa.illinois.edu/jira/browse/FD-323)
+- ARC/PLC Forecast models, their descriptions and 2019 numbers' disclaimer [FD-365](https://opensource.ncsa.illinois.edu/jira/browse/FD-365)
 
 ### Security
 - Updated React & Material-UI to latest versions. Fixed some security vulnerabilities in dependencies. [FD-287](https://opensource.ncsa.illinois.edu/jira/browse/FD-287)
