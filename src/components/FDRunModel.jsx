@@ -261,9 +261,9 @@ class FDRunModel extends Component {
 		let intSelPrac = parseInt(selPrac);
 
 		this.state.cropYields.forEach((item) => {
-			if (item.pracCode === intSelPrac) {
-				this.setState({arcYield: item.arcYield});
-				this.setState({countyYield: item.plcYield});
+			if (item.practice_id === intSelPrac) {
+				this.setState({arcYield: item.yield_trend});
+				this.setState({countyYield: item.yield_avg});
 			}
 		});
 	};
@@ -661,7 +661,7 @@ class FDRunModel extends Component {
 				else { //more than one pracCode Present
 					let selPrac = cropParams[0]; //default to first and change to non-irrigated if present
 					cropParams.forEach((item) => {
-						if (item.pracCode === 2) {
+						if (item.practice_id === 2) {
 							selPrac = item;
 						}
 					});
