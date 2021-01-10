@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Updated farmdoc & NCSA logos [FD-323](https://opensource.ncsa.illinois.edu/jira/browse/FD-323)
 - ARC/PLC Forecast models, their descriptions and 2019 numbers' disclaimer [FD-365](https://opensource.ncsa.illinois.edu/jira/browse/FD-365)
 
+### Fixed
+- Trend Yield value was not updating based on practice type selection [FD-367](https://opensource.ncsa.illinois.edu/jira/browse/FD-367)
+
 ### Security
 - Updated React & Material-UI to latest versions. Fixed some security vulnerabilities in dependencies. [FD-287](https://opensource.ncsa.illinois.edu/jira/browse/FD-287)
 
