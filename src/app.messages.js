@@ -129,10 +129,15 @@ export const arcplcTermDefinitions = [
 			"future, the models used in the tool incorporate MYA crop price forecasts to help farmers in their program decision."
 	},
 	{
+		"term": "Forecast",
+		"definition": "These represent best estimates of MYA prices. For the current years, MYA prices are taken from " +
+			"World Agricultural Supply and Demand Board. Futures contracts are used for out years."
+	},
+	{
 		"term": "\"USDA long-run\" Price Scenario",
-		"definition": "USDA Projected Prices.",
-		"links": [{"name": "Farmdoc Daily - USDA’s Long-Run Forecasts",
-			"href": "https://farmdocdaily.illinois.edu/2020/11/usdas-long-run-forecasts-of-corn-soybean-and-wheat-prices.html"}]
+		"definition": "USDA releases a baseline scenario each February. This scenario contains these prices.",
+		"links": [{"name": "USDA Baseline Projections",
+			"href": "https://www.usda.gov/oce/commodity-markets/baseline"}]
 
 	},
 	{
