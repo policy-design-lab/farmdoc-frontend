@@ -94,7 +94,8 @@
 		"[conventional-private-methods]"
 	  ],
 	  "accessorPairPositioning": "getThenSet"
-	}]
+	}],
+    "no-prototype-builtins": "warn"
   },
   "globals": {
   }

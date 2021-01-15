@@ -5,6 +5,7 @@ import {Cell, Grid} from "react-mdc-web";
 import {arcplcWelcomeText} from "../app.messages";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
+import fdRepImg from "../images/farmdoc-rep-image.png";
 
 class About extends Component {
 
@@ -20,7 +21,7 @@ class About extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the simulation work?</h2>
 				<br/>
-				<img src={require("../images/farmdoc-rep-image.png")} alt="Payment Calculator Inputs"/>
+				<img src={fdRepImg} alt="Payment Calculator Inputs"/>
 			</div>);
 
 		return (

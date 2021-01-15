@@ -5,6 +5,7 @@ import {premCalcWelcomeText} from "../app.messages";
 import {Cell, Grid} from "react-mdc-web";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
+import premCalcRepImg from "../images/premcalc-rep-image.png";
 
 class About extends Component {
 
@@ -20,7 +21,7 @@ class About extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the premium calculator work?</h2>
 				<br/>
-				<img src={require("../images/premcalc-rep-image.png")} alt="Payment Calculator Inputs" style={{maxWidth: "600px"}}/>
+				<img src={premCalcRepImg} alt="Payment Calculator Inputs" style={{maxWidth: "600px"}}/>
 			</div>);
 
 		return (

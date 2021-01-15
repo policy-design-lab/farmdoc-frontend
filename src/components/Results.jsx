@@ -20,6 +20,7 @@ import "../styles/main.css";
 import config from "../app.config";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+import sampleDistImg from "../images/sample-dist.png";
 
 const styles = theme => ({
 	root: {
@@ -251,7 +252,7 @@ class Results extends Component {
 						<ArcTableCell>${arc[i]}</ArcTableCell>
 						<ArcTableCell>{probArc[i]}%</ArcTableCell>
 						<CommonTableCell rowSpan={2} style={{verticalAlign: "middle"}}>
-							<img src={require("../images/sample-dist.png")} onClick={() => this.handleOpen(i)}
+							<img src={sampleDistImg} onClick={() => this.handleOpen(i)}
 								 style={{cursor: "pointer"}}/>
 						</CommonTableCell>
 						<CommonTableCell rowSpan={2}> ${prices[i]} </CommonTableCell>

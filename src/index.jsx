@@ -12,7 +12,6 @@ import configureStore from "./store/configureStore";
 import "./styles/styles.scss";
 import {syncHistoryWithStore} from "react-router-redux";
 
-require("./public/favicon.ico");
 require("./images/card_bg.jpg");
 require("./images/farmdoc-rep-image.png");
 require("./images/map-marker.png");

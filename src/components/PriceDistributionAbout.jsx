@@ -4,6 +4,7 @@ import "../styles/home-page.css";
 import {Cell, Grid} from "react-mdc-web";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
+import distRepImg from "../images/pricedistr-rep-image.png";
 
 class About extends Component {
 
@@ -33,7 +34,7 @@ class About extends Component {
 			(<div style={{textAlign: "center"}}>
 				<h2 className="secondary-color">How does the price distribution tool work?</h2>
 				<br/>
-				<img src={require("../images/pricedistr-rep-image.png")} alt="Price Distribution Tool Inputs" style={{maxWidth: "600px"}}/>
+				<img src={distRepImg} alt="Price Distribution Tool Inputs" style={{maxWidth: "600px"}}/>
 			</div>);
 
 		return (

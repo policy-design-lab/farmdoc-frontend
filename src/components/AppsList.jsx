@@ -10,6 +10,11 @@ import evaluatorLogo from "../images/payment-evaluator.svg";
 import pricedistrLogo from "../images/price-distr.svg";
 import config from "../app.config";
 
+import arcPlcImg from "../images/arc-plc-results.png";
+import premCalcImg from "../images/premium-calc-screenshot.png";
+import paymentEvalImg from "../images/payment-evaluator-screenshot.png";
+import priceDistImg from "../images/price-distr-screenshot.png";
+
 const styles = theme => ({
 	root: {
 		flexGrow: 1,
@@ -59,7 +64,7 @@ class AppsList extends Component {
 									</div>
 
 									<div>
-										<img className="appScreenshot" src={require("../images/arc-plc-results.png")} alt="ARC/PLC Results"/>
+										<img className="appScreenshot" src={arcPlcImg} alt="ARC/PLC Results"/>
 									</div>
 								</Paper>
 							</Link>
@@ -83,7 +88,7 @@ class AppsList extends Component {
 										{config.apps["premiums"].appDesc}	</div>
 
 									<div>
-										<img className="appScreenshot" src={require("../images/premium-calc-screenshot.png")} alt="Premium Results"/>
+										<img className="appScreenshot" src={premCalcImg} alt="Premium Results"/>
 									</div>
 
 								</Paper>
@@ -108,7 +113,7 @@ class AppsList extends Component {
 										{config.apps["evaluator"].appDesc}	</div>
 
 									<div>
-										<img className="appScreenshot" src={require("../images/payment-evaluator-screenshot.png")} alt="Payment Results"/>
+										<img className="appScreenshot" src={paymentEvalImg} alt="Payment Results"/>
 									</div>
 
 								</Paper>
@@ -131,7 +136,7 @@ class AppsList extends Component {
 									<div className="appDescription">
 										{config.apps["pricedistribution"].appDesc}	</div>
 									<div>
-										<img className="appScreenshot" src={require("../images/price-distr-screenshot.png")} alt="Price distribution results" />
+										<img className="appScreenshot" src={priceDistImg} alt="Price distribution results" />
 									</div>
 
 								</Paper>
