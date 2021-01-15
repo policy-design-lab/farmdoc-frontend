@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+- "react-scripts" package to manage webpack dependencies internally. [FD-329](https://opensource.ncsa.illinois.edu/jira/browse/FD-329)
+
 ## [1.4.0] - 2021-01-11
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)

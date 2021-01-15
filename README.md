@@ -46,4 +46,29 @@ repository.
 3. Follow the **login** instructions (using your `Datawolf` credentials)
 
 # Testing
-    NA
+
+### `npm run test`
+
+Launches the test runner in the interactive watch mode.
+
+# Building & Deploying
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It bundles React in production mode and optimizes the build for the best performance.
+
+Copy the build folder to a web server to run the app
+
+
+# Docker Build
+
+###  `docker build --no-cache --build-arg DEPLOY_ENV=development --progress=plain --tag farmdoc/frontend .`
+
+DEPLOY_ENV can be localhost, development or production
+
+# Docker Run
+
+### `docker run -p 3000:80 farmdoc-docker`
+
+This should run the application on `http://localhost:3000/`
