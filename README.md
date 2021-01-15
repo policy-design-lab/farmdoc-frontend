@@ -69,6 +69,6 @@ DEPLOY_ENV can be localhost, development or production
 
 # Docker Run
 
-### `docker run -p 3000:80 farmdoc-docker`
+### `docker run -p 3000:80 farmdoc/frontend:latest`
 
 This should run the application on `http://localhost:3000/`
