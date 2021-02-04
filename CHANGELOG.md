@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0] - 2021-02-04
+### Changed
+- Text to replace references of 2020 with 2021 to reflect the data change for current year [FD-372](https://opensource.ncsa.illinois.edu/jira/browse/FD-372)
+
+
 ## [1.4.0] - 2021-01-11
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
-- Create interface elements [FD-302](https://opensource.ncsa.illinois.edu/jira/browse/FD-302)
+- Create interface elements c
 - Populate graphs and tables with test data [FD-303](https://opensource.ncsa.illinois.edu/jira/browse/FD-303)
 - Implement calls to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
 - Improve graph format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
