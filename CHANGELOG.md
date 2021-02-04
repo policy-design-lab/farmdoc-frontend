@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.4.0] - 2021-01-11
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
-- Create interface elements c
+- Create interface elements [FD-302](https://opensource.ncsa.illinois.edu/jira/browse/FD-302)
 - Populate graphs and tables with test data [FD-303](https://opensource.ncsa.illinois.edu/jira/browse/FD-303)
 - Implement calls to DW [FD-304](https://opensource.ncsa.illinois.edu/jira/browse/FD-304)
 - Improve graph format and layout [FD-313](https://opensource.ncsa.illinois.edu/jira/browse/FD-313)
