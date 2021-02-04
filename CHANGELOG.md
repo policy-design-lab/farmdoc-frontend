@@ -8,7 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Text to replace references of 2020 with 2021 to reflect the data change for current year [FD-372](https://opensource.ncsa.illinois.edu/jira/browse/FD-372)
 
-
 ## [1.4.0] - 2021-01-11
 ### Added
 - Initial layout for price distribution frontend and related routes [FD-300](https://opensource.ncsa.illinois.edu/jira/browse/FD-300)
