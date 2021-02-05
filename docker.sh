@@ -9,6 +9,6 @@ export DOCKER_BUILDKIT=1
 # use DEBUG=echo ./release.sh to print all commands
 export DEBUG=${DEBUG:-""}
 
-export DEPLOY_ENV=${DEPLOY_ENV:-"development"}
+export REACT_APP_ENV=${REACT_APP_ENV:-"development"}
 
-${DEBUG} docker build --build-arg DEPLOY_ENV="${DEPLOY_ENV}" --progress=plain --tag farmdoc/frontend .
+${DEBUG} docker build --build-arg REACT_APP_ENV="${REACT_APP_ENV}" --progress=plain --tag farmdoc/frontend .

@@ -63,9 +63,9 @@ Copy the build folder to a web server to run the app
 
 # Docker Build
 
-###  `docker build --no-cache --build-arg DEPLOY_ENV=development --progress=plain --tag farmdoc/frontend .`
+###  `docker build --no-cache --build-arg REACT_APP_ENV=development --progress=plain --tag farmdoc/frontend .`
 
-DEPLOY_ENV can be localhost, development or production
+REACT_APP_ENV can be localhost, development or production
 
 # Docker Run
 

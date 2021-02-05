@@ -102,10 +102,10 @@ const config = getConfig();
 
 
 function getConfig() {
-	if (process.env.DEPLOY_ENV === "production") {
+	if (process.env.REACT_APP_ENV === "production") {
 		return prodConfig;
 	}
-	else if (process.env.DEPLOY_ENV === "development"){
+	else if (process.env.REACT_APP_ENV === "development"){
 		return devConfig;
 	}
 	else {

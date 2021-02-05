@@ -6,8 +6,8 @@ FROM node:14.5.0-alpine AS builder
 
 WORKDIR /usr/src/app
 
-ARG DEPLOY_ENV=""
-ENV DEPLOY_ENV=${DEPLOY_ENV}
+ARG REACT_APP_ENV=""
+ENV REACT_APP_ENV=${REACT_APP_ENV}
 
 
 COPY package.json package-lock.json /usr/src/app/
