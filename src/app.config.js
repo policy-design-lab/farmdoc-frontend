@@ -6,26 +6,34 @@ const farmdocApps = {
 		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
 				" PLC making payments in each year from 2019 to 2023. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
-		lastUpdated: "Jan 5, 2021"
+		lastUpdated: "Jan 5, 2021",
+		urlPath: "/arcplc",
+		needsAuthentication: true
 	},
 	"premiums": {
 		appName: "Insurance Premiums",
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
-		lastUpdated: "Feb 03, 2021"
+		lastUpdated: "Feb 03, 2021",
+		urlPath: "/premiums",
+		needsAuthentication: false
 	},
 	"evaluator": {
 		appName: "Insurance Evaluator",
 		appDesc: "The Insurance Payment Evaluator tool provides helpful information to producers comparing costs and " +
 			"risk reductions across their available crop insurance alternatives. ",
-		lastUpdated: "Daily"
+		lastUpdated: "Daily",
+		urlPath: "/evaluator",
+		needsAuthentication: false
 	},
 	"pricedistribution": {
 		appName: "Price Distribution",
 		appDesc: "The Price Distribution Tool uses current option market prices to derive estimates of the probability " +
 			"distribution of prices at the expiration of an underlying corn and soybean futures contracts.",
-		lastUpdated: "Every 15 mins"
+		lastUpdated: "Every 15 mins",
+		urlPath: "/pricedistribution",
+		needsAuthentication: false
 	},
 };
 

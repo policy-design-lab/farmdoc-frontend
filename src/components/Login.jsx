@@ -21,6 +21,7 @@ class Login extends Component {
 			localStorage.setItem("kcToken", keycloak.token);
 			localStorage.setItem("kcRefreshToken", keycloak.refreshToken);
 			localStorage.setItem("kcTokenExpiry", keycloak.tokenParsed.exp);
+			localStorage.setItem("isProxyAuth", "false");
 			// localStorage.setItem("kcTokenExpiry", Date.now() / 1000 + 30);
 
 			keycloak.loadUserProfile().success(function(profile) {

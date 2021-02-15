@@ -6,14 +6,7 @@ import "../styles/main.css";
 import HomePage from "./HomePage";
 import Login from "./Login";
 import RouteMismatch from "./RouteMismatch";
-
-// import Dashboard from "./payment-calc/Dashboard";
-// import AboutPaymentCalc from "./payment-calc/About";
-// import Documentation from "./payment-calc/Documentation";
-//
-// import PremiumDashboard from "./premium-calc/PremiumDashboard";
-// import AboutPremiumCalc from "./premium-calc/About";
-// import DocsPremiumCalc from "./premium-calc/Documentation";
+import config from "../app.config";
 
 import Dashboard from "./Dashboard";
 import AboutPaymentCalc from "./About";
@@ -52,13 +45,10 @@ class App extends Component {
 			localStorage.setItem("fdFirstVisit", "false");
 		}
 
-		// let arcplcPath = "/arcplc-calculator/";
-		// let premiumCalcPath = "/insurance-premiums/";
-
-		let arcplcPath = "/arcplc";
-		let premiumCalcPath = "/premiums";
-		let premiumEvalPath = "/evaluator";
-		let priceDistibutionPath = "/pricedistribution";
+		let arcplcPath = config.apps.arcplc.urlPath;
+		let premiumCalcPath = config.apps.premiums.urlPath;
+		let premiumEvalPath = config.apps.evaluator.urlPath;
+		let priceDistibutionPath = config.apps.pricedistribution.urlPath;
 
 		return (
 			<div>
@@ -66,15 +56,6 @@ class App extends Component {
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
-
-						{/*<Route path={`${arcplcPath}`} component={Dashboard}/>*/}
-						{/*<Route path={`${arcplcPath}docs`} component={Documentation}/>*/}
-						{/*<Route path={`${arcplcPath}about`} component={AboutPaymentCalc}/>*/}
-
-
-						{/*<Route path={`${premiumCalcPath}`} component={PremiumDashboard}/>*/}
-						{/*<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>*/}
-						{/*<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>*/}
 
 						<Route path={arcplcPath} component={Dashboard}/>
 						<Route path={`${arcplcPath}docs`} component={Documentation}/>
@@ -88,7 +69,6 @@ class App extends Component {
 						<Route path={`${premiumEvalPath}`} component={EvaluatorDashboard}/>
 						<Route path={`${premiumEvalPath}docs`} component={DocsPaymentEval}/>
 						<Route path={`${premiumEvalPath}about`} component={AboutPaymentEval}/>
-						{/*<Route path="eval" component={EvaluatorDashboard}/>*/}
 
 						<Route path={`${priceDistibutionPath}`} component={PriceDistributionDashboard}/>
 						<Route path={`${priceDistibutionPath}docs`} component={PriceDistributionDocumentation}/>
