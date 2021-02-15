@@ -455,51 +455,6 @@ export function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-// export function loginToKeycloak(username, password){
-// 	// fetch url and client name from keycloak.json
-// 	let keycloakUrl = "https://fd-auth.ncsa.illinois.edu/auth";
-// 	let formData = [
-// 		`${encodeURIComponent("grant_type") }=${ encodeURIComponent("password")}`,
-// 		`${encodeURIComponent("username") }=${ encodeURIComponent(username)}`,
-// 		`${encodeURIComponent("password") }=${ encodeURIComponent(password)}`,
-// 		`${encodeURIComponent("client_id") }=${ encodeURIComponent("farmdoc")}`,
-// 	];
-//
-// 	return fetch(`${keycloakUrl}/realms/farmdoc/protocol/openid-connect/token`,
-// 		{
-// 			method: "POST",
-// 			// mode: "no-cors",
-// 			headers: {
-// 				"Content-Type": "application/x-www-form-urlencoded"
-// 			},
-// 			body: formData.join("&"),
-// 		}).then(function(response) {
-// 		return response;
-// 	});
-// }
-//
-// export function processKeycloakLogin(){
-// 	loginToKeycloak("ccdemo1", "ccDem0User1").then(function(response) {
-// 		if (response.status === 200){
-// 			return response.json();
-// 		}
-// 		else {
-// 			console.log("Authorization API call failed");
-// 		}
-// 	}).then(function(tokens){
-// 		let now = new Date();
-// 		localStorage.setItem("kcToken", tokens.access_token);
-// 		localStorage.setItem("kcRefreshToken", tokens.refresh_token);
-// 		localStorage.setItem("kcTokenExpiry", Math.floor(now.getTime() / 1000) + tokens.expires_in);
-// 		localStorage.setItem("isAuthenticated", "true");
-// 		localStorage.setItem("kcEmail", "ccdemo1"); // Store email ID in local storage for future use
-// 		localStorage.setItem("isProxyAuth", "true");
-// 		console.log("complete");
-// 	});
-// 	console.log("outer");
-//
-// }
-
 export async function loginToKeycloak(username, password){
 	// fetch url and client name from keycloak.json
 	let keycloakUrl = "https://fd-auth.ncsa.illinois.edu/auth";
@@ -528,7 +483,6 @@ export async function loginToKeycloak(username, password){
 	localStorage.setItem("kcToken", tokens.access_token);
 	localStorage.setItem("kcRefreshToken", tokens.refresh_token);
 
-	// How to handle token expiry?
 	localStorage.setItem("kcTokenExpiry", Math.floor(now.getTime() / 1000) + tokens.expires_in);
 	localStorage.setItem("isAuthenticated", "true");
 	localStorage.setItem("kcEmail", username);
