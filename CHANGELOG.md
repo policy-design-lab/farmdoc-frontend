@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - "react-scripts" package to manage webpack dependencies internally. [FD-329](https://opensource.ncsa.illinois.edu/jira/browse/FD-329)
+- Flag to enable or disable authentication per app [FD-374](https://opensource.ncsa.illinois.edu/jira/browse/FD-374)
 
 ## [1.5.0] - 2021-02-04
 ### Changed
