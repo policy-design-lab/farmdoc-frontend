@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import config from "../app.config";
-import {loginToKeycloak} from "../public/utils";
+import {clearKeycloakStorage, loginToKeycloak} from "../public/utils";
 
 function redirectToLogin(){
 	sessionStorage.setItem("referer_url", window.location.href);
@@ -52,6 +52,14 @@ class AuthorizedWrap extends Component {
 			else {
 				return (<div />);
 			}
+		}
+		else if (needsAuth === true && localStorage.getItem("isProxyAuth") === "true"){
+			clearKeycloakStorage();
+			return (
+				<div>
+					{redirectToLogin()}
+				</div>
+			);
 		}
 		else {
 			return (

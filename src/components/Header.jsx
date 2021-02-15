@@ -229,7 +229,8 @@ class Header extends Component {
 						</ToolbarSection>
 						<ToolbarSection align="end" style={{maxWidth: accountMaxWidth}} >
 							<div className="headerSection">
-								{localStorage.getItem("isAuthenticated") !== "true" ?
+								{localStorage.getItem("isAuthenticated") !== "true" ||
+								(localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true") ?
 									<div>
 										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
 										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
