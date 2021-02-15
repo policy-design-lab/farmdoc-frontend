@@ -36,10 +36,8 @@ class AuthorizedWrap extends Component {
 		console.log(needsAuth);
 
 		if (needsAuth === false && localStorage.getItem("isAuthenticated") !== "true") {
-			console.log("Proxy Authed");
-			//Login using keycloak url
 			let that = this;
-			loginToKeycloak("gowtham@mailinator.com", "abcd123").then(function(response){
+			loginToKeycloak().then(function(){
 				that.setState({proxyCallComplete: true});
 			});
 

@@ -455,20 +455,18 @@ export function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-export async function loginToKeycloak(username, password){
-	// fetch url and client name from keycloak.json
-	let keycloakUrl = "https://fd-auth.ncsa.illinois.edu/auth";
+export async function loginToKeycloak(){
+	let keycloakUrl = config.keyCloakUrl;
 	let formData = [
 		`${encodeURIComponent("grant_type") }=${ encodeURIComponent("password")}`,
-		`${encodeURIComponent("username") }=${ encodeURIComponent(username)}`,
-		`${encodeURIComponent("password") }=${ encodeURIComponent(password)}`,
-		`${encodeURIComponent("client_id") }=${ encodeURIComponent("farmdoc")}`,
+		`${encodeURIComponent("username") }=${ encodeURIComponent(config.proxyUser)}`,
+		`${encodeURIComponent("password") }=${ encodeURIComponent(config.proxyPw)}`,
+		`${encodeURIComponent("client_id") }=${ encodeURIComponent(config.keyCloakClient)}`,
 	];
 
 	let tokenRequest = await fetch(`${keycloakUrl}/realms/farmdoc/protocol/openid-connect/token`,
 		{
 			method: "POST",
-			// mode: "no-cors",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
 			},
@@ -476,7 +474,6 @@ export async function loginToKeycloak(username, password){
 		});
 
 	const tokens = await tokenRequest.json();
-	console.log(tokens);
 
 	const now = new Date();
 
@@ -485,11 +482,11 @@ export async function loginToKeycloak(username, password){
 
 	localStorage.setItem("kcTokenExpiry", Math.floor(now.getTime() / 1000) + tokens.expires_in);
 	localStorage.setItem("isAuthenticated", "true");
-	localStorage.setItem("kcEmail", username);
+	localStorage.setItem("kcEmail", config.proxyUser);
 	localStorage.setItem("isProxyAuth", "true");
 
 	// This can be fetched dynamically if needed - gowtham@mailinator.com
-	localStorage.setItem("dwPersonId", "af9274c4-334b-432b-9922-00ac95e7158d");
+	localStorage.setItem("dwPersonId", config.proxyDwPersonId);
 
 	return tokens;
 }

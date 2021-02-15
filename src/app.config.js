@@ -51,14 +51,19 @@ const defaultsJson = {
 
 const tooltipTouchDelay = 50; //milli seconds
 
-const demoUser = "farmdoc";
-const demoUserPw = "farmdoc1234";
-const faqUrl = "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions";
-
 const prodDomain = "fd-tools.ncsa.illinois.edu";
 const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 
-const localConfig = {
+const baseConfig = {
+	proxyUser: "",
+	proxyPw: "",
+	proxyDwPersonId: "",
+	keyCloakUrl: "https://fd-auth.ncsa.illinois.edu/auth",
+	keyCloakClient: "farmdoc",
+	faqUrl: "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions"
+};
+
+const localConfig = Object.assign({}, {
 	basePath: "/",
 	apiUrl: "http://localhost:5000/api",
 	datawolfUrl: "http://localhost:8888/datawolf",
@@ -68,13 +73,10 @@ const localConfig = {
 	showCustomForecast: true,
 	browserLog: true,
 	tooltipTouchDelay: tooltipTouchDelay,
-	demoUser: demoUser,
-	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json"),
-	faqUrl: faqUrl
-};
+	keycloak: Keycloak("keycloak.json")
+}, baseConfig);
 
-const devConfig = {
+const devConfig = Object.assign({}, {
 	basePath: "/",
 	apiUrl: "https://fd-api-dev.ncsa.illinois.edu/farmdoc/api",
 	datawolfUrl: "https://fd-api-dev.ncsa.illinois.edu/datawolf",
@@ -84,13 +86,10 @@ const devConfig = {
 	showCustomForecast: true,
 	browserLog: true,
 	tooltipTouchDelay: tooltipTouchDelay,
-	demoUser: demoUser,
-	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json"),
-	faqUrl: faqUrl
-};
+	keycloak: Keycloak("keycloak.json")
+}, baseConfig);
 
-const prodConfig = {
+const prodConfig = Object.assign({}, {
 	basePath: "/",
 	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
 	datawolfUrl: "https://fd-api.ncsa.illinois.edu/datawolf",
@@ -100,14 +99,10 @@ const prodConfig = {
 	showCustomForecast: false,
 	browserLog: false,
 	tooltipTouchDelay: tooltipTouchDelay,
-	demoUser: demoUser,
-	demoUserPw: demoUserPw,
-	keycloak: Keycloak("keycloak.json"),
-	faqUrl: faqUrl
-};
+	keycloak: Keycloak("keycloak.json")
+}, baseConfig);
 
 const config = getConfig();
-
 
 function getConfig() {
 	if (process.env.REACT_APP_ENV === "production") {
