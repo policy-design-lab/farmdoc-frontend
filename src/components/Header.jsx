@@ -178,7 +178,8 @@ class Header extends Component {
 			tabHeader = config.apps[currApp].appName;
 		}
 
-		let accountMaxWidth = localStorage.getItem("isAuthenticated") !== "true" ? 310 : 200;
+		let accountMaxWidth = (localStorage.getItem("isAuthenticated") !== "true"
+				|| (localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true")) ? 310 : 200;
 		return (
 			<div className={classes.root}>
 
