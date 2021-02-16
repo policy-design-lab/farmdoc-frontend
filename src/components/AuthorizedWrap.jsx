@@ -33,8 +33,6 @@ class AuthorizedWrap extends Component {
 			}
 		}
 
-		console.log(needsAuth);
-
 		if (needsAuth === false && localStorage.getItem("isAuthenticated") !== "true") {
 			let that = this;
 			loginToKeycloak().then(function(){
