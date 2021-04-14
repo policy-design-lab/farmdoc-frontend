@@ -39,7 +39,7 @@ class AppsList extends Component {
 			<div>
 
 				<div >
-					<div className="appsHeader">Farmdoc - Decision Support Tools </div> <br/> <br/>
+					<div className="appsHeader">farmdoc - Decision Support Tools </div> <br/> <br/>
 					<Grid container direction="row" justify="center"
 								alignItems="center" spacing={4}>
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}

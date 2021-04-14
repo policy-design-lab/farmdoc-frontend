@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.5.1] - 2021-04-14
 ### Added
 - "react-scripts" package to manage webpack dependencies internally. [FD-329](https://opensource.ncsa.illinois.edu/jira/browse/FD-329)
 - Flag to enable or disable authentication per app [FD-374](https://opensource.ncsa.illinois.edu/jira/browse/FD-374)
