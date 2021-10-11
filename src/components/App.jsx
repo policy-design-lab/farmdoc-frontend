@@ -26,6 +26,8 @@ import DocsPaymentEval from "./EvalDocumentation";
 
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import MyFarms from "./MyFarms";
+import Field from "./Field";
 
 global.__base = `${__dirname}/`;
 
@@ -34,14 +36,14 @@ const theme = createMuiTheme();
 class App extends Component {
 	render() {
 		sessionStorage.setItem("isIE", JSON.stringify(isIE));
-		if (sessionStorage.getItem("firstVisit") == null){
+		if (sessionStorage.getItem("firstVisit") == null) {
 			sessionStorage.setItem("firstVisit", "true");
 		}
 
-		if (localStorage.getItem("fdFirstVisit") == null){
+		if (localStorage.getItem("fdFirstVisit") == null) {
 			localStorage.setItem("fdFirstVisit", "true");
 		}
-		else if (localStorage.getItem("fdFirstVisit") === "true"){
+		else if (localStorage.getItem("fdFirstVisit") === "true") {
 			localStorage.setItem("fdFirstVisit", "false");
 		}
 
@@ -56,6 +58,9 @@ class App extends Component {
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
+						{/*Remove these routes*/}
+						<Route path="/fields" component={MyFarms}/>
+						<Route path="/fields/edit" component={Field}/>
 
 						<Route path={arcplcPath} component={Dashboard}/>
 						<Route path={`${arcplcPath}docs`} component={Documentation}/>
@@ -63,16 +68,24 @@ class App extends Component {
 
 
 						<Route path={`${premiumCalcPath}`} component={PremiumDashboard}/>
-						<Route path={`${premiumCalcPath}docs`} component={DocsPremiumCalc}/>
-						<Route path={`${premiumCalcPath}about`} component={AboutPremiumCalc}/>
+						<Route path={`${premiumCalcPath}docs`}
+										 component={DocsPremiumCalc}/>
+						<Route path={`${premiumCalcPath}about`}
+										 component={AboutPremiumCalc}/>
 
-						<Route path={`${premiumEvalPath}`} component={EvaluatorDashboard}/>
-						<Route path={`${premiumEvalPath}docs`} component={DocsPaymentEval}/>
-						<Route path={`${premiumEvalPath}about`} component={AboutPaymentEval}/>
+						<Route path={`${premiumEvalPath}`}
+										 component={EvaluatorDashboard}/>
+						<Route path={`${premiumEvalPath}docs`}
+										 component={DocsPaymentEval}/>
+						<Route path={`${premiumEvalPath}about`}
+										 component={AboutPaymentEval}/>
 
-						<Route path={`${priceDistibutionPath}`} component={PriceDistributionDashboard}/>
-						<Route path={`${priceDistibutionPath}docs`} component={PriceDistributionDocumentation}/>
-						<Route path={`${priceDistibutionPath}about`} component={AboutPriceDistribution}/>
+						<Route path={`${priceDistibutionPath}`}
+										 component={PriceDistributionDashboard}/>
+						<Route path={`${priceDistibutionPath}docs`}
+										 component={PriceDistributionDocumentation}/>
+						<Route path={`${priceDistibutionPath}about`}
+										 component={AboutPriceDistribution}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>

@@ -15,7 +15,7 @@ import config from "../app.config";
 import Tooltip from "@material-ui/core/Tooltip";
 import {
 	clearKeycloakStorage,
-	checkForTokenExpiry
+	checkForTokenExpiry,
 } from "../public/utils";
 import {Modal} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
@@ -40,10 +40,10 @@ const styles = theme => ({
 	},
 	label: {
 		textTransform: "none",
-		fontSize: "16px !important"
+		fontSize: "16px !important",
 	},
 	tab: {
-		minWidth: "80px"
+		minWidth: "80px",
 	},
 	paper: {
 		position: "absolute",
@@ -51,8 +51,8 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(4),
-		outline: "none"
-	}
+		outline: "none",
+	},
 });
 
 function getModalStyle() {
@@ -65,18 +65,18 @@ function getModalStyle() {
 		transform: `translate(-${top}%, -${left}%)`,
 		display: "inline-block",
 		borderRadius: 12,
-		minWidth: 1100
+		minWidth: 1100,
 	};
 }
 
 class Header extends Component {
 
-	constructor(props){
+	constructor(props) {
 		super(props);
 
 		this.state = {
 			appsPopupOpen: false,
-			anchorEl: null
+			anchorEl: null,
 		};
 
 		this.handleLogout = this.handleLogout.bind(this);
@@ -102,7 +102,7 @@ class Header extends Component {
 	};
 
 	loadUserProfile = () => {
-		keycloak.init().success(function(){
+		keycloak.init().success(function() {
 			keycloak.accountManagement();
 		});
 	};
@@ -115,7 +115,7 @@ class Header extends Component {
 				window.location.reload();
 			}
 			else { // If token is not expired, set the timer to check for expiry
-				let interval = setInterval( function(){
+				let interval = setInterval(function() {
 					if (localStorage.getItem("isAuthenticated") === "true") {
 						if (checkForTokenExpiry()) {
 							clearKeycloakStorage();
@@ -131,20 +131,20 @@ class Header extends Component {
 		}
 	}
 
-	handleLogin(){
+	handleLogin() {
 		browserHistory.push("/login");
 	}
 
-	handleRegister(){
-		keycloak.init().success(function(){
+	handleRegister() {
+		keycloak.init().success(function() {
 			keycloak.register({});
 		});
 	}
 
-	handleLogout(){
+	handleLogout() {
 		clearKeycloakStorage();
 		this.props.handleUserLogout();
-		keycloak.init().success(function(){
+		keycloak.init().success(function() {
 			keycloak.logout({redirectUri: browserHistory.push("/")});
 		});
 	}
@@ -159,17 +159,23 @@ class Header extends Component {
 			currApp = "home";
 		}
 
-		if (currApp.indexOf("arcplc") >= 0){
+		if (currApp.indexOf("arcplc") >= 0) {
 			currApp = "arcplc";
 		}
-		else if (currApp.indexOf("premium") >= 0){
+		else if (currApp.indexOf("premium") >= 0) {
 			currApp = "premiums";
 		}
-		else if (currApp.indexOf("evaluator") >= 0){
+		else if (currApp.indexOf("evaluator") >= 0) {
 			currApp = "evaluator";
 		}
-		else if (currApp.indexOf("pricedistribution") >= 0){
+		else if (currApp.indexOf("pricedistribution") >= 0) {
 			currApp = "pricedistribution";
+		}
+		// else if (currApp.indexOf("fields") >= 0) {
+		// 	currApp = "home";
+		// }
+		else {
+			currApp = "home";
 		}
 
 		let tabHeader = "";
@@ -179,14 +185,16 @@ class Header extends Component {
 		}
 
 		let accountMaxWidth = (localStorage.getItem("isAuthenticated") !== "true"
-				|| (localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true")) ? 310 : 200;
+				|| (localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true"))
+			? 310
+			: 200;
 		return (
 			<div className={classes.root}>
 
 				<Modal open={this.state.appsPopupOpen} onClose={this.handleAppsClose}>
 					<div style={getModalStyle()} className={classes.paper}>
 						<IconButton className="closeImg" onClick={this.handleAppsClose}>
-							<CloseIcon />
+							<CloseIcon/>
 						</IconButton>
 						<AppsList/>
 
@@ -195,80 +203,121 @@ class Header extends Component {
 
 				<Toolbar>
 					<ToolbarRow className="banner">
-						<ToolbarSection align="start" style={{maxWidth: 225, display: "contents"}}>
+						<ToolbarSection align="start"
+															style={{maxWidth: 225, display: "contents"}}>
 
 							{(localStorage.getItem("isAuthenticated") !== null &&
-							localStorage.getItem("isAuthenticated") !== "true") ? null :
+										localStorage.getItem("isAuthenticated") !== "true") ? null :
 
-								<IconButton onClick={this.handleAppsOpen} >
-									<AppsIcon style={{width: "44px", height: "44px", color: "white"}} />
+								<IconButton onClick={this.handleAppsOpen}>
+									<AppsIcon style={{
+										width: "44px",
+										height: "44px",
+										color: "white",
+									}}/>
 								</IconButton>
 							}
 
 							<a href="/" style={{lineHeight: "1em"}}>
-								<div style={{display: "inline-flex", flexDirection: "row", alignItems: "center"}}>
-									<img src={GAPPLogo} alt="Farmdoc" style={{width: "40px", height: "40px", margin: "auto 12px", verticalAlign: "sub"}}/>
-									<img src={FDWhite} alt="Farmdoc" style={{width: "140px", height: "30px", verticalAlign: "sub"}}/>
+								<div style={{
+									display: "inline-flex",
+									flexDirection: "row",
+									alignItems: "center",
+								}}>
+									<img src={GAPPLogo} alt="Farmdoc" style={{
+										width: "40px",
+										height: "40px",
+										margin: "auto 12px",
+										verticalAlign: "sub",
+									}}/>
+									<img src={FDWhite} alt="Farmdoc" style={{
+										width: "140px",
+										height: "30px",
+										verticalAlign: "sub",
+									}}/>
 								</div>
 							</a>
 						</ToolbarSection>
 						<ToolbarSection style={{marginLeft: "10px"}}>
 							{/*{browserWarningSpan}*/}
-							{(!this.props.selectedTab || !(localStorage.getItem("isAuthenticated") !== null &&
-									localStorage.getItem("isAuthenticated") === "true") && (currApp === "home")) ? null :
+							{(!this.props.selectedTab ||
+										!(localStorage.getItem("isAuthenticated") !== null &&
+												localStorage.getItem("isAuthenticated") === "true") &&
+										(currApp === "home")) ? null :
 
 								<Tabs value={this.props.selectedTab}
-												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
-									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}`}/>
-									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
-									<Tab value="about" label={<span className={classes.label}>About</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}about`}/>
+													TabIndicatorProps={{style: {backgroundColor: "orange"}}}
+													className="headerSection">
+									<Tab value="calculator" label={<span
+													className={classes.label}>{tabHeader}</span>}
+													 className={classes.tab} component={Link}
+													 to={`/${currApp}`}/>
+									<Tab value="docs" label={<span
+													className={classes.label}>Documentation</span>}
+													 className={classes.tab} component={Link}
+													 to={`/${currApp}docs`}/>
+									<Tab value="about"
+													 label={<span className={classes.label}>About</span>}
+													 className={classes.tab} component={Link}
+													 to={`/${currApp}about`}/>
 								</Tabs>
 							}
 						</ToolbarSection>
-						<ToolbarSection align="end" style={{maxWidth: accountMaxWidth}} >
+						<ToolbarSection align="end" style={{maxWidth: accountMaxWidth}}>
 							<div className="headerSection">
 								{localStorage.getItem("isAuthenticated") !== "true" ||
-								(localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true") ?
+									(localStorage.getItem("isProxyAuth") !== null &&
+											localStorage.getItem("isProxyAuth") === "true") ?
 									<div>
-										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
-										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
+										<Button onClick={this.handleLogin}
+																style={{height: "40px"}}>Login</Button>
+										<Button onClick={this.handleRegister}
+																style={{height: "40px"}}>Register</Button>
 
 										<Tooltip title="Troubleshooting steps and FAQs">
 											<Button style={{height: "40px"}}>
-												<Link to={config.faqUrl} target="_blank" onlyActiveOnIndex>Need Help?</Link>
+												<Link to={config.faqUrl} target="_blank"
+																	onlyActiveOnIndex>Need Help?</Link>
 											</Button>
 										</Tooltip>
 
 									</div>
 									:
 									<div className="accountSection">
-										<IconButton onClick={this.showAccountMenu} style={{color: "white"}}>
-											<AccountBoxIcon style={{fontSize: 40}} />
+										<IconButton onClick={this.showAccountMenu}
+																		style={{color: "white"}}>
+											<AccountBoxIcon style={{fontSize: 40}}/>
 
 											<ArrowDropDownIcon style={{padding: 0, margin: 0}}/>
 										</IconButton>
 										<Menu
-												id="menu-appbar"
-												anchorEl={this.state.anchorEl}
-												getContentAnchorEl={null}
-												anchorOrigin={{
-													vertical: "bottom",
-													horizontal: "center",
-												}}
-												transformOrigin={{
-													vertical: "top",
-													horizontal: "center",
-												}}
-												open={Boolean(this.state.anchorEl)}
-												onClose={this.handleMenuClose}
-												MenuListProps={{disablePadding: true}}
+														id="menu-appbar"
+														anchorEl={this.state.anchorEl}
+														getContentAnchorEl={null}
+														anchorOrigin={{
+															vertical: "bottom",
+															horizontal: "center",
+														}}
+														transformOrigin={{
+															vertical: "top",
+															horizontal: "center",
+														}}
+														open={Boolean(this.state.anchorEl)}
+														onClose={this.handleMenuClose}
+														MenuListProps={{disablePadding: true}}
 										>
 											<MenuItem onClick={this.handleMenuClose}
-																style={{fontSize: "12px", fontWeight: 700, maxWidth: "300px", cursor: "default"}}>
-												<span style={{display: "contents", fontSize: "12px", fontWeight: 400}}>
+																		style={{
+																			fontSize: "12px",
+																			fontWeight: 700,
+																			maxWidth: "300px",
+																			cursor: "default",
+																		}}>
+												<span style={{
+													display: "contents",
+													fontSize: "12px",
+													fontWeight: 400,
+												}}>
 													Signed in as
 												</span>
 												<br/>
@@ -278,18 +327,19 @@ class Header extends Component {
 
 											<Divider/>
 											<MenuItem dense={true} onClick={this.loadUserProfile}>
-													Account Settings
+														Account Settings
 											</MenuItem>
 
 											<MenuItem onClick={this.handleMenuClose} dense={true}>
-												<Link to={config.faqUrl} target="_blank" style={{color: "inherit", width: "100%"}}
-															onlyActiveOnIndex>
-													Help & Support
+												<Link to={config.faqUrl} target="_blank"
+																	style={{color: "inherit", width: "100%"}}
+																	onlyActiveOnIndex>
+															Help & Support
 												</Link>
 											</MenuItem>
 											<Divider/>
-											<MenuItem onClick={this.handleLogout} >
-												Logout
+											<MenuItem onClick={this.handleLogout}>
+														Logout
 											</MenuItem>
 										</Menu>
 									</div>
@@ -308,7 +358,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
 	return {
 		email: state.user.email,
-		isAuthenticated: state.user.isAuthenticated
+		isAuthenticated: state.user.isAuthenticated,
 	};
 };
 
@@ -316,8 +366,9 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		handleUserLogout: () => {
 			dispatch(handleUserLogout());
-		}
+		},
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps) ( withStyles(styles) (Header));
+export default connect(mapStateToProps, mapDispatchToProps)(
+	withStyles(styles)(Header));

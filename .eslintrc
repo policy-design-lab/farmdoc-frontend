@@ -4,7 +4,8 @@
     "eslint:recommended"
   ],
   "plugins": [
-    "react", "sort-class-members"
+    "react",
+    "sort-class-members"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -23,37 +24,84 @@
     "mocha": true
   },
   "rules": {
-	"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
-	"eqeqeq": ["error", "smart"],
-	"no-eval": "warn",
-    "quotes": ["error", "double"],
-	"indent": ["error", "tab", { "SwitchCase": 1, "ignoredNodes": [ "JSXAttribute", "JSXSpreadAttribute"] }],
+    "no-mixed-spaces-and-tabs": [
+      "error",
+      "smart-tabs"
+    ],
+    "eqeqeq": [
+      "error",
+      "smart"
+    ],
+    "no-eval": "warn",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "indent": [
+      "error",
+      "tab",
+      {
+        "SwitchCase": 1,
+        "ignoredNodes": [
+          "JSXAttribute",
+          "JSXSpreadAttribute"
+        ]
+      }
+    ],
     "no-console": 0,
     "no-debugger": 1,
     "no-var": "error",
-    "semi": ["error", "always"],
+    "semi": [
+      "error",
+      "always"
+    ],
     "no-trailing-spaces": 0,
-	"no-multiple-empty-lines": ["warn", { "max": 2, "maxEOF": 1, "maxBOF": 1}],
-	"no-multi-spaces": "error",
-	"object-curly-spacing": ["warn", "never"],
-	"keyword-spacing": "warn",
-	"arrow-spacing": "warn",
-	"array-bracket-spacing": "warn",
-	"comma-spacing": "warn",
-	"computed-property-spacing": "warn",
-	"key-spacing": "warn",
-	"brace-style": ["error", "stroustrup"],
-	"space-infix-ops": "warn",
-	"curly": "error",
-	"eol-last": "warn",
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 2,
+        "maxEOF": 1,
+        "maxBOF": 1
+      }
+    ],
+    "no-multi-spaces": "error",
+    "object-curly-spacing": [
+      "warn",
+      "never"
+    ],
+    "keyword-spacing": "warn",
+    "arrow-spacing": "warn",
+    "array-bracket-spacing": "warn",
+    "comma-spacing": "warn",
+    "computed-property-spacing": "warn",
+    "key-spacing": "warn",
+    "brace-style": [
+      "error",
+      "stroustrup"
+    ],
+    "space-infix-ops": "warn",
+    "curly": "error",
+    "eol-last": "warn",
     "no-underscore-dangle": 0,
     "no-alert": 0,
     "no-lone-blocks": 0,
-	"no-unused-vars": "warn",
-	"prefer-template": "error",
+    "no-unused-vars": "warn",
+    "prefer-template": "error",
     "jsx-quotes": 1,
-    "react/display-name": [ 1, {"ignoreTranspilerName": false }],
-    "react/forbid-prop-types": [1, {"forbid": ["any"]}],
+    "react/display-name": [
+      1,
+      {
+        "ignoreTranspilerName": false
+      }
+    ],
+    "react/forbid-prop-types": [
+      1,
+      {
+        "forbid": [
+          "any"
+        ]
+      }
+    ],
     "react/jsx-boolean-value": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/jsx-curly-spacing": 1,
@@ -73,28 +121,41 @@
     "react/no-did-mount-set-state": 1,
     "react/no-did-update-set-state": 1,
     "react/no-direct-mutation-state": 1,
-    "react/no-multi-comp": [1, { "ignoreStateless": true }],
+    "react/no-multi-comp": [
+      1,
+      {
+        "ignoreStateless": true
+      }
+    ],
     "react/no-set-state": 0,
     "react/no-unknown-property": 1,
     "react/prefer-es6-class": 1,
-    "react/prop-types": 1,
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": 1,
     "react/self-closing-comp": 1,
-    "react/sort-comp": [2, {"order": []}],
+    "react/sort-comp": [
+      2,
+      {
+        "order": []
+      }
+    ],
     "react/jsx-wrap-multilines": 1,
-	"sort-class-members/sort-class-members": [2, {
-	  "order": [
-		"[static-properties]",
-		"[properties]",
-		"[conventional-private-properties]",
-		"constructor",
-		"[arrow-function-properties]",
-		"[static-methods]",
-		"[methods]",
-		"[conventional-private-methods]"
-	  ],
-	  "accessorPairPositioning": "getThenSet"
-	}],
+    "sort-class-members/sort-class-members": [
+      2,
+      {
+        "order": [
+          "[static-properties]",
+          "[properties]",
+          "[conventional-private-properties]",
+          "constructor",
+          "[arrow-function-properties]",
+          "[static-methods]",
+          "[methods]",
+          "[conventional-private-methods]"
+        ],
+        "accessorPairPositioning": "getThenSet"
+      }
+    ],
     "no-prototype-builtins": "warn"
   },
   "globals": {
