@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 const farms = [
 	{
 		name: "Farm 1",
-		crop: "Corn",
+		crops: [{name: "Corn", baseAcres: 50, plantedAcres: 40}],
 		state: "IL",
 		county: "Champaign",
 		acres: 100,
@@ -63,7 +63,7 @@ const farms = [
 	},
 	{
 		name: "Farm 2",
-		crop: "Soy",
+		crops: [{name: "Soy", baseAcres: 50, plantedAcres: 40}],
 		state: "IL",
 		county: "Douglas",
 		acres: 120,
@@ -71,7 +71,7 @@ const farms = [
 	},
 	{
 		name: "Farm 3",
-		crop: "Corn",
+		crops: [{name: "Corn", baseAcres: 50, plantedAcres: 40}],
 		state: "IL",
 		county: "Ford",
 		acres: 10,
@@ -79,7 +79,7 @@ const farms = [
 	},
 	{
 		name: "Farm 4",
-		crop: "Wheat",
+		crops: [{name: "Wheat", baseAcres: 50, plantedAcres: 40}, {name: "Soy", baseAcres: 50, plantedAcres: 40}],
 		state: "IN",
 		county: "Clay",
 		acres: 100,
@@ -87,7 +87,7 @@ const farms = [
 	},
 	{
 		name: "Farm 5",
-		crop: "Soy",
+		crops: [{name: "Wheat", baseAcres: 50, plantedAcres: 40}],
 		state: "IL",
 		county: "Douglas",
 		acres: 150,
@@ -95,7 +95,7 @@ const farms = [
 	},
 	{
 		name: "Farm 6",
-		crop: "Corn",
+		crops: [{name: "Corn", baseAcres: 50, plantedAcres: 40}],
 		state: "IN",
 		county: "Lawrence",
 		acres: 70,
@@ -103,7 +103,7 @@ const farms = [
 	},
 	{
 		name: "Farm 7",
-		crop: "Soy",
+		crops: [{name: "Soy", baseAcres: 50, plantedAcres: 40}],
 		state: "IL",
 		county: "McLean",
 		acres: 85,
@@ -111,7 +111,7 @@ const farms = [
 	},
 	{
 		name: "Farm 8",
-		crop: "Corn",
+		crops: [{name: "Corn", baseAcres: 50, plantedAcres: 40}],
 		state: "IN",
 		county: "Lawrence",
 		acres: 50,
@@ -131,8 +131,8 @@ function descendingComparator(a, b, orderBy) {
 
 function getComparator(order, orderBy) {
 	return order === "desc"
-		? (a, b) => descendingComparator(a, b, orderBy)
-		: (a, b) => -descendingComparator(a, b, orderBy);
+			? (a, b) => descendingComparator(a, b, orderBy)
+			: (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort(array, comparator) {
@@ -154,10 +154,10 @@ const headCells = [
 		disablePadding: false,
 		label: "Farm Name",
 	},
-	{id: "crop", numeric: false, disablePadding: false, label: "Crop"},
+	{id: "crop", numeric: false, disablePadding: false, label: "Crop(s)"},
 	{id: "state", numeric: false, disablePadding: false, label: "State"},
 	{id: "county", numeric: false, disablePadding: false, label: "County"},
-	{id: "acres", numeric: true, disablePadding: false, label: "Acres"},
+	{id: "acres", numeric: true, disablePadding: false, label: "Total Base Acres"},
 	{id: "created", numeric: false, disablePadding: false, label: "Created on"},
 ];
 
@@ -176,33 +176,33 @@ function EnhancedTableHead(props) {
 	};
 
 	return (
-		<TableHead>
-			<TableRow>
-				{headCells.map((headCell) => (
-					<TableCell
+			<TableHead>
+				<TableRow>
+					{headCells.map((headCell) => (
+							<TableCell
 									key={headCell.id}
 									// align={headCell.numeric ? "right" : "left"}
 									align={headCell.numeric ? "left" : "left"}
 									padding={headCell.disablePadding ? "none" : "normal"}
 									sortDirection={orderBy === headCell.id ? order : false}
 									className={classes.tableHeadCell}
-					>
-						<TableSortLabel
+							>
+								<TableSortLabel
 										active={orderBy === headCell.id}
 										direction={orderBy === headCell.id ? order : "asc"}
 										onClick={createSortHandler(headCell.id)}
-						>
-							{headCell.label}
-							{orderBy === headCell.id ? (
-								<span className={classes.visuallyHidden}>
+								>
+									{headCell.label}
+									{orderBy === headCell.id ? (
+											<span className={classes.visuallyHidden}>
 									{order === "desc" ? "sorted descending" : "sorted ascending"}
 								</span>
-							) : null}
-						</TableSortLabel>
-					</TableCell>
-				))}
-			</TableRow>
-		</TableHead>
+									) : null}
+								</TableSortLabel>
+							</TableCell>
+					))}
+				</TableRow>
+			</TableHead>
 	);
 }
 
@@ -213,14 +213,14 @@ const useToolbarStyles = makeStyles((theme) => ({
 	},
 	highlight:
 			theme.palette.type === "light"
-				? {
-					color: theme.palette.primary.main,
-					backgroundColor: lighten(theme.palette.primary.light, 0.85),
-				}
-				: {
-					color: theme.palette.text.primary,
-					backgroundColor: theme.palette.primary.dark,
-				},
+					? {
+						color: theme.palette.primary.main,
+						backgroundColor: lighten(theme.palette.primary.light, 0.85),
+					}
+					: {
+						color: theme.palette.text.primary,
+						backgroundColor: theme.palette.primary.dark,
+					},
 	title: {
 		flex: "1 1 100%",
 	},
@@ -230,7 +230,7 @@ const useToolbarStyles = makeStyles((theme) => ({
 }));
 
 function handleEditField() {
-	browserHistory.push("/fields/edit?id=1");
+	browserHistory.push("/farms/edit?id=1");
 }
 
 const EnhancedTableToolbar = (props) => {
@@ -238,26 +238,26 @@ const EnhancedTableToolbar = (props) => {
 	const {numSelected, selectedFarm} = props;
 
 	return (
-		<Toolbar
+			<Toolbar
 					className={clsx(classes.root, {
 						[classes.highlight]: numSelected > 0,
 					})}
-		>
-			{numSelected > 0 ? (
-				<Typography className={classes.title} color="inherit"
+			>
+				{numSelected > 0 ? (
+						<Typography className={classes.title} color="inherit"
 												variant="subtitle1" component="div">
-					{selectedFarm} selected
-				</Typography>
-			) : (
-				<Typography className={classes.title} variant="h6" id="tableTitle"
+							{selectedFarm} selected
+						</Typography>
+				) : (
+						<Typography className={classes.title} variant="h6" id="tableTitle"
 												component="div">
 							My Farms
-				</Typography>
-			)}
+						</Typography>
+				)}
 
-			{/*<span>*/}
-			{numSelected > 0 ? (
-				<span style={{width: "110px"}}>
+				{/*<span>*/}
+				{numSelected > 0 ? (
+						<span style={{width: "110px"}}>
 					<Tooltip title="Edit">
 						<IconButton aria-label="edit" onClick={handleEditField}>
 							<EditIcon/>
@@ -271,15 +271,15 @@ const EnhancedTableToolbar = (props) => {
 				</span>
 
 
-			) : (
-				<Tooltip title="Filter list">
-					<IconButton aria-label="filter list">
-						<FilterListIcon/>
-					</IconButton>
-				</Tooltip>
-			)}
-			{/*</span>*/}
-		</Toolbar>
+				) : (
+						<Tooltip title="Filter list">
+							<IconButton aria-label="filter list">
+								<FilterListIcon/>
+							</IconButton>
+						</Tooltip>
+				)}
+				{/*</span>*/}
+			</Toolbar>
 	);
 };
 
@@ -327,40 +327,40 @@ export default function EnhancedTable() {
 			Math.min(rowsPerPage, farms.length - page * rowsPerPage);
 
 	return (
-		<div className={classes.root}>
-			<Paper className={classes.paper}>
-				<EnhancedTableToolbar numSelected={selected.length}
+			<div className={classes.root}>
+				<Paper className={classes.paper}>
+					<EnhancedTableToolbar numSelected={selected.length}
 																selectedFarm={selected.length > 0
-																	? selected[0]
-																	: ""}/>
-				<TableContainer>
-					<Table
+																		? selected[0]
+																		: ""}/>
+					<TableContainer>
+						<Table
 								className={classes.table}
 								aria-labelledby="tableTitle"
 								size={dense ? "small" : "medium"}
 								aria-label="enhanced table"
-					>
-						<EnhancedTableHead
+						>
+							<EnhancedTableHead
 									classes={classes}
 									numSelected={selected.length}
 									selectedFarm={selected.length > 0
-										? selected[0].toString()
-										: ""}
+											? selected[0].toString()
+											: ""}
 									order={order}
 									orderBy={orderBy}
 									onSelectAllClick={handleSelectAllClick}
 									onRequestSort={handleRequestSort}
 									rowCount={farms.length}
-						/>
-						<TableBody>
-							{stableSort(farms, getComparator(order, orderBy)).
-								slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).
-								map((row, index) => {
-									const isItemSelected = isSelected(row.name);
-									const labelId = `enhanced-table-checkbox-${index}`;
+							/>
+							<TableBody>
+								{stableSort(farms, getComparator(order, orderBy)).
+										slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).
+										map((row, index) => {
+											const isItemSelected = isSelected(row.name);
+											const labelId = `enhanced-table-checkbox-${index}`;
 
-									return (
-										<TableRow
+											return (
+													<TableRow
 															hover
 															onClick={(event) => handleClick(event, row.name)}
 															role="checkbox"
@@ -370,36 +370,36 @@ export default function EnhancedTable() {
 															selected={isItemSelected}
 															style={{
 																backgroundColor: isItemSelected
-																	? "rgb(234, 236, 247)"
-																	: "",
+																		? "rgb(234, 236, 247)"
+																		: "",
 															}}
-										>
-											{/*<TableCell padding="checkbox">*/}
-											{/*	<Checkbox*/}
-											{/*			checked={isItemSelected}*/}
-											{/*			inputProps={{"aria-labelledby": labelId}}*/}
-											{/*	/>*/}
-											{/*</TableCell>*/}
-											<TableCell component="th" id={labelId} scope="row">
-												{row.name}
-											</TableCell>
-											<TableCell align="left">{row.crop}</TableCell>
-											<TableCell align="left">{row.state}</TableCell>
-											<TableCell align="left">{row.county}</TableCell>
-											<TableCell align="left">{row.acres}</TableCell>
-											<TableCell align="left">{row.created}</TableCell>
+													>
+														{/*<TableCell padding="checkbox">*/}
+														{/*	<Checkbox*/}
+														{/*			checked={isItemSelected}*/}
+														{/*			inputProps={{"aria-labelledby": labelId}}*/}
+														{/*	/>*/}
+														{/*</TableCell>*/}
+														<TableCell component="th" id={labelId} scope="row">
+															{row.name}
+														</TableCell>
+														<TableCell align="left">{row.crops.map(e => e.name).join(", ")}</TableCell>
+														<TableCell align="left">{row.state}</TableCell>
+														<TableCell align="left">{row.county}</TableCell>
+														<TableCell align="left">{row.acres}</TableCell>
+														<TableCell align="left">{row.created}</TableCell>
+													</TableRow>
+											);
+										})}
+								{emptyRows > 0 && (
+										<TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>
+											<TableCell colSpan={6}/>
 										</TableRow>
-									);
-								})}
-							{emptyRows > 0 && (
-								<TableRow style={{height: (dense ? 33 : 53) * emptyRows}}>
-									<TableCell colSpan={6}/>
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</TableContainer>
-				<TablePagination
+								)}
+							</TableBody>
+						</Table>
+					</TableContainer>
+					<TablePagination
 							rowsPerPageOptions={[2, 4, 5, 10, 25]}
 							component="div"
 							count={farms.length}
@@ -407,7 +407,7 @@ export default function EnhancedTable() {
 							page={page}
 							onRowsPerPageChange={handleChangeRowsPerPage}
 							onPageChange={handleChangePage}/>
-			</Paper>
-		</div>
+				</Paper>
+			</div>
 	);
 }
