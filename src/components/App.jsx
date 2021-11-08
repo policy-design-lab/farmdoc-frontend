@@ -24,8 +24,12 @@ import EvaluatorDashboard from "./EvaluatorDashboard";
 import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
 
+import Farm from "./Farm";
+import Field from "./Field";
+
 import "material-components-web/dist/material-components-web.min.css";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import MyFarms from "./MyFarms";
 
 global.__base = `${__dirname}/`;
 
@@ -56,6 +60,10 @@ class App extends Component {
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
+						{/*Remove these routes*/}
+						<Route path="/farms" component={MyFarms}/>
+						<Route path="/farms/edit" component={Farm}/>
+						<Route path="/farms/editold" component={Field}/>
 
 						<Route path={arcplcPath} component={Dashboard}/>
 						<Route path={`${arcplcPath}docs`} component={Documentation}/>
