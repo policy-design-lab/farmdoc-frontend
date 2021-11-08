@@ -1,3 +1,4 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
 import React, {useEffect, useState} from "react";
 import Layout from "./Layout";
 import AuthorizedWrap from "./AuthorizedWrap";
@@ -17,169 +18,160 @@ import Button from "@material-ui/core/Button";
 
 
 const useStyles = makeStyles((theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
+	leftIcon: {
+		marginRight: theme.spacing(1),
+	},
 }));
 
 
 const Farm = () => {
 
-  const params = new URLSearchParams(window.location.search); // id=12
-  let id = params.get("id");
+	const params = new URLSearchParams(window.location.search); // id=12
+	let id = params.get("id");
 
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const [farm, setFarm] = useState({
-    name: "Farm 1",
-    crop: "Corn",
-    crop_id: 41,
-    state: "Illinois",
-    state_id: 17,
-    county: "Champaign",
-    county_id: 17113,
-    acres: 100,
-    practice_id: 2,
-    created: "2021-08-06",
-  });
+	const [farm, setFarm] = useState({
+		name: "Farm 1",
+		crop: "Corn",
+		crop_id: 41,
+		state: "Illinois",
+		state_id: 17,
+		county: "Champaign",
+		county_id: 17113,
+		acres: 100,
+		practice_id: 2,
+		created: "2021-08-06",
+	});
 
-  const [states, setStates] = useState([]);
-  const [selStateOption, setSelStateOption] = useState(null);
-  const [selStateId, setSelStateId] = useState(null);
+	const [states, setStates] = useState([]);
+	const [selStateOption, setSelStateOption] = useState(null);
+	const [selStateId, setSelStateId] = useState(null);
 
-  const [counties, setCounties] = useState([]);
-  const [selCountyOption, setSelCountyOption] = useState(null);
-  const [selCountyId, setSelCountyId] = useState(null);
+	const [counties, setCounties] = useState([]);
+	const [selCountyOption, setSelCountyOption] = useState(null);
+	const [selCountyId, setSelCountyId] = useState(null);
 
-  const [crops, setCrops] = useState([]);
-  const [selCropOption, setSelCropOption] = useState(null);
-  const [selCropId, setSelCropId] = useState(null);
-
-
-  useEffect(() => {
-    // TODO: replace with api call to /fields/{id}
-    // const field = ;
-
-    console.log(`id changed: ${id}`);
-    setSelCropId(farm.crop_id);
-    const fetchStates = async () => {
-      await apiClient.get(
-          "states").then(result => {
-        if (result.status === 200) {
-          let states = result.data;
-          // console.log(states);
-          setStates(states);
-          setSelStateOption({id: farm.state_id, name: farm.state});
-          setSelStateId(farm.state_id);
-        }
-      }).catch((e) => {
-        console.error(`Error fetching states from api: ${e}`);
-      });
-    };
-
-    const fetchCrops = async () => {
-      await apiClient.get(
-          "crops").then(result => {
-        if (result.status === 200) {
-          let crops = result.data;
-
-          crops = crops.map((ele) => {
-            return {id: ele.crop_code, name: ele.name};
-          });
-          // console.log(crops);
-          setCrops(crops);
-          // if (selCropId === field.crop_id) {
-          // 	setSelCropOption({id: field.crop_id, name: field.crop});
-          // 	setSelCropId(field.crop_id);
-          // }
-        }
-      }).catch((e) => {
-        console.error(`Error fetching states from api: ${e}`);
-      });
-    };
-
-    fetchStates();
-    fetchCrops();
-
-    // Set other inputs
+	const [crops, setCrops] = useState([]);
+	const [selCropOption, setSelCropOption] = useState(null);
+	const [selCropId, setSelCropId] = useState(null);
 
 
-  }, [farm]);
+	useEffect(() => {
+		// TODO: replace with api call to /fields/{id}
+		// const field = ;
 
-  useEffect(() => {
-    const fetchCounties = async () => {
-      await apiClient.get(
-          `counties/${selStateId}`).then(result => {
-        if (result.status === 200) {
-          let counties = result.data;
-          setCounties(counties);
-          if (selStateId === farm.state_id) {
-            setSelCountyOption({id: farm.county_id, name: farm.county});
-            setSelCountyId(farm.county_id);
-          }
-        }
-      }).catch((e) => {
-        console.error(`Error fetching counties from api: ${e}`);
-      });
-    };
+		console.log(`id changed: ${id}`);
+		setSelCropId(farm.crop_id);
+		const fetchStates = async () => {
+			await apiClient.get(
+				"states").then(result => {
+				if (result.status === 200) {
+					let states = result.data;
+					// console.log(states);
+					setStates(states);
+					setSelStateOption({id: farm.state_id, name: farm.state});
+					setSelStateId(farm.state_id);
+				}
+			}).catch((e) => {
+				console.error(`Error fetching states from api: ${e}`);
+			});
+		};
 
-    if (selStateId !== null) {
-      console.log(selStateId);
-      fetchCounties();
-    }
+		const fetchCrops = async () => {
+			await apiClient.get(
+				"crops").then(result => {
+				if (result.status === 200) {
+					let crops = result.data;
 
-  }, [selStateId]);
+					crops = crops.map((ele) => {
+						return {id: ele.crop_code, name: ele.name};
+					});
+					// console.log(crops);
+					setCrops(crops);
+					// if (selCropId === field.crop_id) {
+					// 	setSelCropOption({id: field.crop_id, name: field.crop});
+					// 	setSelCropId(field.crop_id);
+					// }
+				}
+			}).catch((e) => {
+				console.error(`Error fetching states from api: ${e}`);
+			});
+		};
 
-  useEffect(() => {
-    if (selCropId === farm.crop_id) {
-      setSelCropOption({id: farm.crop_id, name: farm.crop});
-      setSelCropId(farm.crop_id);
-    }
+		fetchStates();
+		fetchCrops();
 
-  }, [selCropId, farm]);
+		// Set other inputs
 
-  const handleBack = () => {
-    history.push("/login");
-  };
 
-  return (
-      <Layout>
-        <AuthorizedWrap>
-          <div className="home-content"
-               style={{
-                 backgroundSize: "cover",
-                 backgroundPosition: "center",
-               }}
-          >
-            <div className="appsHeader">
+	}, [farm]);
+
+	useEffect(() => {
+		const fetchCounties = async () => {
+			await apiClient.get(
+				`counties/${selStateId}`).then(result => {
+				if (result.status === 200) {
+					let counties = result.data;
+					setCounties(counties);
+					if (selStateId === farm.state_id) {
+						setSelCountyOption({id: farm.county_id, name: farm.county});
+						setSelCountyId(farm.county_id);
+					}
+				}
+			}).catch((e) => {
+				console.error(`Error fetching counties from api: ${e}`);
+			});
+		};
+
+		if (selStateId !== null) {
+			console.log(selStateId);
+			fetchCounties();
+		}
+
+	}, [selStateId]);
+
+	useEffect(() => {
+		if (selCropId === farm.crop_id) {
+			setSelCropOption({id: farm.crop_id, name: farm.crop});
+			setSelCropId(farm.crop_id);
+		}
+
+	}, [selCropId, farm]);
+
+	const handleBack = () => {
+		history.push("/login");
+	};
+
+	return (
+		<Layout>
+			<AuthorizedWrap>
+				<div className="home-content"
+               style={{backgroundSize: "cover", backgroundPosition: "center"}}
+				>
+					<div className="appsHeader">
               Edit Farm
-            </div>
-            <br/>
+					</div>
+					<br/>
 
-            <div style={{maxWidth: "480px"}}>
-              <h3> Farm Details</h3>
-              <br/>
-              <Autocomplete
-                  id="states-combo-box"
-                  value={states ? selStateOption : null}
-                  options={states}
-                  getOptionLabel={(option) => option.name}
-                  getOptionSelected={(option, value) => option.id === value.id}
-                  style={{width: 300}}
-                  renderInput={(params) => (<TextField {...params}
-                                                       label="State"
-                                                       required={true}
-                                                       variant="outlined"/>)}
-                  onChange={(event, value) => {
-                    setSelStateOption(value ? value : null);
-                    setSelStateId(value ? value.id : null);
-                    setSelCountyOption(null);
-                    setSelCountyId(null);
-                  }}
-              />
-              <br/>
-              <Autocomplete
-                  id="counties-combo-box"
+					<div style={{maxWidth: "480px"}}>
+						<h3> Farm Details</h3>
+						<br/>
+						<Autocomplete id="states-combo-box" value={states ? selStateOption : null} options={states}
+              getOptionLabel={(option) => option.name}
+              getOptionSelected={(option, value) => option.id === value.id}
+              style={{width: 300}}
+              renderInput={(params) => (<TextField {...params}
+                                                   label="State" required={true} variant="outlined"/>)}
+              onChange={(event, value) => {
+              	setSelStateOption(value ? value : null);
+              	setSelStateId(value ? value.id : null);
+              	setSelCountyOption(null);
+              	setSelCountyId(null);
+              }}
+						/>
+						<br/>
+						<Autocomplete id="counties-combo-box"
                   value={counties ? selCountyOption : null}
                   options={counties}
                   getOptionLabel={(option) => option.name}
@@ -190,13 +182,13 @@ const Farm = () => {
                                                        required={true}
                                                        variant="outlined"/>)}
                   onChange={(event, value) => {
-                    setSelCountyOption(value ? value : null);
-                    setSelCountyId(value ? value.id : null);
+                  	setSelCountyOption(value ? value : null);
+                  	setSelCountyId(value ? value.id : null);
                   }}
-              />
-              <br/>
-              <div style={{display: "flex"}}>
-                <Autocomplete
+						/>
+						<br/>
+						<div style={{display: "flex"}}>
+							<Autocomplete
                     id="crop-combo-box"
                     value={crops ? selCropOption : null}
                     options={crops}
@@ -210,56 +202,56 @@ const Farm = () => {
                                                          required={true}
                     />)}
                     onChange={(event, value) => {
-                      setSelCropOption(value ? value : null);
-                      setSelCropId(value ? value.id : null);
+                    	setSelCropOption(value ? value : null);
+                    	setSelCropId(value ? value.id : null);
                     }}
-                />
+							/>
 
-                <TextField id="baseAcres" label="Base Acres" variant="outlined" required={true}
+							<TextField id="baseAcres" label="Base Acres" variant="outlined" required={true}
                            style={{width: 130, marginLeft: 20}} defaultValue={50}/>
 
-                <TextField id="plantedAcres" label="Planted Acres" variant="outlined" required={true}
+							<TextField id="plantedAcres" label="Planted Acres" variant="outlined" required={true}
                            style={{width: 130, marginLeft: 20}} defaultValue={40}/>
-              </div>
+						</div>
 
-              <div style={{textAlign: "right"}}>
-                <Button variant="outlined" size="small"
+						<div style={{textAlign: "right"}}>
+							<Button variant="outlined" size="small"
                         style={{marginTop: "4px", backgroundColor: "#455A64", color: "white"}}>
-                  <Icon className={classes.leftIcon} style={{fontSize: "0.85rem"}}> add </Icon>
+								<Icon className={classes.leftIcon} style={{fontSize: "0.85rem"}}> add </Icon>
                   Add Crop
-                </Button>
-              </div>
+							</Button>
+						</div>
 
-              <br/>
+						<br/>
 
-              <TextField id="farmName" label="Farm Name" variant="outlined" required={true}
+						<TextField id="farmName" label="Farm Name" variant="outlined" required={true}
                          style={{width: 220}} defaultValue="Farm 1"
-              />
-              <br/>
-              <br/>
+						/>
+						<br/>
+						<br/>
 
-              <Button variant="contained" color="primary"
-                  // onClick={this.calcPremiums}
-                  // disabled={!this.validateInputs()}
+						<Button variant="contained" color="primary"
+							// onClick={this.calcPremiums}
+							// disabled={!this.validateInputs()}
                       style={{fontSize: "large", backgroundColor: "#455A64"}}>
-                <Icon className={classes.leftIcon}> save </Icon>
+							<Icon className={classes.leftIcon}> save </Icon>
                 Save
-              </Button>
+						</Button>
               &nbsp;
-              <Button variant="contained" color="primary"
+						<Button variant="contained" color="primary"
 
-                  // disabled={!this.validateInputs()}
+							// disabled={!this.validateInputs()}
                       style={{fontSize: "large", backgroundColor: "#455A64"}}>
-                {/*<Icon className={classes.leftIcon}> arrow_back_ios </Icon>*/}
+							{/*<Icon className={classes.leftIcon}> arrow_back_ios </Icon>*/}
                 Cancel
-              </Button>
+						</Button>
 
-            </div>
-          </div>
+					</div>
+				</div>
 
-        </AuthorizedWrap>
-      </Layout>
-  );
+			</AuthorizedWrap>
+		</Layout>
+	);
 };
 
 export default Farm;

@@ -7,33 +7,30 @@ import FarmList from "./FarmList";
 
 class MyFields extends Component {
 
-  render() {
+	render() {
 
-    return (
-        <div>
-          <Layout>
+		return (
+			<div>
+				<Layout>
 
-            <AuthorizedWrap>
-              <div className="home-content"
-                   style={{
-                     backgroundSize: "cover",
-                     backgroundPosition: "center",
-                   }}
-              >
-                <div className="appsHeader">
+					<AuthorizedWrap>
+						<div className="home-content"
+                   style={{backgroundSize: "cover", backgroundPosition: "center"}}
+						>
+							<div className="appsHeader">
                   Manage my farms
-                </div>
-                <br/>
-                <FarmList/>
+							</div>
+							<br/>
+							<FarmList/>
 
-              </div>
+						</div>
 
-            </AuthorizedWrap>
-          </Layout>
-        </div>
-    );
+					</AuthorizedWrap>
+				</Layout>
+			</div>
+		);
 
-  }
+	}
 }
 
 export default MyFields;
