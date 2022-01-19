@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.6.0] - 2022-01-19
+## [1.6.0] - 2022-01-20
 ### Updated
-- FSA data and text updates for 2022 [FD-493](https://opensource.ncsa.illinois.edu/jira/browse/FD-493)
+- FSA data, forecast prices and text updates for 2022 [FD-493](https://opensource.ncsa.illinois.edu/jira/browse/FD-493)
 
 ## [1.5.1] - 2021-04-14
 ### Added
