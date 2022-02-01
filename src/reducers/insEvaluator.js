@@ -24,6 +24,10 @@ const insEvaluator = (state = defaultState, action) => {
 			return Object.assign({}, state, {
 				insUnit: action.insUnit
 			});
+		case "CHANGE_CROP_STATE_COUNTY_NAME":
+			return Object.assign({}, state, {
+				cropStateCountyName: action.cropStateCountyName
+			});
 		default:
 			return state;
 

@@ -13,7 +13,7 @@ import {
 import {
 	handleEvaluatorResults,
 	changeAcres,
-	changeCropCode, changeInsUnit,
+	changeCropCode, changeInsUnit, changeCropStateCountyName,
 } from "../actions/insEvaluator";
 import Spinner from "./Spinner";
 import config from "../app.config";
@@ -183,7 +183,7 @@ class EvaluatorInputs extends Component {
 		cropId: null, //TODO: use 41 instead? config.defaultsJson.cropId,
 		units: config.defaultsJson.units,
 
-	  runStatus: "INIT",
+		runStatus: "INIT",
 		premResults: null,
 		countySelValue: null,
 		stateSelValue: null,
@@ -196,7 +196,6 @@ class EvaluatorInputs extends Component {
 		volFactor: null,
 		futuresUpdated: "",
 
-
 	};
 
 	constructor(props) {
@@ -206,6 +205,7 @@ class EvaluatorInputs extends Component {
 		this.handleMuiChange = this.handleMuiChange.bind(this);
 		this.handleEvaluatorResults = this.handleEvaluatorResults.bind(this);
 		this.changeAcres = this.changeAcres.bind(this);
+		this.changeCropStateCountyName = this.changeCropStateCountyName.bind(this);
 		this.changeCropCode = this.changeCropCode.bind(this);
 		this.changeInsUnit = this.changeInsUnit.bind(this);
 
@@ -247,8 +247,13 @@ class EvaluatorInputs extends Component {
 				this.setState({countySelValue: {value: event.value, label: event.label}});
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
+					let cropStateCountyName = [
+						this.state.cropSelValue.label,
+						this.state.stateSelValue.label,
+						this.state.countySelValue.label];
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
+					this.changeCropStateCountyName(cropStateCountyName);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams();
 				}
@@ -270,8 +275,13 @@ class EvaluatorInputs extends Component {
 					this.setState({cropSelValue: {value: event.value, label: event.label}});
 					this.populateCropUnits(event.value);
 					let cropCountyCode = `${this.state.county }${ event.value}`;
+					let cropStateCountyName = [
+						this.state.cropSelValue.label,
+						this.state.stateSelValue.label,
+						this.state.countySelValue.label];
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
+					this.changeCropStateCountyName(cropStateCountyName);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams();
 				}
@@ -307,6 +317,7 @@ class EvaluatorInputs extends Component {
 	}
 
 	async runEvaluator() {
+
 		//let status = "STARTED";
 		// let personId = localStorage.getItem("dwPersonId");
 		let email = localStorage.getItem("kcEmail");
@@ -372,6 +383,10 @@ class EvaluatorInputs extends Component {
 		this.props.changeInsUnit(insUnit);
 	}
 
+	changeCropStateCountyName(changeCropStateCountyName){
+		this.props.changeCropStateCountyName(changeCropStateCountyName);
+	}
+
 	componentDidMount() {
 		let statesJson = [];
 
@@ -404,8 +419,13 @@ class EvaluatorInputs extends Component {
 			this.setState({cropSelValue: {value: 41, label: "Corn"}});
 
 			let defaultCropCountyCode = "1700141";
+			let defaultCropStateCountyName = [
+				this.state.cropSelValue.label,
+				this.state.stateSelValue.label,
+				this.state.countySelValue.label];
 			this.setState({cropCountyCode: defaultCropCountyCode});
 			this.changeCropCode(defaultCropCountyCode);
+			this.changeCropStateCountyName(defaultCropStateCountyName);
 			this.setState({runStatus: "FETCHING_PARAMS"});
 			this.setParams(true);
 		});
@@ -532,12 +552,11 @@ class EvaluatorInputs extends Component {
 			});
 		}
 
-
 		return (
 			<div style={{textAlign: "center"}}>
 
 				<div style={{fontSize: "1.125em", fontWeight: 600, maxWidth: "1080px", margin: "0 auto", padding: "6px 4px 0px 4px"}}>
-					Evaluator - Enter your farm information to evaluate crop insurance options for 2021
+					Evaluator - Enter your farm information to evaluate crop insurance options for 2022
 				</div>
 
 				<div style={{
@@ -663,14 +682,15 @@ class EvaluatorInputs extends Component {
 }
 
 const mapStateToProps = state => ({
-	evaluatorResults: state.evaluatorResults
+	evaluatorResults: state.evaluatorResults,
 });
 
 const mapDispatchToProps = dispatch => ({
 	handleEvaluatorResults: evaluatorResults => dispatch(handleEvaluatorResults(evaluatorResults)),
 	changeAcres: acres => dispatch(changeAcres(acres)),
 	changeCropCode: cropCode => dispatch(changeCropCode(cropCode)),
-	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit))
+	changeInsUnit: insUnit => dispatch(changeInsUnit(insUnit)),
+	changeCropStateCountyName: cropStateCountyName => dispatch(changeCropStateCountyName(cropStateCountyName))
 });
 
 

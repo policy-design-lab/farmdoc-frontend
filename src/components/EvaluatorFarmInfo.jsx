@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import {
 	Table,
@@ -10,6 +11,7 @@ import {
 import {withStyles} from "@material-ui/core/styles";
 import {roundResults} from "../public/utils.js";
 import Divider from "@material-ui/core/Divider";
+import config from "../app.config";
 
 const TableCellDefaultStyles = withStyles({
 	root: {
@@ -53,6 +55,7 @@ const TableCellRightValue = withStyles({
 	}
 })(TableCellDefaultStyles);
 
+
 class EvaluatorFarmInfo extends Component {
 
 	render() {
@@ -67,10 +70,14 @@ class EvaluatorFarmInfo extends Component {
 
 			return (
 				<div style={{textAlign: "left"}}>
-					<br/>
+					<div style={{marginRight: "10px", textAlign: "right", fontSize: "larger"}}>
+						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
+						Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+						Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+					</div>
 					<Grid container direction="row" justify="center"
-									alignItems="center" spacing={5} style={{paddingBottom: "4px"}}>
-						<Grid item>
+									alignItems="center" spacing={5} style={{paddingBottom: "20px"}}>
+						<Grid item xs={5} style={{padding: "0px 0px", textAlign: "left"}}>
 							<Table>
 								<TableRow>
 									<TableCellLeftName> Farm Average Yield </TableCellLeftName>
@@ -136,7 +143,7 @@ class EvaluatorFarmInfo extends Component {
 								</TableRow>
 							</Table>
 						</Grid>
-						<Grid item>
+						<Grid item xs={6} style={{padding: "0px 0px", textAlign: "left"}}>
 							<Grid container direction="column" justify="center"
 											alignItems="center">
 								<Grid item>
@@ -212,8 +219,7 @@ class EvaluatorFarmInfo extends Component {
 											<TableCellLeftName> County TA Rate </TableCellLeftName>
 											<TableCellLeftValue> {roundResults(
 												farmInfo["county-ta-rate"], 2)}
-											<span
-															style={{fontSize: "0.875em"}}> bu/acre/year</span>
+											<span style={{fontSize: "0.875em"}}> bu/acre/year</span>
 											</TableCellLeftValue>
 										</TableRow>
 										<TableRow>
@@ -227,6 +233,7 @@ class EvaluatorFarmInfo extends Component {
 								</Grid>
 							</Grid>
 						</Grid>
+						<Grid item xs={1} style={{padding: "0px 0px", textAlign: "left"}} />
 					</Grid>
 
 					<Divider/>
@@ -241,4 +248,9 @@ class EvaluatorFarmInfo extends Component {
 	}
 }
 
-export default EvaluatorFarmInfo;
+const mapStateToProps = state => ({
+	cropStateCountyName: state.insEvaluator.cropStateCountyName
+});
+
+export default connect(mapStateToProps)((EvaluatorFarmInfo));
+

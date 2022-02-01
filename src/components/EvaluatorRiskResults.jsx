@@ -308,6 +308,7 @@ class EvaluatorRiskResults extends Component {
 		if (evalResult !== null) {
 			let evalResultJson = evalResult;
 			let premiums = evalResultJson.policies.farm;
+			let farmInfo = evalResultJson["farm-info"];
 
 			let coverageLevels = Object.keys(premiums);
 
@@ -502,6 +503,11 @@ class EvaluatorRiskResults extends Component {
 
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
+					<div style={{marginRight: "10px", marginTop: "10px", textAlign: "right", fontSize: "larger"}}>
+						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
+						Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+						Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+					</div>;
 
 					{/*<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}> Gross Target Used for Current Simulation: $536.56 / acre*/}
 					{/*</div>*/}
@@ -532,7 +538,6 @@ class EvaluatorRiskResults extends Component {
 
 						</div>
 					</div>
-
 
 					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
 						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance:

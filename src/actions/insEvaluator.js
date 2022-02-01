@@ -17,3 +17,8 @@ export const changeInsUnit = (insUnit) => ({
 	type: "CHANGE_INS_UNIT",
 	insUnit
 });
+
+export const changeCropStateCountyName = (cropStateCountyName) => ({
+	type: "CHANGE_CROP_STATE_COUNTY_NAME",
+	cropStateCountyName
+});
