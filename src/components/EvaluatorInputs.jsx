@@ -247,13 +247,8 @@ class EvaluatorInputs extends Component {
 				this.setState({countySelValue: {value: event.value, label: event.label}});
 				if (this.state.cropId !== null){
 					let cropCountyCode = `${event.value }${ this.state.cropId}`;
-					let cropStateCountyName = [
-						this.state.cropSelValue.label,
-						this.state.stateSelValue.label,
-						this.state.countySelValue.label];
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
-					this.changeCropStateCountyName(cropStateCountyName);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams();
 				}
@@ -275,13 +270,8 @@ class EvaluatorInputs extends Component {
 					this.setState({cropSelValue: {value: event.value, label: event.label}});
 					this.populateCropUnits(event.value);
 					let cropCountyCode = `${this.state.county }${ event.value}`;
-					let cropStateCountyName = [
-						this.state.cropSelValue.label,
-						this.state.stateSelValue.label,
-						this.state.countySelValue.label];
 					this.setState({cropCountyCode: cropCountyCode});
 					this.changeCropCode(cropCountyCode);
-					this.changeCropStateCountyName(cropStateCountyName);
 					this.setState({runStatus: "FETCHING_PARAMS"});
 					this.setParams();
 				}
@@ -354,6 +344,10 @@ class EvaluatorInputs extends Component {
 				if (typeof(evaluatorResult) === "object") {
 					this.handleEvaluatorResults(JSON.stringify(evaluatorResult));
 					this.setState({runStatus: "FETCHED_RESULTS"});
+					this.changeCropStateCountyName([
+						this.state.cropSelValue.label,
+						this.state.stateSelValue.label,
+						this.state.countySelValue.label]);
 				}
 				else {
 					this.handleEvaluatorResults("");
