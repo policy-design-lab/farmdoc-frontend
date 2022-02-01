@@ -7,10 +7,6 @@ import {connect} from "react-redux";
 class EvaluatorRiskGraph extends Component {
 
 	render() {
-		let farmInfo = null;
-		if (this.props.hasOwnProperty("farmInfo") && this.props.hasOwnProperty("farmInfo") !== null) {
-			farmInfo = this.props["farmInfo"];
-		}
 
 		let graphInfo = [{
 			"revenue": 79.712177364702,

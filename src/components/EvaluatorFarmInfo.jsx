@@ -11,7 +11,6 @@ import {
 import {withStyles} from "@material-ui/core/styles";
 import {roundResults} from "../public/utils.js";
 import Divider from "@material-ui/core/Divider";
-import config from "../app.config";
 
 const TableCellDefaultStyles = withStyles({
 	root: {
