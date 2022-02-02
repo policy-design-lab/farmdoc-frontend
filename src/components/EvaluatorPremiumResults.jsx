@@ -22,6 +22,7 @@ import {
 import config from "../app.config";
 import {estPremTooltip, avgPaymentTooltip, freqTooltip, netCostTooltip, avgGrossRevTooltip} from "../app.messages";
 import ToolTip from "@material-ui/core/Tooltip";
+import Grid from "@material-ui/core/Grid";
 
 const styles = theme => ({
 	root: {
@@ -376,12 +377,21 @@ class EvaluatorPremiumResults extends Component {
 
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
-					<div style={{marginRight: "10px", textAlign: "right", fontSize: "larger"}}>
-						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
-						Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-						Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
-					</div>
-					<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies </h2></div>
+
+					<Grid container>
+						<Grid item style={{width: "25%"}} />
+						<Grid item style={{width: "50%", verticalAlign: "middle"}}>
+							<div style={{padding: "15px"}}> <h2>Individual Farm Level Policies </h2></div>
+						</Grid>
+						<Grid item style={{width: "25%"}}>
+							<div style={{margin: "8px", textAlign: "right", fontSize: "larger"}}>
+								Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
+								Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+								Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+							</div>
+						</Grid>
+					</Grid>
+
 
 					{farmPolicyRows.length === -1 ? <div style={{padding: "15px", color: "red"}}> Not applicable for the selected inputs.
 								Please make sure the selected "Type" and "Practice" are applicable for your farm </div> :

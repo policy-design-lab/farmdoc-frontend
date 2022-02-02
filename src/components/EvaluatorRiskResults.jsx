@@ -22,6 +22,7 @@ import FDTooltip from "./Tooltip";
 import config from "../app.config";
 import Spinner from "./Spinner";
 import EvaluatorRiskGraph from "./EvaluatorRiskGraph";
+import Grid from "@material-ui/core/Grid";
 
 const styles = theme => ({
 	root: {
@@ -503,54 +504,66 @@ class EvaluatorRiskResults extends Component {
 
 			return (
 				<div style={{padding: 4, display: "inline-block"}}>
-					<div style={{marginRight: "10px", marginTop: "10px", textAlign: "right", fontSize: "larger"}}>
-						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
-						Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-						Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
-					</div>;
+
 
 					{/*<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}> Gross Target Used for Current Simulation: $536.56 / acre*/}
 					{/*</div>*/}
 
-					<div style={{display: "table", width: "100%", height: "38px"}}>
+					<Grid container>
+						<Grid item style={{width: "25%"}} />
+						<Grid item style={{width: "50%", verticalAlign: "middle"}}>
+							<div>
+								<div style={{display: "table", width: "100%", height: "38px"}}>
 
-						<div style={{display: "inline-flex", alignItems: "center"}}>
+									<div style={{display: "inline-flex", alignItems: "center"}}>
 
-							<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Revenue To Run Again: </span>
-							<FormControl >
-								<TextField
-									id="grossTarget"
-									value={this.state.grossTarget}
-									margin="normal"
-									onChange={this.handleChange("grossTarget")}
-									onKeyDown={this.keyPress}
-									className={classes.textField}
-									required
-									InputLabelProps={{shrink: true}}
-									onInput={this.validateMaxValue(9999)}
-									InputProps={{
-										startAdornment: <InputAdornment position="start">$</InputAdornment>, padding: 5
-									}}
-								/>
-							</FormControl> /acre
-							{/*TODO: Enter key might not work on mobiles */}
-							<FDTooltip title="Click ENTER key to run the simulation again"/>
+										<span style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px"}}> Change Gross Target Revenue To Run Again: </span>
+										<FormControl >
+											<TextField
+													id="grossTarget"
+													value={this.state.grossTarget}
+													margin="normal"
+													onChange={this.handleChange("grossTarget")}
+													onKeyDown={this.keyPress}
+													className={classes.textField}
+													required
+													InputLabelProps={{shrink: true}}
+													onInput={this.validateMaxValue(9999)}
+													InputProps={{
+														startAdornment: <InputAdornment position="start">$</InputAdornment>, padding: 5
+													}}
+											/>
+										</FormControl> /acre
+										{/*TODO: Enter key might not work on mobiles */}
+										<FDTooltip title="Click ENTER key to run the simulation again"/>
 
-						</div>
-					</div>
+									</div>
+								</div>
 
-					<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
-						<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance:
-							&nbsp;{`${roundResults(evalResultJson.policies["no-ins-prob"] * 100, 1) }%`} </div>
-						<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance:
-							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-1"])}`} </div>
-						<div style={{paddingBottom: "8px"}}>5% Value at risk with no insurance:
-							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-5"])}`} </div>
-						<div style={{paddingBottom: "8px"}}>10% Value at risk with no insurance:
-							&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-10"])}`} </div>
-						<div style={{paddingBottom: "8px"}}>25% Value at risk with no insurance:
-							&nbsp;{ `$${ roundResults(evalResultJson.policies["no-ins-var-25"])}`} </div>
-					</div>
+								<div style={{fontSize: "1.10em", paddingLeft: "28px", paddingRight: "8px", paddingTop: "8px"}}>
+									<div style={{paddingBottom: "8px"}}>Probability of not reaching above target with no insurance:
+										&nbsp;{`${roundResults(evalResultJson.policies["no-ins-prob"] * 100, 1) }%`} </div>
+									<div style={{paddingBottom: "8px"}}>1% Value at risk with no insurance:
+										&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-1"])}`} </div>
+									<div style={{paddingBottom: "8px"}}>5% Value at risk with no insurance:
+										&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-5"])}`} </div>
+									<div style={{paddingBottom: "8px"}}>10% Value at risk with no insurance:
+										&nbsp;{`$${ roundResults(evalResultJson.policies["no-ins-var-10"])}`} </div>
+									<div style={{paddingBottom: "8px"}}>25% Value at risk with no insurance:
+										&nbsp;{ `$${ roundResults(evalResultJson.policies["no-ins-var-25"])}`} </div>
+								</div>
+
+							</div>
+						</Grid>
+						<Grid item style={{width: "25%"}}>
+							<div style={{marginRight: "10px", marginTop: "10px", textAlign: "right", fontSize: "larger"}}>
+								Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
+								Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+								Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+							</div>;
+						</Grid>
+					</Grid>
+
 
 					<EvaluatorRiskGraph graphInfo={graphInfo}/>
 
