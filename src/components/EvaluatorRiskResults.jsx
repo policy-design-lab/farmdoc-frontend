@@ -560,7 +560,7 @@ class EvaluatorRiskResults extends Component {
 								Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
 								Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
 								Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
-							</div>;
+							</div>
 						</Grid>
 					</Grid>
 
