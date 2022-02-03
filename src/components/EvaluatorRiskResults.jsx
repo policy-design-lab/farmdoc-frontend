@@ -311,6 +311,11 @@ class EvaluatorRiskResults extends Component {
 			let premiums = evalResultJson.policies.farm;
 			let farmInfo = evalResultJson["farm-info"];
 
+			let futuresDate = "Dec. 22";
+			if (this.props["CSCName"][0] === "Soybeans") {
+				futuresDate = "Nov. 22";
+			}
+
 			let coverageLevels = Object.keys(premiums);
 
 			let i = 1;
@@ -558,8 +563,8 @@ class EvaluatorRiskResults extends Component {
 						<Grid item style={{width: "25%"}}>
 							<div style={{marginRight: "10px", marginTop: "10px", textAlign: "right", fontSize: "larger"}}>
 								Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
-								Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-								Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+								{futuresDate} Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+								Estimated Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
 							</div>;
 						</Grid>
 					</Grid>
@@ -827,7 +832,8 @@ const mapStateToProps = (state) => {
 	return {
 		insUnit: state.insEvaluator.insUnit,
 		cropCode: state.insEvaluator.cropCode,
-		acres: state.insEvaluator.acres
+		acres: state.insEvaluator.acres,
+		CSCName: state.insEvaluator.cropStateCountyName
 	};
 };
 

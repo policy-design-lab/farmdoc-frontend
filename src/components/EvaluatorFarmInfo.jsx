@@ -67,12 +67,17 @@ class EvaluatorFarmInfo extends Component {
 
 		if (farmInfo !== null) {
 
+			let futuresDate = "Dec. 22";
+			if (this.props["CSCName"][0] === "Soybeans") {
+				futuresDate = "Nov. 22";
+			}
+
 			return (
 				<div style={{textAlign: "left"}}>
 					<div style={{margin: "8px", textAlign: "right", fontSize: "larger"}}>
 						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
-						Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-						Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+						{futuresDate} Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
+						Estimated Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
 					</div>
 					<Grid container direction="row" justify="center"
 									alignItems="center" spacing={5} style={{paddingBottom: "4px"}}>
@@ -248,7 +253,7 @@ class EvaluatorFarmInfo extends Component {
 }
 
 const mapStateToProps = state => ({
-	cropStateCountyName: state.insEvaluator.cropStateCountyName
+	CSCName: state.insEvaluator.cropStateCountyName
 });
 
 export default connect(mapStateToProps)((EvaluatorFarmInfo));
