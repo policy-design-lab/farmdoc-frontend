@@ -15,7 +15,7 @@ const farmdocApps = {
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
-		lastUpdated: "Feb 03, 2021",
+		lastUpdated: "Feb 03, 2022",
 		urlPath: "/premiums",
 		needsAuthentication: false
 	},
