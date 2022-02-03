@@ -366,7 +366,7 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: `RMA 2021 Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
+				this.setState({futuresUpdated: `Estimated Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
 				 ${ roundResults(data.comboVol, 2)}. Last Updated on ${ data.dateUpdated}.`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
@@ -714,7 +714,7 @@ class PremiumCalculator extends Component {
 			<div style={{textAlign: "center"}}>
 
 				<div style={{marginTop: "12px", fontSize: "1.125em", fontWeight: 600}}>
-					Enter your farm information to generate crop insurance quotes for 2021
+					Enter your farm information to generate crop insurance quotes for 2022
 				</div>
 
 				<div style={{
