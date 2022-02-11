@@ -13,7 +13,7 @@ class EvaluatorFooter extends Component {
 
 		return (
 			<div style={{padding: "4px"}}>
-				RMA 2021 Projected Price is ${this.props.projPrice} with Volatility Factor of {this.props.volFactor}. Last Updated on {this.props.lastUpdated}.
+				Estimated Projected Price is ${this.props.projPrice} with Volatility Factor of {this.props.volFactor}. Last Updated on {this.props.lastUpdated}.
 			</div>
 		);
 	}

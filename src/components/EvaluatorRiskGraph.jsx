@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {roundResults} from "../public/utils.js";
 
 import {Line} from "react-chartjs-2";
+import {connect} from "react-redux";
 
 class EvaluatorRiskGraph extends Component {
 
@@ -72,10 +73,6 @@ class EvaluatorRiskGraph extends Component {
 		if (this.props.graphInfo !== null){
 			graphInfo = this.props.graphInfo;
 		}
-
-		// if (this.props.hasOwnProperty("farmInfo") && this.props.hasOwnProperty("farmInfo") !== null) {
-		// 	farmInfo = this.props["farmInfo"];
-		// }
 
 		if (graphInfo !== null) {
 
@@ -175,10 +172,12 @@ class EvaluatorRiskGraph extends Component {
 				]
 			};
 
+			let graphTitle = `Probabilities of ${this.props["CSCName"][0]} Revenue (per acre) with Insurance - ${this.props["CSCName"][2]}, ${this.props["CSCName"][1]}`;
+
 			let graphOptions = {
 				title: {
 					display: true,
-					text: "Probabilities of Revenue with Insurance",
+					text: `${graphTitle}`,
 					// fontColor: "DarkBlue",
 					fontSize: 20
 				},
@@ -261,4 +260,8 @@ class EvaluatorRiskGraph extends Component {
 	}
 }
 
-export default EvaluatorRiskGraph;
+const mapStateToProps = state => ({
+	CSCName: state.insEvaluator.cropStateCountyName
+});
+
+export default connect(mapStateToProps)((EvaluatorRiskGraph));
