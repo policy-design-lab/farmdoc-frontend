@@ -366,7 +366,7 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: `Estimated Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
+				this.setState({futuresUpdated: `Final Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
 				 ${ roundResults(data.comboVol, 2)}. Last Updated on ${ data.dateUpdated}.`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
