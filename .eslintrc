@@ -38,7 +38,7 @@
       "double"
     ],
     "indent": [
-      "error",
+      "warn",
       "tab",
       {
         "SwitchCase": 1,

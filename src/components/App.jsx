@@ -29,6 +29,7 @@ import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
 import MyFarms from "./MyFarms";
 import Field from "./Field";
 import Farm from "./Farm";
+import IntegratedTool from "./IntegratedTool";
 
 global.__base = `${__dirname}/`;
 
@@ -54,15 +55,16 @@ class App extends Component {
 		let priceDistibutionPath = config.apps.pricedistribution.urlPath;
 
 		return (
-				<div>
-					<MuiThemeProvider theme={theme}>
-						<Router history={browserHistory}>
-							<Route path="/" component={HomePage}/>
-							<Route path="/login" component={Login}/>
-							{/*Remove these routes*/}
-							<Route path="/farms" component={MyFarms}/>
-							<Route path="/farms/edit" component={Farm}/>
-							<Route path="/fields/edit" component={Field}/>
+			<div>
+				<MuiThemeProvider theme={theme}>
+					<Router history={browserHistory}>
+						<Route path="/" component={HomePage}/>
+						<Route path="/login" component={Login}/>
+						{/*Remove these routes*/}
+						<Route path="/farms" component={MyFarms}/>
+						<Route path="/farms/edit" component={Farm}/>
+						<Route path="/fields/edit" component={Field}/>
+						<Route path="/tool" component={IntegratedTool}/>
 
 						<Route path={arcplcPath} component={Dashboard}/>
 						<Route path={`${arcplcPath}docs`} component={Documentation}/>
