@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.6.1] - 2022-02-03
+
+### Added
+- A section on each tab of Evaluator tab to show TA APH Yield, Futures Price and Projected Price [FD-490](https://opensource.ncsa.illinois.edu/jira/browse/FD-490)
+
+### Updated
+- Evaluator graph title to show the selected county and crop [FD-491](https://opensource.ncsa.illinois.edu/jira/browse/FD-491)
+- Updated insurance database with 2022 data and corresponding dates in the user interface [FD-491](https://opensource.ncsa.illinois.edu/jira/browse/FD-491)
+
 ## [1.6.0] - 2022-01-20
 ### Updated
 - FSA data, forecast prices and text updates for 2022 [FD-493](https://opensource.ncsa.illinois.edu/jira/browse/FD-493)
