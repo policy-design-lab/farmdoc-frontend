@@ -4,10 +4,9 @@ import AuthorizedWrap from "./AuthorizedWrap";
 import {makeStyles} from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 import Button from "@material-ui/core/Button";
-import {useHistory} from "react-router-dom";
 import Inputs from "./Inputs";
 import IntegratedToolResults from "./IntegratedToolResults";
-
+import resJson from "./tool.json";
 
 const useStyles = makeStyles((theme) => ({
 	leftIcon: {
@@ -19,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
 const IntegratedTool = () => {
 
 	const classes = useStyles();
-	let history = useHistory();
 
-	const [display, setDisplay] = useState("none");
+	const [inputDisplay, setInputDisplay] = useState("block");
+	const [outputDisplay, setOutputDisplay] = useState("none");
 
 	return (
 		<Layout>
@@ -36,11 +35,13 @@ const IntegratedTool = () => {
 							Integrated Tool
 					</div>
 					<div style={{display: "block"}}>
-						<div style={{display: "none"}}>
+						<div style={{display: inputDisplay}}>
 							<Inputs/>
 
 							<div style={{textAlign: "center"}}>
-								<Button variant="outlined" size="medium" onClick={() => setDisplay("block")}
+								<Button variant="outlined" size="medium" onClick={() => {
+									setOutputDisplay("block"); setInputDisplay("none");
+								}}
 								        style={{marginTop: "4px", backgroundColor: "#455A64", color: "white"}}>
 									<Icon className={classes.leftIcon} style={{fontSize: "0.85rem"}}> send </Icon>
 									Run
@@ -49,12 +50,16 @@ const IntegratedTool = () => {
 						</div>
 
 						<br/>
-						<div style={{marginLeft: "100px"}}>
-							<IntegratedToolResults/>
+						<div style={{marginLeft: "100px", display: outputDisplay}}>
+							<a style={{color: "Blue", cursor: "pointer", fontWeight: "600", display: (inputDisplay === "none") ? "block" : "none"}}
+							onClick={() => setInputDisplay("block")}>
+								<u> Back to Edit Farm Inputs </u>
+							</a>
+							<IntegratedToolResults results={resJson}/>
+
 						</div>
 
 					</div>
-
 
 				</div>
 

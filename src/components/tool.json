@@ -1,0 +1,2225 @@
+{
+  "arcplc": {
+    "mean_prices": {
+      "xData": "Year",
+      "xDataUnit": "",
+      "yDataSet": "National mean prices",
+      "yData1": "Price",
+      "yData1Unit": "$",
+      "title": "Mean prices",
+      "datasets": {
+        "data": [{
+          "point": 2019,
+          "value1": {
+            "mean": 3.56,
+            "std": 0,
+            "min": 3.56,
+            "max": 3.56,
+            "pos": 100
+          }
+        },
+          {
+            "point": 2020,
+            "value1": {
+              "mean": 4.53,
+              "std": 0,
+              "min": 4.53,
+              "max": 4.53,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2021,
+            "value1": {
+              "mean": 5.45,
+              "std": 0.627,
+              "min": 3.763,
+              "max": 7.778,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2022,
+            "value1": {
+              "mean": 5.10,
+              "std": 0.64,
+              "min": 3.541,
+              "max": 7.482,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2023,
+            "value1": {
+              "mean": 4.5,
+              "std": 0.654,
+              "min": 2.928,
+              "max": 6.836,
+              "pos": 100
+            }
+          }
+        ]
+      }
+    },
+    "county_yields": {
+      "xData": "Year",
+      "xDataUnit": "",
+      "yDataSet": "County mean yields",
+      "yData1": "Yield",
+      "yData1Unit": "bushel/acre",
+      "title": "County yields",
+      "datasets": {
+        "data": [{
+          "point": 2019,
+          "value1": {
+            "mean": 209.41,
+            "std": 0,
+            "min": 209.41,
+            "max": 209.41,
+            "pos": 100
+          }
+        },
+          {
+            "point": 2020,
+            "value1": {
+              "mean": 210.05,
+              "std": 0,
+              "min": 210.05,
+              "max": 210.05,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2021,
+            "value1": {
+              "mean": 214.764,
+              "std": 24.891,
+              "min": 115.479,
+              "max": 271.798,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2022,
+            "value1": {
+              "mean": 216.784,
+              "std": 24.885,
+              "min": 117.305,
+              "max": 273.723,
+              "pos": 100
+            }
+          },
+          {
+            "point": 2023,
+            "value1": {
+              "mean": 218.804,
+              "std": 24.879,
+              "min": 119.134,
+              "max": 275.65,
+              "pos": 100
+            }
+          }
+        ]
+      }
+    },
+    "county_average_arc_and_plc_payments": {
+      "xData": "Year",
+      "xDataUnit": "",
+      "yDataSet": "County ARC and PLC payments",
+      "yData1": "County ARC",
+      "yData1Unit": "$",
+      "yData2": "County PLC",
+      "yData2Unit": "$/acre",
+      "title": "County average ARC and PLC payments",
+      "datasets": {
+        "data": [{
+          "point": 2019,
+          "value1": {
+            "mean": 0,
+            "std": 0,
+            "min": 0,
+            "max": 0,
+            "pos": 0
+          },
+          "value2": {
+            "mean": 24.99,
+            "std": 0,
+            "min": 24.99,
+            "max": 24.99,
+            "pos": 100
+          }
+        },
+          {
+            "point": 2020,
+            "value1": {
+              "mean": 0,
+              "std": 0,
+              "min": 0,
+              "max": 0,
+              "pos": 0
+            },
+            "value2": {
+              "mean": 0,
+              "std": 0,
+              "min": 0,
+              "max": 0,
+              "pos": 0
+            }
+          },
+          {
+            "point": 2021,
+            "value1": {
+              "mean": 0.107,
+              "std": 2.529,
+              "min": 0,
+              "max": 72.052,
+              "pos": 0.2
+            },
+            "value2": {
+              "mean": 0,
+              "std": 0,
+              "min": 0,
+              "max": 0,
+              "pos": 0
+            }
+          },
+          {
+            "point": 2022,
+            "value1": {
+              "mean": 8.286,
+              "std": 3.944,
+              "min": 0,
+              "max": 72.712,
+              "pos": 23.6
+            },
+            "value2": {
+              "mean": 16.1,
+              "std": 1.275,
+              "min": 0,
+              "max": 28.381,
+              "pos": 41.5
+            }
+          },
+          {
+            "point": 2023,
+            "value1": {
+              "mean": 2.574,
+              "std": 11.592,
+              "min": 0,
+              "max": 79.433,
+              "pos": 7.1
+            },
+            "value2": {
+              "mean": 4.502,
+              "std": 17.516,
+              "min": 0,
+              "max": 137.801,
+              "pos": 10.9
+            }
+          }
+        ]
+      }
+    },
+    "binned_payments": {
+      "xData": "Expected Payouts",
+      "xDataUnit": "$",
+      "yData": "Number of Simulations",
+      "yDataUnit": "#",
+      "title": "Histograms of county insurance payments distribution as bins",
+      "datasets": {
+        "data": [{
+          "year": 2019,
+          "priceBins": [
+            "0",
+            "0.01-2.5",
+            "2.5-5.0",
+            "5.0-7.5",
+            "7.5-10.0",
+            "10.0-12.49",
+            "12.49-14.99",
+            "14.99-17.49",
+            "17.49-19.99",
+            "19.99-22.49",
+            "22.49-24.99"
+          ],
+          "arc": [
+            1000,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "plc": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1000
+          ]
+        },
+          {
+            "year": 2020,
+            "priceBins": [
+              "0",
+              "0.01-1.0",
+              "1.0-2.0",
+              "2.0-3.0",
+              "3.0-4.0",
+              "4.0-5.0",
+              "5.0-6.0",
+              "6.0-7.0",
+              "7.0-8.0",
+              "8.0-9.0",
+              "9.0-10.0"
+            ],
+            "arc": [
+              1000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "plc": [
+              1000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "year": 2021,
+            "priceBins": [
+              "0",
+              "0.01-7.21",
+              "7.21-14.41",
+              "14.41-21.62",
+              "21.62-28.82",
+              "28.82-36.03",
+              "36.03-43.23",
+              "43.23-50.44",
+              "50.44-57.64",
+              "57.64-64.85",
+              "64.85-72.05"
+            ],
+            "arc": [
+              998,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "plc": [
+              1000,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "year": 2022,
+            "priceBins": [
+              "0",
+              "0.01-7.27",
+              "7.27-14.54",
+              "14.54-21.81",
+              "21.81-29.08",
+              "29.08-36.36",
+              "36.36-43.63",
+              "43.63-50.9",
+              "50.9-58.17",
+              "58.17-65.44",
+              "65.44-72.71"
+            ],
+            "arc": [
+              990,
+              2,
+              3,
+              0,
+              1,
+              1,
+              0,
+              0,
+              0,
+              1,
+              2
+            ],
+            "plc": [
+              990,
+              5,
+              2,
+              2,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "year": 2023,
+            "priceBins": [
+              "0",
+              "0.01-13.78",
+              "13.78-27.56",
+              "27.56-41.34",
+              "41.34-55.12",
+              "55.12-68.9",
+              "68.9-82.68",
+              "82.68-96.46",
+              "96.46-110.24",
+              "110.24-124.02",
+              "124.02-137.8"
+            ],
+            "arc": [
+              929,
+              18,
+              17,
+              6,
+              11,
+              5,
+              14,
+              0,
+              0,
+              0,
+              0
+            ],
+            "plc": [
+              891,
+              28,
+              26,
+              15,
+              9,
+              10,
+              3,
+              4,
+              6,
+              5,
+              3
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "insurance": {
+    "premiums": {
+      "50": {
+        "rp-opt": 1.48,
+        "rp-basic": 0.99,
+        "rp-enterprise": 0.6,
+        "rphpe-opt": 1.19,
+        "rphpe-basic": 0.87,
+        "rphpe-enterprise": 0.53,
+        "yp-opt": 1.09,
+        "yp-basic": 0.7,
+        "yp-enterprise": 0.43
+      },
+      "55": {
+        "rp-opt": 2.35,
+        "rp-basic": 1.64,
+        "rp-enterprise": 0.91,
+        "rphpe-opt": 1.67,
+        "rphpe-basic": 1.27,
+        "rphpe-enterprise": 0.7,
+        "yp-opt": 1.59,
+        "yp-basic": 1.04,
+        "yp-enterprise": 0.58
+      },
+      "60": {
+        "rp-opt": 3.5,
+        "rp-basic": 2.55,
+        "rp-enterprise": 1.4,
+        "rphpe-opt": 2.16,
+        "rphpe-basic": 1.67,
+        "rphpe-enterprise": 0.92,
+        "yp-opt": 2.15,
+        "yp-basic": 1.44,
+        "yp-enterprise": 0.8
+      },
+      "65": {
+        "rp-opt": 6.2,
+        "rp-basic": 4.8,
+        "rp-enterprise": 2.31,
+        "rphpe-opt": 3.49,
+        "rphpe-basic": 2.75,
+        "rphpe-enterprise": 1.31,
+        "yp-opt": 3.46,
+        "yp-basic": 2.37,
+        "yp-enterprise": 1.16
+      },
+      "70": {
+        "rp-opt": 9.34,
+        "rp-basic": 7.54,
+        "rp-enterprise": 3.57,
+        "rphpe-opt": 5.26,
+        "rphpe-basic": 4.25,
+        "rphpe-enterprise": 1.97,
+        "yp-opt": 4.63,
+        "yp-basic": 3.22,
+        "yp-enterprise": 1.57
+      },
+      "75": {
+        "rp-opt": 15.17,
+        "rp-basic": 12.69,
+        "rp-enterprise": 6.18,
+        "rphpe-opt": 8.44,
+        "rphpe-basic": 7.06,
+        "rphpe-enterprise": 3.31,
+        "yp-opt": 6.82,
+        "yp-basic": 4.82,
+        "yp-enterprise": 2.44
+      },
+      "80": {
+        "rp-opt": 26.87,
+        "rp-basic": 23.35,
+        "rp-enterprise": 13.84,
+        "rphpe-opt": 15.09,
+        "rphpe-basic": 12.97,
+        "rphpe-enterprise": 7.46,
+        "yp-opt": 11.28,
+        "yp-basic": 8.14,
+        "yp-enterprise": 4.81
+      },
+      "85": {
+        "rp-opt": 42.73,
+        "rp-basic": 38.12,
+        "rp-enterprise": 28.67,
+        "rphpe-opt": 23.81,
+        "rphpe-basic": 20.76,
+        "rphpe-enterprise": 15.51,
+        "yp-opt": 16.77,
+        "yp-basic": 12.31,
+        "yp-enterprise": 8.95
+      }
+    },
+    "guarantees": {
+      "50": {
+        "rp": 546,
+        "rphpe": 546,
+        "yp": 92
+      },
+      "55": {
+        "rp": 600,
+        "rphpe": 600,
+        "yp": 102
+      },
+      "60": {
+        "rp": 655,
+        "rphpe": 655,
+        "yp": 111
+      },
+      "65": {
+        "rp": 709,
+        "rphpe": 709,
+        "yp": 120
+      },
+      "70": {
+        "rp": 764,
+        "rphpe": 764,
+        "yp": 130
+      },
+      "75": {
+        "rp": 819,
+        "rphpe": 819,
+        "yp": 139
+      },
+      "80": {
+        "rp": 873,
+        "rphpe": 873,
+        "yp": 148
+      },
+      "85": {
+        "rp": 928,
+        "rphpe": 928,
+        "yp": 157
+      }
+    }
+  },
+  "premGrip": {
+    "premiums": {
+      "70": {
+        "rp": 6.65,
+        "rphpe": 5.97,
+        "yp": 5.05
+      },
+      "75": {
+        "rp": 12.7,
+        "rphpe": 10.26,
+        "yp": 6.58
+      },
+      "80": {
+        "rp": 20.74,
+        "rphpe": 15.13,
+        "yp": 8.64
+      },
+      "85": {
+        "rp": 37.13,
+        "rphpe": 24.8,
+        "yp": 10.74
+      },
+      "90": {
+        "rp": 66.15,
+        "rphpe": 42.62,
+        "yp": 19.42
+      }
+    },
+    "guarantees": {
+      "70": {
+        "rp": 876,
+        "rphpe": 876,
+        "yp": 148
+      },
+      "75": {
+        "rp": 938,
+        "rphpe": 938,
+        "yp": 159
+      },
+      "80": {
+        "rp": 1001,
+        "rphpe": 1001,
+        "yp": 170
+      },
+      "85": {
+        "rp": 1063,
+        "rphpe": 1063,
+        "yp": 180
+      },
+      "90": {
+        "rp": 1126,
+        "rphpe": 1126,
+        "yp": 191
+      }
+    },
+    "expyield": 212
+  },
+  "simulator": {
+    "farm-info": {
+      "avg-yield": 207.769694,
+      "std-yield": 38.959473,
+      "county-avg-yield": 207.769694,
+      "county-std-yield": 31.167407,
+      "avg-futures-price": 6.54222,
+      "std-price": 1.95213,
+      "avg-harvest-cash-basis": 0.35,
+      "avg-gross-crop-rev": 1259.000296,
+      "farm-yield-below-30": 189.366898,
+      "farm-yield-below-20": 175.607725,
+      "farm-yield-below-10": 155.641732,
+      "farm-yield-below-5": 138.626377,
+      "county-yield-below-30": 193.762825,
+      "county-yield-below-20": 182.603036,
+      "county-yield-below-10": 166.068548,
+      "county-yield-below-5": 151.616893,
+      "trend-adj-aph": 207.769694,
+      "county-ta-rate": 2.14,
+      "farm-aph": 197.3,
+      "proj-price": 5.9,
+      "volatility-factor": 0.23,
+      "sigma": 0.29205,
+      "mu": 1.83563,
+      "rma-last-updated": "Mar 01, 2022",
+      "futures-last-updated": "Mar 11, 2022"
+    },
+    "policies": {
+      "farm": {
+        "50": {
+          "yp-basic": {
+            "est-premium": 0.73,
+            "avg-payment": 0.602875,
+            "freq-payment": 0.0066,
+            "net-cost": 0.127125,
+            "avg-gross-rev": 1258.87317,
+            "target-prob": 0.370474,
+            "var-1": 593.717427,
+            "var-5": 724.63495,
+            "var-10": 813.316901,
+            "var-25": 988.960712,
+            "var-change-1": 4.962292,
+            "var-change-5": 3.38025,
+            "var-change-10": 2.07845,
+            "var-change-25": -0.574574
+          },
+          "yp-enterprise": {
+            "est-premium": 0.44,
+            "avg-payment": 0.68295,
+            "freq-payment": 0.0066,
+            "net-cost": -0.24295,
+            "avg-gross-rev": 1258.559828,
+            "target-prob": 0.371674,
+            "var-1": 589.387164,
+            "var-5": 721.784382,
+            "var-10": 811.929899,
+            "var-25": 987.094144,
+            "var-change-1": 0.632029,
+            "var-change-5": 0.529682,
+            "var-change-10": 0.691448,
+            "var-change-25": -2.441142
+          },
+          "rphpe-basic": {
+            "est-premium": 0.93,
+            "avg-payment": 0.434874,
+            "freq-payment": 0.0072,
+            "net-cost": 0.495126,
+            "avg-gross-rev": 1258.50517,
+            "target-prob": 0.370874,
+            "var-1": 588.978906,
+            "var-5": 720.3247,
+            "var-10": 810.308451,
+            "var-25": 988.605286,
+            "var-change-1": 0.223771,
+            "var-change-5": -0.93,
+            "var-change-10": -0.93,
+            "var-change-25": -0.93
+          },
+          "rphpe-enterprise": {
+            "est-premium": 0.56,
+            "avg-payment": 0.47417,
+            "freq-payment": 0.0072,
+            "net-cost": 0.08583,
+            "avg-gross-rev": 1258.231048,
+            "target-prob": 0.372074,
+            "var-1": 586.499794,
+            "var-5": 717.193914,
+            "var-10": 811.259123,
+            "var-25": 986.891314,
+            "var-change-1": -2.255341,
+            "var-change-5": -4.060786,
+            "var-change-10": 0.020672,
+            "var-change-25": -2.643972
+          },
+          "rp-basic": {
+            "est-premium": 1.03,
+            "avg-payment": 1.117258,
+            "freq-payment": 0.0118,
+            "net-cost": -0.087258,
+            "avg-gross-rev": 1259.087554,
+            "target-prob": 0.370474,
+            "var-1": 593.417427,
+            "var-5": 724.385068,
+            "var-10": 814.768103,
+            "var-25": 988.83514,
+            "var-change-1": 4.662292,
+            "var-change-5": 3.130368,
+            "var-change-10": 3.529652,
+            "var-change-25": -0.700146
+          },
+          "rp-enterprise": {
+            "est-premium": 0.63,
+            "avg-payment": 1.237372,
+            "freq-payment": 0.0124,
+            "net-cost": -0.607372,
+            "avg-gross-rev": 1258.92425,
+            "target-prob": 0.371674,
+            "var-1": 589.197164,
+            "var-5": 721.992838,
+            "var-10": 812.528094,
+            "var-25": 987.367774,
+            "var-change-1": 0.442029,
+            "var-change-5": 0.738138,
+            "var-change-10": 1.289643,
+            "var-change-25": -2.167512
+          }
+        },
+        "55": {
+          "yp-basic": {
+            "est-premium": 1.08,
+            "avg-payment": 1.198599,
+            "freq-payment": 0.0136,
+            "net-cost": -0.118599,
+            "avg-gross-rev": 1259.118894,
+            "target-prob": 0.370474,
+            "var-1": 593.952609,
+            "var-5": 727.837887,
+            "var-10": 816.285969,
+            "var-25": 988.850692,
+            "var-change-1": 5.197474,
+            "var-change-5": 6.583187,
+            "var-change-10": 5.047518,
+            "var-change-25": -0.684594
+          },
+          "yp-enterprise": {
+            "est-premium": 0.6,
+            "avg-payment": 1.352717,
+            "freq-payment": 0.0136,
+            "net-cost": -0.752717,
+            "avg-gross-rev": 1259.069595,
+            "target-prob": 0.371874,
+            "var-1": 592.180738,
+            "var-5": 724.988396,
+            "var-10": 814.204325,
+            "var-25": 988.109865,
+            "var-change-1": 3.425603,
+            "var-change-5": 3.733696,
+            "var-change-10": 2.965874,
+            "var-change-25": -1.425421
+          },
+          "rphpe-basic": {
+            "est-premium": 1.36,
+            "avg-payment": 1.086463,
+            "freq-payment": 0.0156,
+            "net-cost": 0.273537,
+            "avg-gross-rev": 1258.726758,
+            "target-prob": 0.371074,
+            "var-1": 620.352206,
+            "var-5": 719.8947,
+            "var-10": 809.878451,
+            "var-25": 988.175286,
+            "var-change-1": 31.597071,
+            "var-change-5": -1.36,
+            "var-change-10": -1.36,
+            "var-change-25": -1.36
+          },
+          "rphpe-enterprise": {
+            "est-premium": 0.75,
+            "avg-payment": 1.175636,
+            "freq-payment": 0.017,
+            "net-cost": -0.425636,
+            "avg-gross-rev": 1258.742514,
+            "target-prob": 0.372074,
+            "var-1": 621.301263,
+            "var-5": 717.003914,
+            "var-10": 811.069123,
+            "var-25": 986.701314,
+            "var-change-1": 32.546128,
+            "var-change-5": -4.250786,
+            "var-change-10": -0.169328,
+            "var-change-25": -2.833972
+          },
+          "rp-basic": {
+            "est-premium": 1.73,
+            "avg-payment": 2.413254,
+            "freq-payment": 0.0248,
+            "net-cost": -0.683254,
+            "avg-gross-rev": 1259.683549,
+            "target-prob": 0.370274,
+            "var-1": 619.982206,
+            "var-5": 727.606893,
+            "var-10": 816.801181,
+            "var-25": 989.024861,
+            "var-change-1": 31.227071,
+            "var-change-5": 6.352193,
+            "var-change-10": 5.56273,
+            "var-change-25": -0.510425
+          },
+          "rp-enterprise": {
+            "est-premium": 0.96,
+            "avg-payment": 2.654854,
+            "freq-payment": 0.0266,
+            "net-cost": -1.694854,
+            "avg-gross-rev": 1260.011732,
+            "target-prob": 0.371874,
+            "var-1": 621.091263,
+            "var-5": 725.04288,
+            "var-10": 815.601484,
+            "var-25": 988.525777,
+            "var-change-1": 32.336128,
+            "var-change-5": 3.78818,
+            "var-change-10": 4.363033,
+            "var-change-25": -1.009509
+          }
+        },
+        "60": {
+          "yp-basic": {
+            "est-premium": 1.49,
+            "avg-payment": 2.324263,
+            "freq-payment": 0.023,
+            "net-cost": -0.834263,
+            "avg-gross-rev": 1259.834558,
+            "target-prob": 0.370074,
+            "var-1": 595.622553,
+            "var-5": 729.996975,
+            "var-10": 818.335948,
+            "var-25": 988.981897,
+            "var-change-1": 6.867418,
+            "var-change-5": 8.742275,
+            "var-change-10": 7.097497,
+            "var-change-25": -0.553389
+          },
+          "yp-enterprise": {
+            "est-premium": 0.83,
+            "avg-payment": 2.584763,
+            "freq-payment": 0.023,
+            "net-cost": -1.754763,
+            "avg-gross-rev": 1260.071641,
+            "target-prob": 0.371074,
+            "var-1": 595.325089,
+            "var-5": 727.123622,
+            "var-10": 818.547772,
+            "var-25": 988.655777,
+            "var-change-1": 6.569954,
+            "var-change-5": 5.868922,
+            "var-change-10": 7.309321,
+            "var-change-25": -0.879509
+          },
+          "rphpe-basic": {
+            "est-premium": 1.8,
+            "avg-payment": 2.524156,
+            "freq-payment": 0.0318,
+            "net-cost": -0.724156,
+            "avg-gross-rev": 1259.724451,
+            "target-prob": 0.371274,
+            "var-1": 667.239579,
+            "var-5": 720.440798,
+            "var-10": 809.438451,
+            "var-25": 987.735286,
+            "var-change-1": 78.484444,
+            "var-change-5": -0.813902,
+            "var-change-10": -1.8,
+            "var-change-25": -1.8
+          },
+          "rphpe-enterprise": {
+            "est-premium": 0.99,
+            "avg-payment": 2.68605,
+            "freq-payment": 0.0332,
+            "net-cost": -1.69605,
+            "avg-gross-rev": 1260.012928,
+            "target-prob": 0.372875,
+            "var-1": 668.503732,
+            "var-5": 717.845885,
+            "var-10": 810.829123,
+            "var-25": 986.461314,
+            "var-change-1": 79.748597,
+            "var-change-5": -3.408815,
+            "var-change-10": -0.409328,
+            "var-change-25": -3.073972
+          },
+          "rp-basic": {
+            "est-premium": 2.67,
+            "avg-payment": 5.023264,
+            "freq-payment": 0.0472,
+            "net-cost": -2.353264,
+            "avg-gross-rev": 1261.35356,
+            "target-prob": 0.371274,
+            "var-1": 666.369579,
+            "var-5": 729.153348,
+            "var-10": 819.400321,
+            "var-25": 989.721642,
+            "var-change-1": 77.614444,
+            "var-change-5": 7.898648,
+            "var-change-10": 8.16187,
+            "var-change-25": 0.186356
+          },
+          "rp-enterprise": {
+            "est-premium": 1.47,
+            "avg-payment": 5.447579,
+            "freq-payment": 0.051,
+            "net-cost": -3.977579,
+            "avg-gross-rev": 1262.294457,
+            "target-prob": 0.370674,
+            "var-1": 668.023732,
+            "var-5": 727.102634,
+            "var-10": 818.579432,
+            "var-25": 990.84005,
+            "var-change-1": 79.268597,
+            "var-change-5": 5.847934,
+            "var-change-10": 7.340981,
+            "var-change-25": 1.304764
+          }
+        },
+        "65": {
+          "yp-basic": {
+            "est-premium": 2.45,
+            "avg-payment": 4.208484,
+            "freq-payment": 0.04,
+            "net-cost": -1.758484,
+            "avg-gross-rev": 1260.758779,
+            "target-prob": 0.369474,
+            "var-1": 597.849437,
+            "var-5": 731.760968,
+            "var-10": 824.954941,
+            "var-25": 990.75584,
+            "var-change-1": 9.094302,
+            "var-change-5": 10.506268,
+            "var-change-10": 13.71649,
+            "var-change-25": 1.220554
+          },
+          "yp-enterprise": {
+            "est-premium": 1.19,
+            "avg-payment": 4.626137,
+            "freq-payment": 0.04,
+            "net-cost": -3.436137,
+            "avg-gross-rev": 1261.753015,
+            "target-prob": 0.369874,
+            "var-1": 597.015648,
+            "var-5": 730.863567,
+            "var-10": 824.905276,
+            "var-25": 991.59171,
+            "var-change-1": 8.260513,
+            "var-change-5": 9.608867,
+            "var-change-10": 13.666825,
+            "var-change-25": 2.056424
+          },
+          "rphpe-basic": {
+            "est-premium": 2.96,
+            "avg-payment": 5.165244,
+            "freq-payment": 0.0568,
+            "net-cost": -2.205244,
+            "avg-gross-rev": 1261.205539,
+            "target-prob": 0.374075,
+            "var-1": 717.128343,
+            "var-5": 745.708269,
+            "var-10": 808.315206,
+            "var-25": 986.575286,
+            "var-change-1": 128.373208,
+            "var-change-5": 24.453569,
+            "var-change-10": -2.923245,
+            "var-change-25": -2.96
+          },
+          "rphpe-enterprise": {
+            "est-premium": 1.41,
+            "avg-payment": 5.427987,
+            "freq-payment": 0.059,
+            "net-cost": -4.017987,
+            "avg-gross-rev": 1262.334865,
+            "target-prob": 0.373275,
+            "var-1": 719.392701,
+            "var-5": 747.58636,
+            "var-10": 810.661164,
+            "var-25": 986.041314,
+            "var-change-1": 130.637566,
+            "var-change-5": 26.33166,
+            "var-change-10": -0.577287,
+            "var-change-25": -3.493972
+          },
+          "rp-basic": {
+            "est-premium": 5.11,
+            "avg-payment": 9.614956,
+            "freq-payment": 0.0828,
+            "net-cost": -4.504956,
+            "avg-gross-rev": 1263.505252,
+            "target-prob": 0.371474,
+            "var-1": 714.978343,
+            "var-5": 743.558269,
+            "var-10": 823.377243,
+            "var-25": 992.562046,
+            "var-change-1": 126.223208,
+            "var-change-5": 22.303569,
+            "var-change-10": 12.138792,
+            "var-change-25": 3.02676
+          },
+          "rp-enterprise": {
+            "est-premium": 2.46,
+            "avg-payment": 10.279332,
+            "freq-payment": 0.0858,
+            "net-cost": -7.819332,
+            "avg-gross-rev": 1266.13621,
+            "target-prob": 0.367874,
+            "var-1": 718.342701,
+            "var-5": 746.53636,
+            "var-10": 826.095835,
+            "var-25": 992.622437,
+            "var-change-1": 129.587566,
+            "var-change-5": 25.28166,
+            "var-change-10": 14.857384,
+            "var-change-25": 3.087151
+          }
+        },
+        "70": {
+          "yp-basic": {
+            "est-premium": 3.33,
+            "avg-payment": 7.34113,
+            "freq-payment": 0.066,
+            "net-cost": -4.01113,
+            "avg-gross-rev": 1263.011426,
+            "target-prob": 0.366873,
+            "var-1": 606.073946,
+            "var-5": 739.350302,
+            "var-10": 829.24618,
+            "var-25": 997.411224,
+            "var-change-1": 17.318811,
+            "var-change-5": 18.095602,
+            "var-change-10": 18.007729,
+            "var-change-25": 7.875938
+          },
+          "yp-enterprise": {
+            "est-premium": 1.63,
+            "avg-payment": 7.982078,
+            "freq-payment": 0.066,
+            "net-cost": -6.352078,
+            "avg-gross-rev": 1264.668956,
+            "target-prob": 0.365673,
+            "var-1": 606.2874,
+            "var-5": 740.204661,
+            "var-10": 830.033847,
+            "var-25": 998.259189,
+            "var-change-1": 17.532265,
+            "var-change-5": 18.949961,
+            "var-change-10": 18.795396,
+            "var-change-25": 8.723903
+          },
+          "rphpe-basic": {
+            "est-premium": 4.58,
+            "avg-payment": 9.559885,
+            "freq-payment": 0.0868,
+            "net-cost": -4.979885,
+            "avg-gross-rev": 1263.980181,
+            "target-prob": 0.376875,
+            "var-1": 772.320997,
+            "var-5": 794.043071,
+            "var-10": 817.73044,
+            "var-25": 984.955286,
+            "var-change-1": 183.565862,
+            "var-change-5": 72.788371,
+            "var-change-10": 6.491989,
+            "var-change-25": -4.58
+          },
+          "rphpe-enterprise": {
+            "est-premium": 2.13,
+            "avg-payment": 9.914561,
+            "freq-payment": 0.0874,
+            "net-cost": -7.784561,
+            "avg-gross-rev": 1266.101439,
+            "target-prob": 0.374075,
+            "var-1": 774.595883,
+            "var-5": 796.882787,
+            "var-10": 819.327148,
+            "var-25": 985.321314,
+            "var-change-1": 185.840748,
+            "var-change-5": 75.628087,
+            "var-change-10": 8.088697,
+            "var-change-25": -4.213972
+          },
+          "rp-basic": {
+            "est-premium": 8.1,
+            "avg-payment": 17.057973,
+            "freq-payment": 0.127,
+            "net-cost": -8.957973,
+            "avg-gross-rev": 1267.958268,
+            "target-prob": 0.369074,
+            "var-1": 768.800997,
+            "var-5": 790.523071,
+            "var-10": 825.514976,
+            "var-25": 994.62772,
+            "var-change-1": 180.045862,
+            "var-change-5": 69.268371,
+            "var-change-10": 14.276525,
+            "var-change-25": 5.092434
+          },
+          "rp-enterprise": {
+            "est-premium": 3.84,
+            "avg-payment": 17.988504,
+            "freq-payment": 0.1302,
+            "net-cost": -14.148504,
+            "avg-gross-rev": 1272.465382,
+            "target-prob": 0.362873,
+            "var-1": 772.885883,
+            "var-5": 795.172787,
+            "var-10": 828.066748,
+            "var-25": 999.807256,
+            "var-change-1": 184.130748,
+            "var-change-5": 73.918087,
+            "var-change-10": 16.828297,
+            "var-change-25": 10.27197
+          }
+        },
+        "75": {
+          "yp-basic": {
+            "est-premium": 4.99,
+            "avg-payment": 12.349192,
+            "freq-payment": 0.0992,
+            "net-cost": -7.359192,
+            "avg-gross-rev": 1266.359487,
+            "target-prob": 0.363073,
+            "var-1": 608.819262,
+            "var-5": 746.792168,
+            "var-10": 835.68108,
+            "var-25": 1005.351677,
+            "var-change-1": 20.064127,
+            "var-change-5": 25.537468,
+            "var-change-10": 24.442629,
+            "var-change-25": 15.816391
+          },
+          "yp-enterprise": {
+            "est-premium": 2.53,
+            "avg-payment": 13.247134,
+            "freq-payment": 0.0992,
+            "net-cost": -10.717134,
+            "avg-gross-rev": 1269.034012,
+            "target-prob": 0.359272,
+            "var-1": 612.025488,
+            "var-5": 748.952045,
+            "var-10": 838.397744,
+            "var-25": 1006.265255,
+            "var-change-1": 23.270353,
+            "var-change-5": 27.697345,
+            "var-change-10": 27.159293,
+            "var-change-25": 16.729969
+          },
+          "rphpe-basic": {
+            "est-premium": 7.65,
+            "avg-payment": 16.033755,
+            "freq-payment": 0.1278,
+            "net-cost": -8.383755,
+            "avg-gross-rev": 1267.384051,
+            "target-prob": 0.381276,
+            "var-1": 825.25222,
+            "var-5": 842.266821,
+            "var-10": 857.713304,
+            "var-25": 981.885286,
+            "var-change-1": 236.497085,
+            "var-change-5": 121.012121,
+            "var-change-10": 46.474853,
+            "var-change-25": -7.65
+          },
+          "rphpe-enterprise": {
+            "est-premium": 3.59,
+            "avg-payment": 16.490149,
+            "freq-payment": 0.1298,
+            "net-cost": -12.900149,
+            "avg-gross-rev": 1271.217027,
+            "target-prob": 0.375675,
+            "var-1": 829.075313,
+            "var-5": 846.804768,
+            "var-10": 862.209225,
+            "var-25": 983.861314,
+            "var-change-1": 240.320178,
+            "var-change-5": 125.550068,
+            "var-change-10": 50.970774,
+            "var-change-25": -5.673972
+          },
+          "rp-basic": {
+            "est-premium": 13.71,
+            "avg-payment": 28.191214,
+            "freq-payment": 0.1874,
+            "net-cost": -14.481214,
+            "avg-gross-rev": 1273.48151,
+            "target-prob": 0.366273,
+            "var-1": 819.19222,
+            "var-5": 836.206821,
+            "var-10": 851.653304,
+            "var-25": 999.08886,
+            "var-change-1": 230.437085,
+            "var-change-5": 114.952121,
+            "var-change-10": 40.414853,
+            "var-change-25": 9.553574
+          },
+          "rp-enterprise": {
+            "est-premium": 6.69,
+            "avg-payment": 29.422377,
+            "freq-payment": 0.1918,
+            "net-cost": -22.732377,
+            "avg-gross-rev": 1281.049255,
+            "target-prob": 0.357672,
+            "var-1": 825.975313,
+            "var-5": 843.704768,
+            "var-10": 859.109225,
+            "var-25": 1006.29785,
+            "var-change-1": 237.220178,
+            "var-change-5": 122.450068,
+            "var-change-10": 47.870774,
+            "var-change-25": 16.762564
+          }
+        },
+        "80": {
+          "yp-basic": {
+            "est-premium": 8,
+            "avg-payment": 19.88806,
+            "freq-payment": 0.1482,
+            "net-cost": -11.88806,
+            "avg-gross-rev": 1270.888355,
+            "target-prob": 0.354471,
+            "var-1": 615.721536,
+            "var-5": 752.269923,
+            "var-10": 840.027337,
+            "var-25": 1010.460445,
+            "var-change-1": 26.966401,
+            "var-change-5": 31.015223,
+            "var-change-10": 28.788886,
+            "var-change-25": 20.925159
+          },
+          "yp-enterprise": {
+            "est-premium": 4.75,
+            "avg-payment": 21.105076,
+            "freq-payment": 0.1482,
+            "net-cost": -16.355076,
+            "avg-gross-rev": 1274.671954,
+            "target-prob": 0.34907,
+            "var-1": 617.365531,
+            "var-5": 757.027846,
+            "var-10": 844.118707,
+            "var-25": 1014.346692,
+            "var-change-1": 28.610396,
+            "var-change-5": 35.773146,
+            "var-change-10": 32.880256,
+            "var-change-25": 24.811406
+          },
+          "rphpe-basic": {
+            "est-premium": 13.21,
+            "avg-payment": 25.403352,
+            "freq-payment": 0.178,
+            "net-cost": -12.193352,
+            "avg-gross-rev": 1271.193647,
+            "target-prob": 0.386477,
+            "var-1": 878.458174,
+            "var-5": 892.275211,
+            "var-10": 904.296117,
+            "var-25": 976.384339,
+            "var-change-1": 289.703039,
+            "var-change-5": 171.020511,
+            "var-change-10": 93.057666,
+            "var-change-25": -13.150947
+          },
+          "rphpe-enterprise": {
+            "est-premium": 7.59,
+            "avg-payment": 25.963307,
+            "freq-payment": 0.1802,
+            "net-cost": -18.373307,
+            "avg-gross-rev": 1276.690185,
+            "target-prob": 0.380876,
+            "var-1": 883.736276,
+            "var-5": 898.020223,
+            "var-10": 910.220939,
+            "var-25": 979.944144,
+            "var-change-1": 294.981141,
+            "var-change-5": 176.765523,
+            "var-change-10": 98.982488,
+            "var-change-25": -9.591142
+          },
+          "rp-basic": {
+            "est-premium": 23.83,
+            "avg-payment": 44.338267,
+            "freq-payment": 0.2632,
+            "net-cost": -20.508267,
+            "avg-gross-rev": 1279.508563,
+            "target-prob": 0.367473,
+            "var-1": 867.838174,
+            "var-5": 881.655211,
+            "var-10": 893.676117,
+            "var-25": 997.255062,
+            "var-change-1": 279.083039,
+            "var-change-5": 160.400511,
+            "var-change-10": 82.437666,
+            "var-change-25": 7.719776
+          },
+          "rp-enterprise": {
+            "est-premium": 14.12,
+            "avg-payment": 45.885247,
+            "freq-payment": 0.2668,
+            "net-cost": -31.765247,
+            "avg-gross-rev": 1290.082125,
+            "target-prob": 0.355071,
+            "var-1": 877.206276,
+            "var-5": 891.490223,
+            "var-10": 903.690939,
+            "var-25": 1007.252409,
+            "var-change-1": 288.451141,
+            "var-change-5": 170.235523,
+            "var-change-10": 92.452488,
+            "var-change-25": 17.717123
+          }
+        },
+        "85": {
+          "yp-basic": {
+            "est-premium": 12.72,
+            "avg-payment": 30.738283,
+            "freq-payment": 0.2084,
+            "net-cost": -18.018283,
+            "avg-gross-rev": 1277.018578,
+            "target-prob": 0.344669,
+            "var-1": 618.131821,
+            "var-5": 763.305478,
+            "var-10": 850.368712,
+            "var-25": 1015.787597,
+            "var-change-1": 29.376686,
+            "var-change-5": 42.050778,
+            "var-change-10": 39.130261,
+            "var-change-25": 26.252311
+          },
+          "yp-enterprise": {
+            "est-premium": 9.25,
+            "avg-payment": 32.273687,
+            "freq-payment": 0.2084,
+            "net-cost": -23.023687,
+            "avg-gross-rev": 1281.340565,
+            "target-prob": 0.339868,
+            "var-1": 625.732951,
+            "var-5": 766.660012,
+            "var-10": 855.120775,
+            "var-25": 1020.36674,
+            "var-change-1": 36.977816,
+            "var-change-5": 45.405312,
+            "var-change-10": 43.882324,
+            "var-change-25": 30.831454
+          },
+          "rphpe-basic": {
+            "est-premium": 22.59,
+            "avg-payment": 38.00989,
+            "freq-payment": 0.2312,
+            "net-cost": -15.41989,
+            "avg-gross-rev": 1274.420186,
+            "target-prob": 0.395879,
+            "var-1": 929.351333,
+            "var-5": 940.871107,
+            "var-10": 949.296123,
+            "var-25": 979.384144,
+            "var-change-1": 340.596198,
+            "var-change-5": 219.616407,
+            "var-change-10": 138.057672,
+            "var-change-25": -10.151142
+          },
+          "rphpe-enterprise": {
+            "est-premium": 16.9,
+            "avg-payment": 38.691369,
+            "freq-payment": 0.2332,
+            "net-cost": -21.791369,
+            "avg-gross-rev": 1280.108247,
+            "target-prob": 0.391278,
+            "var-1": 935.043883,
+            "var-5": 946.82197,
+            "var-10": 955.231531,
+            "var-25": 985.330567,
+            "var-change-1": 346.288748,
+            "var-change-5": 225.56727,
+            "var-change-10": 143.99308,
+            "var-change-25": -4.204719
+          },
+          "rp-basic": {
+            "est-premium": 41.7,
+            "avg-payment": 66.25317,
+            "freq-payment": 0.3478,
+            "net-cost": -24.55317,
+            "avg-gross-rev": 1283.553466,
+            "target-prob": 0.369074,
+            "var-1": 910.241333,
+            "var-5": 921.761107,
+            "var-10": 930.186123,
+            "var-25": 987.867372,
+            "var-change-1": 321.486198,
+            "var-change-5": 200.506407,
+            "var-change-10": 118.947672,
+            "var-change-25": -1.667914
+          },
+          "rp-enterprise": {
+            "est-premium": 31.38,
+            "avg-payment": 68.131256,
+            "freq-payment": 0.3526,
+            "net-cost": -36.751256,
+            "avg-gross-rev": 1295.068134,
+            "target-prob": 0.357271,
+            "var-1": 920.563883,
+            "var-5": 932.34197,
+            "var-10": 940.751531,
+            "var-25": 999.420639,
+            "var-change-1": 331.808748,
+            "var-change-5": 211.08727,
+            "var-change-10": 129.51308,
+            "var-change-25": 9.885353
+          }
+        }
+      },
+      "county": {
+        "70": {
+          "yp": {
+            "est-premium": 5.05,
+            "avg-payment": 9.703282,
+            "freq-payment": 0.0424,
+            "net-cost": -4.653282,
+            "avg-gross-rev": 1263.653577,
+            "target-prob": 0.369674,
+            "var-1": 588.590614,
+            "var-5": 724.26989,
+            "var-10": 817.089971,
+            "var-25": 991.659992,
+            "var-change-1": -0.164521,
+            "var-change-5": 3.01519,
+            "var-change-10": 5.85152,
+            "var-change-25": 2.124706
+          },
+          "rphpe": {
+            "est-premium": 5.97,
+            "avg-payment": 13.389145,
+            "freq-payment": 0.1024,
+            "net-cost": -7.419145,
+            "avg-gross-rev": 1280.55652,
+            "target-prob": 0.363673,
+            "var-1": 672.528789,
+            "var-5": 793.560747,
+            "var-10": 859.752821,
+            "var-25": 1007.254785,
+            "var-change-1": 83.773654,
+            "var-change-5": 72.306047,
+            "var-change-10": 48.51437,
+            "var-change-25": 17.719499
+          },
+          "rp": {
+            "est-premium": 6.65,
+            "avg-payment": 27.526224,
+            "freq-payment": 0.0654,
+            "net-cost": -20.876224,
+            "avg-gross-rev": 1265.73944,
+            "target-prob": 0.372474,
+            "var-1": 664.0067,
+            "var-5": 783.1396,
+            "var-10": 855.258748,
+            "var-25": 998.752433,
+            "var-change-1": 75.251565,
+            "var-change-5": 61.8849,
+            "var-change-10": 44.020297,
+            "var-change-25": 9.217147
+          }
+        },
+        "75": {
+          "yp": {
+            "est-premium": 6.58,
+            "avg-payment": 16.236768,
+            "freq-payment": 0.072,
+            "net-cost": -9.656768,
+            "avg-gross-rev": 1268.657064,
+            "target-prob": 0.365473,
+            "var-1": 587.060614,
+            "var-5": 725.232724,
+            "var-10": 819.315905,
+            "var-25": 995.900082,
+            "var-change-1": -1.694521,
+            "var-change-5": 3.978024,
+            "var-change-10": 8.077454,
+            "var-change-25": 6.364796
+          },
+          "rphpe": {
+            "est-premium": 10.26,
+            "avg-payment": 23.399253,
+            "freq-payment": 0.162,
+            "net-cost": -13.139253,
+            "avg-gross-rev": 1294.556923,
+            "target-prob": 0.35047,
+            "var-1": 701.218109,
+            "var-5": 825.353811,
+            "var-10": 888.508358,
+            "var-25": 1019.982263,
+            "var-change-1": 112.462974,
+            "var-change-5": 104.099111,
+            "var-change-10": 77.269907,
+            "var-change-25": 30.446977
+          },
+          "rp": {
+            "est-premium": 12.7,
+            "avg-payment": 45.816628,
+            "freq-payment": 0.1058,
+            "net-cost": -33.116628,
+            "avg-gross-rev": 1269.699549,
+            "target-prob": 0.366673,
+            "var-1": 687.781686,
+            "var-5": 815.333004,
+            "var-10": 878.939847,
+            "var-25": 1010.734068,
+            "var-change-1": 99.026551,
+            "var-change-5": 94.078304,
+            "var-change-10": 67.701396,
+            "var-change-25": 21.198782
+          }
+        },
+        "80": {
+          "yp": {
+            "est-premium": 8.64,
+            "avg-payment": 26.185979,
+            "freq-payment": 0.117,
+            "net-cost": -17.545979,
+            "avg-gross-rev": 1276.546274,
+            "target-prob": 0.358072,
+            "var-1": 588.472553,
+            "var-5": 725.971585,
+            "var-10": 823.93618,
+            "var-25": 1003.966079,
+            "var-change-1": -0.282582,
+            "var-change-5": 4.716885,
+            "var-change-10": 12.697729,
+            "var-change-25": 14.430793
+          },
+          "rphpe": {
+            "est-premium": 15.13,
+            "avg-payment": 37.706125,
+            "freq-payment": 0.2506,
+            "net-cost": -22.576125,
+            "avg-gross-rev": 1315.661465,
+            "target-prob": 0.320864,
+            "var-1": 729.69264,
+            "var-5": 858.934339,
+            "var-10": 923.993018,
+            "var-25": 1045.896357,
+            "var-change-1": 140.937505,
+            "var-change-5": 137.679639,
+            "var-change-10": 112.754567,
+            "var-change-25": 56.361071
+          },
+          "rp": {
+            "est-premium": 20.74,
+            "avg-payment": 71.791169,
+            "freq-payment": 0.1628,
+            "net-cost": -51.051169,
+            "avg-gross-rev": 1275.966421,
+            "target-prob": 0.34827,
+            "var-1": 712.727463,
+            "var-5": 841.554922,
+            "var-10": 909.532657,
+            "var-25": 1027.633488,
+            "var-change-1": 123.972328,
+            "var-change-5": 120.300222,
+            "var-change-10": 98.294206,
+            "var-change-25": 38.098202
+          }
+        },
+        "85": {
+          "yp": {
+            "est-premium": 10.74,
+            "avg-payment": 40.77372,
+            "freq-payment": 0.182,
+            "net-cost": -30.03372,
+            "avg-gross-rev": 1289.034015,
+            "target-prob": 0.346269,
+            "var-1": 591.789455,
+            "var-5": 731.923511,
+            "var-10": 827.623314,
+            "var-25": 1008.262768,
+            "var-change-1": 3.03432,
+            "var-change-5": 10.668811,
+            "var-change-10": 16.384863,
+            "var-change-25": 18.727482
+          },
+          "rphpe": {
+            "est-premium": 24.8,
+            "avg-payment": 56.730587,
+            "freq-payment": 0.3582,
+            "net-cost": -31.930587,
+            "avg-gross-rev": 1341.123434,
+            "target-prob": 0.278056,
+            "var-1": 770.547152,
+            "var-5": 892.173045,
+            "var-10": 961.066519,
+            "var-25": 1072.566421,
+            "var-change-1": 181.792017,
+            "var-change-5": 170.918345,
+            "var-change-10": 149.828068,
+            "var-change-25": 83.031135
+          },
+          "rp": {
+            "est-premium": 37.13,
+            "avg-payment": 106.923138,
+            "freq-payment": 0.2296,
+            "net-cost": -69.793138,
+            "avg-gross-rev": 1278.600882,
+            "target-prob": 0.323465,
+            "var-1": 742.465613,
+            "var-5": 864.971676,
+            "var-10": 934.096412,
+            "var-25": 1048.040413,
+            "var-change-1": 153.710478,
+            "var-change-5": 143.716976,
+            "var-change-10": 122.857961,
+            "var-change-25": 58.505127
+          }
+        },
+        "90": {
+          "yp": {
+            "est-premium": 19.42,
+            "avg-payment": 61.32638,
+            "freq-payment": 0.2708,
+            "net-cost": -41.90638,
+            "avg-gross-rev": 1300.906675,
+            "target-prob": 0.340468,
+            "var-1": 592.491199,
+            "var-5": 736.79357,
+            "var-10": 827.885151,
+            "var-25": 1010.308438,
+            "var-change-1": 3.736064,
+            "var-change-5": 15.53887,
+            "var-change-10": 16.6467,
+            "var-change-25": 20.773152
+          },
+          "rphpe": {
+            "est-premium": 42.62,
+            "avg-payment": 80.347346,
+            "freq-payment": 0.4798,
+            "net-cost": -37.727346,
+            "avg-gross-rev": 1368.083428,
+            "target-prob": 0.234047,
+            "var-1": 792.647219,
+            "var-5": 925.953269,
+            "var-10": 991.930417,
+            "var-25": 1103.137124,
+            "var-change-1": 203.892084,
+            "var-change-5": 204.698569,
+            "var-change-10": 180.691966,
+            "var-change-25": 113.601838
+          },
+          "rp": {
+            "est-premium": 66.15,
+            "avg-payment": 151.703132,
+            "freq-payment": 0.3002,
+            "net-cost": -85.553132,
+            "avg-gross-rev": 1273.197641,
+            "target-prob": 0.306861,
+            "var-1": 743.666137,
+            "var-5": 881.976851,
+            "var-10": 952.219999,
+            "var-25": 1061.314389,
+            "var-change-1": 154.911002,
+            "var-change-5": 160.722151,
+            "var-change-10": 140.981548,
+            "var-change-25": 71.779103
+          }
+        }
+      },
+      "gross-target": 1093.315531,
+      "no-ins-prob": 0.369274,
+      "no-ins-var-1": 588.755135,
+      "no-ins-var-5": 721.2547,
+      "no-ins-var-10": 811.238451,
+      "no-ins-var-25": 989.535286,
+      "no-ins-var-change-1": 588.755135,
+      "no-ins-var-change-5": 721.2547,
+      "no-ins-var-change-10": 811.238451,
+      "no-ins-var-change-25": 989.535286
+    },
+    "chartData": [{
+      "revenue": "375.979",
+      "no-ins": 0.0001,
+      "yp-85": 0,
+      "rphpe-85": 0,
+      "rp-85": 0,
+      "ayp-90": 0,
+      "arp-90": 0,
+      "arphpe-90": 0
+    },
+      {
+        "revenue": "394.602",
+        "no-ins": 0.0002,
+        "yp-85": 0,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0,
+        "arp-90": 0,
+        "arphpe-90": 0
+      },
+      {
+        "revenue": "413.225",
+        "no-ins": 0.0002,
+        "yp-85": 0,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0,
+        "arp-90": 0,
+        "arphpe-90": 0
+      },
+      {
+        "revenue": "431.848",
+        "no-ins": 0.0004,
+        "yp-85": 0,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.0002,
+        "arp-90": 0,
+        "arphpe-90": 0
+      },
+      {
+        "revenue": "450.471",
+        "no-ins": 0.0008,
+        "yp-85": 0,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.0002,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "469.094",
+        "no-ins": 0.0014,
+        "yp-85": 0.0004,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.0006,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "487.717",
+        "no-ins": 0.0022,
+        "yp-85": 0.0008,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.0012,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "506.340",
+        "no-ins": 0.003401,
+        "yp-85": 0.0014,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.002,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "524.963",
+        "no-ins": 0.005201,
+        "yp-85": 0.0018,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.003201,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "543.586",
+        "no-ins": 0.006001,
+        "yp-85": 0.0018,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.003401,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "562.209",
+        "no-ins": 0.007201,
+        "yp-85": 0.002,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.004001,
+        "arp-90": 0,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "580.832",
+        "no-ins": 0.009202,
+        "yp-85": 0.003401,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.005401,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "599.455",
+        "no-ins": 0.012603,
+        "yp-85": 0.005401,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.008202,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "618.078",
+        "no-ins": 0.016603,
+        "yp-85": 0.008202,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.011602,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "636.701",
+        "no-ins": 0.020604,
+        "yp-85": 0.010402,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.014603,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "655.323",
+        "no-ins": 0.026605,
+        "yp-85": 0.013803,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.019204,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0004
+      },
+      {
+        "revenue": "673.946",
+        "no-ins": 0.032607,
+        "yp-85": 0.018204,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.024205,
+        "arp-90": 0.0002,
+        "arphpe-90": 0.0006
+      },
+      {
+        "revenue": "692.569",
+        "no-ins": 0.038608,
+        "yp-85": 0.022204,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.028606,
+        "arp-90": 0.0004,
+        "arphpe-90": 0.001
+      },
+      {
+        "revenue": "711.192",
+        "no-ins": 0.045809,
+        "yp-85": 0.026005,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.033207,
+        "arp-90": 0.0006,
+        "arphpe-90": 0.0016
+      },
+      {
+        "revenue": "729.815",
+        "no-ins": 0.053611,
+        "yp-85": 0.033407,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.040608,
+        "arp-90": 0.001,
+        "arphpe-90": 0.002
+      },
+      {
+        "revenue": "748.438",
+        "no-ins": 0.064213,
+        "yp-85": 0.038808,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.047009,
+        "arp-90": 0.002,
+        "arphpe-90": 0.003801
+      },
+      {
+        "revenue": "767.061",
+        "no-ins": 0.074015,
+        "yp-85": 0.046209,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.055811,
+        "arp-90": 0.002601,
+        "arphpe-90": 0.004601
+      },
+      {
+        "revenue": "785.684",
+        "no-ins": 0.083617,
+        "yp-85": 0.053811,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.065013,
+        "arp-90": 0.003201,
+        "arphpe-90": 0.006001
+      },
+      {
+        "revenue": "804.307",
+        "no-ins": 0.094219,
+        "yp-85": 0.062813,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.074615,
+        "arp-90": 0.005001,
+        "arphpe-90": 0.008602
+      },
+      {
+        "revenue": "822.930",
+        "no-ins": 0.106421,
+        "yp-85": 0.074615,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.086617,
+        "arp-90": 0.009002,
+        "arphpe-90": 0.013003
+      },
+      {
+        "revenue": "841.553",
+        "no-ins": 0.119224,
+        "yp-85": 0.085417,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.096819,
+        "arp-90": 0.010802,
+        "arphpe-90": 0.015003
+      },
+      {
+        "revenue": "860.176",
+        "no-ins": 0.134027,
+        "yp-85": 0.09822,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.108222,
+        "arp-90": 0.013203,
+        "arphpe-90": 0.018404
+      },
+      {
+        "revenue": "878.799",
+        "no-ins": 0.14903,
+        "yp-85": 0.112222,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.120824,
+        "arp-90": 0.016403,
+        "arphpe-90": 0.023005
+      },
+      {
+        "revenue": "897.422",
+        "no-ins": 0.166433,
+        "yp-85": 0.128226,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.136427,
+        "arp-90": 0.020604,
+        "arphpe-90": 0.028606
+      },
+      {
+        "revenue": "916.045",
+        "no-ins": 0.181636,
+        "yp-85": 0.140428,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.14883,
+        "arp-90": 0.025005,
+        "arphpe-90": 0.034207
+      },
+      {
+        "revenue": "934.668",
+        "no-ins": 0.19764,
+        "yp-85": 0.154031,
+        "rphpe-85": 0,
+        "rp-85": 0,
+        "ayp-90": 0.162833,
+        "arp-90": 0.032607,
+        "arphpe-90": 0.042609
+      },
+      {
+        "revenue": "953.290",
+        "no-ins": 0.215043,
+        "yp-85": 0.173235,
+        "rphpe-85": 0.013403,
+        "rp-85": 0.013403,
+        "ayp-90": 0.178436,
+        "arp-90": 0.040208,
+        "arphpe-90": 0.05241
+      },
+      {
+        "revenue": "971.913",
+        "no-ins": 0.232847,
+        "yp-85": 0.189638,
+        "rphpe-85": 0.10042,
+        "rp-85": 0.10042,
+        "ayp-90": 0.195239,
+        "arp-90": 0.05221,
+        "arphpe-90": 0.064413
+      },
+      {
+        "revenue": "990.536",
+        "no-ins": 0.25145,
+        "yp-85": 0.208442,
+        "rphpe-85": 0.204641,
+        "rp-85": 0.194239,
+        "ayp-90": 0.209642,
+        "arp-90": 0.062012,
+        "arphpe-90": 0.075615
+      },
+      {
+        "revenue": "1009.159",
+        "no-ins": 0.269054,
+        "yp-85": 0.225045,
+        "rphpe-85": 0.264653,
+        "rp-85": 0.224445,
+        "ayp-90": 0.224845,
+        "arp-90": 0.075015,
+        "arphpe-90": 0.091418
+      },
+      {
+        "revenue": "1027.782",
+        "no-ins": 0.291858,
+        "yp-85": 0.24845,
+        "rphpe-85": 0.291658,
+        "rp-85": 0.247249,
+        "ayp-90": 0.246449,
+        "arp-90": 0.093219,
+        "arphpe-90": 0.111222
+      },
+      {
+        "revenue": "1046.405",
+        "no-ins": 0.315463,
+        "yp-85": 0.270054,
+        "rphpe-85": 0.315263,
+        "rp-85": 0.268654,
+        "ayp-90": 0.268054,
+        "arp-90": 0.111422,
+        "arphpe-90": 0.131426
+      },
+      {
+        "revenue": "1065.028",
+        "no-ins": 0.336867,
+        "yp-85": 0.292258,
+        "rphpe-85": 0.336667,
+        "rp-85": 0.288658,
+        "ayp-90": 0.287057,
+        "arp-90": 0.135627,
+        "arphpe-90": 0.158432
+      },
+      {
+        "revenue": "1083.651",
+        "no-ins": 0.357071,
+        "yp-85": 0.314463,
+        "rphpe-85": 0.357071,
+        "rp-85": 0.310462,
+        "ayp-90": 0.306861,
+        "arp-90": 0.158432,
+        "arphpe-90": 0.184237
+      },
+      {
+        "revenue": "1102.274",
+        "no-ins": 0.382076,
+        "yp-85": 0.340268,
+        "rphpe-85": 0.382076,
+        "rp-85": 0.335267,
+        "ayp-90": 0.329466,
+        "arp-90": 0.186837,
+        "arphpe-90": 0.214243
+      },
+      {
+        "revenue": "1120.897",
+        "no-ins": 0.40048,
+        "yp-85": 0.360072,
+        "rphpe-85": 0.40048,
+        "rp-85": 0.354271,
+        "ayp-90": 0.347069,
+        "arp-90": 0.211242,
+        "arphpe-90": 0.240448
+      },
+      {
+        "revenue": "1139.520",
+        "no-ins": 0.418684,
+        "yp-85": 0.379276,
+        "rphpe-85": 0.418684,
+        "rp-85": 0.372875,
+        "ayp-90": 0.363673,
+        "arp-90": 0.238648,
+        "arphpe-90": 0.270854
+      },
+      {
+        "revenue": "1158.143",
+        "no-ins": 0.440288,
+        "yp-85": 0.403281,
+        "rphpe-85": 0.440288,
+        "rp-85": 0.395279,
+        "ayp-90": 0.384477,
+        "arp-90": 0.270054,
+        "arphpe-90": 0.304461
+      },
+      {
+        "revenue": "1176.766",
+        "no-ins": 0.461292,
+        "yp-85": 0.422685,
+        "rphpe-85": 0.461292,
+        "rp-85": 0.414883,
+        "ayp-90": 0.403881,
+        "arp-90": 0.30106,
+        "arphpe-90": 0.339068
+      },
+      {
+        "revenue": "1195.389",
+        "no-ins": 0.478896,
+        "yp-85": 0.443489,
+        "rphpe-85": 0.478896,
+        "rp-85": 0.434887,
+        "ayp-90": 0.421884,
+        "arp-90": 0.328066,
+        "arphpe-90": 0.368074
+      },
+      {
+        "revenue": "1214.012",
+        "no-ins": 0.4995,
+        "yp-85": 0.466093,
+        "rphpe-85": 0.4995,
+        "rp-85": 0.455691,
+        "ayp-90": 0.441088,
+        "arp-90": 0.356271,
+        "arphpe-90": 0.40208
+      },
+      {
+        "revenue": "1232.634",
+        "no-ins": 0.521704,
+        "yp-85": 0.489898,
+        "rphpe-85": 0.521704,
+        "rp-85": 0.478496,
+        "ayp-90": 0.461892,
+        "arp-90": 0.385877,
+        "arphpe-90": 0.435487
+      },
+      {
+        "revenue": "1251.257",
+        "no-ins": 0.540308,
+        "yp-85": 0.508302,
+        "rphpe-85": 0.540308,
+        "rp-85": 0.4979,
+        "ayp-90": 0.482496,
+        "arp-90": 0.413883,
+        "arphpe-90": 0.464893
+      },
+      {
+        "revenue": "1269.880",
+        "no-ins": 0.558512,
+        "yp-85": 0.528906,
+        "rphpe-85": 0.558512,
+        "rp-85": 0.515903,
+        "ayp-90": 0.5009,
+        "arp-90": 0.444289,
+        "arphpe-90": 0.493899
+      },
+      {
+        "revenue": "1288.503",
+        "no-ins": 0.581916,
+        "yp-85": 0.55211,
+        "rphpe-85": 0.581916,
+        "rp-85": 0.537708,
+        "ayp-90": 0.523905,
+        "arp-90": 0.474695,
+        "arphpe-90": 0.526705
+      },
+      {
+        "revenue": "1307.126",
+        "no-ins": 0.60012,
+        "yp-85": 0.572114,
+        "rphpe-85": 0.60012,
+        "rp-85": 0.557912,
+        "ayp-90": 0.544109,
+        "arp-90": 0.5021,
+        "arphpe-90": 0.554311
+      }
+    ]
+  }
+}

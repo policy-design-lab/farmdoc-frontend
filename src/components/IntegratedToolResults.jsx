@@ -1,11 +1,11 @@
-import React, {Component, useState} from "react";
+import React, {useState} from "react";
 import {Divider, FormControlLabel, InputLabel, MenuItem, Radio, RadioGroup, Select} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import {makeStyles} from "@material-ui/core/styles";
-import resJson from "./tool.json";
 import Grid from "@material-ui/core/Grid";
-import EvaluatorRiskGraph from "./EvaluatorRiskGraph";
 import sampleDistImg from "../images/sample-dist.png";
+import {roundResults} from "../public/utils";
+import IntegratedRiskGraph from "./IntegratedRiskGraph";
 
 const useStyles = makeStyles((theme) => ({
 	unitControl: {
@@ -57,15 +57,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const IntegratedToolResults = () => {
+const IntegratedToolResults = (props) => {
 
 	const classes = useStyles();
+	const resJson = props.results;
+	console.log(resJson);
 
 	const [programChoice, setProgramChoice] = useState("arc");
 	const [farmPolicy, setFarmPolicy] = useState("rp");
 	const [countyPolicy, setCountyPolicy] = useState("");
 	const [coverage, setCoverage] = useState("80");
 	const [policyUnit, setPolicyUnit] = useState("basic");
+
+	let programValue = resJson["arcplc"]["county_average_arc_and_plc_payments"]["datasets"]["data"][3][programChoice === "arc" ? "value1" : "value2"];
+
+	const estPayment = programValue["mean"];
+	const likelihood = programValue["pos"];
+	const myaPrice = resJson["arcplc"]["mean_prices"]["datasets"]["data"][3]["value1"]["mean"];
+	const expYield = resJson["arcplc"]["county_yields"]["datasets"]["data"][3]["value1"]["mean"];
+
+	let estPremium = 0.0;
+	let guarantee = "";
+	let insRiskPolicyName = "";
+	let policy = "";
+	if (farmPolicy !== ""){
+		estPremium = resJson["insurance"]["premiums"][coverage][`${farmPolicy}-${policyUnit}`];
+		guarantee = roundResults(resJson["insurance"]["guarantees"][coverage][farmPolicy], 2);
+		guarantee = (farmPolicy.includes("yp")) ? (`${guarantee } bu/acre`) : (`$ ${ guarantee}`);
+		insRiskPolicyName = `${farmPolicy }-85`;
+		policy = farmPolicy.toUpperCase();
+	}
+
+	if (countyPolicy !== ""){
+		estPremium = resJson["premGrip"]["premiums"][coverage][`${countyPolicy}`];
+		guarantee = roundResults(resJson["premGrip"]["guarantees"][coverage][countyPolicy], 2);
+		guarantee = (countyPolicy.includes("yp")) ? (`${guarantee } bu/acre`) : (`$ ${ guarantee}`);
+		insRiskPolicyName = `a${countyPolicy}-90`;
+		policy = `A${ countyPolicy.toUpperCase()}`;
+	}
+
 
 	const handleProgramChoiceChange = (event) => {
 		setProgramChoice(event.target.value);
@@ -86,7 +116,6 @@ const IntegratedToolResults = () => {
 		setMethod(event.target.value);
 	};
 
-	console.log(resJson);
 	return (
 		<div>
 			<div className={classes.itemRow}>
@@ -208,6 +237,7 @@ const IntegratedToolResults = () => {
 							<MenuItem value="70">70%</MenuItem>
 							<MenuItem value="75">75%</MenuItem>
 							<MenuItem value="80">80%</MenuItem>
+							<MenuItem value="85">85%</MenuItem>
 						</Select>
 					</FormControl>
 				</div>
@@ -230,25 +260,25 @@ const IntegratedToolResults = () => {
 							Estimated {programChoice.toUpperCase()} Payment:
 							</Grid>
 							<Grid item xs={5} className={classes.gridItemValue}>
-							$14.50
+							$ {roundResults(estPayment, 2)}
 							</Grid>
 							<Grid item xs={7} className={classes.gridItemKey}>
 							Likelihood of Payment:
 							</Grid>
 							<Grid item xs={5} className={classes.gridItemValue}>
-							22%
+								{likelihood}%
 							</Grid>
 							<Grid item xs={7} className={classes.gridItemKey}>
 							MYA Price:
 							</Grid>
 							<Grid item xs={5} className={classes.gridItemValue}>
-							$4.50
+							$ {roundResults(myaPrice, 2)}
 							</Grid>
 							<Grid item xs={7} className={classes.gridItemKey}>
 							Expected Yield:
 							</Grid>
 							<Grid item xs={5} className={classes.gridItemValue}>
-							204 bu/acres
+								{roundResults(expYield, 1)} bu/acres
 							</Grid>
 							<Grid item xs={7} className={classes.gridItemKey} style={{alignItems: "center", justifyContent: "left", display: "flex"}}>
 								Payment Distribution:
@@ -264,18 +294,18 @@ const IntegratedToolResults = () => {
 							Est. Premium:
 							</Grid>
 							<Grid item xs={10} className={classes.gridItemValue}>
-							$20.50
+								$ {roundResults(estPremium, 2)}
 							</Grid>
 
 							<Grid item xs={2} className={classes.gridItemKey}>
 							Min. Guarantee:
 							</Grid>
 							<Grid item xs={10} className={classes.gridItemValue}>
-							130.5 bu/acre
+								{guarantee}
 							</Grid>
 
 							<Grid item xs={9}>
-								<EvaluatorRiskGraph />
+								<IntegratedRiskGraph policy={policy} policyName={insRiskPolicyName} graphInfo={resJson["simulator"]["chartData"]}/>
 							</Grid>
 
 						</Grid>
