@@ -77,11 +77,22 @@ const IntegratedToolResults = (props) => {
 	const expYield = resJson["arcplc"]["county_yields"]["datasets"]["data"][3]["value1"]["mean"];
 
 	let estPremium = 0.0;
+	let avgPayment = 0.0;
+	let paymentFreq = 0.0;
+	let netCost = 0.0;
+	let avgGrossRev = 0.0;
+
 	let guarantee = "";
 	let insRiskPolicyName = "";
 	let policy = "";
 	if (farmPolicy !== ""){
 		estPremium = resJson["insurance"]["premiums"][coverage][`${farmPolicy}-${policyUnit}`];
+		avgPayment = resJson["simulator"]["policies"]["farm"][coverage][`${farmPolicy}-${policyUnit}`]["avg-payment"];
+		paymentFreq = resJson["simulator"]["policies"]["farm"][coverage][`${farmPolicy}-${policyUnit}`]["freq-payment"];
+		netCost = resJson["simulator"]["policies"]["farm"][coverage][`${farmPolicy}-${policyUnit}`]["net-cost"];
+		avgGrossRev = resJson["simulator"]["policies"]["farm"][coverage][`${farmPolicy}-${policyUnit}`]["avg-gross-rev"];
+
+
 		guarantee = roundResults(resJson["insurance"]["guarantees"][coverage][farmPolicy], 2);
 		guarantee = (farmPolicy.includes("yp")) ? (`${guarantee } bu/acre`) : (`$ ${ guarantee}`);
 		insRiskPolicyName = `${farmPolicy }-85`;
@@ -90,6 +101,10 @@ const IntegratedToolResults = (props) => {
 
 	if (countyPolicy !== ""){
 		estPremium = resJson["premGrip"]["premiums"][coverage][`${countyPolicy}`];
+		avgPayment = resJson["simulator"]["policies"]["county"][coverage][countyPolicy]["avg-payment"];
+		paymentFreq = resJson["simulator"]["policies"]["county"][coverage][countyPolicy]["freq-payment"];
+		netCost = resJson["simulator"]["policies"]["county"][coverage][countyPolicy]["net-cost"];
+		avgGrossRev = resJson["simulator"]["policies"]["county"][coverage][countyPolicy]["avg-gross-rev"];
 		guarantee = roundResults(resJson["premGrip"]["guarantees"][coverage][countyPolicy], 2);
 		guarantee = (countyPolicy.includes("yp")) ? (`${guarantee } bu/acre`) : (`$ ${ guarantee}`);
 		insRiskPolicyName = `a${countyPolicy}-90`;
@@ -289,13 +304,42 @@ const IntegratedToolResults = (props) => {
 						</Grid>
 					</Grid>
 					<Grid item xs={8}>
-						<Grid container spacing={3} style={{marginLeft: "8px"}}>
+						<Grid container spacing={2} style={{marginLeft: "8px"}}>
 							<Grid item xs={2} className={classes.gridItemKey}>
 							Est. Premium:
 							</Grid>
 							<Grid item xs={10} className={classes.gridItemValue}>
 								$ {roundResults(estPremium, 2)}
 							</Grid>
+
+							<Grid item xs={2} className={classes.gridItemKey}>
+								Avg. Payment:
+							</Grid>
+							<Grid item xs={10} className={classes.gridItemValue}>
+								$ {roundResults(avgPayment, 2)}
+							</Grid>
+
+							<Grid item xs={2} className={classes.gridItemKey}>
+								Payment Frequency:
+							</Grid>
+							<Grid item xs={10} className={classes.gridItemValue}>
+								{roundResults(paymentFreq * 100, 2)} %
+							</Grid>
+
+							<Grid item xs={2} className={classes.gridItemKey}>
+								Net Cost:
+							</Grid>
+							<Grid item xs={10} className={classes.gridItemValue}>
+								$ {roundResults(netCost, 2)}
+							</Grid>
+
+							<Grid item xs={2} className={classes.gridItemKey}>
+								Avg. Gross Rev.:
+							</Grid>
+							<Grid item xs={10} className={classes.gridItemValue}>
+								$ {roundResults(avgGrossRev, 2)}
+							</Grid>
+
 
 							<Grid item xs={2} className={classes.gridItemKey}>
 							Min. Guarantee:

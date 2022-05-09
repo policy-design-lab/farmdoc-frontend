@@ -40,7 +40,11 @@ const IntegratedTool = () => {
 
 							<div style={{textAlign: "center"}}>
 								<Button variant="outlined" size="medium" onClick={() => {
-									setOutputDisplay("block"); setInputDisplay("none");
+									setTimeout(() => {
+										// This is just a hack to give the effect that it is taking 1 sec to load results after button click. Needs to be removed.
+										setOutputDisplay("block");
+										setInputDisplay("none");
+									}, 1000);
 								}}
 								        style={{marginTop: "4px", backgroundColor: "#455A64", color: "white"}}>
 									<Icon className={classes.leftIcon} style={{fontSize: "0.85rem"}}> send </Icon>
