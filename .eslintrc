@@ -6,9 +6,10 @@
   "plugins": [
     "react", "sort-class-members"
   ],
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
+    "requireConfigFile": false,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true,
@@ -82,19 +83,6 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": [2, {"order": []}],
     "react/jsx-wrap-multilines": 1,
-	"sort-class-members/sort-class-members": [2, {
-	  "order": [
-		"[static-properties]",
-		"[properties]",
-		"[conventional-private-properties]",
-		"constructor",
-		"[arrow-function-properties]",
-		"[static-methods]",
-		"[methods]",
-		"[conventional-private-methods]"
-	  ],
-	  "accessorPairPositioning": "getThenSet"
-	}],
     "no-prototype-builtins": "warn"
   },
   "globals": {

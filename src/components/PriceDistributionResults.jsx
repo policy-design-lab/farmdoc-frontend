@@ -234,7 +234,7 @@ class PriceDistributionResults extends Component {
 		this.setState({
 			priceCrop: price
 		});
-	}
+	};
 
 	render() {
 		const {classes} = this.props;
