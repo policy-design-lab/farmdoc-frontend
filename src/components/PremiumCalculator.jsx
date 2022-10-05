@@ -370,7 +370,7 @@ class PremiumCalculator extends Component {
 				 ${ roundResults(data.comboVol, 2)}. Last Updated on ${ data.dateUpdated}.`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
-				if (this.state.cropId === 41){
+				if (this.state.cropId === 41){	//corn
 					this.setState({practiceType: this.getDefaultType(data.practices, "practiceCode", 3)});
 
 					// if (this.doesArrContain(data.types, "typeCode", 16) <= 0){
@@ -379,7 +379,7 @@ class PremiumCalculator extends Component {
 					this.setState({grainTypes: data.types});
 					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 16)});
 				}
-				else if (this.state.cropId === 81){
+				else if (this.state.cropId === 81){	//soybeans
 					//Use Nfac as default, if not available use non-irrigated
 					let soyPracDefault = this.getDefaultType(data.practices, "practiceCode", 53);
 					if (soyPracDefault <= 0){
@@ -393,7 +393,18 @@ class PremiumCalculator extends Component {
 					this.setState({grainTypes: data.types});
 					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
 				}
+				else if (this.state.cropId === 11){	// wheat
+					// TODO need to figure out if it uses Nfac as a default
+					//  Just sse Nfac as default, if not available use non-irrigated
+					let wheatPracDefault = this.getDefaultType(data.practices, "practiceCode", 53);
+					if (wheatPracDefault <= 0){
+						wheatPracDefault = this.getDefaultType(data.practices, "practiceCode", 3);
+					}
+					this.setState({practiceType: wheatPracDefault});
 
+					this.setState({grainTypes: data.types});
+					this.setState({grainType: this.getDefaultType(data.types, "typeCode", 997)});
+				}
 			}
 			this.setState({runStatus: "FETCHED_PARAMS"}, function(){
 				if (runCalc){
