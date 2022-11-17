@@ -51,14 +51,14 @@ const defaultsJson = {
 
 const tooltipTouchDelay = 50; //milli seconds
 
-const prodDomain = "fd-tools.ncsa.illinois.edu";
-const devDomain = "fd-tools-dev.ncsa.illinois.edu";
+const prodDomain = "farmdoc.ncsa.illinois.edu";
+const devDomain = "farmdoc.ncsa.illinois.edu";
 
 const baseConfig = {
 	proxyUser: "",
 	proxyPw: "",
 	proxyDwPersonId: "",
-	keyCloakUrl: "https://fd-auth.ncsa.illinois.edu/auth",
+	keyCloakUrl: "https://farmdoc.ncsa.illinois.edu/auth",
 	keyCloakClient: "farmdoc",
 	faqUrl: "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions"
 };
@@ -78,8 +78,8 @@ const localConfig = Object.assign({}, {
 
 const devConfig = Object.assign({}, {
 	basePath: "/",
-	apiUrl: "https://fd-api-dev.ncsa.illinois.edu/farmdoc/api",
-	datawolfUrl: "https://fd-api-dev.ncsa.illinois.edu/datawolf",
+	apiUrl: "https://farmdoc.ncsa.illinois.edu/farmdoc/api",
+	datawolfUrl: "https://farmdoc.ncsa.illinois.edu/datawolf",
 	apps: farmdocApps,
 	domain: devDomain,
 	defaultsJson: defaultsJson,
@@ -91,8 +91,8 @@ const devConfig = Object.assign({}, {
 
 const prodConfig = Object.assign({}, {
 	basePath: "/",
-	apiUrl: "https://fd-api.ncsa.illinois.edu/farmdoc/api",
-	datawolfUrl: "https://fd-api.ncsa.illinois.edu/datawolf",
+	apiUrl: "https://farmdoc.ncsa.illinois.edu/farmdoc/api",
+	datawolfUrl: "https://farmdoc.ncsa.illinois.edu/datawolf",
 	apps: farmdocApps,
 	domain: prodDomain,
 	defaultsJson: defaultsJson,
