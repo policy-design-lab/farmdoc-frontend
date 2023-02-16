@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Updated
+- New configuration for kubernetes [FD-525](https://opensource.ncsa.illinois.edu/jira/browse/FD-525)
+
 ## [1.6.1] - 2022-02-03
 
 ### Added

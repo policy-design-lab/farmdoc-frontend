@@ -53,6 +53,7 @@ const tooltipTouchDelay = 50; //milli seconds
 
 const prodDomain = "fd-tools.ncsa.illinois.edu";
 const devDomain = "fd-tools-dev.ncsa.illinois.edu";
+const kubeDomain = "farmdoc.ncsa.illinois.edu";
 
 const baseConfig = {
 	proxyUser: "",
@@ -102,6 +103,19 @@ const prodConfig = Object.assign({}, {
 	keycloak: Keycloak("keycloak.json")
 }, baseConfig);
 
+const kubeConfig = Object.assign({}, {
+	basePath: "/",
+	apiUrl: "https://farmdoc.ncsa.illinois.edu/api",
+	datawolfUrl: "https://farmdoc.ncsa.illinois.edu/datawolf",
+	apps: farmdocApps,
+	domain: kubeDomain,
+	defaultsJson: defaultsJson,
+	showCustomForecast: false,
+	browserLog: false,
+	tooltipTouchDelay: tooltipTouchDelay,
+	keycloak: Keycloak("keycloak-kube.json")
+}, baseConfig);
+
 const config = getConfig();
 
 function getConfig() {
@@ -110,6 +124,9 @@ function getConfig() {
 	}
 	else if (process.env.REACT_APP_ENV === "development"){
 		return devConfig;
+	}
+	else if (process.env.REACT_APP_ENV === "kube"){
+		return kubeConfig;
 	}
 	else {
 		return localConfig;

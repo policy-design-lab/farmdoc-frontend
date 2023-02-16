@@ -1,0 +1,8 @@
+{
+	"realm": "farmdoc",
+	"auth-server-url": "https://farmdoc.ncsa.illinois.edu/auth",
+	"ssl-required": "external",
+	"resource": "farmdoc",
+	"public-client": true,
+	"confidential-port": 0
+}
