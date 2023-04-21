@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.7.0] - 2023-03-01
+
+### Changed
+- Text to replace references of 2022 with 2023 to reflect the data change for current year
+
 ### Updated
 - Insurance data for 2023 with new crop Wheat [FD-517](https://opensource.ncsa.illinois.edu/jira/browse/FD-517)]
+- Webpack and react-scripts to version 5.0.1 [FD-512](https://opensource.ncsa.illinois.edu/jira/browse/FD-512)]
 
 ## [1.6.1] - 2022-02-03
 
