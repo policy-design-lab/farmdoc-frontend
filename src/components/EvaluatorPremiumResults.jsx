@@ -223,9 +223,9 @@ class EvaluatorPremiumResults extends Component {
 			let premiums = evalResultJson.policies.farm;
 			let farmInfo = evalResultJson["farm-info"];
 
-			let futuresDate = "Dec. 23";
+			let futuresDate = "Dec. 24";
 			if (this.props["CSCName"][0] === "Soybeans") {
-				futuresDate = "Nov. 23";
+				futuresDate = "Nov. 24";
 			}
 
 			let coverageLevels = Object.keys(premiums);

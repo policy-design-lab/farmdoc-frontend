@@ -67,9 +67,9 @@ class EvaluatorFarmInfo extends Component {
 
 		if (farmInfo !== null) {
 
-			let futuresDate = "Dec. 23";
+			let futuresDate = "Dec. 24";
 			if (this.props["CSCName"][0] === "Soybeans") {
-				futuresDate = "Nov. 23";
+				futuresDate = "Nov. 24";
 			}
 
 			return (
