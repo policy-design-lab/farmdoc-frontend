@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+- Text to replace references of 2023 with 2024 to reflect the data change for current year [#1](https://github.com/policy-design-lab/farmdoc-frontend/issues/1)
+
 ## [1.7.0] - 2023-03-01
 
 ### Changed
