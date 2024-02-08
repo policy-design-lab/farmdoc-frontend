@@ -57,12 +57,14 @@ const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 let demoUser = process.env.REACT_APP_DEMO_USER || "";
 let demoPassword = process.env.REACT_APP_DEMO_PASSWORD || "";
 let dwUserId = process.env.REACT_APP_DW_USER_ID || "";
+// TODO - check if this can come from keycloak.json
+let keycloakUrl = process.env.REACT_APP_KEYCLOAK_URL || "https://fd-auth.ncsa.illinois.edu/auth";
 
 const baseConfig = {
 	proxyUser: `${demoUser}`,
 	proxyPw: `${demoPassword}`,
 	proxyDwPersonId: `${dwUserId}`,
-	keyCloakUrl: "https://fd-auth.ncsa.illinois.edu/auth",
+	keyCloakUrl: `${keycloakUrl}`,
 	keyCloakClient: "farmdoc",
 	faqUrl: "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions"
 };
