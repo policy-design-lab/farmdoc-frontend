@@ -311,9 +311,9 @@ class EvaluatorRiskResults extends Component {
 			let premiums = evalResultJson.policies.farm;
 			let farmInfo = evalResultJson["farm-info"];
 
-			let futuresDate = "Dec. 23";
+			let futuresDate = "Dec. 24";
 			if (this.props["CSCName"][0] === "Soybeans") {
-				futuresDate = "Nov. 23";
+				futuresDate = "Nov. 24";
 			}
 
 			let coverageLevels = Object.keys(premiums);
@@ -564,7 +564,7 @@ class EvaluatorRiskResults extends Component {
 							<div style={{marginRight: "10px", marginTop: "10px", textAlign: "right", fontSize: "larger"}}>
 								Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
 								{futuresDate} Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-								RMA 2023 Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+								RMA 2024 Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
 							</div>
 						</Grid>
 					</Grid>
