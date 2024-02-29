@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+### Changed
+- App configuration to get dev and production variables from environment [#3](https://github.com/policy-design-lab/farmdoc-frontend/issues/3)
 - Text to replace references of 2023 with 2024 to reflect the data change for current year [#1](https://github.com/policy-design-lab/farmdoc-frontend/issues/1)
+- ARC/PLC text to indicate update for 2024 [#6](https://github.com/policy-design-lab/farmdoc-frontend/issues/6)
 
 ## [1.7.0] - 2023-03-01
 

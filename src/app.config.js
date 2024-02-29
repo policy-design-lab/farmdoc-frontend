@@ -4,9 +4,9 @@ const farmdocApps = {
 	"arcplc": {
 		appName: "ARC/PLC Calculator",
 		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
-				" PLC making payments in each year from 2019 to 2023. Expected payment " +
+				" PLC making payments in each year from 2020 to 2024. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
-		lastUpdated: "Jan 18, 2022",
+		lastUpdated: "Feb. 26, 2024",
 		urlPath: "/arcplc",
 		needsAuthentication: true
 	},
@@ -15,7 +15,7 @@ const farmdocApps = {
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
-		lastUpdated: "March 01, 2022",
+		lastUpdated: "March 1, 2024",
 		urlPath: "/premiums",
 		needsAuthentication: false
 	},
@@ -46,7 +46,7 @@ const defaultsJson = {
 	range: .1,
 	acres: .85,
 	units: "",
-	startYear: 2019
+	startYear: 2020
 };
 
 const tooltipTouchDelay = 50; //milli seconds
@@ -54,11 +54,17 @@ const tooltipTouchDelay = 50; //milli seconds
 const prodDomain = "fd-tools.ncsa.illinois.edu";
 const devDomain = "fd-tools-dev.ncsa.illinois.edu";
 
+let demoUser = process.env.REACT_APP_DEMO_USER || "";
+let demoPassword = process.env.REACT_APP_DEMO_PASSWORD || "";
+let dwUserId = process.env.REACT_APP_DW_USER_ID || "";
+// TODO - check if this can come from keycloak.json
+let keycloakUrl = process.env.REACT_APP_KEYCLOAK_URL || "https://fd-auth.ncsa.illinois.edu/auth";
+
 const baseConfig = {
-	proxyUser: "",
-	proxyPw: "",
-	proxyDwPersonId: "",
-	keyCloakUrl: "https://fd-auth.ncsa.illinois.edu/auth",
+	proxyUser: `${demoUser}`,
+	proxyPw: `${demoPassword}`,
+	proxyDwPersonId: `${dwUserId}`,
+	keyCloakUrl: `${keycloakUrl}`,
 	keyCloakClient: "farmdoc",
 	faqUrl: "https://opensource.ncsa.illinois.edu/confluence/display/FD/Frequently+Asked+Questions"
 };
