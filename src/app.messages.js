@@ -64,7 +64,7 @@ export const loginMessage = "Please login with your account to access the farmdo
 	" an account yet, use the 'REGISTER' button to create one. If you are having trouble receiving the verification" +
 	" email in your inbox, please check your spam/junk folder.";
 export const sessionExpired = "Your session has expired. Please login again to access the farmdoc decision tools";
-export const nassYieldsDisclaimer = "2019 and 2020 numbers are actual values of ARC/PLC payments. All 2019 and 2020 yields and prices are final.";
+export const nassYieldsDisclaimer = "Values are actual for 2020 through 2022. Projections are made for 2023 and 2024.";
 
 export const arcplcTermDefinitions = [
 	{
