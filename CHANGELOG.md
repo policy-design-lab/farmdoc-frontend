@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.8.0] - 2024-03-01
 
 ### Changed
 - App configuration to get dev and production variables from environment [#3](https://github.com/policy-design-lab/farmdoc-frontend/issues/3)
