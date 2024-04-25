@@ -67,9 +67,9 @@ class EvaluatorFarmInfo extends Component {
 
 		if (farmInfo !== null) {
 
-			let futuresDate = "Dec. 23";
+			let futuresDate = "Dec. 24";
 			if (this.props["CSCName"][0] === "Soybeans") {
-				futuresDate = "Nov. 23";
+				futuresDate = "Nov. 24";
 			}
 
 			return (
@@ -77,7 +77,7 @@ class EvaluatorFarmInfo extends Component {
 					<div style={{margin: "8px", textAlign: "right", fontSize: "larger"}}>
 						Farm TA Yield (bu/acre): <span style={{fontWeight: 700}}>{roundResults(farmInfo["trend-adj-aph"], 2)}</span><br />
 						{futuresDate} Futures Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["avg-futures-price"], 2)}</span><br />
-						RMA 2023 Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
+						RMA 2024 Projected Price: <span style={{fontWeight: 700}}>${roundResults(farmInfo["proj-price"], 2)}</span>
 					</div>
 					<Grid container direction="row" justify="center"
 									alignItems="center" spacing={5} style={{paddingBottom: "4px"}}>
