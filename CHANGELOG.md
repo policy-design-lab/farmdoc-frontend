@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [1.9.0] - 2025-03-01
 
 ### Changed
 - Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
