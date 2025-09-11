@@ -10,12 +10,12 @@ exchange calls and data with the model backend.
 # Installation
 
 1. Check that required JavaScript package manager `npm` and `Node.js` package 
-are sucessfully installed on your computer
+are successfully installed on your computer
 
     `npm -v` and 
     `node -v`
     
-	Recommended versions to be used are: node 10.x and npm 6.x.
+	Recommended versions to be used are: Node.js 22.x+
 
 2. If not download `Node.js` package from, for example 
 [nodejs.org](https://nodejs.org/en/) and install it on your system. 
@@ -27,11 +27,12 @@ repository.
 
 4. In the Project window terminal run 
 
-	`npm install --python=python2.7`
+	`npm install`
 
-	**Note** Some `Node` installation dependencies do not work with Python 3.x 
-	therefore users with default higher version of Python have to specify lower 
-	Python versions.
+	**Note** The project has been updated to use modern `sass` instead of `node-sass`, 
+	eliminating Python dependencies. Now the project is fully compatible with Python 3.
+	
+	If you encounter peer dependency conflicts, you may need to use `npm install --legacy-peer-deps`.
 	
 # Running
 

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 ### Changed
+- Upgrade the project's node version to 22 and python to 3 [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
 - Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
 
 
