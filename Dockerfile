@@ -2,7 +2,7 @@
 # Build application using node
 # ----------------------------------------------------------------------
 
-FROM node:14.5.0-alpine AS builder
+FROM node:22-alpine AS builder
 
 WORKDIR /usr/src/app
 

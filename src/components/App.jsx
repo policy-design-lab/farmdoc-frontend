@@ -25,11 +25,11 @@ import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
 
 import "material-components-web/dist/material-components-web.min.css";
-import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import {createTheme, ThemeProvider} from "@material-ui/core/styles";
 
 global.__base = `${__dirname}/`;
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 class App extends Component {
 	render() {
@@ -52,7 +52,7 @@ class App extends Component {
 
 		return (
 			<div>
-				<MuiThemeProvider theme={theme}>
+				<ThemeProvider theme={theme}>
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
@@ -76,7 +76,7 @@ class App extends Component {
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
-				</MuiThemeProvider>
+				</ThemeProvider>
 			</div>
 		);
 	}
