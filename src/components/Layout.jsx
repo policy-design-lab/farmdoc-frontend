@@ -6,9 +6,9 @@ import Footer from "./Footer";
 class Layout extends Component {
 
 	render() {
-		return ( <div>
+		return ( <div style={{minHeight: "100vh", display: "flex", flexDirection: "column"}}>
 			<Header selectedTab={this.props.selectedTab}/>
-			<div className="masterContent">
+			<div className="masterContent" style={{flex: 1}}>
 				{this.props.children}
 			</div>
 			<Footer/>

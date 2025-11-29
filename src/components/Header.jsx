@@ -159,13 +159,19 @@ class Header extends Component {
 			currApp = "home";
 		}
 
-		if (currApp.indexOf("arcplc") >= 0){
+		if (currApp === "arcplc" || currApp === "arcplcdocs" || currApp === "arcplcabout"){
+			currApp = "newarcplc";
+		}
+		else if (currApp === "evaluator" || currApp === "evaluatordocs" || currApp === "evaluatorabout"){
+			currApp = "newevaluator";
+		}
+		else if (currApp.indexOf("arcplc-legacy") >= 0){
 			currApp = "arcplc";
 		}
 		else if (currApp.indexOf("premium") >= 0){
 			currApp = "premiums";
 		}
-		else if (currApp.indexOf("evaluator") >= 0){
+		else if (currApp.indexOf("evaluator-legacy") >= 0){
 			currApp = "evaluator";
 		}
 		else if (currApp.indexOf("pricedistribution") >= 0){
@@ -221,10 +227,14 @@ class Header extends Component {
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
 											 className={classes.tab} component={Link} to={`/${currApp}`}/>
-									<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
-									<Tab value="about" label={<span className={classes.label}>About</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}about`}/>
+									{(currApp !== "newarcplc" && currApp !== "newevaluator") && (
+										<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
+												 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
+									)}
+									{(currApp !== "newarcplc" && currApp !== "newevaluator") && (
+										<Tab value="about" label={<span className={classes.label}>About</span>}
+												 className={classes.tab} component={Link} to={`/${currApp}about`}/>
+									)}
 								</Tabs>
 							}
 						</ToolbarSection>
@@ -235,12 +245,11 @@ class Header extends Component {
 									<div>
 										<Button onClick={this.handleLogin} style={{height: "40px"}}>Login</Button>
 										<Button onClick={this.handleRegister} style={{height: "40px"}}>Register</Button>
-
-										<Tooltip title="Troubleshooting steps and FAQs">
+										{/* <Tooltip title="Troubleshooting steps and FAQs">
 											<Button style={{height: "40px"}}>
 												<Link to={config.faqUrl} target="_blank" onlyActiveOnIndex>Need Help?</Link>
 											</Button>
-										</Tooltip>
+										</Tooltip> */}
 
 									</div>
 									:

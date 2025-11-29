@@ -24,6 +24,9 @@ import EvaluatorDashboard from "./EvaluatorDashboard";
 import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
 
+import NewEvaluatorDashboard from "./NewEvaluator/NewEvaluatorDashboard";
+import NewARCPLCDashboard from "./NewARCPLC/NewARCPLCDashboard";
+
 import "material-components-web/dist/material-components-web.min.css";
 import {createTheme, ThemeProvider} from "@material-ui/core/styles";
 
@@ -49,6 +52,8 @@ class App extends Component {
 		let premiumCalcPath = config.apps.premiums.urlPath;
 		let premiumEvalPath = config.apps.evaluator.urlPath;
 		let priceDistibutionPath = config.apps.pricedistribution.urlPath;
+		let newEvaluatorPath = config.apps.newevaluator.urlPath;
+		let newArcplcPath = config.apps.newarcplc.urlPath;
 
 		return (
 			<div>
@@ -73,6 +78,14 @@ class App extends Component {
 						<Route path={`${priceDistibutionPath}`} component={PriceDistributionDashboard}/>
 						<Route path={`${priceDistibutionPath}docs`} component={PriceDistributionDocumentation}/>
 						<Route path={`${priceDistibutionPath}about`} component={AboutPriceDistribution}/>
+
+						<Route path={`${newEvaluatorPath}`} component={NewEvaluatorDashboard}/>
+						<Route path={`${newEvaluatorPath}docs`} component={DocsPaymentEval}/>
+						<Route path={`${newEvaluatorPath}about`} component={AboutPaymentEval}/>
+
+						<Route path={`${newArcplcPath}`} component={NewARCPLCDashboard}/>
+						<Route path={`${newArcplcPath}docs`} component={Documentation}/>
+						<Route path={`${newArcplcPath}about`} component={AboutPaymentCalc}/>
 
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
