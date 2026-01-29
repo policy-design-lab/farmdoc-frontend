@@ -18,7 +18,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import ReactSelect from "react-select";
 import newEvaluatorTheme from "../../theme/newEvaluatorTheme";
-import {getStates, getCounties, getCrops, covertToLegacyCropFormat} from "../../public/utils";
+import {getStates, getCounties, getCrops, covertToLegacyCropFormat, roundFarmTaYield} from "../../public/utils";
 import config from "../../app.config";
 import "../../styles/new-evaluator.scss";
 
@@ -331,7 +331,7 @@ const EditFarmInfoModal = ({open, onClose, onSave, initialData = {}}) => {
 					setFormData((prev) => ({
 						...prev,
 						aphYield: farmInfo["farm-aph"] !== undefined && farmInfo["farm-aph"] !== null ? farmInfo["farm-aph"] : prev.aphYield,
-						farmTaYield: farmInfo["trend-adj-aph"] !== undefined && farmInfo["trend-adj-aph"] !== null ? farmInfo["trend-adj-aph"] : prev.farmTaYield,
+						farmTaYield: farmInfo["trend-adj-aph"] !== undefined && farmInfo["trend-adj-aph"] !== null ? roundFarmTaYield(farmInfo["trend-adj-aph"]) : prev.farmTaYield,
 					}));
 					setNoDataAvailable(false);
 				}
@@ -675,7 +675,7 @@ const EditFarmInfoModal = ({open, onClose, onSave, initialData = {}}) => {
 							<TextField
 								value={formData.farmTaYield}
 								fullWidth
-								placeholder="xx.xx"
+								placeholder="xx"
 								disabled
 								variant="standard"
 								InputProps={{

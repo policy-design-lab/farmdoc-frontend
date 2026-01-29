@@ -14,6 +14,7 @@ import {
 	getCounties,
 	getCrops,
 	covertToLegacyCropFormat,
+	roundFarmTaYield,
 } from "../../public/utils";
 import {
 	handleEvaluatorResults,
@@ -318,8 +319,9 @@ class NewEvaluatorSidebar extends Component {
 						farmInfo["trend-adj-aph"] !== undefined &&
 						farmInfo["trend-adj-aph"] !== null
 					) {
-						this.props.changeFarmTaYield(farmInfo["trend-adj-aph"]);
-						this.setState({farmTaYield: farmInfo["trend-adj-aph"]});
+						const roundedTa = roundFarmTaYield(farmInfo["trend-adj-aph"]);
+						this.props.changeFarmTaYield(roundedTa);
+						this.setState({farmTaYield: roundedTa});
 						hasFarmTaYield = true;
 					}
 					if (!hasAphYield && !hasFarmTaYield) {
@@ -555,8 +557,9 @@ class NewEvaluatorSidebar extends Component {
 							farmInfo["trend-adj-aph"] !== undefined &&
 							farmInfo["trend-adj-aph"] !== null
 						) {
-							this.props.changeFarmTaYield(farmInfo["trend-adj-aph"]);
-							this.setState({farmTaYield: farmInfo["trend-adj-aph"]});
+							const roundedTaValue = roundFarmTaYield(farmInfo["trend-adj-aph"]);
+							this.props.changeFarmTaYield(roundedTaValue);
+							this.setState({farmTaYield: roundedTaValue});
 						}
 					}
 				}
@@ -1285,7 +1288,7 @@ class NewEvaluatorSidebar extends Component {
 								id="farmTaYield"
 								value={this.state.farmTaYield}
 								className={classes.textField}
-								placeholder="xx.xx"
+								placeholder="xx"
 								InputLabelProps={{shrink: true}}
 								type="text"
 								variant="standard"

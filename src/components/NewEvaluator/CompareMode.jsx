@@ -26,6 +26,7 @@ import newEvaluatorTheme from "../../theme/newEvaluatorTheme";
 import {downloadAsPDF} from "../../utils/pdfDownload";
 import {fetchEvaluatorResults} from "../../services/evaluatorApi";
 import {getScenarioKey, generateCompareScenarios} from "../../utils/insuranceScenarios";
+import {roundFarmTaYield} from "../../public/utils";
 import {
 	handleEvaluatorResults,
 	changeAcres,
@@ -135,6 +136,16 @@ const CompareMode = ({
 		// console.log("[Yield & Price Render] Avg Futures Price:", currentFarmInfo?.["avg-futures-price"]);
 		// console.log("[Yield & Price Render] Projected Price:", currentFarmInfo?.["proj-price"]);
 	}, [currentFarmInfo]);
+
+	useEffect(() => {
+		if (farmInfo) {
+			const rounded = {...farmInfo};
+			if (rounded["trend-adj-aph"] !== undefined && rounded["trend-adj-aph"] !== null) {
+				rounded["trend-adj-aph"] = roundFarmTaYield(rounded["trend-adj-aph"]);
+			}
+			setCurrentFarmInfo(rounded);
+		}
+	}, [farmInfo]);
 
 	const handleUnitStructureChange = (e) => {
 		const newUnit = e.target.value;
@@ -369,9 +380,13 @@ const CompareMode = ({
 
 		if (response.success && response.data) {
 			const newFarmInfo = response.data["farm-info"];
+			const roundedFarmInfo = {...newFarmInfo};
+			if (roundedFarmInfo["trend-adj-aph"] !== undefined && roundedFarmInfo["trend-adj-aph"] !== null) {
+				roundedFarmInfo["trend-adj-aph"] = roundFarmTaYield(roundedFarmInfo["trend-adj-aph"]);
+			}
 			const newPolicies = response.data.policies;
 			const newBestBundles = response.data["best-bundles"];
-			setCurrentFarmInfo(newFarmInfo);
+			setCurrentFarmInfo(roundedFarmInfo);
 			setCurrentPolicies(newPolicies);
 			setCurrentCropStateCountyName([
 				formData.crop,
@@ -392,7 +407,10 @@ const CompareMode = ({
 				])
 			);
 			dispatch(changeAphYield(newFarmInfo?.["farm-aph"] || aphYield));
-			dispatch(changeFarmTaYield(newFarmInfo?.["trend-adj-aph"] || farmTaYield));
+			const dispatchedTa = (newFarmInfo && newFarmInfo["trend-adj-aph"] !== undefined && newFarmInfo["trend-adj-aph"] !== null)
+				? roundFarmTaYield(newFarmInfo["trend-adj-aph"])
+				: (farmTaYield !== null && farmTaYield !== undefined ? roundFarmTaYield(farmTaYield) : farmTaYield);
+			dispatch(changeFarmTaYield(dispatchedTa));
 			if (updatedCropCode) {
 				dispatch(changeCropCode(updatedCropCode));
 			}
