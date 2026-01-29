@@ -2,29 +2,29 @@ import Keycloak from "keycloak-js";
 
 const farmdocApps = {
 	"arcplc": {
-		appName: "ARC/PLC Calculator",
-		appDesc: "The Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
+		appName: "ARC/PLC Calculator (Legacy)",
+		appDesc: "The legacy Gardner ARC/PLC Calculator shows the likelihood of ARC-CO and" +
 				" PLC making payments in each year from 2020 to 2024. Expected payment " +
 				"levels also are given for user-selected counties and crops.",
 		lastUpdated: "Feb. 26, 2024",
-		urlPath: "/arcplc",
-		needsAuthentication: true
+		urlPath: "/arcplc-legacy",
+		needsAuthentication: false
 	},
 	"premiums": {
 		appName: "Insurance Premiums",
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
-		lastUpdated: "March 1, 2025",
+		lastUpdated: "Jan. 23, 2026",
 		urlPath: "/premiums",
 		needsAuthentication: false
 	},
 	"evaluator": {
-		appName: "Insurance Evaluator",
-		appDesc: "The Insurance Payment Evaluator tool provides helpful information to producers comparing costs and " +
-			"risk reductions across their available crop insurance alternatives. ",
+		appName: "Insurance Evaluator (Legacy)",
+		appDesc: "The legacy Insurance Payment Evaluator tool provides helpful information to producers comparing costs and " +
+			"risk reductions across their available crop insurance alternatives.",
 		lastUpdated: "Daily",
-		urlPath: "/evaluator",
+		urlPath: "/evaluator-legacy",
 		needsAuthentication: false
 	},
 	"pricedistribution": {
@@ -35,6 +35,22 @@ const farmdocApps = {
 		urlPath: "/pricedistribution",
 		needsAuthentication: false
 	},
+	"newevaluator": {
+		appName: "Insurance Evaluator",
+		appDesc: "The Insurance Payment Evaluator tool provides helpful information to producers comparing costs and " +
+			"risk reductions across their available crop insurance alternatives.",
+		lastUpdated: "Daily",
+		urlPath: "/evaluator",
+		needsAuthentication: false
+	},
+	"newarcplc": {
+		appName: "ARC/PLC Calculator",
+		appDesc: "The Gardner ARC/PLC Calculator provides an annual estimate of payments beginning with the 2026 crop year," +
+			" as well as estimates of the likelihood for payments.",
+		lastUpdated: "Jan. 23, 2026",
+		urlPath: "/arcplc",
+		needsAuthentication: false
+	},
 };
 
 const defaultsJson = {
@@ -42,8 +58,8 @@ const defaultsJson = {
 	cropId: 41, //corn for premium calculator
 	paymentYield: "",
 	arcYield: "",
-	coverage: .86,
-	range: .1,
+	coverage: .90,
+	range: .12,
 	acres: .85,
 	units: "",
 	startYear: 2020
@@ -71,8 +87,8 @@ const baseConfig = {
 
 const localConfig = Object.assign({}, {
 	basePath: "/",
-	apiUrl: "http://localhost:5000/api",
-	datawolfUrl: "http://localhost:8888/datawolf",
+	apiUrl: "/farmdoc/api",
+	datawolfUrl: "/datawolf",
 	apps: farmdocApps,
 	domain: "localhost",
 	defaultsJson: defaultsJson,
@@ -111,15 +127,19 @@ const prodConfig = Object.assign({}, {
 const config = getConfig();
 
 function getConfig() {
+	let selectedConfig;
+
 	if (process.env.REACT_APP_ENV === "production") {
-		return prodConfig;
+		selectedConfig = prodConfig;
 	}
 	else if (process.env.REACT_APP_ENV === "development"){
-		return devConfig;
+		selectedConfig = devConfig;
 	}
 	else {
-		return localConfig;
+		selectedConfig = localConfig;
 	}
+
+	return selectedConfig;
 }
 
 export default config;

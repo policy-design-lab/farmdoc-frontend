@@ -27,7 +27,7 @@ class AuthorizedWrap extends Component {
 		for (let key in config.apps) {
 
 			let app = config.apps[key];
-			if (pathName.includes(app.urlPath)){
+			if (pathName === app.urlPath){
 				needsAuth = app.needsAuthentication;
 				break;
 			}

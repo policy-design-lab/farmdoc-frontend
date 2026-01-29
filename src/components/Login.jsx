@@ -16,19 +16,18 @@ class Login extends Component {
 	}
 
 	componentDidMount() {
+		const self = this;
 		keycloak.init({onLoad: "login-required"}).success(function(){
 
 			localStorage.setItem("kcToken", keycloak.token);
 			localStorage.setItem("kcRefreshToken", keycloak.refreshToken);
 			localStorage.setItem("kcTokenExpiry", keycloak.tokenParsed.exp);
 			localStorage.setItem("isProxyAuth", "false");
-			// localStorage.setItem("kcTokenExpiry", Date.now() / 1000 + 30);
 
 			keycloak.loadUserProfile().success(function(profile) {
-				// console.log(JSON.stringify(profile, null, "  "));
 
 				localStorage.setItem("isAuthenticated", "true");
-				localStorage.setItem("kcEmail", profile["username"]); // Store email ID in local storage for future use
+				localStorage.setItem("kcEmail", profile["username"]);
 
 				checkIfDatawolfUserExists(profile["username"]).then(function(response){
 					if (response.status === 200){
@@ -37,7 +36,7 @@ class Login extends Component {
 					else {
 						localStorage.removeItem("dwPersonId");
 						console.log("Datawolf API call failed. Most likely the token expired");
-						//Bad response. Most likely token expired TODO: how to handle?
+						return [];
 					}
 				}).then(function(users){
 					let createUser = false;
@@ -66,27 +65,30 @@ class Login extends Component {
 							else {
 								localStorage.removeItem("dwPersonId");
 								console.log("Datawolf API call failed. Most likely the token expired");
-								//Bad response. Most likely token expired TODO: how to handle?
 							}
 						}).then(function(personId){
-							localStorage.setItem("dwPersonId", personId);
+							if (personId) {
+								localStorage.setItem("dwPersonId", personId);
+							}
+							self.props.handleUserLogin(profile["username"], profile["username"], true);
+							self.performRedirect();
+						}).catch(error => {
+							console.log("Error creating user:", error);
+							self.props.handleUserLogin(profile["username"], profile["username"], true);
+							self.performRedirect();
 						});
 					}
-
-					handleUserLogin(profile["username"], profile["username"], true);
-					let referer_url = sessionStorage.getItem("referer_url");
-					if (referer_url){
-						sessionStorage.removeItem("referer_url");
-						browserHistory.push(referer_url);
-					}
 					else {
-						browserHistory.push("/");
+						self.props.handleUserLogin(profile["username"], profile["username"], true);
+						self.performRedirect();
 					}
 
 				}).catch(error => {
 					localStorage.removeItem("dwPersonId");
 					console.log(error);
 					console.log("Error in making the api call. Most likely due to network or service being down");
+					self.props.handleUserLogin(profile["username"], profile["username"], true);
+					self.performRedirect();
 				});
 
 
@@ -94,7 +96,20 @@ class Login extends Component {
 				console.log("Failed to load user profile");
 			});
 
+		}).error(function() {
+			console.log("Failed to initialize Keycloak");
 		});
+	}
+
+	performRedirect() {
+		let referer_url = sessionStorage.getItem("referer_url");
+		if (referer_url){
+			sessionStorage.removeItem("referer_url");
+			browserHistory.push(referer_url);
+		}
+		else {
+			browserHistory.push("/");
+		}
 	}
 
 	render() {

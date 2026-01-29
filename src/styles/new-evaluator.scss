@@ -1,0 +1,2636 @@
+@use "sass:color";
+
+// ==========================================
+// SCSS VARIABLES
+// ==========================================
+$textPrimary: #29363c;
+$textSecondary: #586b74;
+$textTertiary: #8f9ca2;
+$textDisabled: #757575;
+$iconActive: #8f9ca2;
+$strokeMild: #dadee0;
+$themeSecondMain: #ffa500;
+$themePrimaryMain: #455a64;
+$themePrimaryMainDarker: #37474f;
+$backgroundLight: #ffffff;
+$backgroundMild: #f8f8f9;
+$borderColor: #e0e0e0;
+$darkBorder: #6a7b83;
+
+// ==========================================
+// GLOBAL CONTAINER STYLES
+// Used by: NewEvaluatorSidebar, CompareMode, NewEvaluatorResults
+// ==========================================
+.evaluator-sidebar,
+.compare-mode-container,
+.compare-mode-full-container,
+.results-header,
+.results-content,
+.masterContent {
+	font-family: "Open Sans", sans-serif !important;
+	* {
+		font-family: "Open Sans", sans-serif !important;
+	}
+	input {
+		color: $textPrimary !important;
+		font-size: 0.875rem !important;
+		font-weight: 400 !important;
+		font-style: normal !important;
+	}
+}
+
+.masterContent {
+	border-left: none !important;
+	border-right: none !important;
+	max-width: 100% !important;
+}
+
+.compare-mode-bg {
+	background-color: $backgroundMild !important;
+}
+
+.evaluator-sidebar,
+.compare-mode-container,
+.compare-mode-full-container {
+	.MuiTypography-root {
+		margin: 0;
+	}
+}
+
+// ==========================================
+// TYPOGRAPHY - SECTION & FIELD LABELS
+// Used by: NewEvaluatorSidebar, InsurancePlanCard, CompareMode
+// ==========================================
+.section-title,
+.MuiTypography-root.section-title {
+	color: $textPrimary !important;
+	font-family: "Open Sans", sans-serif !important;
+	font-size: 1rem !important;
+	font-weight: 500 !important;
+	margin-bottom: 1rem !important;
+	line-height: normal !important;
+}
+
+.field-label,
+.MuiTypography-root.field-label {
+	color: $textSecondary !important;
+	font-family: "Open Sans", sans-serif !important;
+	font-size: 0.75rem !important;
+	font-weight: 400 !important;
+	text-transform: uppercase;
+	line-height: normal !important;
+}
+
+.field-label-with-info {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.field-label {
+		margin-bottom: 0;
+	}
+}
+
+.modal-form-field {
+	.field-label-with-info {
+		margin-bottom: 0;
+		.field-label {
+			font-size: 0.75rem !important;
+			font-weight: 400 !important;
+		}
+	}
+	.input-unit {
+		font-size: 0.75rem !important;
+	}
+	input {
+		font-size: 0.875rem !important;
+		padding-top: 0 !important;
+	}
+}
+
+// ==========================================
+// INFO ICON & TOOLTIPS
+// Used by: NewEvaluatorSidebar, YieldPriceInfo, InsurancePlanCard
+// ==========================================
+.info-icon {
+	color: $iconActive;
+	font-size: 1rem;
+	cursor: pointer;
+	&:hover {
+		color: $themePrimaryMain;
+	}
+}
+
+.MuiTooltip-tooltip {
+	border-radius: 0.25rem !important;
+	background: $textSecondary !important;
+	color: $backgroundLight !important;
+	font-family: "Open Sans", sans-serif !important;
+	font-size: 0.75rem !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	line-height: 0.875rem !important;
+	padding: 0.5rem 0.75rem !important;
+	max-width: 15.625rem !important;
+}
+
+.MuiTooltip-arrow {
+	color: $textSecondary !important;
+}
+
+// ==========================================
+// FORM INPUTS - SELECT & TEXT
+// Used by: NewEvaluatorSidebar
+// ==========================================
+.select-input {
+	width: 100%;
+	.react-select__control {
+		border: none;
+		border-bottom: 0.0625rem solid $strokeMild;
+		border-radius: 0;
+		min-height: 1.8125rem;
+		font-size: 0.875rem;
+		background-color: transparent;
+		&:hover {
+			border-bottom-color: $themePrimaryMain;
+		}
+		&--is-focused {
+			border-bottom-color: $themePrimaryMain;
+			box-shadow: none;
+		}
+	}
+	.react-select__indicator-separator {
+		display: none;
+	}
+	.react-select__dropdown-indicator {
+		color: $textTertiary;
+		padding: 0 0 0.3125rem 0;
+	}
+	.react-select__placeholder {
+		color: $textSecondary;
+		font-size: 0.875rem !important;
+		font-weight: 400;
+		line-height: 1.25rem;
+		letter-spacing: 0.009375rem;
+	}
+	.react-select__single-value {
+		color: $textPrimary;
+	}
+	.react-select__value-container {
+		padding: 0 0 0.3125rem 0;
+	}
+}
+
+.text-input {
+	width: 100%;
+	margin-bottom: 1.25rem;
+	input {
+		border: 0.0625rem solid $strokeMild;
+		border-radius: 0.25rem;
+		padding: 0.625rem 0.75rem;
+		font-size: 0.875rem !important;
+		color: $textPrimary !important;
+		font-weight: 400 !important;
+		font-style: normal !important;
+		background-color: $backgroundLight;
+		&:focus {
+			outline: none;
+			border-color: $themePrimaryMain;
+			box-shadow: 0 0 0 0.0625rem $themePrimaryMain;
+		}
+		&::placeholder {
+			color: $textSecondary;
+		}
+	}
+}
+
+.input-with-unit {
+	display: flex;
+	align-items: center;
+	input {
+		flex: 1;
+	}
+	.unit-label {
+		margin-left: 0.5rem;
+		color: $textSecondary;
+		font-size: 0.875rem;
+	}
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+	appearance: textfield;
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		appearance: none;
+		margin: 0;
+	}
+}
+
+// ==========================================
+// BUTTONS - RUN EVALUATOR
+// Used by: NewEvaluatorSidebar, AddPlanCard
+// ==========================================
+.run-evaluator-button {
+	width: 100%;
+	background-color: $themePrimaryMain !important;
+	border: none;
+	border-radius: 0.25rem;
+	padding: 0.75rem 1rem !important;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 0.5rem !important;
+	cursor: pointer !important;
+	transition: background-color 0.2s !important;
+	margin-top: 1.25rem;
+	&:hover:not(:disabled) {
+		background-color: $themePrimaryMainDarker;
+	}
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+	.button-icon {
+		font-size: 1.125rem;
+	}
+}
+
+// ==========================================
+// SIDEBAR - EVALUATOR SIDEBAR COMPONENT
+// Used by: NewEvaluatorSidebar
+// ==========================================
+.evaluator-sidebar {
+	background-color: $backgroundLight;
+	padding: 2rem 1.25rem;
+	border-radius: 1rem;
+	border: 0.0625rem solid $borderColor;
+	margin-top: 0;
+	margin-bottom: 0;
+	max-height: calc(100vh - 12.5rem);
+	margin-right: 1.25rem;
+	overflow-y: auto;
+	align-self: flex-start;
+}
+
+// ==========================================
+// INSURANCE PLAN SECTION - SIDEBAR
+// Used by: NewEvaluatorSidebar
+// ==========================================
+.insurance-plan-section {
+	margin-top: 2rem;
+}
+
+.insurance-plan-options {
+	margin-bottom: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.insurance-option {
+	display: flex;
+	align-items: flex-start;
+	input[type="radio"] {
+		margin-top: 0.125rem;
+		margin-right: 0.5rem;
+		flex-shrink: 0;
+		appearance: none;
+		width: 1.125rem;
+		height: 1.125rem;
+		border: 0.125rem solid $darkBorder;
+		border-radius: 50%;
+		cursor: pointer;
+		position: relative;
+		&:checked::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 0.625rem;
+			height: 0.625rem;
+			background-color: $darkBorder;
+			border-radius: 50%;
+		}
+	}
+	.option-content {
+		flex: 1;
+		margin-bottom: 0.5rem;
+		.option-title {
+			color: $textPrimary;
+			font-size: 0.875rem !important;
+			font-weight: 400;
+			margin-bottom: 0.25rem;
+			cursor: pointer;
+			text-decoration-line: underline;
+			text-decoration-style: dotted;
+			text-decoration-color: $strokeMild;
+			text-decoration-thickness: 0.09625rem;
+			text-underline-offset: 0.35rem;
+			text-underline-position: from-font;
+			width: fit-content;
+			display: inline-block;
+			&:not(:last-child) {
+				margin-bottom: 1rem;
+			}
+		}
+		.option-subtitle {
+			color: $textSecondary;
+			font-size: 0.75rem;
+		}
+	}
+}
+
+// ==========================================
+// COVERAGE LEVEL SLIDER
+// Used by: CoverageLevelSlider component
+// ==========================================
+.coverage-level-section {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	padding: 0.625rem;
+	background-color: $backgroundMild;
+	border-radius: 0.375rem;
+	.field-label{
+		color: $textSecondary !important;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+	}
+}
+
+.coverage-level-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	.coverage-percentage {
+		color: $textPrimary !important;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+	}
+}
+
+.coverage-note,
+.MuiTypography-root.coverage-note {
+	color: $textSecondary !important;
+	text-align: center;
+	font-weight: 400;
+	line-height: 1.25rem;
+	letter-spacing: 0.025rem;
+	font-size: 0.75rem !important;
+	margin-bottom: 0.25rem;
+	display: flex;
+	align-items: center;
+	&::before {
+		content: "";
+		width: 0.5rem;
+		height: 0.5rem;
+		margin-right: 0.375rem;
+		border-radius: 50%;
+		background-color: white;
+		border: 0.125rem solid $themeSecondMain;
+		flex-shrink: 0;
+	}
+}
+
+.coverage-slider {
+	width: 100%;
+	position: relative;
+	height: 1.25rem;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	input[type="range"] {
+		width: 100%;
+		height: 0.25rem;
+		background: transparent;
+		border-radius: 0.125rem;
+		outline: none;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 3;
+		-webkit-appearance: none;
+		appearance: none;
+		&::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 0.25rem;
+			background: transparent;
+			border-radius: 0.125rem;
+		}
+		&::-moz-range-track {
+			width: 100%;
+			height: 0.25rem;
+			background: transparent;
+			border-radius: 0.125rem;
+		}
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 1rem;
+			height: 1rem;
+			background: $backgroundLight;
+			border: 0.1875rem solid var(--thumb-color, $themeSecondMain);
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+			margin-top: -0.375rem;
+			position: relative;
+			z-index: 4;
+		}
+		&::-moz-range-thumb {
+			width: 1rem;
+			height: 1rem;
+			background: $backgroundLight;
+			border: 0.1875rem solid var(--thumb-color, $themeSecondMain);
+			border-radius: 50%;
+			cursor: pointer;
+			box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+			position: relative;
+			z-index: 4;
+		}
+	}
+	&::before {
+		content: "";
+		position: absolute;
+		top: 50%;
+		left: 0;
+		right: 0;
+		height: 0.25rem;
+		background: $strokeMild;
+		transform: translateY(-50%);
+		pointer-events: none;
+		z-index: 1;
+		border-radius: 0.125rem;
+	}
+	.slider-fill {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		height: 0.25rem;
+		background: $themePrimaryMain;
+		transform: translateY(-50%);
+		pointer-events: none;
+		z-index: 2;
+		border-radius: 0.125rem;
+		transition: width 0.15s ease-out;
+	}
+	.slider-tick {
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 0.25rem;
+		height: 0.25rem;
+		background: $textTertiary;
+		border-radius: 50%;
+		pointer-events: none;
+		z-index: 2;
+		&.tick-60 {
+			left: calc((60 - 55) / (85 - 55) * 100%);
+		}
+		&.tick-65 {
+			left: calc((65 - 55) / (85 - 55) * 100%);
+		}
+		&.tick-70 {
+			left: calc((70 - 55) / (85 - 55) * 100%);
+		}
+		&.tick-75 {
+			left: calc((75 - 55) / (85 - 55) * 100%);
+		}
+		&.tick-80 {
+			left: calc((80 - 55) / (85 - 55) * 100%);
+		}
+	}
+}
+
+.coverage-range {
+	display: flex;
+	justify-content: space-between;
+	color: $textSecondary;
+	p {
+		font-size: 0.75rem !important;
+	}
+}
+
+// ==========================================
+// RESULTS SECTION - HEADER & CONTENT
+// Used by: NewEvaluatorResults
+// ==========================================
+.results-header {
+	margin-bottom: 1.25rem;
+	padding: 1.25rem 1.25rem 0 1.25rem;
+}
+
+.results-title {
+	color: $textPrimary;
+	font-size: 1.25rem !important;
+	font-weight: 600 !important;
+}
+
+.results-title-styled,
+.dashboard-title {
+	color: $textPrimary;
+	font-size: 1.5rem !important;
+	font-weight: 400;
+	letter-spacing: 0.0625rem;
+}
+
+.results-content {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 0 1.25rem;
+}
+
+// ==========================================
+// YIELD & PRICE INFO COMPONENT
+// Used by: YieldPriceInfo component
+// ==========================================
+.yield-price-compare-wrapper {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	gap: 1rem;
+	width: 100%;
+	margin-bottom: 1.25rem;
+}
+
+.yield-price-info-card {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	padding: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+}
+
+.yield-price-rows {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+}
+
+.yield-price-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.yield-price-label {
+	color: $textSecondary;
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	line-height: 143%;
+	letter-spacing: 0.010625rem;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-skip-ink: none;
+	text-decoration-color: $darkBorder;
+	text-decoration-thickness: 0.09625rem;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+}
+
+.yield-price-label.not-in-compare {
+	margin-bottom: 0.75rem !important;
+}
+
+.yield-price-value {
+	color: $textPrimary;
+	font-size: 0.875rem !important;
+	font-weight: 400;
+}
+
+.yield-price-info {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	padding: 1.25rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+	position: relative;
+}
+
+// ==========================================
+// COMPARE MODE BUTTON
+// Used by: YieldPriceInfo, NewEvaluatorResults
+// ==========================================
+.compare-mode-btn-icon {
+	position: absolute;
+	top: 1.25rem;
+	right: 1.25rem;
+	background: linear-gradient(101deg, $themePrimaryMain 2.5%, #76c6c2 125.18%);
+	color: $backgroundLight;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	transition: transform 0.2s;
+	&:hover {
+		background: linear-gradient(
+			101deg,
+			$themePrimaryMain 2.5%,
+			#76c6c2 125.18%
+		);
+		transform: translateY(-0.125rem);
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+	}
+	.MuiButton-startIcon {
+		margin-right: 0.375rem;
+	}
+}
+
+.info-card {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.info-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	//margin-bottom: 1rem;
+}
+
+.info-card-title {
+	color: $textPrimary;
+	font-size: 1rem;
+	font-weight: 600;
+	margin-bottom: 0 !important;
+}
+
+.info-card-title.not-in-compare {
+	margin-bottom: 0 !important;
+}
+
+.view-case-info-btn {
+	color: $textSecondary;
+	font-size: 0.875rem;
+	text-transform: none;
+	padding: 0.25rem 0.5rem;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.info-items {
+	display: flex;
+	gap: 2rem;
+}
+
+.info-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.info-label {
+	color: $textSecondary;
+	font-size: 0.75rem;
+}
+
+.info-value {
+	color: $textPrimary;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+// ==========================================
+// COMPARE MODE CARD - CALL TO ACTION
+// Used by: YieldPriceInfo component
+// ==========================================
+.compare-mode-card {
+	background: linear-gradient(101deg, $themePrimaryMain 2.5%, #76c6c2 125.18%);
+	border-radius: 0.75rem;
+	padding: 0.875rem 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	transition: transform 0.2s;
+	&:hover {
+		transform: translateY(-0.125rem);
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+	}
+}
+
+.compare-mode-content {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	text-align: left;
+	flex: 1;
+	gap: 0.5rem;
+}
+
+.compare-mode-icon {
+	font-size: 2rem;
+	color: #ffffff;
+}
+
+.compare-mode-title {
+	color: #ffffff;
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	line-height: 1.25rem !important;
+	letter-spacing: 0.025rem;
+}
+
+.compare-mode-subtitle {
+	color: rgba(255, 255, 255, 0.8);
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.75rem !important;
+	font-weight: 400;
+	line-height: 0.9375rem !important;
+	letter-spacing: 0.00625rem;
+}
+
+.compare-mode-arrow {
+	color: #ffffff;
+	font-size: 1.25rem;
+	min-width: auto;
+	flex-shrink: 0;
+}
+
+// ==========================================
+// SECTION HEADINGS
+// Used by: Various components
+// ==========================================
+.section-heading {
+	color: $textPrimary;
+	font-size: 1.125rem;
+	font-weight: 600;
+	margin: 0.5rem 0;
+}
+
+// ==========================================
+// INSURANCE PLAN CARD - MAIN COMPONENT
+// Used by: InsurancePlanCard component
+// ==========================================
+.insurance-plan-card {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+	background: $backgroundLight;
+	padding: 1.25rem 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.plan-name {
+	color: $textPrimary;
+	font-size: 1.25rem !important;
+	font-weight: 600 !important;
+	line-height: 1.3 !important;
+}
+
+.coverage-badge {
+	display: flex;
+	align-items: center;
+	margin-top: 0.375rem;
+}
+
+.coverage-dot {
+	width: 0.875rem;
+	height: 0.875rem;
+	margin-right: 0.375rem;
+	border-radius: 50%;
+	border: 0.125rem solid $themeSecondMain;
+}
+
+.coverage-text {
+	color: $themePrimaryMain;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+}
+
+.card-header-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.unit-type {
+	color: $textSecondary;
+	font-size: 0.875rem;
+}
+
+.card-section {
+	padding: 0 1.25rem 1.25rem 1.25rem;
+	.county-addons-section {
+		border-radius: 0.375rem;
+		background: $backgroundMild;
+		padding: 0.62rem 0.88rem;
+	}
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
+.section-label {
+	color: $textSecondary;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	letter-spacing: 0.00625rem;
+	text-transform: uppercase;
+}
+
+// ==========================================
+// COUNTY ADD-ON SLIDERS
+// Used by: InsurancePlanCard, CountyAddOnSlider
+// ==========================================
+.addon-label {
+	color: $textSecondary;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: $strokeMild;
+	text-decoration-thickness: 0.09625rem;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+	width: fit-content;
+	display: inline-block;
+}
+
+.addon-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.addon-row-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.addon-row-wrapper:not(:last-child) .addon-row {
+	margin-bottom: 0.38rem !important;
+}
+
+.addon-metrics {
+	display: flex;
+	gap: 1rem;
+	padding-left: 0;
+	margin-top: 0.25rem;
+}
+
+.addon-metric-text {
+	color: $textSecondary;
+	font-size: 0.6875rem;
+	font-weight: 400;
+	position: relative;
+	&::before {
+		content: "•";
+		margin-right: 0.375rem;
+		color: $textSecondary;
+	}
+}
+
+.addon-values {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	&.eco-buttons {
+		gap: 0.5rem;
+	}
+}
+
+.addon-value {
+	color: $textSecondary;
+	font-size: 0.8125rem;
+}
+
+.addon-status {
+	padding: 0.125rem 0.75rem;
+	border-radius: 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	&.on {
+		background-color: #e8f5e9;
+		color: #2e7d32;
+	}
+	&.off {
+		background-color: #f5f5f5;
+		color: #757575;
+	}
+}
+
+.toggle-switch-container {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	.toggle-label {
+		font-size: 0.75rem;
+		color: $textTertiary;
+		cursor: pointer;
+		font-weight: 500;
+		&.active {
+			color: $textPrimary;
+			font-weight: 600;
+		}
+	}
+}
+
+.eco-button {
+	min-width: 3.75rem;
+	padding: 0.25rem 0.75rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	text-transform: none;
+	border-radius: 1rem;
+	&.MuiButton-outlined {
+		border-color: $strokeMild;
+		color: $textSecondary;
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.04);
+			border-color: $themePrimaryMain;
+		}
+	}
+	&.MuiButton-contained {
+		background-color: $themePrimaryMain;
+		color: $backgroundLight;
+		&:hover {
+			background-color: $themePrimaryMainDarker;
+		}
+	}
+}
+
+.county-addon-pill-container {
+	display: flex;
+	gap: 0.125rem;
+	padding: 0.25rem;
+	background: $backgroundLight;
+	border: 0.0625rem solid $strokeMild;
+	border-radius: 600rem;
+	width: fit-content;
+	height: auto;
+	min-height: 1.25rem;
+	align-items: center;
+}
+
+.pill-option {
+	padding: 0.25rem 0.75rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	user-select: none;
+	display: flex;
+	align-items: center;
+	height: auto;
+	min-height: 1rem;
+	border-radius: 600rem;
+	&:not(.active) {
+		background: transparent;
+		&:hover {
+			background: rgba($themePrimaryMain, 0.04);
+		}
+	}
+	&.active {
+		background: $themePrimaryMain;
+	}
+}
+
+.pill-option-text {
+	color: $textSecondary;
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.75rem !important;
+	font-weight: 500 !important;
+	line-height: 1.2 !important;
+	letter-spacing: 0.02875rem;
+	.pill-option.active & {
+		color: $backgroundLight;
+	}
+}
+
+// ==========================================
+// METRIC ROWS - INSURANCE CARD
+// Used by: InsurancePlanCard component
+// ==========================================
+.metric-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 0;
+}
+
+.metric-label-container {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+}
+
+.metric-label {
+	color: $textSecondary;
+	font-size: 0.875rem;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-skip-ink: none;
+	text-decoration-color: $strokeMild;
+	text-decoration-thickness: 0.09625rem;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+	width: fit-content;
+	display: inline-block;
+}
+
+.metric-value {
+	color: $textPrimary;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+// ==========================================
+// ALTERNATIVES TOGGLE & CARDS
+// Used by: InsurancePlanCard (alternatives section)
+// ==========================================
+.alternatives-toggle {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	&:hover {
+		background: #f8f9fa;
+	}
+}
+
+.alternatives-toggle-text {
+	color: $textPrimary;
+	font-size: 0.875rem;
+}
+
+.alternatives-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.insurance-alternative-card {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+	margin-bottom: 1rem;
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.alternative-card-header {
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.alternative-title {
+	color: $textPrimary;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.coverage-badge-alt {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+}
+
+.coverage-dot-alt {
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 50%;
+	background-color: #6366f1;
+}
+
+.coverage-text-alt {
+	color: $textPrimary;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.03125rem;
+}
+
+.section-label-alt {
+	color: $textTertiary;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.03125rem;
+	text-transform: uppercase;
+	margin-bottom: 0.75rem;
+}
+
+.addon-row-alt {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 0;
+}
+
+.addon-label-alt {
+	color: $textSecondary;
+	font-size: 0.8125rem;
+}
+
+.addon-value-alt {
+	color: $textPrimary;
+	font-size: 0.8125rem;
+	font-weight: 500;
+}
+
+.metrics-section-alt {
+	background: $backgroundLight;
+}
+
+.metric-row-alt {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 0;
+}
+
+.metric-label-alt {
+	color: $textSecondary;
+	font-size: 0.8125rem;
+}
+
+.metric-value-container {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.metric-value-alt {
+	color: $textPrimary;
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+.change-indicator {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 50%;
+	&.increase {
+		background-color: #fee;
+		color: #c33;
+		svg {
+			font-size: 1rem;
+		}
+	}
+	&.decrease {
+		background-color: #efe;
+		color: #3c3;
+		svg {
+			font-size: 1rem;
+		}
+	}
+}
+
+// ==========================================
+// COMPARE MODE - CONTAINER & HEADER
+// Used by: CompareMode component
+// ==========================================
+.compare-mode-container {
+	width: 100%;
+}
+
+.compare-mode-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.25rem;
+	padding-bottom: 1rem;
+	border-bottom: 0.0625rem solid $borderColor;
+}
+
+.back-button {
+	color: $textSecondary;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.compare-mode-title-main {
+	color: $textPrimary;
+	font-size: 1.25rem;
+	font-weight: 600;
+	flex: 1;
+	text-align: center;
+	margin: 0;
+}
+
+// ==========================================
+// ADD INSURANCE PLAN BUTTON
+// Used by: CompareMode component
+// ==========================================
+.add-insurance-plan-btn {
+	background-color: $themePrimaryMain !important;
+	color: white !important;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	display: flex;
+	height: 2.25rem;
+	padding: 0.375rem 1rem;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	border-radius: 0.5rem;
+	&:hover:not(:disabled) {
+		background-color: darken($themePrimaryMain, 10%) !important;
+	}
+	&:disabled {
+		background-color: #b0b8bd !important;
+		color: #e0e0e0 !important;
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+	.MuiButton-startIcon {
+		margin-right: 0.375rem;
+	}
+}
+
+.compare-content {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+// ==========================================
+// FARM INFO SECTION - COMPARE MODE
+// Used by: CompareMode component
+// ==========================================
+.farm-info-section {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	padding: 1.25rem;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+}
+
+.farm-info-card {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1rem !important;
+	padding-bottom: 0 !important;
+}
+
+.farm-info-title {
+	color: $textPrimary;
+	font-size: 1rem !important;
+	font-weight: 600;
+}
+
+.edit-button-icon {
+	padding: 0 !important;
+	width: auto !important;
+	height: auto !important;
+	cursor: pointer;
+	svg {
+		font-size: 1rem !important;
+	}
+	&.MuiIconButton-root {
+		min-width: 0 !important;
+		min-height: 0 !important;
+	}
+}
+
+.farm-info-grid {
+	display: grid;
+	grid-template-columns: repeat(6, auto);
+	gap: 1rem;
+	width: 100%;
+}
+
+.farm-info-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	padding-right: 1rem;
+	&:not(:last-child) {
+		border-right: 0.0625rem solid $strokeMild;
+	}
+}
+
+.farm-info-label {
+	color: $textTertiary;
+	font-size: 0.75rem !important;
+	font-weight: 400 !important;
+	letter-spacing: 0.03125rem;
+	text-transform: uppercase;
+}
+
+.farm-info-value {
+	color: $textPrimary;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	line-height: 1.5rem;
+	letter-spacing: 0.00938rem;
+}
+
+.yield-price-info-compare {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	padding: 1.25rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+}
+
+// ==========================================
+// INSURANCE SUMMARY SECTION - COMPARE MODE
+// Used by: CompareMode component
+// ==========================================
+.insurance-summary-section {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.summary-header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.summary-title {
+	color: $textPrimary;
+	font-size: 1.25rem !important;
+	font-weight: 600 !important;
+}
+
+.unit-dropdown {
+	font-size: 0.875rem;
+	color: $textPrimary;
+	padding: 0.25rem 0.5rem;
+	border: 0.0625rem solid $strokeMild;
+	border-radius: 0.25rem;
+	background-color: $backgroundLight;
+	.MuiSelect-select {
+		padding: 0.375rem 2rem 0.375rem 0.75rem;
+		color: $textPrimary;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+		line-height: 1.5rem;
+		letter-spacing: 0.025rem;
+	}
+	.MuiSelect-icon {
+		color: $textTertiary;
+		right: 0.5rem;
+	}
+	&:hover {
+		border-color: $themePrimaryMain;
+	}
+	&.Mui-focused {
+		border-color: $themePrimaryMain;
+		outline: none;
+	}
+}
+
+.unit-dropdown-menu {
+	margin-top: 0.25rem;
+	.MuiMenuItem-root {
+		color: $textPrimary;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+		line-height: 1.5rem;
+		letter-spacing: 0.025rem;
+	}
+}
+
+.download-btn {
+	padding: 0.5rem;
+	min-width: auto;
+	color: $textSecondary;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.plans-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(23.75rem, 1fr));
+	gap: 1.25rem;
+}
+
+// ==========================================
+// BASE SELECTION CARD - COMPARE MODE
+// Used by: CompareMode, EditBaseSelectionCard
+// ==========================================
+.base-selection-card {
+	background: $backgroundLight !important;
+	border-radius: 0.75rem;
+	border: 0.0625rem solid $darkBorder;
+	overflow: hidden;
+	box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08);
+}
+
+.plan-banner-container {
+	display: flex;
+	height: 2rem;
+	padding: 0.5625rem 0;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 0.625rem;
+	align-self: stretch;
+	border-radius: 0 0 624.9375rem 624.9375rem;
+}
+
+.plan-banner-badge {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.plan-banner-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
+.plan-banner-text {
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+}
+
+.compare-card-top-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 1.25rem 0 1.25rem;
+}
+
+.compare-plan-title {
+	color: $textSecondary;
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	line-height: 0.875rem !important;
+	letter-spacing: 0.00938rem;
+	text-transform: uppercase;
+}
+
+.compare-edit-icon-btn,
+.compare-menu-icon-btn {
+	padding: 0;
+	color: #8f9ca2;
+	width: 1.125rem;
+	height: 1.125rem;
+	svg {
+		width: 1.125rem;
+		height: 1.125rem;
+	}
+	&:hover {
+		background-color: transparent;
+		color: $themePrimaryMain;
+	}
+}
+
+.base-plan-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.75rem 1.25rem 1rem 1.25rem;
+}
+
+.base-plan-header-content {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.base-plan-header-right {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.base-plan-name {
+	color: $textPrimary;
+	font-size: 1.2rem !important;
+	font-weight: 600 !important;
+	margin-bottom: 0;
+}
+
+.base-plan-section {
+	padding: 0.62rem 1.25rem;
+	margin: 0 1.25rem;
+	background: $backgroundMild;
+	.section-label {
+		color: $textSecondary;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+	}
+}
+
+.addon-info-row {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	&:not(:last-child) {
+		border-bottom: 0.0625rem solid #f0f0f0;
+	}
+}
+
+.addon-info-label {
+	color: $textSecondary;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: $strokeMild;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+	width: fit-content;
+	display: inline-block;
+}
+
+.addon-info-toggle {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.toggle-inactive {
+	color: $textTertiary;
+	font-size: 0.75rem;
+}
+
+.toggle-active {
+	color: $textPrimary;
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.addon-info-values {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.addon-value-inactive {
+	color: $textTertiary;
+	font-size: 0.75rem;
+	padding: 0.125rem 0.5rem;
+	border-radius: 0.75rem;
+	background-color: #f5f5f5;
+}
+
+.addon-value-active {
+	color: $textPrimary;
+	font-size: 0.75rem;
+	font-weight: 600;
+	padding: 0.125rem 0.5rem;
+	border-radius: 0.75rem;
+	background-color: #e3f2fd;
+}
+
+.base-plan-metrics {
+	padding: 1.25rem;
+	background: $backgroundLight;
+}
+
+.base-metric-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.625rem 0;
+}
+
+.base-metric-label {
+	color: $textSecondary;
+	font-size: 0.8125rem;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-skip-ink: none;
+	text-decoration-color: $strokeMild;
+	text-decoration-thickness: 0.09625rem;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+	width: fit-content;
+	display: inline-block;
+}
+
+.base-metric-value {
+	color: $textPrimary;
+	font-size: 0.9375rem;
+	font-weight: 600;
+}
+
+// ==========================================
+// ADD PLAN CARD - COMPARE MODE
+// Used by: AddPlanCard component
+// ==========================================
+.add-plan-card {
+	background: $backgroundLight;
+	border: 0.125rem dashed $strokeMild;
+	border-radius: 0.75rem;
+	overflow: hidden;
+}
+
+.add-plan-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1rem 1.25rem;
+	border-bottom: 0.0625rem solid $borderColor;
+	background-color: #f8f9fa;
+}
+
+.add-plan-title {
+	color: $textSecondary;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+	text-transform: uppercase;
+}
+
+.close-button {
+	padding: 0.25rem;
+	color: $textSecondary;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.add-plan-content {
+	padding: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.insurance-plan-header-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.insurance-plan-label {
+	color: $textPrimary;
+	font-size: 0.875rem;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.save-changes-btn {
+	background-color: #1976d2 !important;
+	color: #fff !important;
+	font-family: Roboto !important;
+	font-size: 0.8125rem !important;
+	font-style: normal !important;
+	font-weight: 500 !important;
+	line-height: 1.375rem !important;
+	letter-spacing: 0.02875rem !important;
+	text-transform: uppercase !important;
+	padding: 0.375rem 1rem !important;
+	border-radius: 0.25rem !important;
+	box-shadow: none !important;
+	&:hover {
+		background-color: #1565c0 !important;
+		box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.14) !important;
+	}
+}
+
+.insurance-plan-options-compare {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.insurance-option-compare {
+	display: flex;
+	align-items: flex-start;
+	cursor: pointer;
+	transition: all 0.2s;
+	&.selected {
+		border-color: $themePrimaryMain;
+		background-color: $backgroundLight;
+	}
+	input[type="radio"] {
+		margin-top: 0.125rem;
+		margin-right: 0.625rem;
+		appearance: none;
+		width: 1.125rem;
+		height: 1.125rem;
+		border: 0.125rem solid $darkBorder;
+		border-radius: 50%;
+		cursor: pointer;
+		position: relative;
+		&:checked::after {
+			content: "";
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 0.625rem;
+			height: 0.625rem;
+			background-color: $darkBorder;
+			border-radius: 50%;
+		}
+	}
+	.option-label {
+		color: $textPrimary;
+		font-size: 0.8125rem;
+		font-weight: 500;
+		line-height: 1.4;
+	}
+}
+
+.run-evaluator-btn-compare {
+	width: 100%;
+	background-color: $themePrimaryMain;
+	color: $backgroundLight;
+	border: none;
+	border-radius: 0.5rem;
+	padding: 0.75rem 1rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	text-transform: none;
+	margin-top: 0.5rem;
+	&:hover:not(:disabled) {
+		background-color: $themePrimaryMainDarker;
+	}
+	&:disabled {
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+	.arrow-icon {
+		font-size: 1.125rem;
+	}
+}
+
+// ==========================================
+// YIELD PRICE INFO - STANDALONE
+// Used by: YieldPriceInfo in standalone mode
+// ==========================================
+.yield-price-info-standalone {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	padding: 1.25rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+}
+
+.yield-price-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex: 1;
+}
+
+.compare-mode-btn-standalone {
+	background: linear-gradient(101deg, $themePrimaryMain 2.5%, #76c6c2 125.18%);
+	color: $backgroundLight;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	transition: transform 0.2s;
+	margin-left: 1.25rem;
+	&:hover {
+		background: linear-gradient(
+			101deg,
+			$themePrimaryMain 2.5%,
+			#76c6c2 125.18%
+		);
+		transform: translateY(-0.125rem);
+		box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+	}
+	.MuiButton-startIcon {
+		margin-right: 0.375rem;
+	}
+}
+
+// ==========================================
+// COMPARE MODE - FULL CONTAINER
+// Used by: CompareMode (full page mode)
+// ==========================================
+.compare-mode-full-container {
+	width: 100%;
+}
+
+.compare-mode-header-full {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	margin-bottom: 1rem;
+	.back-button {
+		display: flex;
+		height: 2.25rem;
+		padding: 0.375rem 0.5rem;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: flex-start;
+	}
+}
+
+.compare-mode-title-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 1.62rem;
+}
+
+.compare-mode-title-center {
+	color: $textPrimary;
+	font-family: "Open Sans", sans-serif;
+	font-size: 1.5rem !important;
+	font-weight: 400 !important;
+	line-height: 133.4%;
+	letter-spacing: 0.0625rem;
+	flex: 1;
+	margin: 0;
+}
+
+.compare-content-full {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.farm-yield-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.25rem;
+}
+
+.farm-info-section-full {
+	background: transparent;
+	border-radius: 0.75rem;
+	border: 0.0625rem solid $strokeMild;
+	padding: 0.88rem 1.25rem;
+	box-shadow: none;
+}
+
+.yield-price-section-compare {
+	background: transparent;
+	border-radius: 0.75rem;
+	border: 0.0625rem solid $strokeMild;
+	padding: 0.88rem 1.25rem;
+	box-shadow: none;
+}
+
+.yield-price-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.yield-price-title {
+	color: $textPrimary;
+	font-size: 1rem;
+	font-weight: 600;
+}
+
+.view-case-btn {
+	color: $textSecondary;
+	font-size: 0.875rem;
+	text-transform: none;
+	padding: 0.25rem 0.5rem;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.yield-price-rows-compare {
+	display: flex;
+	flex-direction: column;
+}
+
+.yield-price-row-compare {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.yield-price-label-compare {
+	color: $textSecondary;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: $darkBorder;
+	text-decoration-thickness: 0.09625rem;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+}
+
+.yield-price-value-compare {
+	color: $textPrimary;
+	font-size: 0.875rem !important;
+	font-weight: 400;
+}
+
+.insurance-summary-section-full {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	background: transparent;
+	border-radius: 0;
+	padding: 0;
+	box-shadow: none;
+}
+
+.plans-grid-full {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(23.75rem, 1fr));
+	gap: 1.25rem;
+}
+
+// ==========================================
+// MODALS - EDIT FARM INFO & INSURANCE PLAN
+// Used by: EditFarmInfoModal, EditInsurancePlanModal
+// ==========================================
+.edit-farm-info-modal,
+.edit-insurance-plan-modal {
+	.MuiDialog-paper {
+		border-radius: 0.75rem;
+	}
+}
+
+.modal-title {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.25rem;
+}
+
+.modal-title-text {
+	color: $textPrimary;
+	font-size: 1.125rem;
+	font-weight: 600;
+}
+
+.modal-close-button {
+	padding: 0.25rem;
+	color: $textSecondary;
+}
+
+.modal-content {
+	padding: 1.25rem;
+}
+
+.modal-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.modal-form-field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.modal-field-label {
+	color: $textTertiary;
+	font-size: 0.6875rem;
+	font-weight: 600;
+	letter-spacing: 0.03125rem;
+	text-transform: uppercase;
+}
+
+.info-icon-modal {
+	font-size: 1rem;
+	color: $iconActive;
+	cursor: pointer;
+}
+
+.modal-text-field {
+	.MuiOutlinedInput-root {
+		border-radius: 0.25rem;
+		& fieldset {
+			border-color: $strokeMild;
+		}
+		&:hover fieldset {
+			border-color: $themePrimaryMain;
+		}
+		&.Mui-focused fieldset {
+			border-color: $themePrimaryMain;
+		}
+	}
+	.MuiInputBase-input {
+		font-size: 0.875rem !important;
+		padding: 0.625rem 0.75rem;
+		color: $textPrimary !important;
+		font-weight: 400 !important;
+		font-style: normal !important;
+	}
+}
+
+.edit-farm-info-modal {
+	.MuiTextField-root {
+		.MuiInput-underline:before {
+			border-bottom-color: $strokeMild;
+		}
+		.MuiInput-underline:hover:not(.Mui-disabled):before {
+			border-bottom-color: $themePrimaryMain;
+		}
+		.MuiInput-underline:after {
+			border-bottom-color: $themePrimaryMain;
+		}
+		.MuiInput-root {
+			padding-bottom: 5px;
+		}
+		.MuiInputBase-input {
+			font-size: 0.875rem !important;
+			padding: 0;
+			padding-bottom: 0;
+			color: $textPrimary !important;
+			font-family: "Open Sans", sans-serif;
+			font-weight: 400 !important;
+			font-style: normal !important;
+			line-height: 24px;
+			letter-spacing: 0.15px;
+		}
+		.MuiInput-input {
+			font-size: 0.875rem !important;
+			padding: 0;
+			padding-bottom: 0;
+			color: $textPrimary !important;
+			font-family: "Open Sans", sans-serif;
+			font-weight: 400 !important;
+			font-style: normal !important;
+			line-height: 24px;
+			letter-spacing: 0.15px;
+		}
+	}
+}
+
+.input-unit {
+	color: $textSecondary;
+	font-size: 0.875rem;
+	margin-left: 0.5rem;
+}
+
+.modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+.modal-cancel-btn {
+	color: $textSecondary;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+}
+
+.modal-save-btn {
+	background-color: $themePrimaryMain;
+	color: $backgroundLight;
+	text-transform: none;
+	font-size: 0.875rem;
+	font-weight: 600;
+	padding: 0.5rem 1rem;
+	border-radius: 0.25rem;
+	&:hover {
+		background-color: $themePrimaryMainDarker;
+	}
+}
+
+// ==========================================
+// ADD PLAN DROPDOWN MODAL
+// Used by: AddPlanModal component
+// ==========================================
+.add-plan-dropdown {
+	.MuiPopover-paper {
+		margin-top: 0.5rem;
+		box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.15);
+	}
+}
+
+.add-plan-dropdown-paper {
+	border-radius: 0.5rem;
+	min-width: 17.5rem;
+	padding: 0.5rem 0;
+	background-color: #fff;
+}
+
+.add-plan-dropdown-item {
+	padding: 1rem 1.25rem;
+	&:hover {
+		background-color: #f5f5f5;
+	}
+	&.new-plan-item {
+		.dropdown-item-content {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+		.dropdown-item-icon {
+			color: $themePrimaryMain;
+			font-size: 1.25rem;
+		}
+		.dropdown-item-text {
+			color: $textPrimary;
+			font-size: 0.9375rem;
+			font-weight: 400;
+		}
+	}
+	&.preset-option-item {
+		.dropdown-item-content {
+			display: flex;
+			align-items: center;
+			gap: 0.75rem;
+		}
+		.dropdown-item-emoji {
+			font-size: 1.125rem;
+		}
+		.dropdown-item-text {
+			color: $textPrimary;
+			font-size: 0.875rem;
+			font-weight: 400;
+		}
+	}
+}
+
+.dropdown-item-content {
+	width: 100%;
+}
+
+// ==========================================
+// METRIC VALUE WITH ARROW INDICATOR
+// Used by: InsurancePlanCard (comparison metrics)
+// ==========================================
+.metric-value-with-arrow {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.metric-arrow-icon {
+	padding: 0.125rem;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.04);
+	}
+	.arrow-up {
+		color: #4caf50;
+	}
+	.arrow-down {
+		color: #f44336;
+	}
+}
+
+.metric-tooltip-content {
+	padding: 0.25rem;
+}
+
+// ==========================================
+// PLAN COMPARISON CHART SECTION
+// Used by: InsurancePlanCard (mini bar chart)
+// ==========================================
+.plan-comparison-chart-section {
+	padding: 1rem 1.25rem;
+	background: $backgroundLight;
+	border-top: 0.0625rem solid $borderColor;
+}
+
+.mini-bar-chart {
+	display: flex;
+	flex-direction: row;
+	gap: 0.125rem;
+	width: 3rem;
+	height: 1.25rem;
+	align-items: center;
+	justify-content: center;
+	margin-left: 0.5rem;
+}
+
+.mini-bar-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	height: 100%;
+}
+
+.mini-bar-track {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: #f0f0f0;
+	border-radius: 0.125rem;
+	overflow: visible;
+}
+
+.mini-bar-fill {
+	position: absolute;
+	width: 100%;
+	border-radius: 0.125rem;
+	transition: height 0.3s ease, bottom 0.3s ease;
+	left: 0;
+	min-height: 0.1875rem;
+}
+
+.mini-bar-center-line {
+	position: absolute;
+	bottom: 50%;
+	left: 0;
+	right: 0;
+	height: 0.125rem;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1;
+	transform: translateY(50%);
+}
+
+// ==========================================
+// ARC/PLC CALCULATOR SPECIFIC STYLES
+// Used by: NewARCPLC components
+// ==========================================
+
+.evaluator-sidebar {
+	span {
+		font-size: 0.875rem !important;
+		font-weight: 400 !important;
+		color: $darkBorder !important;
+	}
+	.run-calculator-btn {
+		color: $backgroundLight !important;
+	}
+}
+
+.arcplc-program-inputs {
+	background-color: $backgroundMild;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	margin-bottom: 1rem !important;
+	.section-title {
+		text-align: center;
+		font-size: 0.875rem !important;
+		font-weight: 600 !important;
+		color: $textPrimary !important;
+	}
+}
+
+.program-input-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 0;
+	&:not(:last-child) {
+		border-bottom: 0.0625rem solid $strokeMild;
+	}
+}
+
+.program-input-label {
+	color: $textSecondary !important;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+}
+
+.program-input-value {
+	color: $textPrimary !important;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+}
+
+.arcplc-bar-chart {
+	width: 100%;
+	min-height: 300px;
+	margin: 1.5rem 0;
+}
+
+.arcplc-cards-container {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	gap: 1.25rem !important;
+	width: 100%;
+	align-items: start !important;
+
+	@media (max-width: 1200px) {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+.arcplc-payout-card {
+	background: $backgroundLight;
+	border: 0.0625rem solid $borderColor;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	box-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.08);
+	height: fit-content;
+}
+
+.payout-card-header {
+	display: flex;
+	align-items: flex-start;
+	padding: 1.25rem;
+	gap: 1rem;
+}
+
+.payout-icon {
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 0.1875rem;
+	flex-shrink: 0;
+}
+
+.payout-card-title {
+	color: $textPrimary !important;
+	font-size: 1rem !important;
+	font-weight: 600 !important;
+}
+
+.payout-card-description {
+	color: $textSecondary !important;
+	font-size: 0.75rem !important;
+	font-weight: 400 !important;
+	line-height: 1.25;
+}
+
+.payout-card-metrics {
+	padding: 0 1.25rem 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.payout-metric-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 0;
+	gap: 1rem;
+}
+
+.payout-metric-label-container {
+	flex: 1;
+}
+
+.payout-metric-label {
+	color: $textSecondary !important;
+	font-size: 0.875rem !important;
+	font-weight: 400 !important;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-color: $strokeMild;
+	text-underline-offset: 0.35rem;
+	text-underline-position: from-font;
+	cursor: help;
+	display: inline-block;
+	width: fit-content;
+}
+
+.payout-metric-value {
+	color: $textPrimary !important;
+	font-size: 0.875rem !important;
+	font-weight: 600 !important;
+}
+
+.payout-card-expanded-section {
+	padding: 0 1.25rem 1.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.payout-card-collapse-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.75rem 1.25rem;
+	cursor: pointer;
+	transition: background-color 0.2s;
+	&:hover {
+		background-color: $backgroundMild;
+	}
+}
+
+.payout-collapse-text {
+	color: $themePrimaryMain !important;
+	font-size: 0.8125rem !important;
+	font-style: normal !important;
+	font-weight: 500 !important;
+	line-height: 1.25rem !important;
+	letter-spacing: 0.02875rem !important;
+	cursor: pointer;
+}
+
+.payout-nested-label {
+	color: $textSecondary !important;
+	font-size: 0.875rem !important;
+	font-style: normal !important;
+	text-decoration-line: underline;
+	text-decoration-style: dotted;
+	text-decoration-skip-ink: none;
+	text-decoration-thickness: 11%;
+	text-underline-offset: 40%;
+	text-underline-position: from-font;
+}
+
+.payout-expandable-row {
+	cursor: pointer;
+	padding: 0.5rem 0 !important;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.02);
+	}
+}
+
+.payout-nested-items {
+	padding-left: 1.75rem;
+	.payout-metric-row {
+		padding: 0.5rem 0 !important;
+	}
+}
+
+// ==========================================
+// CASE FARM INFO MODAL STYLES
+// Used by: CaseFarmInfoModal
+// ==========================================
+
+.case-farm-info-modal {
+	.modal-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1.5rem;
+
+		.header-left {
+			display: flex;
+			gap: 0.75rem;
+			align-items: center;
+		}
+		.header-icon {
+			width: 1.5rem;
+			height: 1.5rem;
+			color: $themeSecondMain;
+			flex-shrink: 0;
+			align-self: center;
+		}
+		.header-text {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+		}
+		.modal-title {
+			font-size: 1rem !important;
+			font-weight: 600;
+			line-height: 1.5rem;
+			color: $textPrimary;
+			margin: 0;
+			padding: 0 !important;
+		}
+		.modal-subtitle {
+			font-size: 0.875rem;
+			font-weight: 400;
+			line-height: 1rem;
+			color: $textSecondary;
+			margin: 0;
+			padding: 0;
+		}
+		.close-button {
+			color: $textTertiary;
+			padding: 0.5rem;
+			&:hover {
+				background-color: $backgroundMild;
+			}
+		}
+	}
+
+	.modal-body {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		.info-section {
+			border: 0.0625rem solid $strokeMild;
+			border-radius: 0.5rem;
+			padding: 1rem;
+			background-color: $backgroundLight;
+			.section-title {
+				font-size: 1rem !important;
+				font-weight: 600 !important;
+				line-height: 1.25rem;
+				color: $textPrimary;
+				margin-bottom: 0.5rem !important;
+			}
+			.info-table {
+				border-radius: 0;
+				border: none;
+				overflow: hidden;
+				&.compact {
+					.table-row {
+						padding: 0.75rem 0;
+						border-bottom: none;
+					}
+				}
+				.table-header {
+					display: grid;
+					grid-template-columns: 2fr 1fr 1fr;
+					background-color: $backgroundMild;
+					padding: 0.5rem 2.5rem 0.5rem 3.5rem !important;
+					border-bottom: none;
+					margin-bottom: 0.5rem !important;
+					.header-cell {
+						font-size: 0.6875rem !important;
+						font-weight: 600;
+						line-height: 1rem;
+						color: $textSecondary;
+						text-transform: uppercase;
+						letter-spacing: 0.03125rem;
+						&.metric-col {
+							grid-column: 1;
+						}
+					}
+				}
+				.table-row {
+					display: grid;
+					grid-template-columns: 2fr 1fr 1fr;
+					padding: 0.5rem 2.5rem 0.5rem 3.5rem !important;
+					border-bottom: none;
+					&:last-child {
+						border-bottom: none;
+					}
+					.row-label {
+						font-size: 0.875rem !important;
+						font-weight: 400 !important;
+						line-height: 1.25rem !important;
+						color: $textSecondary;
+					}
+					.row-value {
+						font-size: 0.875rem !important;
+						font-weight: 600 !important;
+						line-height: 1.25rem !important;
+						color: $textPrimary;
+					}
+				}
+			}
+		}
+
+		.info-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1.5rem;
+			border: 0.0625rem solid $strokeMild;
+			border-radius: 0.5rem;
+			padding: 1rem;
+			background-color: $backgroundLight;
+			.info-section {
+				border: none;
+				padding: 0;
+			}
+			.info-table {
+				.table-row {
+					grid-template-columns: 2fr 1fr;
+				}
+			}
+		}
+
+		.rma-info {
+			background-color: $backgroundMild;
+			border-radius: 0.5rem;
+			padding: 1rem;
+			text-align: center;
+			.rma-text {
+				font-size: 0.875rem;
+				font-weight: 400;
+				line-height: 1.25rem;
+				color: $textSecondary;
+			}
+		}
+	}
+}

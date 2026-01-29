@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 - Upgrade the project's node version to 22 and python to 3 [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
+- Create the new insurance evaluator [#17](https://github.com/policy-design-lab/farmdoc-frontend/issues/17)
+- Create the new ARC/PLC calculator [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/18)
 
 ## [1.9.0] - 2025-03-01
 - Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
