@@ -35,6 +35,7 @@ const InsurancePlanCard = ({
 	avgIndemnityPayment,
 	netCost,
 	avgWorstScenario,
+	freqPayment: initialFreqPayment,
 	isEnterprise = false,
 	policies,
 	fullPageRef,
@@ -71,6 +72,7 @@ const InsurancePlanCard = ({
 		payment: avgIndemnityPayment,
 		netCost: netCost,
 		worst: avgWorstScenario,
+		freqPayment: initialFreqPayment,
 	});
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [showDifference, setShowDifference] = useState(false);
@@ -93,6 +95,7 @@ const InsurancePlanCard = ({
 					payment: policyData["avg-payment"],
 					netCost: policyData["net-cost"],
 					worst: policyData["var-1"],
+					freqPayment: policyData["freq-payment"],
 				});
 			}
 		}
@@ -103,6 +106,13 @@ const InsurancePlanCard = ({
 			return "xx.xx";
 		}
 		return `$${parseFloat(value).toFixed(2)}`;
+	};
+
+	const formatPercent = (value) => {
+		if (value === null || value === undefined) {
+			return "xx.x%";
+		}
+		return `${(parseFloat(value) * 100).toFixed(1)}%`;
 	};
 
 	const getPlanFullName = (plan) => {
@@ -173,13 +183,15 @@ const InsurancePlanCard = ({
 				"Net insurance benefit equals the indemnities minus the farmer paid portion of the premium",
 			"Net Cost ($/acre)":
 				"Net cost (net-cost) - The estimated premium minus average indemnity payment per acre",
+			"Payment Frequency (%)":
+				"Probability of triggering a payment (including all selected products) given uncertainty in prices and yields",
 			"Net Revenue (worst case) ($/acre)":
-				"Net Revenue (worst case) – Value-at-risk 1%. A one-in-hundred bad scenario revenue after insurance benefits.",
+				"Net Revenue (worst case) – Value-at-risk 5%. A one-in-hundred bad scenario revenue after insurance benefits.",
 		};
 		return tooltips[label] || "";
 	};
 
-	const renderMetricWithArrow = (label, value, baseValue) => {
+	const renderMetricWithArrow = (label, value, baseValue, formatter = formatCurrency) => {
 		const difference = calculateDifference(value, baseValue);
 		const isPositive = difference > 0;
 		const isNegative = difference < 0;
@@ -202,7 +214,7 @@ const InsurancePlanCard = ({
 					<Typography
 						className={isCompareMode ? "base-metric-value" : "metric-value"}
 					>
-						{formatCurrency(value)}
+						{formatter(value)}
 					</Typography>
 					{(isPositive || isNegative) && (
 						<Box style={{display: "flex", alignItems: "center", gap: "4px"}}>
@@ -215,7 +227,7 @@ const InsurancePlanCard = ({
 									}}
 								>
 									({isPositive ? "+" : ""}
-									{formatCurrency(difference)})
+									{formatter(difference)})
 								</Typography>
 							) : (
 								<>
@@ -495,6 +507,12 @@ const InsurancePlanCard = ({
 								baseMetrics.avgIndemnityPayment - baseMetrics.estimatedPremium
 							)}
 							{renderMetricWithArrow(
+								"Payment Frequency (%)",
+								currentData.freqPayment,
+								baseMetrics.freqPayment,
+								formatPercent
+							)}
+							{renderMetricWithArrow(
 								"Net Revenue (worst case) ($/acre)",
 								currentData.worst,
 								baseMetrics.netBenefit
@@ -576,6 +594,30 @@ const InsurancePlanCard = ({
 									}
 								>
 									{formatCurrency(currentData.payment - currentData.premium)}
+								</Typography>
+							</Box>
+							<Box className={isCompareMode ? "base-metric-row" : "metric-row"}>
+								<Box className={isCompareMode ? "" : "metric-label-container"}>
+									<Tooltip
+										title={getMetricTooltip("Payment Frequency (%)")}
+										placement="top"
+										arrow
+									>
+										<Typography
+											className={
+												isCompareMode ? "base-metric-label" : "metric-label"
+											}
+										>
+											Payment Frequency (%)
+										</Typography>
+									</Tooltip>
+								</Box>
+								<Typography
+									className={
+										isCompareMode ? "base-metric-value" : "metric-value"
+									}
+								>
+									{formatPercent(currentData.freqPayment)}
 								</Typography>
 							</Box>
 							<Box className={isCompareMode ? "base-metric-row" : "metric-row"}>

@@ -73,6 +73,7 @@ const CompareMode = ({
 		"avg-payment": baseSelection?.["avg-payment"],
 		"net-cost": baseSelection?.["net-cost"],
 		"var-1": baseSelection?.["var-1"],
+		"freq-payment": baseSelection?.["freq-payment"],
 	});
 	const [currentInsurancePlan, setCurrentInsurancePlan] =
 		useState(insurancePlan);
@@ -99,6 +100,7 @@ const CompareMode = ({
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
 					"var-1": policyData["var-1"],
+					"freq-payment": policyData["freq-payment"],
 				});
 			}
 		}
@@ -124,6 +126,7 @@ const CompareMode = ({
 					avgIndemnityPayment: policyData?.["avg-payment"] || 0,
 					netCost: policyData?.["net-cost"] || 0,
 					netBenefit: policyData?.["var-1"] || 0,
+					freqPayment: policyData?.["freq-payment"] || 0,
 				};
 			});
 			setPlans(newPlans);
@@ -210,7 +213,8 @@ const CompareMode = ({
 			estimatedPremium: policyData["est-premium"],
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
-			netBenefit: policyData["var-1"]
+			netBenefit: policyData["var-1"],
+			freqPayment: policyData["freq-payment"]
 		};
 	};
 
@@ -259,6 +263,7 @@ const CompareMode = ({
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
 			netBenefit: policyData["var-1"],
+			freqPayment: policyData["freq-payment"],
 			bannerText: bannerText,
 			bannerColor: bannerColor,
 			bannerTextColor: bannerTextColor,
@@ -292,6 +297,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 32.0,
 				netCost: -10.5,
 				netBenefit: 750.0,
+				freqPayment: 0,
 			},
 			"minimize-premium": {
 				planName: "yp",
@@ -300,6 +306,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 18.0,
 				netCost: -6.0,
 				netBenefit: 550.0,
+				freqPayment: 0,
 			},
 			"maximize-indemnity": {
 				planName: "rp",
@@ -308,6 +315,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 40.0,
 				netCost: -15.0,
 				netBenefit: 850.0,
+				freqPayment: 0,
 			},
 		};
 
@@ -339,6 +347,7 @@ const CompareMode = ({
 			avgIndemnityPayment: 24.5,
 			netCost: -6.25,
 			netBenefit: 650.0,
+			freqPayment: 0,
 		};
 		setPlans([...plans, newPlan]);
 		setShowAddPlan(false);
@@ -428,6 +437,7 @@ const CompareMode = ({
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
 					"var-1": policyData["var-1"],
+					"freq-payment": policyData["freq-payment"],
 				});
 			}
 
@@ -451,6 +461,7 @@ const CompareMode = ({
 							avgIndemnityPayment: planPolicyData["avg-payment"],
 							netCost: planPolicyData["net-cost"],
 							netBenefit: planPolicyData["var-1"],
+							freqPayment: planPolicyData["freq-payment"],
 						};
 					}
 					return plan;
@@ -481,6 +492,7 @@ const CompareMode = ({
 				"avg-payment": policyData["avg-payment"],
 				"net-cost": policyData["net-cost"],
 				"var-1": policyData["var-1"],
+				"freq-payment": policyData["freq-payment"],
 			});
 			dispatch(changeInsurancePlan(planData.planName));
 
@@ -512,6 +524,7 @@ const CompareMode = ({
 					avgIndemnityPayment: policyData["avg-payment"],
 					netCost: policyData["net-cost"],
 					netBenefit: policyData["var-1"],
+					freqPayment: policyData["freq-payment"],
 				};
 				setPlans(updatedPlans);
 			}
@@ -755,6 +768,7 @@ const CompareMode = ({
 									avgIndemnityPayment={currentBaseMetrics?.["avg-payment"]}
 									netCost={currentBaseMetrics?.["net-cost"]}
 									avgWorstScenario={currentBaseMetrics?.["var-1"]}
+									freqPayment={currentBaseMetrics?.["freq-payment"]}
 									isEnterprise={unitStructure === "enterprise"}
 									policies={currentPolicies}
 									mode="compare"
@@ -764,6 +778,7 @@ const CompareMode = ({
 										avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 										netCost: currentBaseMetrics?.["net-cost"],
 										netBenefit: currentBaseMetrics?.["var-1"],
+										freqPayment: currentBaseMetrics?.["freq-payment"],
 									}}
 									onEdit={handleEditBaseInsurancePlan}
 									initialScoEnabled={baseScoEnabled}
@@ -805,6 +820,7 @@ const CompareMode = ({
 										avgIndemnityPayment={plan.avgIndemnityPayment}
 										netCost={plan.netCost}
 										avgWorstScenario={plan.netBenefit}
+										freqPayment={plan.freqPayment}
 										isEnterprise={unitStructure === "enterprise"}
 										policies={currentPolicies}
 										mode="compare"
@@ -814,6 +830,7 @@ const CompareMode = ({
 											avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 											netCost: currentBaseMetrics?.["net-cost"],
 											netBenefit: currentBaseMetrics?.["var-1"],
+											freqPayment: currentBaseMetrics?.["freq-payment"],
 										}}
 										onEdit={() => handleEditPlan(index)}
 										onViewDifference={() => handleViewDifference(index)}

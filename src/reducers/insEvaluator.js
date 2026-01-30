@@ -4,7 +4,7 @@ const defaultState = {
 	evaluatorResults: null,
 	cropCode: null,
 	acres: null,
-	insUnit: "basic",
+	insUnit: "enterprise",
 	insurancePlan: "rp",
 	coverageLevel: 80,
 	loading: false,
