@@ -72,7 +72,7 @@ const CompareMode = ({
 		"est-premium": baseSelection?.["est-premium"],
 		"avg-payment": baseSelection?.["avg-payment"],
 		"net-cost": baseSelection?.["net-cost"],
-		"var-1": baseSelection?.["var-1"],
+		"var-5": baseSelection?.["var-5"],
 		"freq-payment": baseSelection?.["freq-payment"],
 	});
 	const [currentInsurancePlan, setCurrentInsurancePlan] =
@@ -99,7 +99,7 @@ const CompareMode = ({
 					"est-premium": policyData["est-premium"],
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
-					"var-1": policyData["var-1"],
+					"var-5": policyData["var-5"],
 					"freq-payment": policyData["freq-payment"],
 				});
 			}
@@ -125,7 +125,7 @@ const CompareMode = ({
 					estimatedPremium: policyData?.["est-premium"] || 0,
 					avgIndemnityPayment: policyData?.["avg-payment"] || 0,
 					netCost: policyData?.["net-cost"] || 0,
-					netBenefit: policyData?.["var-1"] || 0,
+					netBenefit: policyData?.["var-5"] || 0,
 					freqPayment: policyData?.["freq-payment"] || 0,
 				};
 			});
@@ -213,7 +213,7 @@ const CompareMode = ({
 			estimatedPremium: policyData["est-premium"],
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
-			netBenefit: policyData["var-1"],
+			netBenefit: policyData["var-5"],
 			freqPayment: policyData["freq-payment"]
 		};
 	};
@@ -262,7 +262,7 @@ const CompareMode = ({
 			estimatedPremium: policyData["est-premium"],
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
-			netBenefit: policyData["var-1"],
+			netBenefit: policyData["var-5"],
 			freqPayment: policyData["freq-payment"],
 			bannerText: bannerText,
 			bannerColor: bannerColor,
@@ -436,7 +436,7 @@ const CompareMode = ({
 					"est-premium": policyData["est-premium"],
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
-					"var-1": policyData["var-1"],
+					"var-5": policyData["var-5"],
 					"freq-payment": policyData["freq-payment"],
 				});
 			}
@@ -460,7 +460,7 @@ const CompareMode = ({
 							estimatedPremium: planPolicyData["est-premium"],
 							avgIndemnityPayment: planPolicyData["avg-payment"],
 							netCost: planPolicyData["net-cost"],
-							netBenefit: planPolicyData["var-1"],
+							netBenefit: planPolicyData["var-5"],
 							freqPayment: planPolicyData["freq-payment"],
 						};
 					}
@@ -491,7 +491,7 @@ const CompareMode = ({
 				"est-premium": policyData["est-premium"],
 				"avg-payment": policyData["avg-payment"],
 				"net-cost": policyData["net-cost"],
-				"var-1": policyData["var-1"],
+				"var-5": policyData["var-5"],
 				"freq-payment": policyData["freq-payment"],
 			});
 			dispatch(changeInsurancePlan(planData.planName));
@@ -523,7 +523,7 @@ const CompareMode = ({
 					estimatedPremium: policyData["est-premium"],
 					avgIndemnityPayment: policyData["avg-payment"],
 					netCost: policyData["net-cost"],
-					netBenefit: policyData["var-1"],
+					netBenefit: policyData["var-5"],
 					freqPayment: policyData["freq-payment"],
 				};
 				setPlans(updatedPlans);
@@ -767,7 +767,7 @@ const CompareMode = ({
 									estimatedPremium={currentBaseMetrics?.["est-premium"]}
 									avgIndemnityPayment={currentBaseMetrics?.["avg-payment"]}
 									netCost={currentBaseMetrics?.["net-cost"]}
-									avgWorstScenario={currentBaseMetrics?.["var-1"]}
+									avgWorstScenario={currentBaseMetrics?.["var-5"]}
 									freqPayment={currentBaseMetrics?.["freq-payment"]}
 									isEnterprise={unitStructure === "enterprise"}
 									policies={currentPolicies}
@@ -777,7 +777,7 @@ const CompareMode = ({
 										estimatedPremium: currentBaseMetrics?.["est-premium"],
 										avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 										netCost: currentBaseMetrics?.["net-cost"],
-										netBenefit: currentBaseMetrics?.["var-1"],
+										netBenefit: currentBaseMetrics?.["var-5"],
 										freqPayment: currentBaseMetrics?.["freq-payment"],
 									}}
 									onEdit={handleEditBaseInsurancePlan}
@@ -829,7 +829,7 @@ const CompareMode = ({
 											estimatedPremium: currentBaseMetrics?.["est-premium"],
 											avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 											netCost: currentBaseMetrics?.["net-cost"],
-											netBenefit: currentBaseMetrics?.["var-1"],
+											netBenefit: currentBaseMetrics?.["var-5"],
 											freqPayment: currentBaseMetrics?.["freq-payment"],
 										}}
 										onEdit={() => handleEditPlan(index)}

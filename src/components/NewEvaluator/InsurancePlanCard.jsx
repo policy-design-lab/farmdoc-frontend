@@ -94,7 +94,7 @@ const InsurancePlanCard = ({
 					premium: policyData["est-premium"],
 					payment: policyData["avg-payment"],
 					netCost: policyData["net-cost"],
-					worst: policyData["var-1"],
+					worst: policyData["var-5"],
 					freqPayment: policyData["freq-payment"],
 				});
 			}

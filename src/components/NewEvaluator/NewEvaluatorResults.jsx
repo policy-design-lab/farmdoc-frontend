@@ -216,7 +216,7 @@ class NewEvaluatorResults extends Component {
 							estimatedPremium={mainPolicy["est-premium"]}
 							avgIndemnityPayment={mainPolicy["avg-payment"]}
 							netCost={mainPolicy["net-cost"]}
-							avgWorstScenario={mainPolicy["var-1"]}
+							avgWorstScenario={mainPolicy["var-5"]}
 							isEnterprise={this.state.unitStructure === "enterprise"}
 							policies={policies}
 							fullPageRef={this.fullPageRef}
