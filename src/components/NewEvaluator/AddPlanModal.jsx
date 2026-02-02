@@ -9,7 +9,7 @@ import "../../styles/new-evaluator.scss";
 const AddPlanModal = ({open, anchorEl, onClose, onSelectOption}) => {
 	const presetOptions = [
 		{id: "minimize-net-cost", label: "Maximum Insurance Benefit", icon: "GraphTrendAlert"},
-		{id: "max-variance", label: "Minimum rsk (one-in-ten years event)", icon: "AutoGraph"}
+		{id: "max-variance", label: "Minimum Risk (one-in-twenty event)", icon: "AutoGraph"}
 	];
 
 	const handleNewPlan = () => {
