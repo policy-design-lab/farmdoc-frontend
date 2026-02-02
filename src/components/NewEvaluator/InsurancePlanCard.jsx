@@ -186,7 +186,7 @@ const InsurancePlanCard = ({
 			"Payment Frequency (%)":
 				"Probability of triggering a payment (including all selected products) given uncertainty in prices and yields",
 			"Net Revenue (worst case) ($/acre)":
-				"Net Revenue (worst case) – Value-at-risk 5%. A one-in-hundred bad scenario revenue after insurance benefits.",
+				"Net Revenue (worst case) – Value-at-Risk 5%. A one-in-twenty bad scenario revenue after insurance benefit",
 		};
 		return tooltips[label] || "";
 	};

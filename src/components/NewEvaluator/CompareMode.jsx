@@ -236,7 +236,7 @@ const CompareMode = ({
 		}
 		else if (bundleType === "max-variance") {
 			bundleData = bestBundles["max_var10"];
-			bannerText = "Minimum rsk (one-in-ten years event) 10";
+			bannerText = "Minimum risk (one-in-twenty years event)";
 			bannerColor = "#00378514";
 			bannerTextColor = "#003785";
 			bannerIcon = "AutoGraph";
