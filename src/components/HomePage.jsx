@@ -52,14 +52,14 @@ class HomePage extends Component {
 	render(){
 
 		let notificationDiv = null;
-
-		if (localStorage.getItem("isAuthenticated") !== "true"){
-			notificationDiv = (<div className="notification_div">
-				<span className="isa_warning">
-					{loginMessage}
-				</span>
-			</div>);
-		}
+		// No more login message since we don't require login now
+		// if (localStorage.getItem("isAuthenticated") !== "true"){
+		// 	notificationDiv = (<div className="notification_div">
+		// 		<span className="isa_warning">
+		// 			{loginMessage}
+		// 		</span>
+		// 	</div>);
+		// }
 
 		return (
 			<div>
