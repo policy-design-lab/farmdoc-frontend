@@ -453,6 +453,17 @@ export function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+export function roundFarmTaYield(val) {
+	if (val === null || val === undefined) {
+		return val;
+	}
+	const num = Number(val);
+	if (isNaN(num)) {
+		return val;
+	}
+	return Math.round(num);
+}
+
 export async function loginToKeycloak(){
 	let keycloakUrl = config.keyCloakUrl;
 	let formData = [

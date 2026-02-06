@@ -14,6 +14,7 @@ import {
 	getCounties,
 	getCrops,
 	covertToLegacyCropFormat,
+	roundFarmTaYield,
 } from "../../public/utils";
 import {
 	handleEvaluatorResults,
@@ -148,8 +149,8 @@ const getReactSelectStyles = (hasError) => ({
 		backgroundColor: state.isSelected
 			? "#e8eef1"
 			: state.isFocused
-			? "#f5f8fa"
-			: "white",
+				? "#f5f8fa"
+				: "white",
 		cursor: "pointer",
 		padding: "10px 12px",
 	}),
@@ -162,8 +163,8 @@ const getReactSelectStyles = (hasError) => ({
 			hasError
 				? warningColor
 				: state.isFocused
-				? newEvaluatorTheme.palette.primary.main
-				: newEvaluatorTheme.palette.stroke.mild
+					? newEvaluatorTheme.palette.primary.main
+					: newEvaluatorTheme.palette.stroke.mild
 		}`,
 		borderRadius: 0,
 		backgroundColor: "transparent",
@@ -318,8 +319,9 @@ class NewEvaluatorSidebar extends Component {
 						farmInfo["trend-adj-aph"] !== undefined &&
 						farmInfo["trend-adj-aph"] !== null
 					) {
-						this.props.changeFarmTaYield(farmInfo["trend-adj-aph"]);
-						this.setState({farmTaYield: farmInfo["trend-adj-aph"]});
+						const roundedTa = roundFarmTaYield(farmInfo["trend-adj-aph"]);
+						this.props.changeFarmTaYield(roundedTa);
+						this.setState({farmTaYield: roundedTa});
 						hasFarmTaYield = true;
 					}
 					if (!hasAphYield && !hasFarmTaYield) {
@@ -360,7 +362,7 @@ class NewEvaluatorSidebar extends Component {
 					},
 					() => {
 						this.checkAndFetchYields();
-					}
+					},
 				);
 				if (this.state.attemptedSubmit) {
 					this.setState({
@@ -401,7 +403,7 @@ class NewEvaluatorSidebar extends Component {
 						},
 						() => {
 							this.checkAndFetchYields();
-						}
+						},
 					);
 					if (this.state.attemptedSubmit) {
 						this.setState({
@@ -453,7 +455,7 @@ class NewEvaluatorSidebar extends Component {
 						this.setState({acresDebounceTimer: timer});
 					}
 				}
-			}
+			},
 		);
 		if (name === "aphYield") {
 			this.props.changeAphYield(inputValue);
@@ -522,7 +524,6 @@ class NewEvaluatorSidebar extends Component {
 		}
 
 		const evaluatorUrl = `${config.apiUrl}/compute/simulator?${new URLSearchParams(evaluatorParams).toString()}`;
-
 		const evaluatorResponse = await fetch(evaluatorUrl, {
 			method: "GET",
 			headers: kcHeaders,
@@ -555,8 +556,11 @@ class NewEvaluatorSidebar extends Component {
 							farmInfo["trend-adj-aph"] !== undefined &&
 							farmInfo["trend-adj-aph"] !== null
 						) {
-							this.props.changeFarmTaYield(farmInfo["trend-adj-aph"]);
-							this.setState({farmTaYield: farmInfo["trend-adj-aph"]});
+							const roundedTaValue = roundFarmTaYield(
+								farmInfo["trend-adj-aph"],
+							);
+							this.props.changeFarmTaYield(roundedTaValue);
+							this.setState({farmTaYield: roundedTaValue});
 						}
 					}
 				}
@@ -676,7 +680,7 @@ class NewEvaluatorSidebar extends Component {
 		const [cropName, stateName, countyName] = cropStateCountyName;
 
 		const matchingCrop = this.state.crops.find(
-			(crop) => crop.name === cropName
+			(crop) => crop.name === cropName,
 		);
 		if (matchingCrop) {
 			updates.cropId = matchingCrop.cropId;
@@ -689,14 +693,14 @@ class NewEvaluatorSidebar extends Component {
 		}
 
 		const matchingState = this.state.states.find(
-			(state) => state.name === stateName
+			(state) => state.name === stateName,
 		);
 		if (matchingState) {
 			updates.stateSel = matchingState.id;
 			updates.stateSelValue = {value: matchingState.id, label: stateName};
 
 			const matchingCounty = this.state.counties.find(
-				(county) => county.name === countyName
+				(county) => county.name === countyName,
 			);
 			if (matchingCounty) {
 				updates.county = matchingCounty.id;
@@ -724,7 +728,7 @@ class NewEvaluatorSidebar extends Component {
 				}
 				else {
 					console.error(
-						"Flask Service API call failed. Most likely the token expired"
+						"Flask Service API call failed. Most likely the token expired",
 					);
 					return null;
 				}
@@ -741,7 +745,7 @@ class NewEvaluatorSidebar extends Component {
 				});
 
 				const matchingCounty = countiesJson.find(
-					(county) => county.name === countyName
+					(county) => county.name === countyName,
 				);
 				if (matchingCounty) {
 					this.setState({
@@ -872,7 +876,7 @@ class NewEvaluatorSidebar extends Component {
 				else {
 					console.error(
 						"Flask Service API call failed. Status:",
-						response ? response.status : "no response"
+						response ? response.status : "no response",
 					);
 					return null;
 				}
@@ -897,7 +901,7 @@ class NewEvaluatorSidebar extends Component {
 				else {
 					const stateName = this.props.cropStateCountyName[1];
 					const matchingState = statesJson.find(
-						(state) => state.name === stateName
+						(state) => state.name === stateName,
 					);
 					if (matchingState) {
 						this.populateCounties(matchingState.id);
@@ -916,7 +920,7 @@ class NewEvaluatorSidebar extends Component {
 				else {
 					console.error(
 						"Flask Service API call failed. Status:",
-						response ? response.status : "no response"
+						response ? response.status : "no response",
 					);
 					return null;
 				}
@@ -944,7 +948,7 @@ class NewEvaluatorSidebar extends Component {
 							}
 						}
 						this.setState({isInitializing: false});
-					}
+					},
 				);
 			})
 			.catch((error) => {
@@ -960,7 +964,7 @@ class NewEvaluatorSidebar extends Component {
 				}
 				else {
 					console.error(
-						"Flask Service API call failed. Most likely the token expired"
+						"Flask Service API call failed. Most likely the token expired",
 					);
 					return null;
 				}
@@ -989,7 +993,7 @@ class NewEvaluatorSidebar extends Component {
 								this.setState(updates);
 							}
 						}
-					}
+					},
 				);
 			})
 			.catch((error) => {
@@ -1080,7 +1084,7 @@ class NewEvaluatorSidebar extends Component {
 						<FormControl className={classes.formControl}>
 							<ReactSelect
 								styles={getReactSelectStyles(
-									this.state.validationErrors.county
+									this.state.validationErrors.county,
 								)}
 								classes={classes}
 								className="select-input"
@@ -1112,7 +1116,7 @@ class NewEvaluatorSidebar extends Component {
 						<FormControl className={classes.formControl}>
 							<ReactSelect
 								styles={getReactSelectStyles(
-									this.state.validationErrors.cropId
+									this.state.validationErrors.cropId,
 								)}
 								classes={classes}
 								className="select-input"
@@ -1285,7 +1289,7 @@ class NewEvaluatorSidebar extends Component {
 								id="farmTaYield"
 								value={this.state.farmTaYield}
 								className={classes.textField}
-								placeholder="xx.xx"
+								placeholder="xx"
 								InputLabelProps={{shrink: true}}
 								type="text"
 								variant="standard"
@@ -1521,5 +1525,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
 )(withStyles(styles)(NewEvaluatorSidebar));

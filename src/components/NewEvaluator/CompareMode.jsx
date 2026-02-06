@@ -26,6 +26,7 @@ import newEvaluatorTheme from "../../theme/newEvaluatorTheme";
 import {downloadAsPDF} from "../../utils/pdfDownload";
 import {fetchEvaluatorResults} from "../../services/evaluatorApi";
 import {getScenarioKey, generateCompareScenarios} from "../../utils/insuranceScenarios";
+import {roundFarmTaYield} from "../../public/utils";
 import {
 	handleEvaluatorResults,
 	changeAcres,
@@ -71,7 +72,8 @@ const CompareMode = ({
 		"est-premium": baseSelection?.["est-premium"],
 		"avg-payment": baseSelection?.["avg-payment"],
 		"net-cost": baseSelection?.["net-cost"],
-		"var-1": baseSelection?.["var-1"],
+		"var-5": baseSelection?.["var-5"],
+		"freq-payment": baseSelection?.["freq-payment"],
 	});
 	const [currentInsurancePlan, setCurrentInsurancePlan] =
 		useState(insurancePlan);
@@ -97,7 +99,8 @@ const CompareMode = ({
 					"est-premium": policyData["est-premium"],
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
-					"var-1": policyData["var-1"],
+					"var-5": policyData["var-5"],
+					"freq-payment": policyData["freq-payment"],
 				});
 			}
 		}
@@ -122,7 +125,8 @@ const CompareMode = ({
 					estimatedPremium: policyData?.["est-premium"] || 0,
 					avgIndemnityPayment: policyData?.["avg-payment"] || 0,
 					netCost: policyData?.["net-cost"] || 0,
-					netBenefit: policyData?.["var-1"] || 0,
+					netBenefit: policyData?.["var-5"] || 0,
+					freqPayment: policyData?.["freq-payment"] || 0,
 				};
 			});
 			setPlans(newPlans);
@@ -135,6 +139,16 @@ const CompareMode = ({
 		// console.log("[Yield & Price Render] Avg Futures Price:", currentFarmInfo?.["avg-futures-price"]);
 		// console.log("[Yield & Price Render] Projected Price:", currentFarmInfo?.["proj-price"]);
 	}, [currentFarmInfo]);
+
+	useEffect(() => {
+		if (farmInfo) {
+			const rounded = {...farmInfo};
+			if (rounded["trend-adj-aph"] !== undefined && rounded["trend-adj-aph"] !== null) {
+				rounded["trend-adj-aph"] = roundFarmTaYield(rounded["trend-adj-aph"]);
+			}
+			setCurrentFarmInfo(rounded);
+		}
+	}, [farmInfo]);
 
 	const handleUnitStructureChange = (e) => {
 		const newUnit = e.target.value;
@@ -199,7 +213,8 @@ const CompareMode = ({
 			estimatedPremium: policyData["est-premium"],
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
-			netBenefit: policyData["var-1"]
+			netBenefit: policyData["var-5"],
+			freqPayment: policyData["freq-payment"]
 		};
 	};
 
@@ -221,7 +236,7 @@ const CompareMode = ({
 		}
 		else if (bundleType === "max-variance") {
 			bundleData = bestBundles["max_var10"];
-			bannerText = "Minimum rsk (one-in-ten years event) 10";
+			bannerText = "Minimum risk (one-in-twenty years event)";
 			bannerColor = "#00378514";
 			bannerTextColor = "#003785";
 			bannerIcon = "AutoGraph";
@@ -247,7 +262,8 @@ const CompareMode = ({
 			estimatedPremium: policyData["est-premium"],
 			avgIndemnityPayment: policyData["avg-payment"],
 			netCost: policyData["net-cost"],
-			netBenefit: policyData["var-1"],
+			netBenefit: policyData["var-5"],
+			freqPayment: policyData["freq-payment"],
 			bannerText: bannerText,
 			bannerColor: bannerColor,
 			bannerTextColor: bannerTextColor,
@@ -281,6 +297,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 32.0,
 				netCost: -10.5,
 				netBenefit: 750.0,
+				freqPayment: 0,
 			},
 			"minimize-premium": {
 				planName: "yp",
@@ -289,6 +306,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 18.0,
 				netCost: -6.0,
 				netBenefit: 550.0,
+				freqPayment: 0,
 			},
 			"maximize-indemnity": {
 				planName: "rp",
@@ -297,6 +315,7 @@ const CompareMode = ({
 				avgIndemnityPayment: 40.0,
 				netCost: -15.0,
 				netBenefit: 850.0,
+				freqPayment: 0,
 			},
 		};
 
@@ -328,6 +347,7 @@ const CompareMode = ({
 			avgIndemnityPayment: 24.5,
 			netCost: -6.25,
 			netBenefit: 650.0,
+			freqPayment: 0,
 		};
 		setPlans([...plans, newPlan]);
 		setShowAddPlan(false);
@@ -369,9 +389,13 @@ const CompareMode = ({
 
 		if (response.success && response.data) {
 			const newFarmInfo = response.data["farm-info"];
+			const roundedFarmInfo = {...newFarmInfo};
+			if (roundedFarmInfo["trend-adj-aph"] !== undefined && roundedFarmInfo["trend-adj-aph"] !== null) {
+				roundedFarmInfo["trend-adj-aph"] = roundFarmTaYield(roundedFarmInfo["trend-adj-aph"]);
+			}
 			const newPolicies = response.data.policies;
 			const newBestBundles = response.data["best-bundles"];
-			setCurrentFarmInfo(newFarmInfo);
+			setCurrentFarmInfo(roundedFarmInfo);
 			setCurrentPolicies(newPolicies);
 			setCurrentCropStateCountyName([
 				formData.crop,
@@ -392,7 +416,10 @@ const CompareMode = ({
 				])
 			);
 			dispatch(changeAphYield(newFarmInfo?.["farm-aph"] || aphYield));
-			dispatch(changeFarmTaYield(newFarmInfo?.["trend-adj-aph"] || farmTaYield));
+			const dispatchedTa = (newFarmInfo && newFarmInfo["trend-adj-aph"] !== undefined && newFarmInfo["trend-adj-aph"] !== null)
+				? roundFarmTaYield(newFarmInfo["trend-adj-aph"])
+				: (farmTaYield !== null && farmTaYield !== undefined ? roundFarmTaYield(farmTaYield) : farmTaYield);
+			dispatch(changeFarmTaYield(dispatchedTa));
 			if (updatedCropCode) {
 				dispatch(changeCropCode(updatedCropCode));
 			}
@@ -409,7 +436,8 @@ const CompareMode = ({
 					"est-premium": policyData["est-premium"],
 					"avg-payment": policyData["avg-payment"],
 					"net-cost": policyData["net-cost"],
-					"var-1": policyData["var-1"],
+					"var-5": policyData["var-5"],
+					"freq-payment": policyData["freq-payment"],
 				});
 			}
 
@@ -432,7 +460,8 @@ const CompareMode = ({
 							estimatedPremium: planPolicyData["est-premium"],
 							avgIndemnityPayment: planPolicyData["avg-payment"],
 							netCost: planPolicyData["net-cost"],
-							netBenefit: planPolicyData["var-1"],
+							netBenefit: planPolicyData["var-5"],
+							freqPayment: planPolicyData["freq-payment"],
 						};
 					}
 					return plan;
@@ -462,7 +491,8 @@ const CompareMode = ({
 				"est-premium": policyData["est-premium"],
 				"avg-payment": policyData["avg-payment"],
 				"net-cost": policyData["net-cost"],
-				"var-1": policyData["var-1"],
+				"var-5": policyData["var-5"],
+				"freq-payment": policyData["freq-payment"],
 			});
 			dispatch(changeInsurancePlan(planData.planName));
 
@@ -493,7 +523,8 @@ const CompareMode = ({
 					estimatedPremium: policyData["est-premium"],
 					avgIndemnityPayment: policyData["avg-payment"],
 					netCost: policyData["net-cost"],
-					netBenefit: policyData["var-1"],
+					netBenefit: policyData["var-5"],
+					freqPayment: policyData["freq-payment"],
 				};
 				setPlans(updatedPlans);
 			}
@@ -736,7 +767,8 @@ const CompareMode = ({
 									estimatedPremium={currentBaseMetrics?.["est-premium"]}
 									avgIndemnityPayment={currentBaseMetrics?.["avg-payment"]}
 									netCost={currentBaseMetrics?.["net-cost"]}
-									avgWorstScenario={currentBaseMetrics?.["var-1"]}
+									avgWorstScenario={currentBaseMetrics?.["var-5"]}
+									freqPayment={currentBaseMetrics?.["freq-payment"]}
 									isEnterprise={unitStructure === "enterprise"}
 									policies={currentPolicies}
 									mode="compare"
@@ -745,7 +777,8 @@ const CompareMode = ({
 										estimatedPremium: currentBaseMetrics?.["est-premium"],
 										avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 										netCost: currentBaseMetrics?.["net-cost"],
-										netBenefit: currentBaseMetrics?.["var-1"],
+										netBenefit: currentBaseMetrics?.["var-5"],
+										freqPayment: currentBaseMetrics?.["freq-payment"],
 									}}
 									onEdit={handleEditBaseInsurancePlan}
 									initialScoEnabled={baseScoEnabled}
@@ -787,6 +820,7 @@ const CompareMode = ({
 										avgIndemnityPayment={plan.avgIndemnityPayment}
 										netCost={plan.netCost}
 										avgWorstScenario={plan.netBenefit}
+										freqPayment={plan.freqPayment}
 										isEnterprise={unitStructure === "enterprise"}
 										policies={currentPolicies}
 										mode="compare"
@@ -795,7 +829,8 @@ const CompareMode = ({
 											estimatedPremium: currentBaseMetrics?.["est-premium"],
 											avgIndemnityPayment: currentBaseMetrics?.["avg-payment"],
 											netCost: currentBaseMetrics?.["net-cost"],
-											netBenefit: currentBaseMetrics?.["var-1"],
+											netBenefit: currentBaseMetrics?.["var-5"],
+											freqPayment: currentBaseMetrics?.["freq-payment"],
 										}}
 										onEdit={() => handleEditPlan(index)}
 										onViewDifference={() => handleViewDifference(index)}
