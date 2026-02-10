@@ -18,7 +18,7 @@ class NewEvaluatorDashboard extends Component {
 		this.setState({
 			compareMode: isCompareMode,
 			scoEnabled: scoEnabled || false,
-			ecoLevel: ecoLevel || "off"
+			ecoLevel: ecoLevel || "off",
 		});
 	};
 
@@ -62,7 +62,9 @@ class NewEvaluatorDashboard extends Component {
 				const scenarioKey = getScenarioKey(scoEnabled, ecoLevel);
 				const policyKey = `${insurancePlan}-${insUnit}`;
 				baseSelection =
-					policies?.farm?.[scenarioKey]?.[coverageLevel.toString()]?.[policyKey] || {};
+					policies?.farm?.[scenarioKey]?.[coverageLevel.toString()]?.[
+						policyKey
+					] || {};
 			}
 			catch (e) {
 				console.error("Error parsing evaluator results:", e);
@@ -134,6 +136,19 @@ class NewEvaluatorDashboard extends Component {
 										<NewEvaluatorResults
 											onCompareModeChange={this.handleCompareModeChange}
 										/>
+										<div
+											style={{
+												textAlign: "center",
+												marginTop: "1.5rem",
+												color: "#8A9BA4",
+												fontSize: "0.75rem",
+												fontStyle: "italic",
+												lineHeight: "1.25rem",
+											}}
+										>
+											Simulated payments and benefits do not include prevent
+											planting.
+										</div>
 									</div>
 								</div>
 							</div>
