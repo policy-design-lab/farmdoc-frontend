@@ -184,6 +184,8 @@ class Header extends Component {
 			tabHeader = config.apps[currApp].appName;
 		}
 
+		let tabBasePath = currApp !== "home" ? config.apps[currApp].urlPath : "";
+
 		let accountMaxWidth = (localStorage.getItem("isAuthenticated") !== "true"
 				|| (localStorage.getItem("isProxyAuth") !== null && localStorage.getItem("isProxyAuth") === "true")) ? 310 : 200;
 		return (
@@ -226,14 +228,14 @@ class Header extends Component {
 								<Tabs value={this.props.selectedTab}
 												TabIndicatorProps={{style: {backgroundColor: "orange"}}} className="headerSection">
 									<Tab value="calculator" label={<span className={classes.label}>{tabHeader}</span>}
-											 className={classes.tab} component={Link} to={`/${currApp}`}/>
-									{(currApp !== "newarcplc" && currApp !== "newevaluator") && (
+											 className={classes.tab} component={Link} to={tabBasePath}/>
+									{(currApp !== "newarcplc") && (
 										<Tab value="docs" label={<span className={classes.label}>Documentation</span>}
-												 className={classes.tab} component={Link} to={`/${currApp}docs`}/>
+												 className={classes.tab} component={Link} to={`${tabBasePath}docs`}/>
 									)}
 									{(currApp !== "newarcplc" && currApp !== "newevaluator") && (
 										<Tab value="about" label={<span className={classes.label}>About</span>}
-												 className={classes.tab} component={Link} to={`/${currApp}about`}/>
+												 className={classes.tab} component={Link} to={`${tabBasePath}about`}/>
 									)}
 								</Tabs>
 							}

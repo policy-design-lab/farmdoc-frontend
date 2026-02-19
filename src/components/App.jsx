@@ -25,6 +25,7 @@ import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
 
 import NewEvaluatorDashboard from "./NewEvaluator/NewEvaluatorDashboard";
+import NewEvaluatorDocumentation from "./NewEvaluator/NewEvaluatorDocumentation";
 import NewARCPLCDashboard from "./NewARCPLC/NewARCPLCDashboard";
 
 import "material-components-web/dist/material-components-web.min.css";
@@ -80,7 +81,7 @@ class App extends Component {
 						<Route path={`${priceDistibutionPath}about`} component={AboutPriceDistribution}/>
 
 						<Route path={`${newEvaluatorPath}`} component={NewEvaluatorDashboard}/>
-						<Route path={`${newEvaluatorPath}docs`} component={DocsPaymentEval}/>
+						<Route path={`${newEvaluatorPath}docs`} component={NewEvaluatorDocumentation}/>
 						<Route path={`${newEvaluatorPath}about`} component={AboutPaymentEval}/>
 
 						<Route path={`${newArcplcPath}`} component={NewARCPLCDashboard}/>

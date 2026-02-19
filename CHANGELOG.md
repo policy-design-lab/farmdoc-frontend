@@ -5,19 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-- Upgrade the project's node version to 22 and python to 3 [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
-- Create the new insurance evaluator [#17](https://github.com/policy-design-lab/farmdoc-frontend/issues/17)
-- Create the new ARC/PLC calculator [#18](https://github.com/policy-design-lab/farmdoc-frontend/issues/18)
-- Change the insurance evaluator to use whole number for the FARM TA Yield [#20](https://github.com/policy-design-lab/farmdoc-frontend/issues/20)
-- Change the insurance evaluator to switch the Net Revenue from var1 to var5 in the tooltip and Add “Payment Frequency (%)” to insurance summary card [#22](https://github.com/policy-design-lab/farmdoc-frontend/issues/22)
-- Add “Simulated payments and benefits do not include prevent planting.” as the footer for the new insurance evaluator [#23](https://github.com/policy-design-lab/farmdoc-frontend/issues/23)
-
-## [1.9.0] - 2025-03-01
-- Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
 
 ### Changed
 
-## [1.8.0] - 2024-03-01
+- Upgrade the project's node version to 22 and python to 3 [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
+- Change the insurance evaluator to switch the Net Revenue from var1 to var5 in the tooltip and Add “Payment Frequency (%)” to insurance summary card [#22](https://github.com/policy-design-lab/farmdoc-frontend/issues/22)
+
+### Added
+
+- Create the new insurance evaluator [#17](https://github.com/policy-design-lab/farmdoc-frontend/issues/17)
+- Create the new ARC/PLC calculator [#18](https://github.com/policy-design-lab/farmdoc-frontend/issues/18)
+- Change the insurance evaluator to use whole number for the FARM TA Yield [#20](https://github.com/policy-design-lab/farmdoc-frontend/issues/20)
+- Add “Simulated payments and benefits do not include prevent planting.” as the footer for the new insurance evaluator [#23](https://github.com/policy-design-lab/farmdoc-frontend/issues/23)
+- Add the farmdoc article and YouTube video for the documentation of the new insurance evaluator [#25](https://github.com/policy-design-lab/farmdoc-frontend/issues/25)
+
+## [1.9.0] - 2025-03-01
+- Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
 
 ### Changed
 - App configuration to get dev and production variables from environment [#3](https://github.com/policy-design-lab/farmdoc-frontend/issues/3)
