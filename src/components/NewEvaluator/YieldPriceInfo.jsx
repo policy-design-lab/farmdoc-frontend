@@ -43,11 +43,14 @@ const YieldPriceInfo = ({
 		if (cropLower === "soybean" || cropLower === "soybeans") {
 			monthLabel = "Nov";
 		}
-
+		const futuresLastUpdated = farmInfo?.["futures-last-updated"];
+		if (futuresLastUpdated) {
+			return `${monthLabel} 26 Future Price (as of ${futuresLastUpdated})`;
+		}
 		if (currentYear === 2026 && currentMonth > 10) {
 			return `${monthLabel} 26 Future Price (average of October 2026)`;
 		}
-		return `${monthLabel} 26 Future Price (as of Jan 2026)`;
+		return `${monthLabel} 26 Future Price (as of Jan 2026)`; // theoretically not used
 	};
 
 	const getProjectedPriceValue = () => {
