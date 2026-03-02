@@ -15,7 +15,7 @@ const farmdocApps = {
 		appDesc: "The Insurance Premiums tool shows per acre insurance premiums that farmers " +
 				"will pay for Federally-subsidized crop Insurance products. These per " +
 				"acre premiums are given for customized entries made by users that reflect individual farm cases.",
-		lastUpdated: "Jan. 23, 2026",
+		lastUpdated: "March 2, 2026",
 		urlPath: "/premiums",
 		needsAuthentication: false
 	},
@@ -47,7 +47,7 @@ const farmdocApps = {
 		appName: "ARC/PLC Calculator",
 		appDesc: "The Gardner ARC/PLC Calculator provides an annual estimate of payments beginning with the 2026 crop year," +
 			" as well as estimates of the likelihood for payments.",
-		lastUpdated: "Jan. 23, 2026",
+		lastUpdated: "March 2, 2026",
 		urlPath: "/arcplc",
 		needsAuthentication: false
 	},
