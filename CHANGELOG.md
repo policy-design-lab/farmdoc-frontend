@@ -21,8 +21,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Change the tooltip for Yield & Price info pop-up in the insurance evaluator to use the dynamic value from API [#27](https://github.com/policy-design-lab/farmdoc-frontend/issues/27)
 - Removed the 'estimated' label in the insurance evaluator after March 1, 2026 and update the landing page with latest updated date [#29](https://github.com/policy-design-lab/farmdoc-frontend/issues/29)
 
-## [1.9.0] - 2025-03-01
+## [1.9.0] - 2025-09-08
+
+### Changed
+
 - Text references from 2024 to 2025 and futures prices to Nov.25 and Dec.25 for the current year [#10](https://github.com/policy-design-lab/farmdoc-frontend/issues/10)
+
+## [1.8.0] - 2024-12-18
 
 ### Changed
 - App configuration to get dev and production variables from environment [#3](https://github.com/policy-design-lab/farmdoc-frontend/issues/3)
