@@ -87,12 +87,12 @@ const YieldPriceInfo = ({
 						<Box className="yield-price-rows">
 							<Box className="yield-price-row">
 								<Tooltip
-									title="RMA estimated projected price 2026"
+									title="RMA projected price 2026"
 									placement="top"
 									arrow
 								>
 									<Typography className="yield-price-label not-in-compare">
-										Estimated Projected Price
+										Projected Price
 									</Typography>
 								</Tooltip>
 								<Typography className="yield-price-value">
@@ -155,12 +155,12 @@ const YieldPriceInfo = ({
 					<Box className="yield-price-rows">
 						<Box className="yield-price-row">
 							<Tooltip
-								title="RMA estimated projected price 2026"
+								title="RMA projected price 2026"
 								placement="top"
 								arrow
 							>
 								<Typography className="yield-price-label">
-									Estimated Projected Price
+									Projected Price
 								</Typography>
 							</Tooltip>
 							<Typography className="yield-price-value">

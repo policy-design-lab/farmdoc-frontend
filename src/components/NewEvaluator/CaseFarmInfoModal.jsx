@@ -126,7 +126,7 @@ const CaseFarmInfoModal = ({open, onClose, farmInfo}) => {
 
 							<Box className="rma-info">
 								<Typography className="rma-text">
-									Estimated Projected Price is ${farmInfo["proj-price"] ? farmInfo["proj-price"].toFixed(2) : "N/A"} with Volatility Factor of {farmInfo["volatility-factor"] ? farmInfo["volatility-factor"].toFixed(2) : "N/A"}. Last Updated on {farmInfo["rma-last-updated"] || "N/A"}.
+							      Projected Price is ${farmInfo["proj-price"] ? farmInfo["proj-price"].toFixed(2) : "N/A"} with Volatility Factor of {farmInfo["volatility-factor"] ? farmInfo["volatility-factor"].toFixed(2) : "N/A"}. Last Updated on {farmInfo["rma-last-updated"] || "N/A"}.
 								</Typography>
 							</Box>
 						</Box>
