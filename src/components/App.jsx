@@ -24,12 +24,16 @@ import EvaluatorDashboard from "./EvaluatorDashboard";
 import AboutPaymentEval from "./EvalAbout";
 import DocsPaymentEval from "./EvalDocumentation";
 
+import NewEvaluatorDashboard from "./NewEvaluator/NewEvaluatorDashboard";
+import NewEvaluatorDocumentation from "./NewEvaluator/NewEvaluatorDocumentation";
+import NewARCPLCDashboard from "./NewARCPLC/NewARCPLCDashboard";
+
 import "material-components-web/dist/material-components-web.min.css";
-import {createMuiTheme, MuiThemeProvider} from "@material-ui/core/styles";
+import {createTheme, ThemeProvider} from "@material-ui/core/styles";
 
 global.__base = `${__dirname}/`;
 
-const theme = createMuiTheme();
+const theme = createTheme();
 
 class App extends Component {
 	render() {
@@ -49,10 +53,12 @@ class App extends Component {
 		let premiumCalcPath = config.apps.premiums.urlPath;
 		let premiumEvalPath = config.apps.evaluator.urlPath;
 		let priceDistibutionPath = config.apps.pricedistribution.urlPath;
+		let newEvaluatorPath = config.apps.newevaluator.urlPath;
+		let newArcplcPath = config.apps.newarcplc.urlPath;
 
 		return (
 			<div>
-				<MuiThemeProvider theme={theme}>
+				<ThemeProvider theme={theme}>
 					<Router history={browserHistory}>
 						<Route path="/" component={HomePage}/>
 						<Route path="/login" component={Login}/>
@@ -74,9 +80,17 @@ class App extends Component {
 						<Route path={`${priceDistibutionPath}docs`} component={PriceDistributionDocumentation}/>
 						<Route path={`${priceDistibutionPath}about`} component={AboutPriceDistribution}/>
 
+						<Route path={`${newEvaluatorPath}`} component={NewEvaluatorDashboard}/>
+						<Route path={`${newEvaluatorPath}docs`} component={NewEvaluatorDocumentation}/>
+						<Route path={`${newEvaluatorPath}about`} component={AboutPaymentEval}/>
+
+						<Route path={`${newArcplcPath}`} component={NewARCPLCDashboard}/>
+						<Route path={`${newArcplcPath}docs`} component={Documentation}/>
+						<Route path={`${newArcplcPath}about`} component={AboutPaymentCalc}/>
+
 						<Route path="*" component={RouteMismatch}/>
 					</Router>
-				</MuiThemeProvider>
+				</ThemeProvider>
 			</div>
 		);
 	}

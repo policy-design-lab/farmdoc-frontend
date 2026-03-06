@@ -223,14 +223,14 @@ class BinnedGraphs extends Component {
 					<Grid container style={{width: "900px", boxShadow: " 0 2px 4px 0px"}} >
 
 						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#fd8a43"}}>
-							<div className="bin-header"> ARC Payout Distribution - {currYear} </div>
+							<div className="bin-header"> ARC Payment Estimates - {currYear} </div>
 							<div className="bin-subheader"> Avg. Payout: ${arcAvgPayout} &nbsp; &nbsp; Likelihood: {arcLikelihood}% </div>
 
 						</Grid>
 
 
 						<Grid item style={{padding: "1px", width: "50%", borderStyle: "none", boxShadow: " 0 2px 4px 0px", backgroundColor: "#5EACCF"}}>
-							<div className="bin-header"> PLC Payout Distribution - {currYear} </div>
+							<div className="bin-header"> PLC Payment Estimates - {currYear} </div>
 							<div className="bin-subheader"> Avg. Payout: ${plcAvgPayout} &nbsp; &nbsp; Likelihood: {plcLikelihood}% </div>
 						</Grid>
 

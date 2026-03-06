@@ -6,6 +6,7 @@ import results from "./results";
 import insPremiums from "./insPremiums";
 import insEvaluator from "./insEvaluator";
 import priceDistribution from "./priceDistribution";
+import arcplcCalculator from "./arcplcCalculator";
 
 const rootReducer = combineReducers({
 	routing: routerReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
 	user,
 	insPremiums,
 	insEvaluator,
-	priceDistribution
+	priceDistribution,
+	arcplcCalculator
 });
 
 export default rootReducer;

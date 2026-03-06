@@ -45,22 +45,22 @@ class AppsList extends Component {
 						{/*TODO: Is THE "RUN" button needed? Use the header itself as a button? If using button, display message to login*/}
 
 						<Grid item>
-							<Link to="/arcplc" onlyActiveOnIndex={false}>
+							<Link to={config.apps["newarcplc"].urlPath} onlyActiveOnIndex={false}>
 
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#F66B16"}}>
 										<span className="appName">
 											<img className="appIcon" src={arcPlcLogo} alt="ARCPLC" style={{backgroundColor: "#CC5200"}}/>
-											{config.apps["arcplc"].appName}
+											{config.apps["newarcplc"].appName}
 										</span>
 									</div>
 
 									<div className="appLastUpdated">
-									Last Updated: {config.apps["arcplc"].lastUpdated}
+									Last Updated: {config.apps["newarcplc"].lastUpdated}
 									</div>
 
 									<div className="appDescription">
-										{config.apps["arcplc"].appDesc}
+										{config.apps["newarcplc"].appDesc}
 									</div>
 
 									<div>
@@ -71,7 +71,32 @@ class AppsList extends Component {
 						</Grid>
 
 						<Grid item>
-							<Link to="/premiums" onlyActiveOnIndex={false}>
+							<Link to={config.apps["newevaluator"].urlPath} onlyActiveOnIndex={false}>
+								<Paper className={classes.paper}>
+									<div className="appHeader" style={{backgroundColor: "#756B53"}}>
+										<span className="appName">
+											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#544D3B"}}/>
+											{config.apps["newevaluator"].appName}
+										</span>
+									</div>
+
+									<div className="appLastUpdated">
+										Last Updated: {config.apps["newevaluator"].lastUpdated}
+									</div>
+
+									<div className="appDescription">
+										{config.apps["newevaluator"].appDesc}	</div>
+
+									<div>
+										<img className="appScreenshot" src={paymentEvalImg} alt="Payment Results"/>
+									</div>
+
+								</Paper>
+							</Link>
+						</Grid>
+
+						<Grid item>
+							<Link to={config.apps["premiums"].urlPath} onlyActiveOnIndex={false}>
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#2361AE"}}>
 										<span className="appName">
@@ -94,33 +119,8 @@ class AppsList extends Component {
 								</Paper>
 							</Link>
 						</Grid>
-
 						<Grid item>
-							<Link to="/evaluator" onlyActiveOnIndex={false}>
-								<Paper className={classes.paper}>
-									<div className="appHeader" style={{backgroundColor: "#756B53"}}>
-										<span className="appName">
-											<img className="appIcon" src={evaluatorLogo} alt="Payment-Eval" style={{backgroundColor: "#544D3B"}}/>
-											{config.apps["evaluator"].appName}
-										</span>
-									</div>
-
-									<div className="appLastUpdated">
-										Last Updated: {config.apps["evaluator"].lastUpdated}
-									</div>
-
-									<div className="appDescription">
-										{config.apps["evaluator"].appDesc}	</div>
-
-									<div>
-										<img className="appScreenshot" src={paymentEvalImg} alt="Payment Results"/>
-									</div>
-
-								</Paper>
-							</Link>
-						</Grid>
-						<Grid item>
-							<Link to="/pricedistribution" onlyActiveOnIndex={false}>
+							<Link to={config.apps["pricedistribution"].urlPath} onlyActiveOnIndex={false}>
 								<Paper className={classes.paper}>
 									<div className="appHeader" style={{backgroundColor: "#228B22"}}>
 										<span className="appName">

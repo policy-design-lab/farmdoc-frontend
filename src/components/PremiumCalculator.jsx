@@ -5,7 +5,7 @@ import {FormControl, Modal} from "@material-ui/core";
 import {withStyles} from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
+import SendIcon from "@material-ui/icons/Send";
 import {
 	getStates,
 	getCounties,
@@ -366,7 +366,7 @@ class PremiumCalculator extends Component {
 				this.setState({riskClasses: data.riskClasses});
 				this.setState({projectedPrice: roundResults(data.comboProjPrice, 2)});
 				this.setState({volFactor: roundResults(data.comboVol, 2)});
-				this.setState({futuresUpdated: `RMA 2025 Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
+				this.setState({futuresUpdated: `RMA 2026 Projected Price is $${ roundResults(data.comboProjPrice, 2)} with Volatility Factor of
 				 ${ roundResults(data.comboVol, 2)}. Last Updated on ${ data.dateUpdated}.`});
 
 				//TODO: Confirm with PIs if these defaults will be good for all counties
@@ -479,23 +479,22 @@ class PremiumCalculator extends Component {
 
 		let cropFullCode = `${ this.state.cropCountyCode.toString() }${this.state.grainType.toString().padStart(3, "0") }${this.state.practiceType.toString().padStart(3, "0")}`;
 
-		let premiumsApiUrl = new URL(`${config.apiUrl }/compute/premiums`);
+		let apiUrl = config.apiUrl;
+		const premiumParams = new URLSearchParams({
+			code: cropFullCode,
+			aphYield: this.state.aphYield,
+			TAYield: this.state.taYield,
+			rateYield: this.state.rateYield,
+			useTaAdjustment: this.state.useTaAdj ? "1" : "0",
+			acres: this.state.farmAcres,
+			riskVal: this.state.riskClass,
+			preventedPlanting: this.state.preventedPlanting,
+			projPrice: this.state.projectedPrice,
+			volFactor: this.state.volFactor,
+			email: email
+		});
 
-		let premiumParams = [
-			["code", cropFullCode],
-			["aphYield", this.state.aphYield],
-			["TAYield", this.state.taYield],
-			["rateYield", this.state.rateYield],
-			["useTaAdjustment", this.state.useTaAdj ? "1" : "0"],
-			["acres", this.state.farmAcres],
-			["riskVal", this.state.riskClass],
-			["preventedPlanting", this.state.preventedPlanting],
-			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor],
-			["email", email]
-		];
-
-		premiumsApiUrl.search = new URLSearchParams(premiumParams).toString();
+		const premiumsApiUrl = `${apiUrl}/compute/premiums?${premiumParams.toString()}`;
 
 		this.setState({runStatus: "FETCHING_RESULTS"});
 		const premiumsResponse = await fetch(premiumsApiUrl, {
@@ -520,15 +519,14 @@ class PremiumCalculator extends Component {
 			}
 		}
 
-		let countyProductsUrl = new URL(`${config.apiUrl }/compute/premGrip`);
-		let countyProductsParams = [
-			["code", cropFullCode],
-			["projPrice", this.state.projectedPrice],
-			["volFactor", this.state.volFactor],
-			["email", email]
-		];
+		const countyProductsParams = new URLSearchParams({
+			code: cropFullCode,
+			projPrice: this.state.projectedPrice,
+			volFactor: this.state.volFactor,
+			email: email
+		});
 
-		countyProductsUrl.search = new URLSearchParams(countyProductsParams).toString();
+		const countyProductsUrl = `${apiUrl}/compute/premGrip?${countyProductsParams.toString()}`;
 
 		const countyProductsResponse = await fetch(countyProductsUrl, {
 			method: "GET",
@@ -725,7 +723,7 @@ class PremiumCalculator extends Component {
 			<div style={{textAlign: "center"}}>
 
 				<div style={{marginTop: "12px", fontSize: "1.125em", fontWeight: 600}}>
-					Enter your farm information to generate crop insurance quotes for 2025
+					Enter your farm information to generate crop insurance quotes for 2026
 				</div>
 
 				<div style={{
@@ -996,7 +994,7 @@ class PremiumCalculator extends Component {
 							<Button variant="contained" color="primary" onClick={this.calcPremiums}
 																				 disabled={!this.validateInputs()}
 																				 style={{fontSize: "large", backgroundColor: "#455A64"}}>
-								<Icon className={classes.leftIcon}> send </Icon>
+								<SendIcon className={classes.leftIcon} />
 							Calculate Premiums
 							</Button>
 						</Grid>

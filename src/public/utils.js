@@ -390,9 +390,7 @@ export async function getOutputFileJson(datasetId, outputFileName = null) {
 			}
 		}
 	}
-	// If no output filename is provided, get the first file in the dataset
 	else {
-
 		if (resultDataset.fileDescriptors.length > 0) {
 			fileId = resultDataset.fileDescriptors[0].id;
 		}
@@ -426,7 +424,7 @@ export function ConvertDDToDMS(dd) {
 	return `${deg }d ${ min }' ${ sec }"`;
 }
 
-export function calculateDayOfYear(date: Date) {
+export function calculateDayOfYear(date) {
 	let timeStamp = new Date().setFullYear(date.getFullYear(), 0, 1);
 	let yearFirstDay = Math.floor(timeStamp / 86400000);
 	let today = Math.ceil((date.getTime()) / 86400000);
@@ -453,6 +451,17 @@ export function roundResultsIfNotZero(val, n){
 
 export function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+export function roundFarmTaYield(val) {
+	if (val === null || val === undefined) {
+		return val;
+	}
+	const num = Number(val);
+	if (isNaN(num)) {
+		return val;
+	}
+	return Math.round(num);
 }
 
 export async function loginToKeycloak(){
