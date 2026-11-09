@@ -4,7 +4,7 @@ import newEvaluatorTheme from "../../theme/newEvaluatorTheme";
 import config from "../../app.config";
 import "../../styles/new-evaluator.scss";
 
-const ARCPLCProgramInputs = () => {
+const ARCPLCProgramInputs = ({statRefPrice}) => {
 	return (
 		<ThemeProvider theme={newEvaluatorTheme}>
 			<Box className="arcplc-program-inputs">
@@ -41,7 +41,9 @@ const ARCPLCProgramInputs = () => {
 					<Typography className="program-input-label">
 						Statutory Reference Price ($/bu)
 					</Typography>
-					<Typography className="program-input-value">$4.10</Typography>
+					<Typography className="program-input-value">
+						{statRefPrice === null ? "$xx.xx" : `$${statRefPrice.toFixed(2)}`}
+					</Typography>
 				</Box>
 			</Box>
 		</ThemeProvider>
