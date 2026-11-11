@@ -61,6 +61,11 @@ const defaultsJson = {
 	coverage: .90,
 	range: .12,
 	acres: .85,
+	statRefPrices: {
+		corn: 4.10,
+		soybeans: 10.00,
+		wheat: 6.35
+	},
 	units: "",
 	startYear: 2020
 };

@@ -5,7 +5,7 @@ import {Box, Typography, CircularProgress} from "@material-ui/core";
 import ARCPLCBarChartD3 from "./ARCPLCBarChartD3";
 import ARCPLCPayoutCard from "./ARCPLCPayoutCard";
 import newEvaluatorTheme from "../../theme/newEvaluatorTheme";
-import {roundResults} from "../../public/utils.js";
+import {getStatRefPrice, roundResults} from "../../public/utils.js";
 import "../../styles/new-evaluator.scss";
 
 const styles = () => ({
@@ -77,23 +77,6 @@ class NewARCPLCResults extends Component {
 				console.error("Error parsing results:", error);
 			}
 		}
-	}
-
-	getStatRefPrice(commodity) {
-		if (!commodity) {
-			return null;
-		}
-		const commodityLower = commodity.toLowerCase();
-		if (commodityLower === "corn") {
-			return 4.10;
-		}
-		if (commodityLower === "soybeans") {
-			return 10.00;
-		}
-		if (commodityLower === "wheat") {
-			return 6.35;
-		}
-		return null;
 	}
 
 	render() {
@@ -197,7 +180,7 @@ class NewARCPLCResults extends Component {
 					plcData.plcYield = plcProgram.plcYield;
 				}
 
-				const statRefPrice = this.getStatRefPrice(this.props.commodity);
+				const statRefPrice = getStatRefPrice(this.props.commodity);
 				if (statRefPrice !== null) {
 					plcData.statRefPrice = statRefPrice;
 				}

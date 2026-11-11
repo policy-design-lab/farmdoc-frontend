@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- Fixed the issue that Statutory reference price is not changing when a user selects a new crop for ARC/PLC calculator [#33](https://github.com/policy-design-lab/farmdoc-frontend/issues/33)
+
 ## [2.0.0] - 2026-03-06
 
 ### Added

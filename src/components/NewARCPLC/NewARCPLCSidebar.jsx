@@ -21,6 +21,7 @@ import {
 	covertToLegacyCropFormat,
 	getForecastPrices,
 	getCropParams,
+	getStatRefPrice,
 	roundResults,
 } from "../../public/utils";
 import {
@@ -226,7 +227,7 @@ class NewARCPLCSidebar extends Component {
 		forecastPrices: [],
 		forecastType: 1,
 		forecastName: "",
-		statRefPrice: "",
+		statRefPrice: null,
 		pracCode: "",
 		paymentYield: "",
 		arcYield: "",
@@ -597,18 +598,8 @@ class NewARCPLCSidebar extends Component {
 	populateStatRefPriceAndUnits(commodity) {
 		this.state.crops.forEach((item) => {
 			if (item.id === commodity) {
-				let statRefPrice = "";
-				if (item.name === "Corn") {
-					statRefPrice = "4.10";
-				}
-				else if (item.name === "Soybeans") {
-					statRefPrice = "10.00";
-				}
-				else if (item.name === "Wheat") {
-					statRefPrice = "6.35";
-				}
 				this.setState({
-					statRefPrice: statRefPrice,
+					statRefPrice: getStatRefPrice(commodity),
 					units: item.units,
 				});
 			}
@@ -1018,7 +1009,7 @@ class NewARCPLCSidebar extends Component {
 						</FormControl>
 					</Box>
 
-					<ARCPLCProgramInputs />
+					<ARCPLCProgramInputs statRefPrice={this.state.statRefPrice} />
 
 					<Button
 						variant="contained"

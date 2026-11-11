@@ -133,6 +133,13 @@ export function getCropDbKeyFromName(name){
 	}
 }
 
+export function getStatRefPrice(commodity){
+	if (!commodity){
+		return null;
+	}
+	return config.defaultsJson.statRefPrices[commodity.toLowerCase()] ?? null;
+}
+
 export function getForecastPrices(){
 	let token = localStorage.getItem("kcToken");
 	let token_header = `Bearer ${token}` ;
