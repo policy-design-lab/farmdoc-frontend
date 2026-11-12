@@ -47,7 +47,7 @@ const farmdocApps = {
 		appName: "ARC/PLC Calculator",
 		appDesc: "The Gardner ARC/PLC Calculator provides an annual estimate of payments beginning with the 2026 crop year," +
 			" as well as estimates of the likelihood for payments.",
-		lastUpdated: "Jan. 23, 2026",
+		lastUpdated: "Oct. 22, 2026",
 		urlPath: "/arcplc",
 		needsAuthentication: false
 	},

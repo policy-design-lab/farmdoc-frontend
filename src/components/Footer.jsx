@@ -13,7 +13,7 @@ class Footer extends Component {
 				<Toolbar>
 					<ToolbarRow align="center" className={"footer"}>
 						<ToolbarSection align ="start" className="footerCorners" >
-							v2.0.0
+							{process.env.REACT_APP_VERSION && `v${process.env.REACT_APP_VERSION}`}
 						</ToolbarSection>
 						<ToolbarSection className="footerLogos" >
 							<a href="http://farmdoc.illinois.edu/" target="_blank" className={"footerlogo"}>

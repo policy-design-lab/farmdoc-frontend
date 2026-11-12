@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [2.1.0] - 2026-11-12
 
 ### Fixed
 - Fixed the issue that Statutory reference price is not changing when a user selects a new crop for ARC/PLC calculator [#33](https://github.com/policy-design-lab/farmdoc-frontend/issues/33)
@@ -213,6 +213,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Ability to login through DataWolf credentials
 - Initial setup of the needed packages and dependencies.
 
+[2.1.0]: https://github.com/policy-design-lab/pdl-frontend/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/policy-design-lab/pdl-frontend/compare/1.9.0...2.0.0
 [1.9.0]: https://github.com/policy-design-lab/pdl-frontend/compare/1.8.0...1.9.0
 [1.8.0]: https://github.com/policy-design-lab/pdl-frontend/compare/1.7.0...1.8.0

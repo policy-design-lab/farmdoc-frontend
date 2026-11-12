@@ -1,6 +1,6 @@
 {
   "name": "farmdoc",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
@@ -43,10 +43,10 @@
     "webpack-bundle-analyzer": "4.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "build-dev": "REACT_APP_ENV=development react-scripts build",
-    "build-prod": "REACT_APP_ENV=production react-scripts build",
+    "start": "REACT_APP_VERSION=$npm_package_version react-scripts start",
+    "build": "REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "build-dev": "REACT_APP_ENV=development REACT_APP_VERSION=$npm_package_version react-scripts build",
+    "build-prod": "REACT_APP_ENV=production REACT_APP_VERSION=$npm_package_version react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
