@@ -47,7 +47,7 @@ const farmdocApps = {
 		appName: "ARC/PLC Calculator",
 		appDesc: "The Gardner ARC/PLC Calculator provides an annual estimate of payments beginning with the 2026 crop year," +
 			" as well as estimates of the likelihood for payments.",
-		lastUpdated: "Jan. 23, 2026",
+		lastUpdated: "Oct. 22, 2026",
 		urlPath: "/arcplc",
 		needsAuthentication: false
 	},
@@ -61,6 +61,11 @@ const defaultsJson = {
 	coverage: .90,
 	range: .12,
 	acres: .85,
+	statRefPrices: {
+		corn: 4.10,
+		soybeans: 10.00,
+		wheat: 6.35
+	},
 	units: "",
 	startYear: 2020
 };
